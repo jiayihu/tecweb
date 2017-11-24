@@ -1,0 +1,63 @@
+ACCESSIBILITÀ
+- non abbandonare mai l’utente (redirect/pagina 404)
+- marcare sempre le parole straniere con <span>
+- controllare che i pdf siano accessibili tramite ocr
+- fornire sempre un equivalente testuale per ogni media diverso dal testo (tranne per le immagini usate solo a scopo di presentazione ? in questo caso preferire CSS3): il testo può essere riprodotto secondo modalità accessibili a quasi tutti gli utenti
+- creare documenti che veincolino l’informazione anche se l’utente non può vedere o sentire: fornire informazioni attraverso diversi canali sensoriali alternativi
+- creare documenti che non necessitino di un hw specifico
+- linguaggio il più chiaro possibile
+- usare interlinea ed esposizione per punti
+- non usare testo scorrevole, font troppo elaborati, testo sottolineato che non costituisce ancora di un link, testo barrato
+- indicare la dimensione dei file in caso di download
+- indicare un eventuale cambio lingua (es link esterno)
+- corretta definizione delle ancore dei link clicca qui, prosegui ecc
+- evitare pop up
+- inserire con il tag <img> solo le immagini che effettivamente fanno parte del contenuto
+- alt vuoto per immagini di contorno
+- immagini di dimensione max 1/2 MB (di più solo per immagini di ambiti specifici es. medico ecc per cui l’utente è disposto ad aspettare un suo eventuale caricamento)
+- definizione corretta della tabulazione
+- non fare affidamento sui colori
+- esplicitare abbreviazioni e acronimi
+- i link devono essere facilmente riconoscibili ? non utilizzare colori diversi
+- screen reader:
+	+ un utente non deve perdere molto tempo nella lettura di tutte le possibilità offerte dal menù: il testo di un div che utilizza questa classe non è visibile nella pagina ma viene letto dallo screen reader
+		.aiuti {
+			position: absolute;
+			height: 0;
+			overflow: hidden;
+		}
+	+ usare attributo tabindex=”numero”
+	+ non usare accessKey ? potrebbero andare in conflitto con altri shortcut
+	+ usare alternative grafiche al testo es. logo
+	+ nelle tabelle usare gli attributi:
+		summary: breve descrizione del contenuto della tabella
+		scope: associa le intestazioni alle celle
+		headers: associa le celle alle intestazioni
+		abbr: definire abbreviazioni per le intestazioni
+	+ form:
+		corredare sempre i campi da label (soprattutto per check-box e pulsanti radio
+		raggruppare le voci con outgroup o fieldset
+		utilizzare tabindex e accesskey in modo appropriato nel tag input, textarea e select
+		utilizzare title per fornire informazioni aggiuntive
+		fornire aiuti contestuali
+		rendere gli errori reversibili: indicare sempre cosa è stato sbagliato (aiuto il più particolare possibile, non generico)
+
+ALTRO
+attenzione ai copyright
+
+PROVE DA FARE
+- riconoscimento link: stampare la pagina, mettere a qualche metro di distanza e chiedere ad una persono di riconoscere tutti i link
+- il sito è accessibile anche senza le immagini?
+- www.vischeck.com: prova dei colori (utilizzare scheenshot del sito)
+- validare tutte le pagine del sito (CSS, HTML e XML)
+- usare differenti browser grafici (Firefox, Chrome, IE, Edge)
+- usare browser testuali es. LYNX
+- usare screen reader
+- controllare spelling e grammatica
+- invitare persone con disabilità a revisionare i documenti
+- rivedere la chiarezza e la semplicità del documento
+- FireFox Web Developer Toolbar
+- Total Validator: http://www.totalvalidator.com/validator/Validator
+- Fangs (FX): http://sourceforge.net/projects/fangs/
+- IE Accessibility Toolbar: http://webaccessibile.org/articoli/la-barra-dell-accessibilita-versione-20/
+- Cynthia Says: http://www.contentquality.com/
