@@ -1,0 +1,32 @@
+DESIGN
+- considerare gli schermi piccoli, ma anche quelli molto grandi
+- definire dei punti di rottura
+- considerare la stampa:
+	+ no menù
+	+ no link (al max evidenziarli/ mettere tra parentesi il link)
+	+ no colore sfondo
+	+ meglio togliere colori e immagini in generale di decorazione
+	+ layout giustificato
+	+ togliere form “lascia un commento ecc”
+	+ si breadcump
+	+ si form lungo con molti dati richiesti
+	+ usare un font con grazie
+	+ eliminare eventuali bordi superflui
+- ingrandire il font quando gli schermi diventano molto piccoli
+- riconoscere e utilizzare convenzioni esterne (es. link sottolineati)
+- facilitare la creazione di una mappa mentale all’utente
+- marcare i link esplorati di un altro colore
+- no scroll orizzontale
+- menù orizzontale con max 5 opzioni
+- menù verticale con max 10 opzioni
+- menù con max 4-5 livelli di profondità
+- gerarchie ampie e poco profonde sono facilmente aggiornabili
+- menù disponibile in tutte le pagine
+- non è detto che un utente arrivi sempre alla home page come prima pagina
+- fallimento di un sito ? usare tasto back del browser
+- primo accesso positivo ? poco tempo di caricamento
+- non mettere link poco utilizzati  in tutte le pagine (es. accesso amministratore)
+- separare la struttura dalla presentazione
+- i colori che contengono almeno una di queste coppie sono visti più o meno uguali da tutti gli schermi: 00 33 66 CC FF 99
+- layout non giustificato
+- font senza grazie
