@@ -1,0 +1,37 @@
+/*=============================================
+=            COMMON STYLES                    =
+*
+* CSS styles specific of the homepage
+=============================================*/
+
+.intro {
+  background-color: #060606;
+  color: #fff;
+  height: 80vh; /**/
+  padding: 2rem 0;
+}
+
+.intro .container {
+  height: 100%;
+}
+
+.intro-name {
+  font-size: 4rem;
+  margin: 0;
+  max-width: 40rem;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .intro {
+    background-image: url('../images/sherlock.jpg');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+    padding-right: 10rem;
+  }
+
+  .intro-name {
+    font-size: 6rem;
+  }
+}

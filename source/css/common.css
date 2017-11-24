@@ -1,0 +1,148 @@
+/*=============================================
+=            COMMON STYLES                    =
+*
+* CSS styles shared between the pages
+=============================================*/
+
+/**
+ * GENERAL RULES FOR CSS
+ * 
+ * These are rules for the project CSS. No tool is used to actually make sure 
+ * they are followed but I'm watching you 👀
+ * 
+ * 1. Use always the same colors
+ *    $white: #fff
+ *    $black: #060606
+ *    $grey: #4e4e4e
+ *
+ * 2. Use always the same media queries
+ *    $mobile: 480px
+ *    $tablet: 768px
+ *    $desktop: 992px
+ *    $desktop-xl: 1200px
+ *
+ * 3. Use relative misures instead of 'px' to scale based on the device font-size
+ *    Example: '2rem' == "2 times the root font size"
+ *
+ * 4. Order lines alphabetically in a declaration
+ *    Example:
+ *    .myclass {
+ *      background-color: #fff;
+ *      color: #000;
+ *      display: block;
+ *      font-size: 1rem;
+ *    }
+ */
+
+/*----------  General  ----------*/
+/* CSS styles with HTML tags as selector and without classes or ids */
+
+body {
+  background-color: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  color: #4e4e4e;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*----------  Layout  ----------*/
+/* CSS styles for layout aka "ordering and positioning" elements */
+
+.container {
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Force an element to have a "solid" height of its floating children */
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list-item {
+  display: inline-block;
+}
+
+.list-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.v-centered-wrapper {
+  position: relative;
+}
+
+.v-centered {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/*----------  Utilities  ----------*/
+/* CSS styles with only one property */
+
+/*----------  Page common sections  ----------*/
+
+.navbar {
+  padding: 1rem 0;
+}
+
+.navbar-left,
+.navbar-right {
+  margin: initial auto;
+  text-align: center;
+}
+
+.logo-img {
+  height: 4rem;
+}
+
+/*----------  Media queries  ----------*/
+/* CSS styles based on the screen size */
+
+@media (min-width: 480px) {
+  .container {
+    max-width: 720px;
+  }
+
+  .navbar-left {
+    float: left;
+    text-align: left;
+  }
+
+  .navbar-right {
+    float: right;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
