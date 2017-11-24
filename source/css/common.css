@@ -34,23 +34,49 @@
  *    }
  */
 
+
+ 
 /*----------  General  ----------*/
 /* CSS styles with HTML tags as selector and without classes or ids */
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #fff;
+  color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
-  color: #4e4e4e;
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
 a:hover {
   text-decoration: underline;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-transform: uppercase;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+
 
 /*----------  Layout  ----------*/
 /* CSS styles for layout aka "ordering and positioning" elements */
@@ -67,27 +93,6 @@ a:hover {
   clear: both;
 }
 
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.list-item {
-  display: inline-block;
-}
-
-.list-item:not(:last-child) {
-  margin-right: 1rem;
-}
-
 .v-centered-wrapper {
   position: relative;
 }
@@ -98,8 +103,7 @@ a:hover {
   transform: translateY(-50%);
 }
 
-/*----------  Utilities  ----------*/
-/* CSS styles with only one property */
+
 
 /*----------  Page common sections  ----------*/
 
@@ -117,6 +121,62 @@ a:hover {
   height: 4rem;
 }
 
+.footer {
+  background-color: #060606;
+  color: #fff;
+  font-size: .875rem;
+  padding: 2rem 0;
+}
+
+
+
+/*----------  Components  ----------*/
+/* CSS styles for reused components like buttons, lists etc. */
+
+.btn {
+  background-color: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-outline {
+  padding: .875rem 3rem;
+  border: 2px solid currentColor;
+  transition: all .4s ease-out;
+}
+
+.btn-outline:hover {
+  background-color: #060606;
+  color: #fff;
+  text-decoration: none;
+  transform: translateX(1rem);
+}
+
+.list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.list-item {
+  display: inline-block;
+}
+
+.list-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+
+
+/*----------  Utilities  ----------*/
+/* CSS styles with only one property */
+
+/* Nothing yet */
+
+
+
+
 /*----------  Media queries  ----------*/
 /* CSS styles based on the screen size */
 
@@ -125,12 +185,20 @@ a:hover {
     max-width: 720px;
   }
 
-  .navbar-left {
+  .half {
     float: left;
+    width: 50%;
+  }
+
+  .navbar-left {
     text-align: left;
   }
 
-  .navbar-right {
+  .left {
+    float: left;
+  }
+
+  .right {
     float: right;
   }
 }

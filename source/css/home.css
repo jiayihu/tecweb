@@ -7,7 +7,7 @@
 .intro {
   background-color: #060606;
   color: #fff;
-  height: 80vh; /**/
+  height: 80vh;
   padding: 2rem 0;
 }
 
@@ -19,8 +19,31 @@
   font-size: 4rem;
   margin: 0;
   max-width: 40rem;
-  text-transform: uppercase;
 }
+
+.history {
+  margin: 6rem auto;
+}
+
+.service {
+  margin: 5rem 0;
+}
+
+.service-content {
+  padding: 1rem;
+}
+
+.service-content p {
+  width: 80%;
+}
+
+.service-photo {
+  padding: 1rem;
+}
+
+
+
+/*----------  Media queries  ----------*/
 
 @media (min-width: 768px) {
   .intro {
@@ -28,10 +51,34 @@
     background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;
+  }
+
+  .intro .container {
     padding-right: 10rem;
   }
 
   .intro-name {
     font-size: 6rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .service {
+    margin: 5rem 3rem;
+  }
+
+  .service-content {
+    padding: 2rem;
+  }
+  
+  .service-photo {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .intro-name {
+    font-size: 6rem;
+    max-width: 60rem;
   }
 }
