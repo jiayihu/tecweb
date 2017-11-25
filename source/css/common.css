@@ -128,8 +128,6 @@ img {
   padding: 2rem 0;
 }
 
-
-
 /*----------  Components  ----------*/
 /* CSS styles for reused components like buttons, lists etc. */
 
@@ -159,15 +157,24 @@ img {
   padding-left: 0;
 }
 
-.list-item {
+.list-item,
+.list-item-select {
   display: inline-block;
 }
 
-.list-item:not(:last-child) {
+.list-item-select {
+  font-weight: bold;
+}
+
+.list-item:not(:last-child),
+.list-item-select:not(:last-child) {
   margin-right: 1rem;
 }
 
-
+.page-title {
+  color: #060606;
+  text-align: center;
+}
 
 /*----------  Utilities  ----------*/
 /* CSS styles with only one property */

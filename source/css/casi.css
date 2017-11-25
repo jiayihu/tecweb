@@ -1,0 +1,62 @@
+/*=============================================
+=            COMMON STYLES                    =
+*
+* CSS styles specific of the study case
+=============================================*/
+
+.case {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.case-content {
+  margin: 0rem 1rem 1rem 1rem;
+}
+
+.case-date {
+  font-style: italic;
+}
+
+.case-imm {
+  display: block;
+  margin: auto;
+  max-width: 80%;
+}
+
+.case-text {
+  clear: left;
+  display: block;
+  margin: auto;
+  max-width: 80%;
+  padding-top: 0.1rem;
+}
+
+.tag { 
+  border: 1px solid #4e4e4e; 
+  border-radius: 0.5rem;
+  float: left;
+  margin: 0rem 0.5rem 0.5rem 0rem;
+  padding: 0.5rem;
+}
+
+/*----------  Media queries  ----------*/
+
+@media (max-width: 480px) {
+  .case-imm {
+    display: none;
+  }
+
+  .case-text {
+    max-width: 100%;
+  }
+
+  .tag {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .case-text {
+    max-width: 100%;
+  }
+}
