@@ -1,0 +1,81 @@
+.hidden {
+    opacity: 0;
+}
+.place {
+  margin: 6rem auto;
+}
+
+input, select, textarea {
+    width: 100%; /* Full width */
+    padding: 12px; /* Some padding */  
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+h7 {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.service {
+  margin: 5rem 0;
+}
+
+.service-content {
+  padding: 1rem;
+}
+
+.service-content p {
+  width: 80%;
+}
+
+.service-photo {
+  padding: 1rem;
+}
+
+
+
+/*----------  Media queries  ----------*/
+
+@media (min-width: 768px) {
+  .intro {
+    background-image: url('../images/sherlock.jpg');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+  }
+
+  .intro .container {
+    padding-right: 10rem;
+  }
+
+  .intro-name {
+    font-size: 6rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .service {
+    margin: 5rem 3rem;
+  }
+
+  .service-content {
+    padding: 2rem;
+  }
+  
+  .service-photo {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .intro-name {
+    font-size: 6rem;
+    max-width: 60rem;
+  }
+}
