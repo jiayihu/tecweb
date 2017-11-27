@@ -47,7 +47,7 @@
 
 @media (min-width: 768px) {
   .intro {
-    background-image: url('../images/sherlock.jpg');
+    background-image: url('../images/home/sherlock.jpg');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;

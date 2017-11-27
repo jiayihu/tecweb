@@ -48,6 +48,7 @@ body {
   color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
+  padding-top: 6.25rem; /* Reserve the space for the fixed navbar */
 }
 
 a {
@@ -106,6 +107,15 @@ img {
 
 
 /*----------  Page common sections  ----------*/
+
+.navbar-container {
+  background-color: #fff;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100%;
+}
 
 .navbar {
   padding: 1rem 0;
