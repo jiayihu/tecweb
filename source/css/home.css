@@ -4,6 +4,10 @@
 * CSS styles specific of the homepage
 =============================================*/
 
+.footer {
+  clear: left;
+}
+
 .intro {
   background-color: #060606;
   color: #fff;
@@ -23,6 +27,30 @@
 
 .history {
   margin: 6rem auto;
+}
+
+.method {
+  display: block;
+  margin: auto;
+  border-top: 1px solid #4e4e4e;
+  padding: 2rem;
+}
+
+.method-content, .method-content-not-last {
+  display: initial;
+  float: left;
+}
+
+.method-content-not-last {
+  border-bottom: 1px solid #d3d3d3;
+}
+
+.method-content-image {
+  display: none;
+}
+
+.method-title {
+  text-align: center;
 }
 
 .service {
@@ -45,6 +73,19 @@
 
 /*----------  Media queries  ----------*/
 
+@media (min-width: 480px) {
+  .method-content-image {
+    display: initial;
+    float: left;
+  }
+
+  .method-content-text {
+    width: calc(95% - 105px);
+    float: right;
+    margin-top: 0;
+  }
+}
+
 @media (min-width: 768px) {
   .intro {
     background-image: url('../images/home/sherlock.jpg');
@@ -63,6 +104,20 @@
 }
 
 @media (min-width: 992px) {
+  .method-content, .method-content-not-last {
+    width: 33%;
+    padding: 1.5rem;
+  }
+
+  .method-content-not-last {
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 0;
+  }
+
+  .method-content-title {
+    text-align: center;
+  }
+
   .service {
     margin: 5rem 3rem;
   }
