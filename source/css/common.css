@@ -48,7 +48,7 @@ body {
   color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 18px;
-  padding-top: 6.25rem; /* Reserve the space for the fixed navbar */
+  padding-top: 8rem; /* Reserve the space for the fixed navbar */
 }
 
 a {
