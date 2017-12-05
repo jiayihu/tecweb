@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Studio Sherlock & Watson</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">  
+  <link href="css/external/normalize.css" rel="stylesheet">  
+  <link href="css/common.css" rel="stylesheet">  
+  <link href="css/dashboard_investigatori.css" rel="stylesheet">  
+</head>
+<body>
+  <header id="top" class="navbar-container">
+    <div class="navbar container clearfix">
+        <div class="navbar-left left">
+          <a href="/" title="Go back to home">
+            <img class="logo-img" src="images/logo.png" alt="Logo Studio Sherlock & Watson" />
+          </a>
+        </div>
+      <ul class="list navbar-right right">
+        <li class="list-item-select">Dashboard</a></li>
+        <li class="list-item"><a href="ricerca.html">Ricerca</a></li>
+        <li class="list-item"><a href="impostazioni.html">Impostazioni</a></li>
+        <li class="list-item">Logout</li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="clearfix">
+
+    <!-- <h1 class="page-title">Dashboard</h1> -->
+
+    <aside>
+      <h2 class="menu-title">Casi</h2>                    
+       <ul>             
+        <li class="h6 case-select">Caso 1</li>             
+        <li class="case">Caso 2</li>             
+        <li class="case">Caso 3</li>          
+       </ul>      
+      <a class="btn btn-outline">Nuovo caso</a>
+    </aside>
+
+    <section class="dashboard">
+      <div class="investigation">
+          <button class="investigation-title">Investigazione 5</button>
+          <div class="investigation-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+      </div>
+      
+      <div class="investigation">
+          <button class="investigation-title">Investigazione 4</button>
+          <div class="investigation-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+      </div>
+
+      <div class="investigation">
+          <button class="investigation-title">Investigazione 3</button>
+          <div class="investigation-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+      </div>
+
+      <div class="investigation">
+          <button class="investigation-title">Investigazione 2</button>
+          <div class="investigation-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+      </div>
+
+      <div class="investigation">
+          <button class="investigation-title">Investigazione 1</button>
+          <div class="investigation-content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <script>
+    // script che mostra/nasconde il contenuto delle investigazioni
+    var listaInvestigazioni = document.getElementsByClassName("investigation-title");
+    var i;
+    
+    for (i = 0; i < listaInvestigazioni.length; i++) {
+        listaInvestigazioni[i].onclick = function(){
+            this.classList.toggle("active");
+            var contenuto = this.nextElementSibling;
+            if (contenuto.style.display === "block") {
+                contenuto.style.display = "none";
+            } else {
+                contenuto.style.display = "block";
+            }
+        }
+    }
+  </script>
+
+</body>
+</html>
