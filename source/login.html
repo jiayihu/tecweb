@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Studio Sherlock & Watson</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">  
+  <link href="css/external/normalize.css" rel="stylesheet">  
+  <link href="css/common.css" rel="stylesheet">  
+  <link href="css/login.css" rel="stylesheet">  
+</head>
+<body>
+  <header id="top" class="navbar-container">
+    <div class="navbar container clearfix">
+      <div class="navbar-left left">
+        <a href="index.html" title="Go back to home">
+          <img class="logo-img" src="images/logo.png" alt="Logo Studio Sherlock & Watson" />
+        </a>
+      </div>
+      <ul class="list navbar-right right">
+        <li class="list-item"><a href="service.html">Servizi</a></li>
+        <li class="list-item"><a href="casi.html">Casi di Studio</a></li>
+        <li class="list-item"><a href="contatti.html">Contatti</a></li>
+        <li class="list-item-select">Login</li>
+      </ul>
+    </div>
+  </header>
+  
+  <main class="container">
+	 <form id="formlogin" action="/action_page.php" method="post">
+    <h3>LOGIN</h3>
+    <input type="email" data-name="email" name="email" 
+          required placeholder="email" >
+    <input type="password" data-name="password" name="password" 
+          required placeholder="password" >
+    <p><a href="servizi.html#agency" class="btn btn-outline">Invia</a></p>
+   </form>
+  </main>
+
+  <footer class="footer">
+    <div class="container clearfix">
+        <div class="left">&copy; 2017 Sherlock and Watson | 221B Baker St, Marylebone, London | VAT 0123456789</div>
+        <div class="right">
+          <a href="#top">Go back to top</a>
+        </div>
+    </div>
+  </footer>
+</body>
+</html>
