@@ -1,14 +1,90 @@
-input, select, textarea {
-	border: none;
-	border-bottom: 2px solid gray;
-    width: 50%; /* Full width */
-    padding: 0.875rem; /* Some padding */  
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 1rem; /* Add a top margin */
-    margin-bottom: 1rem;
-    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+.btn {
+  display: block;
+  margin: 2rem auto;
+  text-align: center;
+  width: 50%;
 }
-form{
-	text-align:center;
-	margin-bottom: 50rem;
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
 }
+
+.footer-text {
+  text-align: center;
+}
+
+.loginbox {
+  box-shadow: none;
+  box-sizing: border-box;
+  display: block;
+  margin: auto;
+  left: calc((100% - 20rem)/2);
+  text-align: center;
+  position: absolute;
+  width: 20rem;
+}
+
+.loginbox-field {
+  display: block;
+  left: 50%;
+  margin: auto;
+  padding-top: 2rem;
+  text-align: center;
+  width: 80%;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d3d3d3;
+  color: #4e4e4e;
+  padding-bottom: 0.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border: 0;
+}
+
+.input:focus+.underline {
+  transform: scale(1);
+}
+
+input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: dodgerblue;
+}
+
+.underline {
+  background-color: dodgerblue;
+  display: block;
+  height: 2px;
+  position: absolute;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+  width: 80%;
+  -webkit-transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
+}
+
+/*----------  Media queries  ----------*/
+
+@media (min-width: 480px) {
+  .loginbox {
+    box-shadow: 1px 1px 10px #888888;
+    box-sizing: border-box;
+    width: 20rem;
+    left: 50%;
+    margin: -150px 0 0 -150px;
+    position: absolute;
+    top: 50%;
+  }
+}  

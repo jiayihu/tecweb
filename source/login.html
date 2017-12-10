@@ -27,23 +27,27 @@
       </ul>
     </div>
   </header>
-  
+
   <main class="container">
-	 <form id="formlogin" action="/action_page.php" method="post">
-    <h3>LOGIN</h3>
-    <input type="email" data-name="email" name="email" 
-          required placeholder="email" >
-    <input type="password" data-name="password" name="password" 
-          required placeholder="password" >
-    <p><a href="servizi.html#agency" class="btn btn-outline">Invia</a></p>
-   </form>
+    <form id="login" action="" method="post">
+      <div class="loginbox">
+          <div class="loginbox-field">
+            <input class="input" name="email" type="email" placeholder="email" required>
+            <span class="underline"></span>
+          </div>
+          <div class="loginbox-field">
+            <input class="input" name="password" type="password" placeholder="password" required>
+            <span class="underline"></span>
+          </div>
+          <input type="submit" class="btn btn-outline" value="Login">
+      </div> 
+    </form>    
   </main>
 
   <footer class="footer">
     <div class="container clearfix">
-        <div class="left">&copy; 2017 Sherlock and Watson | 221B Baker St, Marylebone, London | VAT 0123456789</div>
-        <div class="right">
-          <a href="#top">Go back to top</a>
+        <div class="footer-text">
+          &copy; 2017 Sherlock and Watson | 221B Baker St, Marylebone, London | VAT 0123456789
         </div>
     </div>
   </footer>
