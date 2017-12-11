@@ -15,7 +15,8 @@
  *    $black: #060606
  *    $grey: #4e4e4e
  *    $light-gray: #d3d3d3 
- *    $light-light-gray: #f6f6f6
+ *    $light-light-gray: #aaa
+ *    $light-light-light-gray: #f6f6f6
 
  *
  * 2. Use always the same media queries
@@ -163,6 +164,44 @@ img {
   color: #fff;
   text-decoration: none;
   transform: translateX(1rem);
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d3d3d3;
+  color: #4e4e4e;
+  padding-bottom: 0.5rem;
+  position: relative;
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:focus+.underline {
+  transform: scale(1);
+}
+
+input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+input:focus::-webkit-input-placeholder {
+  color: #4e4e4e;
+}
+
+.underline {
+  background-color: #4e4e4e;
+  display: block;
+  height: 2px;
+  position: absolute;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+  width: 80%;
+  -webkit-transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
 }
 
 .list {
