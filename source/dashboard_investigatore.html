@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Studio Sherlock & Watson</title>
-
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">  
   <link href="css/external/normalize.css" rel="stylesheet">  
   <link href="css/common.css" rel="stylesheet">  
@@ -27,52 +26,60 @@
       </ul>
     </div>
   </header>
-
   <main class="clearfix">
-
-    <!-- <h1 class="page-title">Dashboard</h1> -->
-
-    <aside>
+    <aside class="clearfix">
       <h2 class="menu-title">Casi</h2>                    
-       <ul>             
+       <ul class="menu-case">             
         <li class="h6 case-select">Caso 1</li>             
         <li class="case">Caso 2</li>             
-        <li class="case">Caso 3</li>          
+        <li class="case">Caso 3</li>
+        <li class="case">Caso 4</li>             
+        <li class="case">Caso 5</li> 
+        <li class="case">Caso 6</li>             
+        <li class="case">Caso 7</li>
+        <li class="case">Caso 8</li>             
+        <li class="case">Caso 9</li>          
        </ul>      
-      <a class="btn btn-outline">Nuovo caso</a>
+      <a class="btn btn-outline" href="">Nuovo caso</a>
     </aside>
 
     <section class="dashboard">
       <div class="investigation">
-          <button class="investigation-title">Investigazione 5</button>
+          <input id="inv-5" type="checkbox" name="invstigations">
+          <label for="inv-5">Investigazione 5</label>
           <div class="investigation-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
       </div>
       
-      <div class="investigation">
-          <button class="investigation-title">Investigazione 4</button>
+      
+      <div class="investigation">  
+          <input id="inv-4" type="checkbox" name="investigations">     
+          <label for="inv-4">Investigazione 4</label>
           <div class="investigation-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
       </div>
 
       <div class="investigation">
-          <button class="investigation-title">Investigazione 3</button>
+          <input id="inv-3" type="checkbox" name="investigations">
+          <label for="inv-3">Investigazione 3</label>
           <div class="investigation-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
       </div>
 
       <div class="investigation">
-          <button class="investigation-title">Investigazione 2</button>
+          <input id="inv-2" type="checkbox" name="investigations">
+          <label for="inv-2">Investigazione 2</label>
           <div class="investigation-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
       </div>
 
       <div class="investigation">
-          <button class="investigation-title">Investigazione 1</button>
+          <input id="inv-1" type="checkbox" name="investigations">
+          <label for="inv-1">Investigazione 1</label>
           <div class="investigation-content">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </div>
@@ -80,25 +87,5 @@
     </section>
 
   </main>
-
-
-  <script>
-    // script che mostra/nasconde il contenuto delle investigazioni
-    var listaInvestigazioni = document.getElementsByClassName("investigation-title");
-    var i;
-    
-    for (i = 0; i < listaInvestigazioni.length; i++) {
-        listaInvestigazioni[i].onclick = function(){
-            this.classList.toggle("active");
-            var contenuto = this.nextElementSibling;
-            if (contenuto.style.display === "block") {
-                contenuto.style.display = "none";
-            } else {
-                contenuto.style.display = "block";
-            }
-        }
-    }
-  </script>
-
 </body>
 </html>

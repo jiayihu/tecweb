@@ -1,17 +1,13 @@
 aside {
-  width: 25%;
-  height: calc(100% - (156px + 2em + 0.67em));
-  float: left;
-  padding: 0 1rem;
   background: #4e4e4e;
   position: fixed;
+  width: 100%;
 }
 
 .btn {
   background-color: #4e4e4e;
   color: white;
   display: block;
-  text-align: center;
   max-width: 12rem;
   margin: 1rem auto; 
 }
@@ -28,13 +24,18 @@ aside {
 
 .case {
   color: #d3d3d3;
-  font-size: 22px;
+  font-size: 1.25rem;
 }
 
 .case-select {
   color: white;
+  font-size: 1.75rem;
   font-weight: bold;
-  font-size: 27px;
+}
+
+.case, .case-select {
+  display: inline-block;
+  margin: 0 0.5rem;
 }
 
 .case:hover {
@@ -42,104 +43,176 @@ aside {
 }
 
 .dashboard {
-  width: calc(100% - 25% - 4rem);
-  margin: 1rem 2rem;
   float: right;
+  margin: 1rem 2rem;
+  padding-top: 140px;
 }
 
-.footer {
-  left: 0;
-  bottom: 0;
-  position: fixed;
-  width: 100%;
+input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+input:checked ~ .investigation-content {
+  max-height: 10em;
+}
+
+input[type=checkbox] + label::after {
+  content: "+";
+}
+
+input[type=checkbox]:checked + label::after {
+  transform: rotate(315deg);
+}
+
+label {
+  background-color: #f6f6f6;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  line-height: 3;
+  position: relative; 
+  padding: 0 0 0 1em;
+}
+
+label::after {
+  display: block;
+  line-height: 3;
+  height: 3em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  transition: all .35s;
+  width: 3em;
+  -o-transition: all .35s;
+  -webkit-transition: all .35s;
 }
 
 .investigation {
-  box-shadow: 1px 1px 10px #888888;
   background: white;
-}
-
-.investigation-title {
-  background-color: #f6f6f6;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
+  box-shadow: 1px 1px 10px #888888;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  text-align: left;
-  border: none;
-  outline: none;
-  transition: 0.4s;
 }
 
-.investigation-title.active, .investigation-title:hover {
+ label:hover {
   background-color: #d3d3d3;
 }
 
 .investigation-content {
+  max-height: 0;
   padding: 0 18px;
-  display: none;
+  overflow: hidden;
+  transition: max-height .35s;
+  -o-transition: max-height .35s;
+  -webkit-transition: max-height .35s;
 }
 
 li {
-  margin: 1rem 0;
+  margin: 0;
+  padding-top: 0.5rem;
+}
+
+.menu-case {
+  
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .menu-title {
-  border-bottom: 1px solid #fff;
-  padding-bottom: 1rem;
-  color: white;
-  text-align: center;
-}
-
-ul {
-  height: 73%;
-  list-style-type: none;
-  padding: 0;
-}
-
-.page-title {
-  position: fixed;
+  display: none;
 }
 
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {
-  aside {
-    width: 20%;
-    height: calc(100% - 156px);
+
+  .btn {
+    background-color: #4e4e4e;
+    color: white;
+    display: block;
+    text-align: center;
+    max-width: 12rem;
+    margin: 1rem auto; 
+  }
+  
+  .menu-title {
+    color: white;
+    padding-bottom: 1rem; 
+    text-align: center;
+    padding-top: 1rem;
   }
 
   .dashboard {
-    width: calc(100% - 20% - 2rem);
     margin: 1rem 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+@media (min-width: 768px) {
+  aside {
+    bottom: 0;
+    float: left;
+    height: calc(100% - 100px);
+    left: 0;
+    padding: 0 1rem;
+    width: 25%;
+  }
+
+  .menu-case {
+    height: 85%;
+  }
+
+  li {
+    padding-top: 0;
+  }
+
+  .dashboard {
+    padding-top: 0;
+    margin: 1rem 2rem;
+    width: calc(100% - 25% - 4rem);
+  }
+
+  .menu-title {
+    border-bottom: 1px solid #fff;
+  }
+
+  .case, .case-select {
+    display: block;
+    margin: 1rem 0;
   }
 }
 
 @media (min-width: 992px) {
-  aside {
-    width: 25%;
-    height: calc(100% - 156px);
-    float: left;
-    padding: 0 1rem;
-    background: #4e4e4e;
-    position: fixed;
+  .menu-case {
+    height: 90%;
   }
 
-  .dashboard {
-    width: calc(100% - 25% - 4rem);
-    margin: 1rem 2rem;
+  .btn {
+    height: 7%;
   }
 }
 
 @media (min-width: 1200px) {
   aside {
-    width: 20%;
     height: calc(100% - 100px);
+    width: 20%;
   }
 
   .dashboard {
-    width: calc(100% - 20% - 8rem);
     margin: 1rem 4rem;
+    width: calc(100% - 20% - 8rem);
   }
 }
 

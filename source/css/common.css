@@ -267,13 +267,15 @@ input:focus::-webkit-input-placeholder {
   }
 }
 
+@media (min-width: 768px) {
+  body {
+    padding-top: 100px;
+  }
+}
+
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
-  }
-
-  body {
-    padding-top: 156px;
   }
 }
 
