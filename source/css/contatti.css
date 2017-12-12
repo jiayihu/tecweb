@@ -12,13 +12,12 @@
 }
 
 .contactbox {
-  box-shadow: none;
   box-sizing: border-box;
   display: block;
+  position: absolute;
 }
 
 .contactbox-field {
-  border-bottom: 2px solid gray;
   display: block;
   margin: auto;
   padding-top: 2rem;
@@ -50,6 +49,8 @@
 .service-photo {
   padding: 1rem;
 }
+
+
 
 .underl{
   text-decoration:underline;

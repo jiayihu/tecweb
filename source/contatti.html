@@ -53,31 +53,28 @@
       <div class="service-content half">
       	<h3>Contattaci</h3>
         <form id="formcontatti" action="" method="post">
-		 <div class="contactbox">
-		   <div class="contactbox-field">
-             <input class="input" type="text" data-name="nome" name="nome" 
-             required placeholder="nome e cognome" >
-		     <span class="underline"></span>
-		   </div>
-		   <div class="contactbox-field">
-             <label for="phone" class="hidden" > telefono</label>
-             <input class="input" type="text" data-name="telefono" name="telefono" 
-             required placeholder="telefono" >
-             <span class="underline"></span>
-           </div>
-           <div class="contactbox-field">
-             <label for="email" class="hidden"> email</label>
-             <input class="input" type="email" data-name="email" name="email" 
-             required placeholder="email" >
-             <span class="underline"></span>
-           </div>
-           <div class="contactbox-message">
-             <label for="message" class="hidden">messaggio </label>
-             <textarea class="input" rows="3" cols="40" data-name="messaggio" placeholder="il tuo messaggio" required name="message"></textarea>
-           </div>
+		      <div class="contactbox">
+		        <div class="contactbox-field">
+              <label for="phone" class="hidden" >nome e cognome</label>
+              <input class="input" type="text"  name="nome" placeholder="Nome e cognome" required>
+              <span class="underline"></span>
+		        </div>
+		      <div class="contactbox-field">
+            <label for="phone" class="hidden" >telefono</label>
+            <input class="input" type="text" name="telefono" placeholder="Telefono" required>
+            <span class="underline"></span>
+          </div>
+          <div class="contactbox-field">
+            <label for="email" class="hidden">email</label>
+            <input class="input" type="email" name="email" required placeholder="Email" >
+            <span class="underline"></span>
+          </div>
+          <div class="contactbox-message">
+            <label for="message" class="hidden">messaggio</label>
+            <textarea rows="3" cols="30" placeholder="Messaggio" required name="message"></textarea>
           </div>
         </form>
-       <input type="submit"  class="btn btn-outline" value="Invia">
+       <input type="submit" class="btn btn-outline" value="Invia">
       </div>
     </section>
   </main>

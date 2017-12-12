@@ -112,6 +112,17 @@ img {
 
 /*----------  Page common sections  ----------*/
 
+.footer {
+  background-color: #060606;
+  color: #fff;
+  font-size: .875rem;
+  padding: 2rem 0;
+}
+
+.logo-img {
+  height: 4rem;
+}
+
 .navbar-container {
   background-color: #fff;
   left: 50%;
@@ -129,17 +140,6 @@ img {
 .navbar-right {
   margin: initial auto;
   text-align: center;
-}
-
-.logo-img {
-  height: 4rem;
-}
-
-.footer {
-  background-color: #060606;
-  color: #fff;
-  font-size: .875rem;
-  padding: 2rem 0;
 }
 
 /*----------  Components  ----------*/
@@ -178,30 +178,15 @@ input {
 
 .input:focus {
   outline: none;
+  border-bottom: 1px solid #4e4e4e;
 }
 
 .input:focus+.underline {
   transform: scale(1);
 }
 
-input::-webkit-input-placeholder {
-  color: #aaa;
-}
-
-input:focus::-webkit-input-placeholder {
+textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholder {
   color: #4e4e4e;
-}
-
-.underline {
-  background-color: #4e4e4e;
-  display: block;
-  height: 2px;
-  position: absolute;
-  transform: scale(0, 1);
-  transition: all 0.2s linear;
-  width: 80%;
-  -webkit-transform: scale(0, 1);
-  -webkit-transition: all 0.2s linear;
 }
 
 .list {
@@ -227,6 +212,32 @@ input:focus::-webkit-input-placeholder {
   color: #060606;
   text-align: center;
   margin-top: 0;
+}
+
+textarea {
+  border: 1px solid #d3d3d3;
+  color: 
+}
+
+textarea:focus {
+  border: 2px solid #4e4e4e;
+  outline: none;
+}
+
+textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.underline {
+  background-color: #4e4e4e;
+  display: block;
+  height: 1px;
+  position: absolute;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+  width: 80%;
+  -webkit-transform: scale(0, 1);
+  -webkit-transition: all 0.2s linear;
 }
 
 /*----------  Utilities  ----------*/
