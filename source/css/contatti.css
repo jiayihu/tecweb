@@ -26,12 +26,12 @@
   width: 80%;
 }
 .contactbox-message{
-	display: block;
-    margin: auto;
-    padding-top: 2rem;
-    text-align: center;
-    width: 100%;
-    resize:vertical;
+  display: block;
+  margin: auto;
+  padding-top: 2rem;
+  text-align: center;
+  width: 80%;
+  resize:vertical;
 }
 
 
