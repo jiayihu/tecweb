@@ -4,17 +4,35 @@
 .place {
   margin: 6rem auto;
 }
-
-input, select, textarea {
-	border: none;
-	border-bottom: 2px solid gray;
-    width: 100%; /* Full width */
-    padding: 0.875rem; /* Some padding */  
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 1rem; /* Add a top margin */
-    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+.btn {
+  display: block;
+  margin: 2rem auto;
+  text-align: center;
+  width: 50%;
 }
 
+.contactbox {
+  box-shadow: none;
+  box-sizing: border-box;
+  display: block;
+}
+
+.contactbox-field {
+  border-bottom: 2px solid gray;
+  display: block;
+  margin: auto;
+  padding-top: 2rem;
+  text-align: center;
+  width: 80%;
+}
+.contactbox-message{
+	display: block;
+    margin: auto;
+    padding-top: 2rem;
+    text-align: center;
+    width: 100%;
+    resize:vertical;
+}
 
 
 .service {
