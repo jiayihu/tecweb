@@ -1,5 +1,5 @@
 .hidden {
-    opacity: 0;
+  opacity: 0;
 }
 .place {
   margin: 6rem auto;
@@ -11,14 +11,13 @@
   width: 50%;
 }
 
-.center{
-	text-align: center;
+.center {
+  text-align: center;
 }
 
 .contactbox {
   box-sizing: border-box;
   display: block;
-  position: absolute;
 }
 
 .contactbox-field {
@@ -28,15 +27,14 @@
   text-align: center;
   width: 80%;
 }
-.contactbox-message{
+.contactbox-message {
   display: block;
   margin: auto;
   padding-top: 2rem;
   text-align: center;
   width: 80%;
-  resize:vertical;
+  resize: vertical;
 }
-
 
 .service {
   margin: 5rem 0;
@@ -54,13 +52,11 @@
   padding: 1rem;
 }
 
-
-
-.underl{
-  text-decoration:underline;
+.underl {
+  text-decoration: underline;
 }
 
-/*----------  Media queries  ----------*/
+/*--------- Media queries- --------*/
 
 @media (min-width: 768px) {
   .intro {
@@ -69,11 +65,9 @@
     background-position: right center;
     background-size: contain;
   }
-
   .intro .container {
     padding-right: 10rem;
   }
-
   .intro-name {
     font-size: 6rem;
   }
@@ -83,11 +77,9 @@
   .service {
     margin: 5rem 3rem;
   }
-
   .service-content {
     padding: 2rem;
   }
-  
   .service-photo {
     padding: 2rem;
   }
