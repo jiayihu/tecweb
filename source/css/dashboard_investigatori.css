@@ -1,6 +1,6 @@
 aside {
   background: #4e4e4e;
-  position: fixed;
+  position: initial;
   width: 100%;
 }
 
@@ -45,7 +45,11 @@ aside {
 .dashboard {
   float: right;
   margin: 1rem 2rem;
-  padding-top: 140px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
 input {
@@ -55,7 +59,7 @@ input {
 }
 
 input:checked ~ .investigation-content {
-  max-height: 10em;
+  max-height: 15em;
 }
 
 input[type=checkbox] + label::after {
@@ -90,6 +94,25 @@ label::after {
   -webkit-transition: all .35s;
 }
 
+.list-item ul {
+  display: none;
+  position: absolute;
+  padding: 0;
+  background: #4e4e4e;
+}
+
+.list-item ul li {
+  color: #fff;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  width: 100%;
+}
+
+
+
+.list-item:hover > ul {
+  display: block;
+}
+
 .investigation {
   background: white;
   box-shadow: 1px 1px 10px #888888;
@@ -116,8 +139,10 @@ li {
   padding-top: 0.5rem;
 }
 
+.navbar-container {
+  z-index: 2;
+}
 .menu-case {
-  
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -126,12 +151,16 @@ li {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
   background: transparent;
+  width: 0px;
 }
 
 .menu-title {
   display: none;
+}
+
+.submenu {
+  text-align: left;
 }
 
 /*----------  Media queries  ----------*/
@@ -167,6 +196,7 @@ li {
     height: calc(100% - 100px);
     left: 0;
     padding: 0 1rem;
+    position: fixed;
     width: 25%;
   }
 
@@ -176,6 +206,11 @@ li {
 
   li {
     padding-top: 0;
+  }
+
+  .list-item ul li:hover {
+    background: #d3d3d3;
+    color: #4e4e4e;
   }
 
   .dashboard {
@@ -194,7 +229,7 @@ li {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 992px) {  
   .menu-case {
     height: 90%;
   }

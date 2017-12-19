@@ -14,10 +14,10 @@
  *    $white: #fff
  *    $black: #060606
  *    $grey: #4e4e4e
- *    $light-gray: #d3d3d3 
- *    $light-light-gray: #aaa
+ *    $light-gray: #aaa
+ *    $light-light-gray: #d3d3d3 
  *    $light-light-light-gray: #f6f6f6
-
+ *
  *
  * 2. Use always the same media queries
  *    $mobile: 480px
@@ -216,7 +216,8 @@ textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholde
 
 textarea {
   border: 1px solid #d3d3d3;
-  color: 
+  color: #4e4e4e;
+  width: 100%;
 }
 
 textarea:focus {
