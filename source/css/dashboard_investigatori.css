@@ -4,27 +4,18 @@ aside {
   width: 100%;
 }
 
-.btn {
-  background-color: #4e4e4e;
-  color: white;
-  display: block;
-  max-width: 12rem;
-  margin: 1rem auto; 
-}
-
-.btn-outline {
-  transition: none;
-}
-
-.btn-outline:hover {
-  background-color: #f6f6f6;
-  color: #4e4e4e;
-  transform: none;
+.bold {
+  font-weight: bold;
 }
 
 .case {
   color: #d3d3d3;
   font-size: 1.25rem;
+}
+
+.case-info {
+  margin-top: 0;
+  padding: 0 0.5rem;
 }
 
 .case-select {
@@ -44,7 +35,10 @@ aside {
 
 .dashboard {
   float: right;
-  margin: 1rem 2rem;
+}
+
+.descr {
+  text-align: left;
 }
 
 .dropdown {
@@ -59,7 +53,7 @@ input {
 }
 
 input:checked ~ .investigation-content {
-  max-height: 15em;
+  max-height: fit-content;
 }
 
 input[type=checkbox] + label::after {
@@ -99,6 +93,7 @@ label::after {
   position: absolute;
   padding: 0;
   background: #4e4e4e;
+  width: fit-content;
 }
 
 .list-item ul li {
@@ -106,8 +101,6 @@ label::after {
   padding: 0.5rem 0 0.5rem 0.5rem;
   width: 100%;
 }
-
-
 
 .list-item:hover > ul {
   display: block;
@@ -127,11 +120,15 @@ label::after {
 
 .investigation-content {
   max-height: 0;
-  padding: 0 18px;
+  padding: 0 0.5rem;
   overflow: hidden;
   transition: max-height .35s;
   -o-transition: max-height .35s;
   -webkit-transition: max-height .35s;
+}
+
+.investigation-content-title {
+  font-weight: bold;
 }
 
 li {
@@ -149,19 +146,31 @@ li {
   overflow: scroll;
   white-space: nowrap;
 }
+.menu-title {
+  display: none;
+}
+
+table {
+  width: 100%;
+}
+
+thead {
+  background-color: #d3d3d3;
+}
+
+tbody th {
+  font-weight: normal;
+}
+
+.submenu {
+  text-align: left;
+}
 
 ::-webkit-scrollbar {
   background: transparent;
   width: 0px;
 }
 
-.menu-title {
-  display: none;
-}
-
-.submenu {
-  text-align: left;
-}
 
 /*----------  Media queries  ----------*/
 
@@ -200,8 +209,8 @@ li {
     width: 25%;
   }
 
-  .menu-case {
-    height: 85%;
+  .case-info {
+    padding: 0;
   }
 
   li {
@@ -211,6 +220,14 @@ li {
   .list-item ul li:hover {
     background: #d3d3d3;
     color: #4e4e4e;
+  }
+
+  .investigation-content-field {
+    margin: 0.75rem 0;
+  }
+
+  .menu-case {
+    height: 100%;
   }
 
   .dashboard {
