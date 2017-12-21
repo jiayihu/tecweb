@@ -218,6 +218,7 @@ textarea {
   border: 1px solid #d3d3d3;
   color: #4e4e4e;
   width: 100%;
+  resize: vertical;
 }
 
 textarea:focus {

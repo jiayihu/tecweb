@@ -33,7 +33,6 @@
   padding-top: 2rem;
   text-align: center;
   width: 80%;
-  resize: vertical;
 }
 
 .service {
@@ -58,20 +57,7 @@
 
 /*--------- Media queries- --------*/
 
-@media (min-width: 768px) {
-  .intro {
-    background-image: url('../images/sherlock.jpg');
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: contain;
-  }
-  .intro .container {
-    padding-right: 10rem;
-  }
-  .intro-name {
-    font-size: 6rem;
-  }
-}
+
 
 @media (min-width: 992px) {
   .service {
@@ -85,9 +71,8 @@
   }
 }
 
-@media (min-width: 1200px) {
-  .intro-name {
-    font-size: 6rem;
-    max-width: 60rem;
+@media  (max-width:500px) {
+  .img{
+    display: none;
   }
 }
