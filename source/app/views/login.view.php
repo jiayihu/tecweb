@@ -2,7 +2,7 @@
 
 <main class="container">
   <form id="login" action="" method="post">
-    <div class="loginbox">
+    <div class="loginbox v-centered">
       <div class="loginbox-field">
         <input class="input" name="email" type="email" placeholder="email" required>
         <span class="underline"></span>
