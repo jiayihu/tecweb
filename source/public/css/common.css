@@ -130,6 +130,7 @@ img {
   transform: translateX(-50%);
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .navbar {
