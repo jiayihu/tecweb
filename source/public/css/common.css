@@ -14,6 +14,7 @@
  *    $white: #fff
  *    $black: #060606
  *    $grey: #4e4e4e
+ *    $crimson: #9C27B0
  *    $light-gray: #aaa
  *    $light-light-gray: #d3d3d3 
  *    $light-light-light-gray: #f6f6f6
@@ -56,7 +57,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #9C27B0;
   text-decoration: none;
 }
 
@@ -70,6 +71,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-weight: 400;
   text-transform: uppercase;
 }
 
