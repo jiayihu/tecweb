@@ -1,0 +1,13 @@
+.not-found {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.image-404 {
+  width: 10rem;
+}
+
+.description {
+  font-size: 2rem;
+  font-weight: 300;
+}

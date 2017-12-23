@@ -7,11 +7,10 @@ require_once 'app/controllers/UsersController.php';
 class PagesController {
   public function home() {
     $name = 'home';
-    $tasks = (new UsersController())->getTasksTemplate();
+    // $tasks = (new UsersController())->getTasksTemplate();
 
     return \Core\view('index', [
-      'name' => $name,
-      'tasks' => $tasks
+      'name' => $name
     ]);
   }
 
