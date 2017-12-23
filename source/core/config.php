@@ -4,8 +4,8 @@ namespace Core;
 
 return [
   'database' => [
-    'name' => 'mytodo',
-    'username'=> 'jiayi',
+    'name' => 'sherlock',
+    'username'=> 'root',
     'password' => 'password',
     'hostdb' => '127.0.0.1',
     'options' => [

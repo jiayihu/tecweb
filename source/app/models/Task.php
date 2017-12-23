@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+/**
+ * Old: da aggiornare per il progetto Tecweb
+ */
+
 class Task {
   public $description;
   private $completed = false;
