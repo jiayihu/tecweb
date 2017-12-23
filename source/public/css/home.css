@@ -36,6 +36,10 @@
   padding: 2rem;
 }
 
+.method-title {
+  text-align: center;
+}
+
 .method-content, .method-content-not-last {
   display: initial;
   float: left;
@@ -46,11 +50,17 @@
 }
 
 .method-content-image {
-  display: none;
+  height: 5rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
-.method-title {
-  text-align: center;
+.method-content-image img {
+  width: 4rem;
+}
+
+.method-content-title {
+  height: 3rem;
 }
 
 .service {
@@ -75,12 +85,12 @@
 
 @media (min-width: 480px) {
   .method-content-image {
-    display: initial;
+    display: block;
     float: left;
   }
 
   .method-content-text {
-    width: calc(95% - 105px);
+    width: calc(95% - 4rem);
     float: right;
     margin-top: 0;
   }
@@ -116,6 +126,14 @@
 
   .method-content-title {
     text-align: center;
+  }
+
+  .method-content-image {
+    float: none;
+  }
+
+  .method-content-text {
+    width: 100%;
   }
 
   .service {
