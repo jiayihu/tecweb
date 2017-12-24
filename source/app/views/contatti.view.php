@@ -7,7 +7,7 @@
     </h3>
   </div>
   <section class="service clearfix">
-    <div class="service-content half">
+    <div class="service-content col half">
       <h3>PADOVA, ITALIA</h3>
       <p>221B Baker St</p>
       <p>Marylebone, London UK</p>
@@ -15,18 +15,18 @@
       <p>+39 (0)45 875 2845</p>
       <a href="https://goo.gl/maps/vpzLkY5mzd22" class="underl">google maps</a>
     </div>
-    <div class="service-photo half img">
+    <div class="service-photo col half img">
       <img src="public/images/home/legal.jpg">
       <!-- alt non importante -->
     </div>
   </section>
 
   <section class="service clearfix">
-    <div class="service-photo half img">
+    <div class="service-photo col half img">
       <img src="public/images/home/agency.jpg">
       <!-- alt non importante -->
     </div>
-    <div class="service-content half">
+    <div class="service-content col half">
       <h3>Contattaci</h3>
       <form id="formcontatti" action="" method="post">
         <div class="contactbox">
