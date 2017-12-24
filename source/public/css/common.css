@@ -83,7 +83,32 @@ img {
   max-width: 100%;
 }
 
+textarea {
+  border: 1px solid #d3d3d3;
+  color: #4e4e4e;
+  width: 100%;
+  resize: vertical;
+}
 
+textarea:focus {
+  border: 2px solid #4e4e4e;
+  outline: none;
+}
+
+textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.underline {
+  background-color: #4e4e4e;
+  display: block;
+  height: 1px;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+  width: 100%;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+}
 
 /*----------  Layout  ----------*/
 /* CSS styles for layout aka "ordering and positioning" elements */
@@ -217,33 +242,6 @@ textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholde
   margin-top: 0;
 }
 
-textarea {
-  border: 1px solid #d3d3d3;
-  color: #4e4e4e;
-  width: 100%;
-  resize: vertical;
-}
-
-textarea:focus {
-  border: 2px solid #4e4e4e;
-  outline: none;
-}
-
-textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
-  color: #aaa;
-}
-
-.underline {
-  background-color: #4e4e4e;
-  display: block;
-  height: 1px;
-  transform: scale(0, 1);
-  transition: all 0.2s linear;
-  width: 100%;
-  -webkit-transform: scale(0, 1);
-  -webkit-transition: all 0.2s linear;
-}
-
 /*----------  Utilities  ----------*/
 /* CSS styles with only one property */
 
@@ -256,17 +254,36 @@ textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
 /* CSS styles based on the screen size */
 
 @media (min-width: 480px) {
+  /**
+   * General
+   */
+
   body {
     padding-top: 156px;
   }
+
+  /**
+   * Layout
+   */
   
   .container {
     max-width: 720px;
   }
 
-  .half {
+  .col {
     float: left;
+  }
+
+  .col.half {
     width: 50%;
+  }
+
+  .col.one-third {
+    width: 33.3333%;
+  }
+
+  .col.two-third {
+    width: 66.6666%;
   }
 
   .navbar-left {
