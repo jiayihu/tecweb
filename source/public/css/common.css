@@ -50,7 +50,7 @@ body {
   background-color: #fff;
   color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   padding-top: 176px; /* Reserve the space for the fixed navbar */
 }
 
@@ -251,6 +251,7 @@ input::-webkit-input-placeholder {
 }
 
 .navbar {
+  font-size: 1.15rem;
   padding: 1rem 0;
 }
 

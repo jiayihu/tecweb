@@ -146,6 +146,7 @@
 
 @media (min-width: 1200px) {
   .intro-name {
+    background-color: transparent;
     font-size: 6rem;
     max-width: 60rem;
   }

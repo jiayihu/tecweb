@@ -9,8 +9,8 @@
 </div>
 
 <main class="container">
-  <section id="private" class="service clearfix">
-    <div class="service-content col two-third">
+  <section class="service clearfix">
+    <div id="private" class="service-content col half">
       <h2>Investigazioni private</h2>
       <p>
         Le investigazioni per privati e famiglie mirano a risolvere in maniera personalizzata ogni questione che rientri nella sfera coniugale, familiare, civile e penale.
@@ -29,31 +29,22 @@
         <li>Investigazioni anti stalking</li>
       </ul>
     </div>
-    <div class="service-photo col one-third">
-      <img src="public/images/home/private.jpg"> <!-- alt non importante -->
-    </div>
-  </section>
-
-  <section id="aziendali" class="service clearfix">
-    <div class="service-photo col one-third">
-      <img src="public/images/home/agency.jpg"> <!-- alt non importante -->
-    </div>
-    <div class="service-content col two-third">
-    <h2>Investigazioni aziendali</h2>
-    <p>
-      Le investigazioni rivolte ad aziende hanno l’obiettivo di tutelarle da rischi sia interni che esterni. 
-    </p>
-    <p>Abbiamo affrontato in questi anni numerosi casi di illeciti subiti dalle aziende quali cause di assenteismo da parte dei dipendenti, cause di infedeltà da parte dei soci, amministratori e dipendenti, cause di recupero credito.</p>
-    <p>I nostri principali servizi di investigazione dedicati alle aziende sono:</p>
-    <ul>
-      <li>Assenteismo posto di lavoro</li>
-      <li>Concorrenza sleale</li>
-      <li>Tutela del marchio</li>
-      <li>Valutazioni solvibilitá</li>
-      <li>Accompagnamento e logistica</li>
-      <li>Gestione sicurezza</li>
-      <li>Recupero crediti</li>
-    </ul>
+    <div id="aziendali" class="service-content col half">
+      <h2>Investigazioni aziendali</h2>
+      <p>
+        Le investigazioni rivolte ad aziende hanno l’obiettivo di tutelarle da rischi sia interni che esterni. 
+      </p>
+      <p>Abbiamo affrontato in questi anni numerosi casi di illeciti subiti dalle aziende quali cause di assenteismo da parte dei dipendenti, cause di infedeltà da parte dei soci, amministratori e dipendenti, cause di recupero credito.</p>
+      <p>I nostri principali servizi di investigazione dedicati alle aziende sono:</p>
+      <ul>
+        <li>Assenteismo posto di lavoro</li>
+        <li>Concorrenza sleale</li>
+        <li>Tutela del marchio</li>
+        <li>Valutazioni solvibilitá</li>
+        <li>Accompagnamento e logistica</li>
+        <li>Gestione sicurezza</li>
+        <li>Recupero crediti</li>
+      </ul>
     </div>
   </section>
 
