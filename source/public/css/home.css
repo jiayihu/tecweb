@@ -36,7 +36,8 @@
   text-align: center;
 }
 
-.method-content, .method-content-not-last {
+.method-content,
+.method-content-not-last {
   display: initial;
   float: left;
 }
@@ -75,8 +76,6 @@
   padding: 1rem;
 }
 
-
-
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {
@@ -95,7 +94,6 @@
 @media (min-width: 768px) {
   .intro {
     background-image: url('../images/home/sherlock.jpg');
-    background-repeat: no-repeat;
     background-position: right center;
     background-size: contain;
   }
@@ -110,7 +108,8 @@
 }
 
 @media (min-width: 992px) {
-  .method-content, .method-content-not-last {
+  .method-content,
+  .method-content-not-last {
     width: 33%;
     padding: 1.5rem;
   }
@@ -139,7 +138,7 @@
   .service-content {
     padding: 2rem;
   }
-  
+
   .service-photo {
     padding: 2rem;
   }

@@ -1,11 +1,15 @@
 <?php require 'partials/public-header.partial.php' ?>
 
-<main class="container">
-  <section>
-    <h1>I nostri servizi</h1>
-  </section>
+<div class="intro">
+  <div class="container v-centered-wrapper">
+    <div class="v-centered">
+      <h1 class="intro-name">I nostri servizi</h1>
+    </div>
+  </div>
+</div>
 
-  <section class="service clearfix">
+<main class="container">
+  <section id="private" class="service clearfix">
     <div class="service-content col two-third">
       <h2>Investigazioni private</h2>
       <p>
@@ -30,7 +34,7 @@
     </div>
   </section>
 
-  <section class="service clearfix">
+  <section id="aziendali" class="service clearfix">
     <div class="service-photo col one-third">
       <img src="public/images/home/agency.jpg"> <!-- alt non importante -->
     </div>
@@ -53,14 +57,14 @@
     </div>
   </section>
 
-  <section class="service clearfix">
+  <section id="difensive" class="service clearfix">
     <div class="service-content col two-third">
-    <h2>Investigazioni legali</h2>
+    <h2>Investigazioni difensive</h2>
     <p>
       La nostra agenzia investigativa è specializzata in investigazioni a supporto degli studi legali sia nell’ambito civile sia nella difesa penale.
     </p>
     <p>Le indagini investigative attuate da Vega Investigazioni rappresentano uno strumento rapido ed efficace che si rivela di fondamentale importanza qualora ci sia la necessità di raccogliere informazioni o elementi di prova da far valere nel processo civile o penale in ogni ordine di grado o giudizio.</p>
-    <p>I nostri principali servizi di investigazione legali sono:</p>
+    <p>I nostri principali servizi di investigazione difensive sono:</p>
     <ul>
       <li>Accertamenti patrimoniali</li>
       <li>Ricerca eredi</li>
@@ -73,7 +77,7 @@
     </div>
   </section>
 
-  <section class="service clearfix">
+  <section id="cyber" class="service clearfix">
     <div class="service-photo col one-third">
       <img src="public/images/home/special.jpg"> <!-- alt non importante -->
     </div>

@@ -1,11 +1,16 @@
 <?php require 'partials/public-header.partial.php' ?>
 
-<main class="container">
-  <div class="center">
-    <h3>
-      <a href="#formcontatti" class="underl">contattaci</a>
-    </h3>
+<div class="intro">
+  <div class="container v-centered-wrapper">
+    <div class="v-centered">
+      <h1 class="intro-name">
+        <a href="#formcontatti" class="underl">Contattaci</a>
+      </h1>
+    </div>
   </div>
+</div>
+
+<main class="container">
   <section class="service clearfix">
     <div class="service-content col half">
       <h3>PADOVA, ITALIA</h3>

@@ -1,9 +1,14 @@
 <?php require 'partials/public-header.partial.php' ?>
 
+<div class="intro">
+  <div class="container v-centered-wrapper">
+    <div class="v-centered">
+      <h1 class="intro-name">Casi di studio</h1>
+    </div>
+  </div>
+</div>
+
 <main class="container">
-
-  <h1 class="page-title">Casi di Studio</h1>
-
   <section class="case">
     <h2>Uno studio in rosa</h2>
     <div class="case-content">

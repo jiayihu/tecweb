@@ -206,6 +206,9 @@ input::-webkit-input-placeholder {
 
 .intro {
   background-color: #060606;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   color: #fff;
   height: 80vh;
   padding: 2rem 0;
@@ -216,9 +219,14 @@ input::-webkit-input-placeholder {
 }
 
 .intro-name {
+  background-color: rgba(0, 0, 0, 0.4);
   font-size: 4rem;
   margin: 0;
   max-width: 40rem;
+}
+
+.intro-name a {
+  color: inherit;
 }
 
 .footer {

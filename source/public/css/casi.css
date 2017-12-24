@@ -27,7 +27,7 @@
   max-width: 100%;
 }
 
-.tag { 
+.tag {
   display: none;
 }
 
@@ -44,7 +44,7 @@
 
   .tag {
     display: initial;
-    border: 1px solid #4e4e4e; 
+    border: 1px solid #4e4e4e;
     border-radius: 0.5rem;
     float: left;
     margin: 0rem 0.5rem 0.5rem 0rem;
@@ -52,11 +52,17 @@
   }
 }
 
+@media (min-width: 768px) {
+  .intro {
+    background-image: url('../images/casi/intro.jpg');
+  }
+}
+
 @media (min-width: 992px) {
   .case-imm {
     max-width: 80%;
   }
-  
+
   .case-text {
     max-width: 80%;
   }

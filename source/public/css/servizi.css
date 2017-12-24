@@ -5,33 +5,19 @@
 =============================================*/
 
 .intro {
-  background-color: #060606;
-  color: #fff;
-  height: 80vh;
-  padding: 2rem 0;
-}
-
-.intro .container {
-  height: 100%;
-}
-
-.intro-name {
-  font-size: 4rem;
-  margin: 0;
-  max-width: 40rem;
+  background-image: url('../images/servizi/intro.jpg');
 }
 
 .service {
   margin: 5rem 0;
 }
 
-.service-content {}
+.service-content {
+}
 
 .service-photo {
   padding: 1rem;
 }
-
-
 
 /*----------  Media queries  ----------*/
 

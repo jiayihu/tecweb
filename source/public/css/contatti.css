@@ -1,9 +1,11 @@
 .hidden {
   opacity: 0;
 }
+
 .place {
   margin: 6rem auto;
 }
+
 .btn {
   display: block;
   margin: 2rem auto;
@@ -48,6 +50,7 @@
 }
 
 .service-photo {
+  display: none;
   padding: 1rem;
 }
 
@@ -57,7 +60,15 @@
 
 /*--------- Media queries- --------*/
 
+@media (min-width: 768px) {
+  .intro {
+    background-image: url('../images/contatti/intro.jpg');
+  }
 
+  .service-photo {
+    display: initial;
+  }
+}
 
 @media (min-width: 992px) {
   .service {
@@ -68,11 +79,5 @@
   }
   .service-photo {
     padding: 2rem;
-  }
-}
-
-@media  (max-width:768px) {
-  .img{
-    display: none;
   }
 }
