@@ -39,8 +39,6 @@
  *    }
  */
 
-
- 
 /*----------  General  ----------*/
 /* CSS styles with HTML tags as selector and without classes or ids */
 
@@ -57,7 +55,7 @@ body {
 }
 
 a {
-  color: #C62828;
+  color: #c62828;
   text-decoration: none;
 }
 
@@ -83,6 +81,16 @@ img {
   max-width: 100%;
 }
 
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d3d3d3;
+  color: #4e4e4e;
+  padding-bottom: 0.5rem;
+  position: relative;
+  width: 100%;
+}
+
 textarea {
   border: 1px solid #d3d3d3;
   color: #4e4e4e;
@@ -95,19 +103,9 @@ textarea:focus {
   outline: none;
 }
 
-textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
+textarea::-webkit-input-placeholder,
+input::-webkit-input-placeholder {
   color: #aaa;
-}
-
-.underline {
-  background-color: #4e4e4e;
-  display: block;
-  height: 1px;
-  transform: scale(0, 1);
-  transition: all 0.2s linear;
-  width: 100%;
-  transform: scale(0, 1);
-  transition: all 0.2s linear;
 }
 
 /*----------  Layout  ----------*/
@@ -135,41 +133,6 @@ textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
   transform: translateY(-50%);
 }
 
-
-
-/*----------  Page common sections  ----------*/
-
-.footer {
-  background-color: #060606;
-  color: #fff;
-  font-size: .875rem;
-  padding: 2rem 0;
-}
-
-.logo-img {
-  height: 4rem;
-}
-
-.navbar-container {
-  background-color: #fff;
-  left: 50%;
-  position: fixed;
-  transform: translateX(-50%);
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-
-.navbar {
-  padding: 1rem 0;
-}
-
-.navbar-left,
-.navbar-right {
-  margin: initial auto;
-  text-align: center;
-}
-
 /*----------  Components  ----------*/
 /* CSS styles for reused components like buttons, lists etc. */
 
@@ -182,9 +145,9 @@ textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
 }
 
 .btn-outline {
-  padding: .875rem 3rem;
+  padding: 0.875rem 3rem;
   border: 2px solid currentColor;
-  transition: all .4s ease-out;
+  transition: all 0.4s ease-out;
 }
 
 .btn-outline:hover {
@@ -194,27 +157,24 @@ textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
   transform: translateX(1rem);
 }
 
-input {
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #d3d3d3;
-  color: #4e4e4e;
-  padding-bottom: 0.5rem;
-  position: relative;
-  width: 100%;
-}
-
 .input:focus {
   outline: none;
   border-bottom: 1px solid #4e4e4e;
 }
 
-.input:focus+.underline {
+.input:focus + .underline {
   transform: scale(1);
 }
 
-textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholder {
-  color: #4e4e4e;
+.underline {
+  background-color: #4e4e4e;
+  display: block;
+  height: 1px;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
+  width: 100%;
+  transform: scale(0, 1);
+  transition: all 0.2s linear;
 }
 
 .list {
@@ -242,13 +202,62 @@ textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholde
   margin-top: 0;
 }
 
+/*----------  Page common sections  ----------*/
+
+.intro {
+  background-color: #060606;
+  color: #fff;
+  height: 80vh;
+  padding: 2rem 0;
+}
+
+.intro .container {
+  height: 100%;
+}
+
+.intro-name {
+  font-size: 4rem;
+  margin: 0;
+  max-width: 40rem;
+}
+
+.footer {
+  background-color: #060606;
+  color: #fff;
+  font-size: 0.875rem;
+  padding: 2rem 0;
+}
+
+.logo-img {
+  height: 4rem;
+}
+
+.navbar-container {
+  background-color: #fff;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.navbar {
+  padding: 1rem 0;
+}
+
+.navbar-left,
+.navbar-right {
+  margin: initial auto;
+  text-align: center;
+}
+
 /*----------  Utilities  ----------*/
 /* CSS styles with only one property */
 
 .bold {
   font-weight: bold;
 }
-
 
 /*----------  Media queries  ----------*/
 /* CSS styles based on the screen size */
@@ -265,7 +274,7 @@ textarea:focus::-webkit-input-placeholder, input:focus::-webkit-input-placeholde
   /**
    * Layout
    */
-  
+
   .container {
     max-width: 720px;
   }
