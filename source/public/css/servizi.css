@@ -1,0 +1,48 @@
+/*=============================================
+=            COMMON STYLES                    =
+*
+* CSS styles specific of the homepage
+=============================================*/
+
+.intro {
+  background-color: #060606;
+  color: #fff;
+  height: 80vh;
+  padding: 2rem 0;
+}
+
+.intro .container {
+  height: 100%;
+}
+
+.intro-name {
+  font-size: 4rem;
+  margin: 0;
+  max-width: 40rem;
+}
+
+.service {
+  margin: 5rem 0;
+}
+
+.service-content {}
+
+.service-photo {
+  padding: 1rem;
+}
+
+
+
+/*----------  Media queries  ----------*/
+
+@media (min-width: 480px) {
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
