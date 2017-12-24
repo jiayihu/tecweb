@@ -51,7 +51,6 @@ body {
   color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
-  padding-top: 176px; /* Reserve the space for the fixed navbar */
 }
 
 a {
@@ -242,10 +241,6 @@ input::-webkit-input-placeholder {
 
 .navbar-container {
   background-color: #fff;
-  left: 50%;
-  position: fixed;
-  transform: translateX(-50%);
-  top: 0;
   width: 100%;
   z-index: 1;
 }
@@ -259,6 +254,10 @@ input::-webkit-input-placeholder {
 .navbar-right {
   margin: initial auto;
   text-align: center;
+}
+
+.navbar .list-item {
+  padding-top: 0.5rem;
 }
 
 /*----------  Utilities  ----------*/
@@ -277,7 +276,6 @@ input::-webkit-input-placeholder {
    */
 
   body {
-    padding-top: 156px;
   }
 
   /**
@@ -318,9 +316,6 @@ input::-webkit-input-placeholder {
 }
 
 @media (min-width: 768px) {
-  body {
-    padding-top: 100px;
-  }
 }
 
 @media (min-width: 992px) {
