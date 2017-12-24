@@ -14,7 +14,7 @@
  *    $white: #fff
  *    $black: #060606
  *    $grey: #4e4e4e
- *    $crimson: #9C27B0
+ *    $crimson: #C62828
  *    $light-gray: #aaa
  *    $light-light-gray: #d3d3d3 
  *    $light-light-light-gray: #f6f6f6
@@ -57,7 +57,7 @@ body {
 }
 
 a {
-  color: #9C27B0;
+  color: #C62828;
   text-decoration: none;
 }
 
@@ -247,9 +247,9 @@ textarea::-webkit-input-placeholder, input::-webkit-input-placeholder {
 /*----------  Utilities  ----------*/
 /* CSS styles with only one property */
 
-/* Nothing yet */
-
-
+.bold {
+  font-weight: bold;
+}
 
 
 /*----------  Media queries  ----------*/
