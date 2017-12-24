@@ -21,14 +21,14 @@
       <a href="https://goo.gl/maps/vpzLkY5mzd22" class="underl">google maps</a>
     </div>
     <div class="service-photo col half img">
-      <img src="public/images/home/legal.jpg">
+      <img src="public/images/contatti/office.jpg">
       <!-- alt non importante -->
     </div>
   </section>
 
   <section class="service clearfix">
     <div class="service-photo col half img">
-      <img src="public/images/home/agency.jpg">
+      <img src="public/images/contatti/envelop.jpg">
       <!-- alt non importante -->
     </div>
     <div class="service-content col half">
