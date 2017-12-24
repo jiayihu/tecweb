@@ -24,7 +24,7 @@
       </div>
       <ul class="list navbar-right right">
         <li class="list-item">
-          <span class="bold">Dashboard</span>
+          <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
             <li class="list-item">
               <a href="aggiungi-caso">Aggiungi caso</a>
@@ -36,7 +36,8 @@
           <li class="list-item">
             <a href="ricerca">Ricerca</a>
           </li>
-          <li class="list-item">Username
+          <li class="list-item">
+            <span class="dropdown-toggle">Username</span>
             <ul class="submenu">
               <li class="list-item">
                 <a href="impostazioni">Impostazioni</a>

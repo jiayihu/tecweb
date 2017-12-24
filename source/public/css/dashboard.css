@@ -1,5 +1,6 @@
 aside {
   background: #4e4e4e;
+  padding: 1rem;
   position: initial;
   width: 100%;
 }
@@ -20,7 +21,8 @@ aside {
   font-weight: bold;
 }
 
-.case, .case-select {
+.case,
+.case-select {
   display: inline-block;
   margin: 0 0.5rem;
 }
@@ -42,6 +44,10 @@ aside {
   display: inline-block;
 }
 
+.dropdown-toggle {
+  color: #c62828;
+}
+
 input {
   position: absolute;
   opacity: 0;
@@ -49,14 +55,14 @@ input {
 }
 
 input:checked ~ .investigation-content {
-  max-height: fit-content;
+  max-height: 100vh;
 }
 
-input[type=checkbox] + label::after {
-  content: "+";
+input[type='checkbox'] + label::after {
+  content: '+';
 }
 
-input[type=checkbox]:checked + label::after {
+input[type='checkbox']:checked + label::after {
   transform: rotate(315deg);
 }
 
@@ -66,7 +72,7 @@ label {
   display: block;
   font-weight: bold;
   line-height: 3;
-  position: relative; 
+  position: relative;
   padding: 0 0 0 1em;
 }
 
@@ -78,10 +84,10 @@ label::after {
   right: 0;
   text-align: center;
   top: 0;
-  transition: all .35s;
+  transition: all 0.35s;
   width: 3em;
-  -o-transition: all .35s;
-  -webkit-transition: all .35s;
+  -o-transition: all 0.35s;
+  -webkit-transition: all 0.35s;
 }
 
 .list-item ul {
@@ -110,17 +116,16 @@ label::after {
   width: 100%;
 }
 
- label:hover {
+label:hover {
   background-color: #d3d3d3;
 }
 
 .investigation-content {
+  line-height: 1.5;
   max-height: 0;
   padding: 0 0.5rem;
   overflow: hidden;
-  transition: max-height .35s;
-  -o-transition: max-height .35s;
-  -webkit-transition: max-height .35s;
+  transition: max-height 0.35s;
 }
 
 .investigation-content-title {
@@ -129,7 +134,6 @@ label::after {
 
 li {
   margin: 0;
-  padding-top: 0.5rem;
 }
 
 .navbar-container {
@@ -137,7 +141,7 @@ li {
 }
 .menu-case {
   list-style-type: none;
-  padding: 0;
+  padding: 1rem 0;
   margin: 0;
   overflow: scroll;
   white-space: nowrap;
@@ -162,28 +166,25 @@ tbody th {
   text-align: left;
 }
 
-::-webkit-scrollbar {
-  background: transparent;
-  width: 0px;
+.submenu a {
+  color: inherit;
 }
-
 
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {
-
   .btn {
     background-color: #4e4e4e;
     color: white;
     display: block;
     text-align: center;
     max-width: 12rem;
-    margin: 1rem auto; 
+    margin: 1rem auto;
   }
-  
+
   .menu-title {
     color: white;
-    padding-bottom: 1rem; 
+    padding-bottom: 1rem;
     text-align: center;
     padding-top: 1rem;
   }
@@ -198,7 +199,7 @@ tbody th {
   aside {
     bottom: 0;
     float: left;
-    height: calc(100% - 100px);
+    height: calc(100% - 100px); /* Minus navbar menu */
     left: 0;
     padding: 0 1rem;
     position: fixed;
@@ -229,32 +230,29 @@ tbody th {
   .dashboard {
     padding-top: 0;
     margin: 1rem 2rem;
-    width: calc(100% - 25% - 4rem);
+    width: calc(100% - 25% - 4rem); /* Minus aside and ... */
   }
 
   .menu-title {
     border-bottom: 1px solid #fff;
   }
 
-  .case, .case-select {
+  .case,
+  .case-select {
     display: block;
     margin: 1rem 0;
   }
 }
 
-@media (min-width: 992px) {  
+@media (min-width: 992px) {
   .menu-case {
     height: 90%;
-  }
-
-  .btn {
-    height: 7%;
   }
 }
 
 @media (min-width: 1200px) {
   aside {
-    height: calc(100% - 100px);
+    height: calc(100% - 100px); /* Minus navbar menu */
     width: 20%;
   }
 
@@ -263,4 +261,3 @@ tbody th {
     width: calc(100% - 20% - 8rem);
   }
 }
-

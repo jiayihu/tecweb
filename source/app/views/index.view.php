@@ -62,14 +62,14 @@
 
   <section class="method clearfix">
     <h2 class="method-title">Il nostro metodo investigativo</h2>
-    <div class="method-content-not-last"> 
+    <div class="method-content"> 
       <h3 class="method-content-title">#1 Analisi del caso</h3>
       <div class="method-content-image">
           <img src="public/images/home/microscopio.png">
       </div>
       <p class="method-content-text">Nella fase iniziale il cliente trasferirà tutte le informazioni in suo possesso, in maniera tale da permettere ai nostri esperti di valutare la situazione e predisporre l'attività investigativa più idonea al raggiungimento del risultato.</p>
     </div>
-    <div class="method-content-not-last"> 
+    <div class="method-content"> 
         <h3 class="method-content-title">#2 Attività investigativa</h3>
         <div class="method-content-image">
             <img src="public/images/home/lente.png">
