@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <base href="/">
   <title>Studio Sherlock & Watson</title>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -21,7 +20,7 @@
         </a>
       </div>
       <ul class="list navbar-right right">
-        <li class="list-item"><a href="service">Servizi</a></li>
+        <li class="list-item"><a href="servizi">Servizi</a></li>
         <li class="list-item"><a href="casi">Casi di Studio</a></li>
         <li class="list-item"><a href="contatti">Contatti</a></li>
         <li class="list-item"><a href="login">Login</a></li>
