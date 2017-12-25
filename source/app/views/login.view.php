@@ -1,6 +1,10 @@
 <?php require 'partials/public-header.partial.php' ?>
 
 <main class="container">
+  <?php if ($dashboardError) :?>
+    <p class="alert alert-danger"><?php echo $dashboardError; ?></p>
+  <?php endif; ?>
+
   <form id="login" action="/login" method="post">
     <div class="loginbox v-centered">
       <div class="loginbox-field">

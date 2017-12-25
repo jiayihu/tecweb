@@ -11,6 +11,7 @@ require_once 'core/database/Connection.php';
 require_once 'core/database/QueryBuilder.php';
 require_once 'core/Router.php';
 require_once 'core/Request.php';
+require_once 'core/Session.php';
 
 App::bind('config', $config);
 App::bind('pdo', Connection::make(App::get('config')['database']));

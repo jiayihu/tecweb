@@ -1,10 +1,16 @@
 <?php 
 
 namespace App\Controllers;
+use \Core\Request;
 
 require_once 'app/controllers/AuthController.php';
 
 class PagesController {
+  /**
+   * Authentication controller
+   *
+   * @var AuthController
+   */
   private $authController;
 
   public function __construct() {
@@ -43,19 +49,19 @@ class PagesController {
     ]);
   }
 
-  /**
-   * Returns the login page
-   *
-   * @param boolean $loginFailed Whether the load is after a failed login
-   * @return void
-   */
-  public function login(bool $loginFailed = false) {
+  public function login() {
     $name = 'login';
-    $loginError = $loginFailed ? 'Non esiste un utente con questo codice fiscale e password' : null;
+    $loginError = Request::getQueryParam('loginFailed') != null
+      ? 'Non esiste un utente con questo codice fiscale e password'
+      : null;
+    $dashboardError = Request::getQueryParam('notAuthorized') != null
+      ? 'Accedi con le tue credenziali per poter visualizzare l\'area amministrativa.'
+      : null;
 
     return \Core\view('login', [
       'name' => $name,
       'loginError' => $loginError,
+      'dashboardError' => $dashboardError,
     ]);
   }
 
@@ -63,7 +69,7 @@ class PagesController {
     $isAuthenticated = $this->authController->authenticate();
     
     if ($isAuthenticated) \Core\redirect('/dashboard');
-    else $this->login(true);
+    else \Core\redirect('/login?loginFailed=true');
   }
 
   /**
@@ -71,10 +77,17 @@ class PagesController {
    */
 
   public function dashboard() {
+    if (!$this->authController->isAuthenticated()) {
+      \Core\redirect('/login?notAuthorized=true');
+      return;
+    }
+    
     $name = 'dashboard';
+    $user = $this->authController->getUser();
 
     return \Core\view('dashboard', [
-      'name' => $name
+      'name' => $name,
+      'username' => $user->nome . ' ' . $user->cognome
     ]);
   }
 

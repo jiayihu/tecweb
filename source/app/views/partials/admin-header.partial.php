@@ -37,7 +37,7 @@
             <a href="ricerca">Ricerca</a>
           </li>
           <li class="list-item">
-            <span class="dropdown-toggle">Username</span>
+            <span class="dropdown-toggle"><?php echo $username ?></span>
             <ul class="submenu">
               <li class="list-item">
                 <a href="impostazioni">Impostazioni</a>
