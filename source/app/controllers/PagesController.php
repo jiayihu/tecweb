@@ -72,30 +72,34 @@ class PagesController {
     else \Core\redirect('/login?loginFailed=true');
   }
 
+  public function logout() {
+    $this->authController->logout();
+    \Core\redirect('/login');
+  }
+
   /**
    * Administration area
    */
 
   public function dashboard() {
-    if (!$this->authController->isAuthenticated()) {
-      \Core\redirect('/login?notAuthorized=true');
-      return;
-    }
-    
+    $this->protectRoute();
+
     $name = 'dashboard';
-    $user = $this->authController->getUser();
 
     return \Core\view('dashboard', [
       'name' => $name,
-      'username' => $user->nome . ' ' . $user->cognome
+      'username' => $this->getUsername()
     ]);
   }
 
   public function addCase() {
+    $this->protectRoute();
+
     $name = 'aggiungi-caso';
 
     return \Core\view('aggiungi-caso', [
-      'name' => $name
+      'name' => $name,
+      'username' => $this->getUsername()
     ]);
   }
 
@@ -105,5 +109,20 @@ class PagesController {
     return \Core\view('404', [
       'name' => $name
     ]);
+  }
+
+  private function getUsername() {
+    $user = $this->authController->getUser();
+
+    return $user->name . ' ' . $user->surname;
+  }
+
+  private function protectRoute() {
+    if (!$this->authController->isAuthenticated()) {
+      \Core\redirect('/login?notAuthorized=true');
+
+      // Terminate execution
+      exit;
+    }
   }
 }

@@ -42,7 +42,7 @@
               <li class="list-item">
                 <a href="impostazioni">Impostazioni</a>
                 <li class="list-item">
-                  <a href="">Logout</a>
+                  <a href="/logout">Logout</a>
                 </li>
             </ul>
             </li>

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 use \Core\Session;
 
+require_once 'app/models/User.php';
+
 class AuthController {
   /**
    * QueryBuilder instance
@@ -36,6 +38,10 @@ class AuthController {
     return Session::get('user') != null;
   }
 
+  public function logout() {
+    Session::destroy();
+  }
+
   private function checkCredentials($codiceFiscale, $password) {
     $results = $this->database->selectWhere(
       ['codice_fiscale', 'password_hash', 'nome', 'cognome'],
@@ -51,11 +57,7 @@ class AuthController {
 
       if ($isAuthorized) {
         Session::start();
-        Session::set('user', [
-          'codice_fiscale' => $user->codice_fiscale,
-          'nome' => $user->nome,
-          'cognome' => $user->cognome,
-        ]);
+        Session::set('user', new \App\Models\User($user->codice_fiscale, $user->nome, $user->cognome));
       }
 
       return $isAuthorized;

@@ -7,6 +7,7 @@ return [
     'casi' => 'PagesController@casi',
     'contatti' => 'PagesController@contatti',
     'login' => 'PagesController@login',
+    'logout' => 'PagesController@logout',
 
     'dashboard' => 'PagesController@dashboard',
     'aggiungi-caso' => 'PagesController@addCase',

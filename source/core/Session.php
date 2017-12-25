@@ -10,9 +10,15 @@ class Session {
     ]);
   }
 
+  public static function destroy() {
+    self::start();
+    $_SESSION = [];
+    \session_destroy();
+  }
+
   public static function set(string $name, $value) {
     self::start();
-    
+
     $_SESSION[$name] = $value;
   }
 
