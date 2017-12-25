@@ -22,17 +22,15 @@ footer {
   display: block;
   left: calc((100% - 20rem) / 2); /* Minus its width */
   margin: auto;
+  padding: 0 1rem;
   text-align: center;
   width: 20rem;
 }
 
 .loginbox-field {
-  display: block;
-  left: 50%;
   margin: auto;
   padding-top: 2rem;
   text-align: center;
-  width: 80%;
 }
 
 /*----------  Media queries  ----------*/

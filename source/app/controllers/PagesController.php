@@ -2,12 +2,17 @@
 
 namespace App\Controllers;
 
-require_once 'app/controllers/UsersController.php';
+require_once 'app/controllers/AuthController.php';
 
 class PagesController {
+  private $authController;
+
+  public function __construct() {
+    $this->authController = new AuthController();
+  }
+
   public function home() {
     $name = 'home';
-    // $tasks = (new UsersController())->getTasksTemplate();
 
     return \Core\view('index', [
       'name' => $name
@@ -38,12 +43,27 @@ class PagesController {
     ]);
   }
 
-  public function login() {
+  /**
+   * Returns the login page
+   *
+   * @param boolean $loginFailed Whether the load is after a failed login
+   * @return void
+   */
+  public function login(bool $loginFailed = false) {
     $name = 'login';
+    $loginError = $loginFailed ? 'Non esiste un utente con questo codice fiscale e password' : null;
 
     return \Core\view('login', [
-      'name' => $name
+      'name' => $name,
+      'loginError' => $loginError,
     ]);
+  }
+
+  public function loginPOST() {
+    $isAuthenticated = $this->authController->authenticate();
+    
+    if ($isAuthenticated) \Core\redirect('/dashboard');
+    else $this->login(true);
   }
 
   /**

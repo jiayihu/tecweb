@@ -10,15 +10,26 @@ require_once 'app/models/Task.php';
  */
 
 class UsersController {
+  /**
+   * QueryBuilder instance
+   * 
+   * @var \Core\Database\QueryBuilder
+   */
+  private $database;
+
+  public function __construct() {
+    $this->database = \Core\App::get('database');
+  }
+
   public function index() {
-    $tasks = $this->fetchAllTasks(App::get('database'));
+    $tasks = $this->fetchAllTasks();
     $tasks[0]->complete();
     
     return \Core\view('tasks', ['tasks' => $tasks]);
   }
 
   public function getTasksTemplate() {
-    $tasks = $this->fetchAllTasks(\Core\App::get('database'));
+    $tasks = $this->fetchAllTasks();
     $tasks[0]->complete();
     
     \ob_start();
@@ -28,8 +39,8 @@ class UsersController {
     return $template;
   }
 
-  private function fetchAllTasks($database) {
-    $results = $database->selectAll('todos');
+  private function fetchAllTasks() {
+    $results = $this->database->selectAll('todos');
     
     $tasks = \array_map(function($result) {
       return new Task($result->description);

@@ -18,13 +18,21 @@ class QueryBuilder {
     return $results;
   }
 
+  public function selectWhere($columns, $table, $where, $parameters) {
+    $query = \sprintf('select %s from %s where %s;', \implode(', ', $columns), $table, $where);
+    $statement = $this->pdo->prepare($query);
+    $statement->execute($parameters);
+    
+    return $statement->fetchAll(\PDO::FETCH_OBJ); 
+  }
+
   public function insert($table, $parameters) {
     $columns = \implode(', ', array_keys($parameters));
     $placeholders = \implode(
       ', ',
       \array_map(function ($key) { return ":{$key}"; }, \array_keys($parameters))
     );
-    $query = printf('insert into %s (%s) values (%s)', $table, $placeholders);
+    $query = \sprintf('insert into %s (%s) values (%s)', $table, $placeholders);
 
     $statement = $this->pdo->prepare($sql);
     $statement->execute($parameters);
