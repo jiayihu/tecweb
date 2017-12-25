@@ -15,6 +15,7 @@
  *    $black: #060606
  *    $grey: #4e4e4e
  *    $crimson: #C62828
+ *    $sky: #8BC34A
  *    $light-gray: #aaa
  *    $light-light-gray: #d3d3d3 
  *    $light-light-light-gray: #f6f6f6
@@ -138,10 +139,33 @@ input::-webkit-input-placeholder {
 .alert {
   color: white;
   padding: 1rem;
+  position: relative;
 }
 
 .alert-danger {
   background-color: #c62828;
+}
+
+.alert-info {
+  background-color: #8bc34a;
+}
+
+.alert-checkbox {
+  display: none;
+}
+
+.alert-checkbox:checked + .alert {
+  display: none;
+}
+
+.alert-close {
+  background-color: #0000;
+  font-size: 1.25em;
+  line-height: 1;
+  padding: 0.5rem;
+  position: absolute;
+  right: 0;
+  top: -0.25em;
 }
 
 .btn {

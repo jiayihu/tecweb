@@ -9,7 +9,8 @@ class Request {
    * @return void
    */
   public static function uri() {
-    return \trim($_SERVER['PATH_INFO'], '/');
+    $path = empty($_SERVER['PATH_INFO']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PATH_INFO'];
+    return \trim($path, '/');
   }
 
   /**

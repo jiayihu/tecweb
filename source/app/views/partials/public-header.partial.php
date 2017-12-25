@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="public/css/external/normalize.css" rel="stylesheet">  
   <link href="public/css/common.css" rel="stylesheet">  
-  <link href="public/css/<?php echo $name ?>.css" rel="stylesheet">  
+  <link href="public/css/<?php echo $routeName ?>.css" rel="stylesheet">  
 </head>
 <body>
   <header class="navbar-container">

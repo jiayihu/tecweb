@@ -16,6 +16,17 @@
   </aside>
 
   <section class="dashboard">
+    <?php if ($autoLogin) :?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-info">
+        <!-- Stile rotto dal CSS delle labels del dropdown -->
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Sei stato automaticamente rimandato all'area amministrativa.
+      </p>
+    <?php endif; ?>
+
     <p class="case-info">
       <span class="bold">Risolto: </span>no
       <br>

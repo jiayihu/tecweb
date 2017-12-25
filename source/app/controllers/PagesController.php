@@ -18,48 +18,49 @@ class PagesController {
   }
 
   public function home() {
-    $name = 'home';
+    $routeName = 'home';
 
     return \Core\view('index', [
-      'name' => $name
+      'routeName' => $routeName
     ]);
   }
 
   public function servizi() {
-    $name = 'servizi';
+    $routeName = 'servizi';
 
     return \Core\view('servizi', [
-      'name' => $name
+      'routeName' => $routeName
     ]);
   }
 
   public function casi() {
-    $name = 'casi';
+    $routeName = 'casi';
 
     return \Core\view('casi', [
-      'name' => $name
+      'routeName' => $routeName
     ]);
   }
 
   public function contatti() {
-    $name = 'contatti';
+    $routeName = 'contatti';
 
     return \Core\view('contatti', [
-      'name' => $name
+      'routeName' => $routeName
     ]);
   }
 
   public function login() {
-    $name = 'login';
-    $loginError = Request::getQueryParam('loginFailed') != null
-      ? 'Non esiste un utente con questo codice fiscale e password'
-      : null;
-    $dashboardError = Request::getQueryParam('notAuthorized') != null
-      ? 'Accedi con le tue credenziali per poter visualizzare l\'area amministrativa.'
-      : null;
+    if ($this->authController->isAuthenticated()) {
+      \Core\redirect('/dashboard?autoLogin=true');
+      return;
+    }
+
+    $routeName = 'login';
+    $loginError = Request::getQueryParam('loginFailed') != null;
+    $dashboardError = Request::getQueryParam('notAuthorized') != null;
 
     return \Core\view('login', [
-      'name' => $name,
+      'routeName' => $routeName,
       'loginError' => $loginError,
       'dashboardError' => $dashboardError,
     ]);
@@ -84,10 +85,12 @@ class PagesController {
   public function dashboard() {
     $this->protectRoute();
 
-    $name = 'dashboard';
+    $routeName = 'dashboard';
+    $autoLogin = Request::getQueryParam('autoLogin') != null;
 
     return \Core\view('dashboard', [
-      'name' => $name,
+      'routeName' => $routeName,
+      'autoLogin' => $autoLogin,
       'username' => $this->getUsername()
     ]);
   }
@@ -95,19 +98,19 @@ class PagesController {
   public function addCase() {
     $this->protectRoute();
 
-    $name = 'aggiungi-caso';
+    $routeName = 'aggiungi-caso';
 
     return \Core\view('aggiungi-caso', [
-      'name' => $name,
+      'routeName' => $routeName,
       'username' => $this->getUsername()
     ]);
   }
 
   public function notFound() {
-    $name = '404';
+    $routeName = '404';
 
     return \Core\view('404', [
-      'name' => $name
+      'routeName' => $routeName
     ]);
   }
 
