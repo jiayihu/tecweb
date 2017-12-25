@@ -3,7 +3,13 @@
 namespace Core\Database;
 
 class Connection {
-  public static function make($config) {
+  /**
+   * Returns the PDO instance to make better and safer database requests 
+   *
+   * @param array $config Environment configuration with private credentials
+   * @return void
+   */
+  public static function make(array $config) {
     try {
       return new \PDO(
         "mysql:host={$config['hostdb']};dbname={$config['name']}",

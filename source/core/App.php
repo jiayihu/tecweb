@@ -2,6 +2,9 @@
 
 namespace Core;
 
+/**
+ * Container of application globally needed variables like database
+ */
 class App {
   private static $registry = [];
 

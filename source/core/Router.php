@@ -8,30 +8,57 @@ class Router {
     'POST' => []
   ];
 
-  public static function load($file) {
+  /**
+   * Loads the routes configuration from a file
+   *
+   * @param string $file Path of the routes file
+   * @return void
+   */
+  public static function load(string $file) {
     $routes = require $file;
     $router = new self($routes);
 
     return $router;
   }
 
-  public function __construct($routes) {
+  public function __construct(array $routes) {
     $this->parseRoutes($routes);
   }
 
-  public function define($routes) {
+  public function define(array $routes) {
     $this->parseRoutes($routes);
   }
 
-  public function get($uri, $controller) {
+  /**
+   * Adds a route for a GET request
+   *
+   * @param string $uri
+   * @param string $controller
+   * @return void
+   */
+  public function get(string $uri, string $controller) {
     $this->routes['GET'][$uri] = $controller;
   }
 
-  public function post($uri, $controller) {
+  /**
+   * Adds a route for a POST request
+   *
+   * @param string $uri
+   * @param string $controller
+   * @return void
+   */
+  public function post(string $uri, string $controller) {
     $this->routes['POST'][$uri] = $controller;
   }
 
-  public function direct($uri, $method) {
+  /**
+   * Handles a request to a route
+   *
+   * @param string $uri
+   * @param string $method
+   * @return void
+   */
+  public function direct(string $uri, string $method) {
     $route = [];
 
     if (array_key_exists($method, $this->routes) && array_key_exists($uri, $this->routes[$method])) {
@@ -46,7 +73,15 @@ class Router {
     return $this->callAction($controller, $action);
   }
 
-  private function callAction($controller, $action) {
+  /**
+   * Calls the appropriate method of route Controller as specified in the 
+   * configuration
+   *
+   * @param string $controller
+   * @param string $action
+   * @return void
+   */
+  private function callAction(string $controller, string $action) {
     require_once "app/controllers/{$controller}.php";
 
     $name = "App\\Controllers\\{$controller}";
@@ -59,7 +94,7 @@ class Router {
     return $instance->$action();
   }
 
-  private function parseRoutes($routes) {
+  private function parseRoutes(array $routes) {
     if (\array_key_exists('GET', $routes)) {
       foreach ($routes['GET'] as $uri => $controller) {
         $this->get($uri, $controller);

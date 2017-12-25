@@ -23,12 +23,27 @@ function json(array $data, array $errors = null) {
   echo json_encode($response);
 }
 
-function view($filename, $data = []) {
+/**
+ * Returns the HTML template to the client
+ *
+ * @param string $filename The name of the file
+ * @param array $data Associative array of variables used in the template
+ * @return void
+ */
+function view(string $filename, array $data = []) {
   extract($data);
   
   return require_once "app/views/{$filename}.view.php";
 }
 
-function redirect($path) {
+/**
+ * Redirects the client to a page
+ *
+ * @param string $path
+ * @return void
+ * 
+ * @example `redirect('/login')` Redirect to login page
+ */
+function redirect(string $path) {
   header("Location: {$path}");
 }

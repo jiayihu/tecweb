@@ -2,10 +2,6 @@
 
 namespace App\Controllers;
 
-/**
- * Old: da aggiornare per il progetto Tecweb
- */
-
 class AuthController {
   /**
    * QueryBuilder instance
