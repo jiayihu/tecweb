@@ -87,11 +87,17 @@ class PagesController {
 
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') != null;
+    $caseId = Request::getQueryParam('caso');
+    $investigations = [null, null, null, null, null];
+    $investigationId = Request::getQueryParam('investigazione');
 
     return \Core\view('dashboard', [
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
-      'username' => $this->getUsername()
+      'username' => $this->getUsername(),
+      'caseId' => $caseId,
+      'investigations' => $investigations,
+      'investigationId' => $investigationId,
     ]);
   }
 
@@ -106,7 +112,7 @@ class PagesController {
     ]);
   }
 
-  public function search() {
+  public function ricerca() {
     $this->protectRoute();
 
     $routeName = 'ricerca';
@@ -115,6 +121,23 @@ class PagesController {
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'query' => 'someQuery'
+    ]);
+  }
+
+  public function caso() {
+    $this->protectRoute();
+
+    $routeName = 'caso';
+    $caseId = Request::getQueryParam('caso');
+    $investigations = [null, null, null, null, null];
+    $investigationId = (int) Request::getQueryParam('investigazione');
+
+    return \Core\view('caso', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'caseId' => $caseId,
+      'investigations' => $investigations,
+      'investigationId' => $investigationId,
     ]);
   }
 

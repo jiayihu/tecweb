@@ -108,6 +108,10 @@ input[type='radio'] {
   margin-right: 0.5rem;
 }
 
+input[type='date'] {
+  width: 100%;
+}
+
 textarea {
   border: 1px solid #d3d3d3;
   color: #4e4e4e;
@@ -142,6 +146,16 @@ td {
   border-spacing: 0;
   padding: 0.5rem;
   text-align: left;
+}
+
+dt {
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+dd {
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 /*----------  Layout  ----------*/
@@ -264,10 +278,12 @@ td {
 
 .input-label {
   display: block;
+  margin-bottom: 0.25rem;
 }
 
 .radio-label {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .radio-label:not(:last-child) {
@@ -290,7 +306,7 @@ td {
 
 .list-item:not(:last-child),
 .list-item-select:not(:last-child) {
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 
 .page-title {
@@ -300,38 +316,6 @@ td {
 }
 
 /*----------  Page common sections  ----------*/
-
-.intro {
-  background-color: #060606;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  color: #fff;
-  height: 80vh;
-  padding: 2rem 0;
-}
-
-.intro .container {
-  height: 100%;
-}
-
-.intro-name {
-  background-color: rgba(0, 0, 0, 0.4);
-  font-size: 4rem;
-  margin: 0;
-  max-width: 40rem;
-}
-
-.intro-name a {
-  color: inherit;
-}
-
-.footer {
-  background-color: #060606;
-  color: #fff;
-  font-size: 0.875rem;
-  padding: 2rem 0;
-}
 
 .logo-img {
   height: 4rem;
@@ -370,11 +354,47 @@ td {
   padding-top: 0.25rem;
 }
 
+.intro {
+  background-color: #060606;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  height: 80vh;
+  padding: 2rem 0;
+}
+
+.intro .container {
+  height: 100%;
+}
+
+.intro-name {
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 4rem;
+  margin: 0;
+  max-width: 40rem;
+}
+
+.intro-name a {
+  color: inherit;
+}
+
+.footer {
+  background-color: #060606;
+  color: #fff;
+  font-size: 0.875rem;
+  padding: 2rem 0;
+}
+
 /*----------  Utilities  ----------*/
 /* CSS styles with only one property */
 
 .bold {
   font-weight: bold;
+}
+
+.center {
+  text-align: center;
 }
 
 .sr-only {

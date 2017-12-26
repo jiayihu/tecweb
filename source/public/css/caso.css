@@ -1,3 +1,5 @@
+@import url('partials/investigation.css');
+
 .page-ricerca .col {
   float: none;
   width: 100%;
@@ -10,11 +12,6 @@ h2 {
   text-align: left;
 }
 
-.input-type[value='investigation']:checked ~ .case-fields,
-.input-type[value='case']:checked ~ .investigation-fields {
-  display: none;
-}
-
 .tag-label {
   background-color: #f6f6f6;
   border-radius: 3px;
@@ -24,22 +21,9 @@ h2 {
   padding: 0.5rem;
 }
 
-.tag input:checked + .tag-label {
-  border-left: 3px solid #c62828;
-}
-
-.btn-primary {
-  display: block;
-  margin: 0 auto;
-}
-
-.results-cases td:nth-child(2) {
-  width: 10rem;
-}
-
 .status {
   border-radius: 50%;
-  display: block;
+  display: inline-block;
   height: 0.875rem;
   margin: 0 auto;
   width: 0.875rem;
@@ -57,14 +41,6 @@ h2 {
   background: #c62828;
 }
 
-.results-investigations td:nth-child(1) {
-  width: 10rem;
-}
-.results-investigations td:nth-child(2) {
-  font-size: 0.875em;
-  width: 6rem;
-}
-
 @media (min-width: 992px) {
   .page-ricerca .col {
     float: left;
@@ -76,11 +52,6 @@ h2 {
 
   .col.three-fourth {
     width: 75%;
-  }
-
-  .tags .list-item {
-    display: block;
-    margin-right: 0 !important;
   }
 
   .content {

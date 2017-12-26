@@ -11,7 +11,8 @@ return [
 
     'dashboard' => 'PagesController@dashboard',
     'aggiungi-caso' => 'PagesController@addCase',
-    'ricerca' => 'PagesController@search',
+    'ricerca' => 'PagesController@ricerca',
+    'caso' => 'PagesController@caso',
 
     '404' => 'PagesController@notFound'
   ],
