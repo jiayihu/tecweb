@@ -42,7 +42,7 @@
     </p>
   </aside>
   <section class="content col three-fourth">
-    <h2>Investigazioni</h2>
+    <h2>Investigazioni del caso</h2>
 
     <?php foreach ($investigations as $index => $investigation) : ?>
       <?php require 'partials/investigation.partial.php' ?>
