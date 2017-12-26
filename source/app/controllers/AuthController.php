@@ -4,6 +4,7 @@ namespace App\Controllers;
 use \Core\Session;
 
 require_once 'app/models/User.php';
+require_once 'app/models/Investigatore.php';
 
 class AuthController {
   /**
@@ -57,7 +58,7 @@ class AuthController {
 
       if ($isAuthorized) {
         Session::start();
-        Session::set('user', new \App\Models\User($user->codice_fiscale, $user->nome, $user->cognome));
+        Session::set('user', new \App\Models\Investigatore($user->codice_fiscale, $user->nome, $user->cognome));
       }
 
       return $isAuthorized;
