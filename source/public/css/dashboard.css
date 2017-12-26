@@ -197,7 +197,7 @@ tbody th {
   aside {
     bottom: 0;
     float: left;
-    height: calc(100% - 100px); /* Minus navbar menu */
+    height: calc(100% - 68px); /* Minus navbar menu */
     left: 0;
     padding: 0 1rem;
     position: fixed;
@@ -250,7 +250,7 @@ tbody th {
 
 @media (min-width: 1200px) {
   aside {
-    height: calc(100% - 100px); /* Minus navbar menu */
+    height: calc(100% - 68px); /* Minus navbar menu */
     width: 20%;
   }
 
