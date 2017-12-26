@@ -15,15 +15,23 @@
   <header class="navbar-container">
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a href="/" title="Go back to home">
+        <a class="home-link" href="/" title="Go back to home">
           <img class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
         </a>
       </div>
       <ul class="list navbar-right right">
-        <li class="list-item"><a href="servizi">Servizi</a></li>
-        <li class="list-item"><a href="casi">Casi di Studio</a></li>
-        <li class="list-item"><a href="contatti">Contatti</a></li>
-        <li class="list-item"><a href="login">Login</a></li>
+        <li class="list-item">
+          <a class="<?php echo $routeName == 'servizi' ? 'active' : '' ?>" href="servizi">Servizi</a>
+        </li>
+        <li class="list-item">
+          <a class="<?php echo $routeName == 'casi' ? 'active' : '' ?>" href="casi">Casi di Studio</a>
+        </li>
+        <li class="list-item">
+          <a class="<?php echo $routeName == 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
+        </li>
+        <li class="list-item">
+          <a class="<?php echo $routeName == 'login' ? 'active' : '' ?>" href="login">Login</a>
+        </li>
       </ul>
     </div>
   </header>

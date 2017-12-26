@@ -20,6 +20,10 @@
   padding: 1rem;
 }
 
+.service li {
+  line-height: 1.5;
+}
+
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {

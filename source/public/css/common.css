@@ -345,12 +345,24 @@ td {
 
 .navbar {
   font-size: 1.15rem;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
+}
+
+.navbar a {
+  border-bottom: 2px solid transparent;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.4s ease-out;
+}
+
+.navbar-right a:hover,
+.navbar-right a.active {
+  border-bottom: 2px solid #c62828;
 }
 
 .navbar-left,
 .navbar-right {
-  margin: initial auto;
   text-align: center;
 }
 
@@ -431,9 +443,6 @@ td {
 }
 
 @media (min-width: 768px) {
-  .container {
-    padding: 0;
-  }
 }
 
 @media (min-width: 992px) {

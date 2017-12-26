@@ -34,7 +34,7 @@
           </ul>
           </li>
           <li class="list-item">
-            <a href="ricerca">Ricerca</a>
+            <a class="<?php echo $routeName == 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
           </li>
           <li class="list-item">
             <span class="dropdown-toggle"><?php echo $username ?></span>
