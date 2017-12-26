@@ -3,14 +3,14 @@
 namespace App\Models;
 
 class User {
-  public $name;
-  public $surname;
+  public $nome;
+  public $cognome;
 
-  private $ssn;
+  private $codice_fiscale;
 
-  public function __construct(string $ssn, string $name, string $surname) {
-    $this->ssn = $ssn;
-    $this->name = $name;
-    $this->surname = $surname;
+  public function __construct(string $codice_fiscale, string $nome, string $cognome) {
+    $this->codice_fiscale = $codice_fiscale;
+    $this->nome = $nome;
+    $this->cognome = $cognome;
   }
 }

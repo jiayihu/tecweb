@@ -3,7 +3,7 @@
 <main class="container">
   <?php if ($dashboardError) :?>
     <p class="alert alert-danger">
-      Accedi con le tue credenziali per poter visualizzare l\'area amministrativa.
+      Accedi con le tue credenziali per poter visualizzare l'area amministrativa.
     </p>
   <?php endif; ?>
 

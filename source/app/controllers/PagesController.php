@@ -117,7 +117,7 @@ class PagesController {
   private function getUsername() {
     $user = $this->authController->getUser();
 
-    return $user->name . ' ' . $user->surname;
+    return $user->nome . ' ' . $user->cognome;
   }
 
   private function protectRoute() {
