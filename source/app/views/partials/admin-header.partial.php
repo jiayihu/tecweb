@@ -7,13 +7,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Studio Sherlock & Watson</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="public/css/external/normalize.css" rel="stylesheet">
   <link href="public/css/common.css" rel="stylesheet">
   <link href="public/css/<?php echo $routeName ?>.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="page-<?php echo $routeName ?>">
   <header id="top" class="navbar-container">
     <div class="navbar container clearfix">
       <div class="navbar-left left">

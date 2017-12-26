@@ -106,6 +106,18 @@ class PagesController {
     ]);
   }
 
+  public function search() {
+    $this->protectRoute();
+
+    $routeName = 'ricerca';
+
+    return \Core\view('ricerca', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'query' => 'someQuery'
+    ]);
+  }
+
   public function notFound() {
     $routeName = '404';
 

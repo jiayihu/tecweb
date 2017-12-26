@@ -15,7 +15,8 @@
  *    $black: #060606
  *    $grey: #4e4e4e
  *    $crimson: #C62828
- *    $sky: #8BC34A
+ *    $green: #8BC34A
+ *    $sky: #03a9f4
  *    $light-gray: #aaa
  *    $light-light-gray: #d3d3d3 
  *    $light-light-light-gray: #f6f6f6
@@ -81,14 +82,30 @@ img {
   max-width: 100%;
 }
 
+label {
+  cursor: pointer;
+}
+
 input {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #d3d3d3;
   color: #4e4e4e;
   padding-bottom: 0.5rem;
-  position: relative;
+}
+
+select {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d3d3d3;
+  color: #4e4e4e;
+  height: 2.5rem;
+  padding: 1rem;
   width: 100%;
+}
+
+input[type='radio'] {
+  margin-right: 0.5rem;
 }
 
 textarea {
@@ -106,6 +123,25 @@ textarea:focus {
 textarea::-webkit-input-placeholder,
 input::-webkit-input-placeholder {
   color: #aaa;
+  font-size: 0.875rem;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+th {
+  border-top: 1px solid #d3d3d3;
+  font-weight: 700;
+}
+
+th,
+td {
+  border-bottom: 1px solid #d3d3d3;
+  border-spacing: 0;
+  padding: 0.5rem;
+  text-align: left;
 }
 
 /*----------  Layout  ----------*/
@@ -174,19 +210,36 @@ input::-webkit-input-placeholder {
   color: inherit;
   cursor: pointer;
   display: inline-block;
+  transition: all 0.4s ease-out;
 }
 
 .btn-outline {
   padding: 0.875rem 3rem;
   border: 2px solid currentColor;
-  transition: all 0.4s ease-out;
 }
 
 .btn-outline:hover {
   background-color: #060606;
   color: #fff;
   text-decoration: none;
-  transform: translateX(1rem);
+  transform: translate(1rem, 0);
+}
+
+.btn-primary {
+  background-color: #060606;
+  border: 2px solid #060606;
+  color: #fff;
+  padding: 0.875rem 3rem;
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  border-color: currentColor;
+  color: #060606;
+}
+
+.input {
+  width: 100%;
 }
 
 .input:focus {
@@ -207,6 +260,18 @@ input::-webkit-input-placeholder {
   width: 100%;
   transform: scale(0, 1);
   transition: all 0.2s linear;
+}
+
+.input-label {
+  display: block;
+}
+
+.radio-label {
+  display: inline-block;
+}
+
+.radio-label:not(:last-child) {
+  margin-right: 1rem;
 }
 
 .list {
@@ -300,6 +365,15 @@ input::-webkit-input-placeholder {
   font-weight: bold;
 }
 
+.sr-only {
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /*----------  Media queries  ----------*/
 /* CSS styles based on the screen size */
 
@@ -335,6 +409,14 @@ input::-webkit-input-placeholder {
     width: 66.6666%;
   }
 
+  .col.one-fourth {
+    width: 25%;
+  }
+
+  .col.three-fourth {
+    width: 75%;
+  }
+
   .navbar-left {
     text-align: left;
   }
@@ -349,6 +431,9 @@ input::-webkit-input-placeholder {
 }
 
 @media (min-width: 768px) {
+  .container {
+    padding: 0;
+  }
 }
 
 @media (min-width: 992px) {
