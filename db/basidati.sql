@@ -2,9 +2,16 @@
   * L'ordine è importante a causa delle chiavi esterne. Non si può droppare una
   * tabella se prima non si droppano quelle relazionate come FOREIGN KEY
  */
-DROP TABLE IF EXISTS amministratore_aziendale, cittadino, collaborazione, etichettamento, fattura, ispettore, lavoro, prova, risoluzione, scena_investigazione, tag, telefono;
+DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, collaborazione, etichettamento, fattura, ispettore, lavoro, prova, risoluzione, scena_investigazione, tag, telefono;
 DROP TABLE IF EXISTS collaboratore, criminale, investigatore, investigazione;
 DROP TABLE IF EXISTS caso, cliente, luogo, tariffa;
+
+CREATE TABLE amministratore (
+  codice_fiscale VARCHAR(16) PRIMARY KEY,
+  password_hash VARCHAR(256) NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  cognome VARCHAR(100) NOT NULL
+);
 
 CREATE TABLE tariffa (
   tipologia_caso VARCHAR(50) PRIMARY KEY,
@@ -176,6 +183,23 @@ CREATE TABLE collaborazione (
   FOREIGN KEY (collaboratore) REFERENCES collaboratore(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('YRWNCB73I96G468M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patrick', 'Gonzalez');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('QYOFKD67M46O619X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Arnold');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('SQDMIH91E22G439U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Brooks');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('EACOSZ97O58M305T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Edward', 'Walker');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('ZJPRNW27Q98E957V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Palmer');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('HLAKWZ42Y64H379U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Banks');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('ONPXJH44H09A891B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Diane', 'Frazier');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('IPOCLN85C04P396D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gregory', 'Murray');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('QDTBJN76I47W472G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Evans');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('TKINRX34C13C023K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jose', 'Olson');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('HCISDQ80Q69W849I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'George', 'Griffin');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('BQDMRS64X79K409E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harold', 'Reed');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('JQHNFZ56A46J754B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Sanchez');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('CKVRDJ25B52N184K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jimmy', 'Edwards');
+insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('TIQYOM49D23J164Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Samuel', 'Nelson');
+
 INSERT INTO tariffa(tipologia_caso, prezzo)
 VALUES 
 ('ricerca', 40),
