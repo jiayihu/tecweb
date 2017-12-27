@@ -1,22 +1,16 @@
-.investigation input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
+.accordion-input:checked ~ .investigation-content {
+  max-height: 200vh;
 }
 
-.investigation input:checked ~ .investigation-content {
-  max-height: 100vh;
-}
-
-.investigation input[type='checkbox'] + label::after {
+.accordion-input + label::after {
   content: '+';
 }
 
-.investigation input[type='checkbox']:checked + label::after {
+.accordion-input:checked + label::after {
   transform: rotate(315deg);
 }
 
-.investigation label {
+.accordion-label {
   background-color: #f6f6f6;
   cursor: pointer;
   display: block;

@@ -87,17 +87,16 @@ class PagesController {
 
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
-    $caseId = Request::getQueryParam('caso');
     $investigations = [null, null, null, null, null];
-    $investigationId = Request::getQueryParam('investigazione');
 
     return \Core\view('dashboard', [
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
       'username' => $this->getUsername(),
-      'caseId' => $caseId,
+      'caseId' => null,
       'investigations' => $investigations,
-      'investigationId' => $investigationId,
+      'investigationId' => null,
+      'isEdit' => false,
     ]);
   }
 
