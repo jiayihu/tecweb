@@ -87,11 +87,13 @@ class PagesController {
 
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
+    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;
     $investigations = [null, null, null, null, null];
 
     return \Core\view('dashboard', [
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
+      'notAuthorized' => $notAuthorized,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
       'caseId' => null,
@@ -148,6 +150,23 @@ class PagesController {
       'investigations' => $investigations,
       'investigationId' => $investigationId,
       'isEdit' => $isEdit,
+    ]);
+  }
+
+  public function utenti() {
+    $this->protectRoute();
+
+    $routeName = 'utenti';
+    $role = $this->authController->getUserRole();
+
+    if ($role !== 'admin') {
+      return \Core\redirect("/dashboard?permessoNegato=true");
+    }
+
+    return \Core\view('utenti', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'role' => $role
     ]);
   }
 

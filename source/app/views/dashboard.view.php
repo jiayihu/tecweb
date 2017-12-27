@@ -22,11 +22,20 @@
     <?php if ($autoLogin) :?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-info">
-        <!-- Stile rotto dal CSS delle labels del dropdown -->
         <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Sei stato automaticamente rimandato all'area amministrativa.
+      </p>
+    <?php endif; ?>
+
+    <?php if ($notAuthorized) :?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-danger">
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Non hai i permessi per accedere alla pagina. Sei stato rimandato alla pagina iniziale.
       </p>
     <?php endif; ?>
 

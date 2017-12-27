@@ -155,6 +155,7 @@ input::-webkit-input-placeholder {
 table {
   border-collapse: collapse;
   margin-top: 2rem;
+  width: 100%;
 }
 
 th {
@@ -588,6 +589,7 @@ dd {
   .main-container {
     display: table;
     height: 90vh;
+    width: 100%;
   }
 
   .main-sidebar {

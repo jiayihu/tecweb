@@ -40,6 +40,11 @@
         <li class="list-item">
           <a class="navbar-link <?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
         </li>
+        <?php if ($role === 'admin'): ?>
+        <li class="list-item">
+          <a class="navbar-link <?php echo $routeName === 'utenti' ? 'active' : '' ?>" href="utenti">Utenti</a>
+        </li>
+        <?php endif; ?>
         <li class="list-item dropdown dropdown-right">
           <span class="dropdown-toggle"><?php echo $username ?></span>
           <ul class="submenu">

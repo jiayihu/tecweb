@@ -13,6 +13,7 @@ return [
     'aggiungi-caso' => 'PagesController@addCase',
     'ricerca' => 'PagesController@ricerca',
     'caso' => 'PagesController@caso',
+    'utenti' => 'PagesController@utenti',
 
     '404' => 'PagesController@notFound'
   ],

@@ -25,32 +25,33 @@
         <dd><input class="input" type="text" name="criminale" value="AMGSOU02T42U148D"></dd>
         <dt>Tag</dt>
         <dd>
-        <ul class="tags list">
-          <li class="list-item">
-            <label class="tag">
-              <input hidden type="checkbox" name="tags" value="annegamento" />
-              <span class="tag-label">Annegamento</span>
-            </label>
-          </li>
-          <li class="list-item">
-            <label class="tag">
-              <input hidden type="checkbox" name="tags" value="cellulare" />
-              <span class="tag-label">Cellulare</span>
-            </label>
-          </li>
-          <li class="list-item">
-            <label class="tag">
-              <input hidden type="checkbox" name="tags" value="sparatoia" />
-              <span class="tag-label">Sparatoia</span>
-            </label>
-          </li>
-          <li class="list-item">
-            <label class="tag">
-              <input hidden type="checkbox" name="tags" value="terrorismo" />
-              <span class="tag-label">Terrorismo</span>
-            </label>
-          </li>
-        </ul>
+          <ul class="tags list">
+            <li class="list-item">
+              <label class="tag">
+                <input hidden type="checkbox" name="tags" value="annegamento" />
+                <span class="tag-label">Annegamento</span>
+              </label>
+            </li>
+            <li class="list-item">
+              <label class="tag">
+                <input hidden type="checkbox" name="tags" value="cellulare" />
+                <span class="tag-label">Cellulare</span>
+              </label>
+            </li>
+            <li class="list-item">
+              <label class="tag">
+                <input hidden type="checkbox" name="tags" value="sparatoia" />
+                <span class="tag-label">Sparatoia</span>
+              </label>
+            </li>
+            <li class="list-item">
+              <label class="tag">
+                <input hidden type="checkbox" name="tags" value="terrorismo" />
+                <span class="tag-label">Terrorismo</span>
+              </label>
+            </li>
+          </ul>
+        </dd>
       </dl>
       <hr />
       <p class="center">
