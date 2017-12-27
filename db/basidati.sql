@@ -2,9 +2,9 @@
   * L'ordine è importante a causa delle chiavi esterne. Non si può droppare una
   * tabella se prima non si droppano quelle relazionate come FOREIGN KEY
  */
-DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, collaborazione, etichettamento, fattura, ispettore, lavoro, prova, risoluzione, scena_investigazione, tag, telefono;
-DROP TABLE IF EXISTS collaboratore, criminale, investigatore, investigazione;
-DROP TABLE IF EXISTS caso, cliente, luogo, tariffa;
+DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, etichettamento, ispettore, lavoro, prova, risoluzione, scena_investigazione, tag;
+DROP TABLE IF EXISTS criminale, investigatore, investigazione;
+DROP TABLE IF EXISTS caso, cliente, tariffa;
 
 CREATE TABLE amministratore (
   codice_fiscale VARCHAR(16) PRIMARY KEY,
@@ -24,20 +24,13 @@ CREATE TABLE tag (
   descrizione VARCHAR(100)
 );
 
-CREATE TABLE luogo (
-  citta VARCHAR(100),
-  indirizzo VARCHAR(100),
-  PRIMARY KEY (citta, indirizzo)
-);
-
 CREATE TABLE cliente (
   codice_fiscale VARCHAR(16) PRIMARY KEY,
 	password_hash VARCHAR(256) NOT NULL,
   nome VARCHAR(100) NOT NULL,
   cognome VARCHAR(100) NOT NULL,
-  citta_fatturazione VARCHAR(100) NOT NULL,
-  indirizzo_fatturazione VARCHAR(100) NOT NULL,
-  FOREIGN KEY (citta_fatturazione, indirizzo_fatturazione) REFERENCES luogo(citta, indirizzo) ON DELETE NO ACTION ON UPDATE CASCADE
+  citta VARCHAR(100) NOT NULL,
+  indirizzo VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE caso (
@@ -71,7 +64,6 @@ CREATE TABLE scena_investigazione (
   indirizzo VARCHAR(100),
   investigazione TINYINT,
   caso INTEGER(10),
-  FOREIGN KEY (citta, indirizzo) REFERENCES luogo(citta, indirizzo) ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -81,25 +73,6 @@ CREATE TABLE etichettamento (
   PRIMARY KEY (caso, tag),
   FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE NO ACTION ON UPDATE CASCADE,
   FOREIGN KEY (tag) REFERENCES tag(slug) ON DELETE NO ACTION ON UPDATE CASCADE
-);
-
-CREATE TABLE fattura (
-  numero INTEGER(10) auto_increment,
-  data_fattura DATE NOT NULL,
-  descrizione VARCHAR(500) NOT NULL,
-  importo FLOAT(12,2) NOT NULL,
-  cliente VARCHAR(16) NOT NULL,
-  investigazione TINYINT NOT NULL,
-  caso INTEGER(10) NOT NULL,
-  PRIMARY KEY (numero, data_fattura),
-  FOREIGN KEY (cliente) REFERENCES cliente(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
-);
-
-CREATE TABLE telefono (
-  numero VARCHAR(25) PRIMARY KEY,
-  cliente VARCHAR(16) NOT NULL,
-  FOREIGN KEY (cliente) REFERENCES cliente(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE criminale (
@@ -115,13 +88,6 @@ CREATE TABLE investigatore (
   nome VARCHAR(100) NOT NULL,
   cognome VARCHAR(100) NOT NULL,
   servizio_militare BOOLEAN DEFAULT 0
-);
-
-CREATE TABLE collaboratore (
-  codice_fiscale VARCHAR(16) PRIMARY KEY,
-  nome VARCHAR(16) NOT NULL,
-  cognome VARCHAR(16) NOT NULL,
-  lavoro VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE prova (
@@ -175,15 +141,6 @@ CREATE TABLE lavoro (
   FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-CREATE TABLE collaborazione (
-  collaboratore VARCHAR(16),
-  investigazione TINYINT,
-  caso INTEGER(10),
-  PRIMARY KEY (collaboratore, investigazione, caso),
-  FOREIGN KEY (collaboratore) REFERENCES collaboratore(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
-);
-
 insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('YRWNCB73I96G468M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patrick', 'Gonzalez');
 insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('QYOFKD67M46O619X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Arnold');
 insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('SQDMIH91E22G439U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Brooks');
@@ -219,606 +176,106 @@ VALUES
 ('foto', 'Foto', NULL),
 ('cellulare', 'Cellulare', NULL),
 ('terrorismo', 'Terrorismo', NULL);
-insert into luogo (citta, indirizzo) values ('Dondo', '295 Declaration Circle');
-insert into luogo (citta, indirizzo) values ('Melville', '877 Londonderry Junction');
-insert into luogo (citta, indirizzo) values ('Panganiban', '5 Golf Point');
-insert into luogo (citta, indirizzo) values ('Kawanishi', '1 Rutledge Street');
-insert into luogo (citta, indirizzo) values ('Sendafa', '55 Hudson Place');
-insert into luogo (citta, indirizzo) values ('Sendafa', '20 Chive Parkway');
-insert into luogo (citta, indirizzo) values ('Colombo', '451 Pepper Wood Terrace');
-insert into luogo (citta, indirizzo) values ('Yizhivtsi', '9 Bluejay Alley');
-insert into luogo (citta, indirizzo) values ('Catania', '442 Center Crossing');
-insert into luogo (citta, indirizzo) values ('Cachí', '420 Vernon Junction');
-insert into luogo (citta, indirizzo) values ('Halmstad', '5 Oneill Street');
-insert into luogo (citta, indirizzo) values ('Naranjo', '8766 Brickson Park Drive');
-insert into luogo (citta, indirizzo) values ('Svalyava', '5 Glacier Hill Junction');
-insert into luogo (citta, indirizzo) values ('Venëv', '07 Waubesa Hill');
-insert into luogo (citta, indirizzo) values ('Wawu', '57706 Ohio Park');
-insert into luogo (citta, indirizzo) values ('Bielice', '44 Dexter Pass');
-insert into luogo (citta, indirizzo) values ('Lafia', '1580 Goodland Point');
-insert into luogo (citta, indirizzo) values ('Ganzhou', '56728 Glacier Hill Junction');
-insert into luogo (citta, indirizzo) values ('Jurm', '2 Jana Street');
-insert into luogo (citta, indirizzo) values ('Lagoa', '9 Welch Parkway');
-insert into luogo (citta, indirizzo) values ('Novopokrovskaya', '988 Kensington Lane');
-insert into luogo (citta, indirizzo) values ('Charleston', '7 Bartelt Way');
-insert into luogo (citta, indirizzo) values ('Retiro', '917 Dexter Terrace');
-insert into luogo (citta, indirizzo) values ('Mersa Matruh', '6 Saint Paul Terrace');
-insert into luogo (citta, indirizzo) values ('Osa', '9242 Sutherland Alley');
-insert into luogo (citta, indirizzo) values ('Castleblayney', '74 Lake View Terrace');
-insert into luogo (citta, indirizzo) values ('Comal', '0 Arapahoe Street');
-insert into luogo (citta, indirizzo) values ('Fatualam', '67 Magdeline Drive');
-insert into luogo (citta, indirizzo) values ('Juan de Acosta', '87538 Tennessee Park');
-insert into luogo (citta, indirizzo) values ('Ughelli', '79 Shelley Parkway');
-insert into luogo (citta, indirizzo) values ('Липково', '1 Pankratz Way');
-insert into luogo (citta, indirizzo) values ('Shangxian', '207 Stuart Street');
-insert into luogo (citta, indirizzo) values ('Balrothery', '13 Vahlen Parkway');
-insert into luogo (citta, indirizzo) values ('Nine', '136 Vera Way');
-insert into luogo (citta, indirizzo) values ('Jincheng', '1674 Katie Pass');
-insert into luogo (citta, indirizzo) values ('Poroçan', '5 Farragut Circle');
-insert into luogo (citta, indirizzo) values ('Zhouzai', '751 Sugar Court');
-insert into luogo (citta, indirizzo) values ('Pavlohrad', '42 Continental Center');
-insert into luogo (citta, indirizzo) values ('Anyang', '38 Sutteridge Place');
-insert into luogo (citta, indirizzo) values ('Boden', '2455 Lakeland Park');
-insert into luogo (citta, indirizzo) values ('Gif-sur-Yvette', '59861 Union Trail');
-insert into luogo (citta, indirizzo) values ('Lidköping', '0 Chinook Circle');
-insert into luogo (citta, indirizzo) values ('Ziębice', '08931 Reinke Way');
-insert into luogo (citta, indirizzo) values ('Dutsin Ma', '3663 Dexter Place');
-insert into luogo (citta, indirizzo) values ('Jiangpu', '66 International Place');
-insert into luogo (citta, indirizzo) values ('Thị Trấn Trùng Khánh', '533 Raven Park');
-insert into luogo (citta, indirizzo) values ('Sarongan', '235 Dunning Parkway');
-insert into luogo (citta, indirizzo) values ('Lunik', '72883 Southridge Pass');
-insert into luogo (citta, indirizzo) values ('Huanfeng', '25 Golf View Place');
-insert into luogo (citta, indirizzo) values ('Tongliao', '31 Saint Paul Court');
-insert into luogo (citta, indirizzo) values ('Dupnitsa', '7471 Barby Street');
-insert into luogo (citta, indirizzo) values ('Jarigue', '77964 Morningstar Plaza');
-insert into luogo (citta, indirizzo) values ('Khudoyelanskoye', '80 Waywood Terrace');
-insert into luogo (citta, indirizzo) values ('São Luís de Montes Belos', '1 Aberg Street');
-insert into luogo (citta, indirizzo) values ('‘Abasān al Kabīrah', '018 Mccormick Crossing');
-insert into luogo (citta, indirizzo) values ('Marsaxlokk', '319 Elka Terrace');
-insert into luogo (citta, indirizzo) values ('Águas de Lindóia', '758 Roth Junction');
-insert into luogo (citta, indirizzo) values ('Volokolamsk', '3 Westerfield Terrace');
-insert into luogo (citta, indirizzo) values ('Zhoupu', '0502 Ilene Road');
-insert into luogo (citta, indirizzo) values ('Catania', '5099 Ridgeview Hill');
-insert into luogo (citta, indirizzo) values ('Pop Shahri', '2 Toban Park');
-insert into luogo (citta, indirizzo) values ('Yangkang', '01 Forest Dale Junction');
-insert into luogo (citta, indirizzo) values ('Sísion', '0005 Northridge Drive');
-insert into luogo (citta, indirizzo) values ('Oke Mesi', '56 Amoth Parkway');
-insert into luogo (citta, indirizzo) values ('Limeil-Brévannes', '14885 Sycamore Road');
-insert into luogo (citta, indirizzo) values ('Sanlanbahai', '500 Hazelcrest Hill');
-insert into luogo (citta, indirizzo) values ('San Juan', '992 Paget Circle');
-insert into luogo (citta, indirizzo) values ('Sangiang', '6654 Jay Plaza');
-insert into luogo (citta, indirizzo) values ('Liushikou', '15436 Spenser Center');
-insert into luogo (citta, indirizzo) values ('Fray Luis A. Beltrán', '2 Eliot Park');
-insert into luogo (citta, indirizzo) values ('Kota Kinabalu', '915 Sunbrook Crossing');
-insert into luogo (citta, indirizzo) values ('Frederiksberg', '6 David Alley');
-insert into luogo (citta, indirizzo) values ('Xieshui', '4 Spohn Lane');
-insert into luogo (citta, indirizzo) values ('Argostólion', '91 Loomis Center');
-insert into luogo (citta, indirizzo) values ('Mercaderes', '175 Dwight Park');
-insert into luogo (citta, indirizzo) values ('Gyeongsan-si', '4 Anzinger Trail');
-insert into luogo (citta, indirizzo) values ('Encantado', '2 Maple Wood Drive');
-insert into luogo (citta, indirizzo) values ('Qixingtai', '583 Express Circle');
-insert into luogo (citta, indirizzo) values ('Portmore', '87 Novick Street');
-insert into luogo (citta, indirizzo) values ('Asen', '46574 Warner Lane');
-insert into luogo (citta, indirizzo) values ('Lushan', '40444 7th Plaza');
-insert into luogo (citta, indirizzo) values ('Synevyr', '91910 Birchwood Court');
-insert into luogo (citta, indirizzo) values ('Krasnokamsk', '6 Elgar Park');
-insert into luogo (citta, indirizzo) values ('Banjarjo', '432 Prairieview Place');
-insert into luogo (citta, indirizzo) values ('Jiale', '4597 Eliot Crossing');
-insert into luogo (citta, indirizzo) values ('Głogówek', '4450 Bluejay Point');
-insert into luogo (citta, indirizzo) values ('Kissónerga', '64 Bellgrove Lane');
-insert into luogo (citta, indirizzo) values ('Rasi Salai', '81 Shelley Drive');
-insert into luogo (citta, indirizzo) values ('Montaigu', '90 Continental Pass');
-insert into luogo (citta, indirizzo) values ('Barbosa', '2 Mcbride Junction');
-insert into luogo (citta, indirizzo) values ('Conchal', '1 Del Mar Plaza');
-insert into luogo (citta, indirizzo) values ('‘Amrān', '94 Fairview Terrace');
-insert into luogo (citta, indirizzo) values ('Klimontów', '72673 Hauk Center');
-insert into luogo (citta, indirizzo) values ('Wadung', '770 Golf View Crossing');
-insert into luogo (citta, indirizzo) values ('Timbaúba', '362 Muir Plaza');
-insert into luogo (citta, indirizzo) values ('Paris 13', '6414 Redwing Drive');
-insert into luogo (citta, indirizzo) values ('Casal da Anja', '9035 Myrtle Park');
-insert into luogo (citta, indirizzo) values ('Sobue', '53758 Westend Drive');
-insert into luogo (citta, indirizzo) values ('Montpellier', '395 Miller Crossing');
-insert into luogo (citta, indirizzo) values ('Wolfsberg', '992 Northview Crossing');
-insert into luogo (citta, indirizzo) values ('Ardabīl', '749 Dwight Plaza');
-insert into luogo (citta, indirizzo) values ('Kotlas', '63379 Main Center');
-insert into luogo (citta, indirizzo) values ('Weston', '11039 Burning Wood Avenue');
-insert into luogo (citta, indirizzo) values ('Palamadu', '628 Forest Dale Place');
-insert into luogo (citta, indirizzo) values ('Kisangani', '36 Farwell Place');
-insert into luogo (citta, indirizzo) values ('Cilegi', '6917 Continental Circle');
-insert into luogo (citta, indirizzo) values ('Tartagal', '14 Ronald Regan Crossing');
-insert into luogo (citta, indirizzo) values ('Balakhninskiy', '6855 Thackeray Point');
-insert into luogo (citta, indirizzo) values ('Limoeiro de Anadia', '5819 Forster Pass');
-insert into luogo (citta, indirizzo) values ('Majin', '0718 Main Place');
-insert into luogo (citta, indirizzo) values ('Mauá', '854 Hazelcrest Road');
-insert into luogo (citta, indirizzo) values ('Xunhe', '9 Canary Point');
-insert into luogo (citta, indirizzo) values ('Haoxue', '76762 Gerald Court');
-insert into luogo (citta, indirizzo) values ('Maagnas', '42227 Tomscot Drive');
-insert into luogo (citta, indirizzo) values ('Jataí', '222 Carioca Terrace');
-insert into luogo (citta, indirizzo) values ('Jieduo', '21 Golf Course Avenue');
-insert into luogo (citta, indirizzo) values ('Nezlobnaya', '8152 Canary Place');
-insert into luogo (citta, indirizzo) values ('Madrid', '096 Melody Junction');
-insert into luogo (citta, indirizzo) values ('Kuala Lumpur', '88 Springs Center');
-insert into luogo (citta, indirizzo) values ('Bugis', '80 Luster Court');
-insert into luogo (citta, indirizzo) values ('Dobříš', '5573 Shasta Street');
-insert into luogo (citta, indirizzo) values ('Perelhal', '27 Carpenter Road');
-insert into luogo (citta, indirizzo) values ('Bloemhof', '104 Graedel Way');
-insert into luogo (citta, indirizzo) values ('Ḩājī Khēl', '4 Kenwood Court');
-insert into luogo (citta, indirizzo) values ('Verkhnyaya Belka', '752 Vernon Plaza');
-insert into luogo (citta, indirizzo) values ('Hägersten', '06323 Anthes Drive');
-insert into luogo (citta, indirizzo) values ('Wujingfu', '821 Commercial Terrace');
-insert into luogo (citta, indirizzo) values ('Uenohara', '24409 Barnett Hill');
-insert into luogo (citta, indirizzo) values ('Grujugan', '63 Moulton Crossing');
-insert into luogo (citta, indirizzo) values ('Cepões', '04 Rutledge Trail');
-insert into luogo (citta, indirizzo) values ('Provins', '517 Everett Pass');
-insert into luogo (citta, indirizzo) values ('Tama', '6831 Crest Line Crossing');
-insert into luogo (citta, indirizzo) values ('Khrebtovaya', '04 Dixon Place');
-insert into luogo (citta, indirizzo) values ('Wilkes Barre', '0 Becker Junction');
-insert into luogo (citta, indirizzo) values ('Prakhon Chai', '38619 Shelley Parkway');
-insert into luogo (citta, indirizzo) values ('Gaoqiao', '61412 Eagle Crest Place');
-insert into luogo (citta, indirizzo) values ('Tamano', '858 Bonner Pass');
-insert into luogo (citta, indirizzo) values ('Tuusniemi', '7 2nd Way');
-insert into luogo (citta, indirizzo) values ('Sélestat', '5 Hollow Ridge Court');
-insert into luogo (citta, indirizzo) values ('Wanfa', '933 Karstens Crossing');
-insert into luogo (citta, indirizzo) values ('Ikot-Ekpene', '736 Farragut Street');
-insert into luogo (citta, indirizzo) values ('Mýrina', '4 Ilene Point');
-insert into luogo (citta, indirizzo) values ('Baizhang', '40467 Luster Road');
-insert into luogo (citta, indirizzo) values ('São Domingos do Maranhão', '3547 Hollow Ridge Lane');
-insert into luogo (citta, indirizzo) values ('Pampanito', '4488 Straubel Drive');
-insert into luogo (citta, indirizzo) values ('Dakingari', '3 Corscot Road');
-insert into luogo (citta, indirizzo) values ('Sancha', '850 Farwell Place');
-insert into luogo (citta, indirizzo) values ('Mölndal', '30592 Bartillon Junction');
-insert into luogo (citta, indirizzo) values ('Tuwa', '13633 Canary Place');
-insert into luogo (citta, indirizzo) values ('Enyerhyetykaw', '399 Eastlawn Street');
-insert into luogo (citta, indirizzo) values ('El Fasher', '66 Bartillon Junction');
-insert into luogo (citta, indirizzo) values ('København', '791 Old Shore Place');
-insert into luogo (citta, indirizzo) values ('Buray', '3 Bunker Hill Lane');
-insert into luogo (citta, indirizzo) values ('Selizharovo', '168 Rutledge Terrace');
-insert into luogo (citta, indirizzo) values ('Hongguang', '42855 Manufacturers Court');
-insert into luogo (citta, indirizzo) values ('Two Hills', '3 Ruskin Road');
-insert into luogo (citta, indirizzo) values ('Straszyn', '60 Paget Lane');
-insert into luogo (citta, indirizzo) values ('Da’an', '05 Schmedeman Circle');
-insert into luogo (citta, indirizzo) values ('Boston', '769 Sundown Lane');
-insert into luogo (citta, indirizzo) values ('Tuscaloosa', '84 Pearson Park');
-insert into luogo (citta, indirizzo) values ('Farafenni', '3 Grim Way');
-insert into luogo (citta, indirizzo) values ('Linhares', '88703 Mifflin Avenue');
-insert into luogo (citta, indirizzo) values ('Kumagaya', '9873 Pond Road');
-insert into luogo (citta, indirizzo) values ('Astypálaia', '2309 Hooker Drive');
-insert into luogo (citta, indirizzo) values ('Bobrovka', '07312 Sutherland Avenue');
-insert into luogo (citta, indirizzo) values ('Krasnyy Yar', '91 Acker Place');
-insert into luogo (citta, indirizzo) values ('Liliba', '20802 Dixon Court');
-insert into luogo (citta, indirizzo) values ('Chaeryŏng-ŭp', '58 Gateway Avenue');
-insert into luogo (citta, indirizzo) values ('Al Lagowa', '86 Veith Junction');
-insert into luogo (citta, indirizzo) values ('Palecenan', '807 Anniversary Avenue');
-insert into luogo (citta, indirizzo) values ('Cigemlong', '54024 Bonner Center');
-insert into luogo (citta, indirizzo) values ('Dijon', '08197 Alpine Avenue');
-insert into luogo (citta, indirizzo) values ('Bettendorf', '1122 Shasta Trail');
-insert into luogo (citta, indirizzo) values ('Libertad', '91 Chive Point');
-insert into luogo (citta, indirizzo) values ('Talun', '010 Del Sol Junction');
-insert into luogo (citta, indirizzo) values ('Santulhão', '0954 East Junction');
-insert into luogo (citta, indirizzo) values ('Göteborg', '5 Northridge Lane');
-insert into luogo (citta, indirizzo) values ('Soweto', '64640 Prairie Rose Plaza');
-insert into luogo (citta, indirizzo) values ('Dankama', '4 Londonderry Trail');
-insert into luogo (citta, indirizzo) values ('Riangkroko', '0955 Farragut Place');
-insert into luogo (citta, indirizzo) values ('Dallas', '80483 Hoard Hill');
-insert into luogo (citta, indirizzo) values ('Zeewolde', '3176 Trailsway Way');
-insert into luogo (citta, indirizzo) values ('Sanhe', '259 Corry Crossing');
-insert into luogo (citta, indirizzo) values ('Gazimurskiy Zavod', '9 Corben Crossing');
-insert into luogo (citta, indirizzo) values ('Gunungkendeng', '76366 Bluejay Point');
-insert into luogo (citta, indirizzo) values ('Masty', '836 Farwell Circle');
-insert into luogo (citta, indirizzo) values ('Tamansari', '6 Crest Line Circle');
-insert into luogo (citta, indirizzo) values ('Cilangkap', '1 Mayfield Circle');
-insert into luogo (citta, indirizzo) values ('San Miguel', '382 Charing Cross Trail');
-insert into luogo (citta, indirizzo) values ('Galán', '17 Messerschmidt Place');
-insert into luogo (citta, indirizzo) values ('Magsaysay', '2 Jenna Street');
-insert into luogo (citta, indirizzo) values ('Cilangkap', '64 Longview Alley');
-insert into luogo (citta, indirizzo) values ('Boleszkowice', '9853 Pond Pass');
-insert into luogo (citta, indirizzo) values ('Bulianhe', '785 Northfield Parkway');
-insert into luogo (citta, indirizzo) values ('Dongchengyuan', '18009 Donald Drive');
-insert into luogo (citta, indirizzo) values ('Gagnoa', '70 Cordelia Hill');
-insert into luogo (citta, indirizzo) values ('Kota Kinabalu', '2 Sunnyside Park');
-insert into luogo (citta, indirizzo) values ('Latowicz', '32 Glacier Hill Street');
-insert into luogo (citta, indirizzo) values ('Banjar Ambengan', '796 Thierer Street');
-insert into luogo (citta, indirizzo) values ('Litian', '24 Merrick Street');
-insert into luogo (citta, indirizzo) values ('Paris 17', '671 Ramsey Park');
-insert into luogo (citta, indirizzo) values ('Muarabadak', '314 Dapin Crossing');
-insert into luogo (citta, indirizzo) values ('Albi', '446 Forest Dale Parkway');
-insert into luogo (citta, indirizzo) values ('Capacho Nuevo', '83458 Old Shore Crossing');
-insert into luogo (citta, indirizzo) values ('Ryazan’', '0 Artisan Street');
-insert into luogo (citta, indirizzo) values ('Biting', '576 Rutledge Drive');
-insert into luogo (citta, indirizzo) values ('Santa Rita do Sapucaí', '79 Brown Drive');
-insert into luogo (citta, indirizzo) values ('Aeka', '96 Kinsman Avenue');
-insert into luogo (citta, indirizzo) values ('Capão da Canoa', '95 Bonner Way');
-insert into luogo (citta, indirizzo) values ('Shangcun', '86662 Melrose Terrace');
-insert into luogo (citta, indirizzo) values ('Udobnaya', '704 Jenifer Circle');
-insert into luogo (citta, indirizzo) values ('Zongzhai', '258 Oakridge Park');
-insert into luogo (citta, indirizzo) values ('Longcun', '27 Fuller Court');
-insert into luogo (citta, indirizzo) values ('Jakubowice Murowane', '1904 Schlimgen Plaza');
-insert into luogo (citta, indirizzo) values ('Gävle', '42 Melrose Terrace');
-insert into luogo (citta, indirizzo) values ('Al Baqāliţah', '72 Muir Plaza');
-insert into luogo (citta, indirizzo) values ('Zigong', '751 Crescent Oaks Drive');
-insert into luogo (citta, indirizzo) values ('Gradec', '764 Talmadge Place');
-insert into luogo (citta, indirizzo) values ('Kálymnos', '4 Gulseth Terrace');
-insert into luogo (citta, indirizzo) values ('Cheongsong gun', '51643 Forest Dale Junction');
-insert into luogo (citta, indirizzo) values ('Qingliu', '8 Namekagon Street');
-insert into luogo (citta, indirizzo) values ('Bidikotak', '0939 Graceland Hill');
-insert into luogo (citta, indirizzo) values ('Nicoya', '36 Ilene Lane');
-insert into luogo (citta, indirizzo) values ('Palhoça', '2319 Dayton Terrace');
-insert into luogo (citta, indirizzo) values ('Louisville', '42 Harbort Court');
-insert into luogo (citta, indirizzo) values ('Xinmin', '17912 Weeping Birch Center');
-insert into luogo (citta, indirizzo) values ('Bacong', '3844 Daystar Point');
-insert into luogo (citta, indirizzo) values ('Koímisi', '6 Katie Court');
-insert into luogo (citta, indirizzo) values ('Saint-Étienne-du-Rouvray', '07 Summer Ridge Junction');
-insert into luogo (citta, indirizzo) values ('Kuzhu', '4480 Village Parkway');
-insert into luogo (citta, indirizzo) values ('Llauta', '0 Dapin Trail');
-insert into luogo (citta, indirizzo) values ('Gorē', '72455 Quincy Way');
-insert into luogo (citta, indirizzo) values ('Taū', '9 Kingsford Parkway');
-insert into luogo (citta, indirizzo) values ('Masape', '6012 Comanche Drive');
-insert into luogo (citta, indirizzo) values ('Nkhotakota', '1 Anhalt Alley');
-insert into luogo (citta, indirizzo) values ('Wawer', '8054 Carey Terrace');
-insert into luogo (citta, indirizzo) values ('Oton', '137 Lakewood Hill');
-insert into luogo (citta, indirizzo) values ('Praia das Maçãs', '5 Summer Ridge Court');
-insert into luogo (citta, indirizzo) values ('Kumane', '17 Dryden Junction');
-insert into luogo (citta, indirizzo) values ('Veřovice', '8435 Ronald Regan Lane');
-insert into luogo (citta, indirizzo) values ('Blawi', '36365 Summit Point');
-insert into luogo (citta, indirizzo) values ('Fátima', '2455 Morningstar Parkway');
-insert into luogo (citta, indirizzo) values ('Jacksonville', '2 Lakewood Lane');
-insert into luogo (citta, indirizzo) values ('Staropavlovskaya', '64 Barnett Hill');
-insert into luogo (citta, indirizzo) values ('Oruro', '12 Gateway Place');
-insert into luogo (citta, indirizzo) values ('Gaosheng', '26866 Lillian Lane');
-insert into luogo (citta, indirizzo) values ('Jiyizhuang', '77060 Veith Lane');
-insert into luogo (citta, indirizzo) values ('Leeuwarden', '4 Morrow Trail');
-insert into luogo (citta, indirizzo) values ('Guocun', '02154 Bluestem Road');
-insert into luogo (citta, indirizzo) values ('Trinity Ville', '16 Florence Circle');
-insert into luogo (citta, indirizzo) values ('Beiwucha', '520 Pearson Alley');
-insert into luogo (citta, indirizzo) values ('Rio Largo', '39754 Northview Way');
-insert into luogo (citta, indirizzo) values ('Árgos', '790 Melody Point');
-insert into luogo (citta, indirizzo) values ('Jiubao', '77929 Sutteridge Hill');
-insert into luogo (citta, indirizzo) values ('Potou', '7 Florence Lane');
-insert into luogo (citta, indirizzo) values ('Gävle', '5982 Anthes Pass');
-insert into luogo (citta, indirizzo) values ('Pathein', '8 Thompson Circle');
-insert into luogo (citta, indirizzo) values ('Denpasar', '842 Northwestern Circle');
-insert into luogo (citta, indirizzo) values ('Huertas', '917 Luster Pass');
-insert into luogo (citta, indirizzo) values ('Sancha', '83 Barby Street');
-insert into luogo (citta, indirizzo) values ('Wiang Chiang Rung', '3 Magdeline Crossing');
-insert into luogo (citta, indirizzo) values ('Asheville', '949 Elgar Court');
-insert into luogo (citta, indirizzo) values ('Täby', '4 Paget Drive');
-insert into luogo (citta, indirizzo) values ('Itapetininga', '7 Grasskamp Hill');
-insert into luogo (citta, indirizzo) values ('Pietà', '63 Hoard Crossing');
-insert into luogo (citta, indirizzo) values ('Vogar', '7305 Lillian Avenue');
-insert into luogo (citta, indirizzo) values ('Tubungan', '893 Porter Road');
-insert into luogo (citta, indirizzo) values ('Trzcianka', '39536 8th Road');
-insert into luogo (citta, indirizzo) values ('Jiazhuang', '2 Reindahl Terrace');
-insert into luogo (citta, indirizzo) values ('Ji’ergele Teguoleng', '579 Forest Run Center');
-insert into luogo (citta, indirizzo) values ('Matelândia', '46 Lillian Center');
-insert into luogo (citta, indirizzo) values ('Huitán', '9932 Golf Course Road');
-insert into luogo (citta, indirizzo) values ('Wanurian', '9965 Lerdahl Way');
-insert into luogo (citta, indirizzo) values ('Sukaraja', '9 Eastlawn Terrace');
-insert into luogo (citta, indirizzo) values ('Karanganyar', '32224 Hagan Plaza');
-insert into luogo (citta, indirizzo) values ('Mernek', '3 Kropf Hill');
-insert into luogo (citta, indirizzo) values ('Smarhon’', '211 Barnett Center');
-insert into luogo (citta, indirizzo) values ('Tapiramutá', '416 Mosinee Park');
-insert into luogo (citta, indirizzo) values ('Renhe', '0 4th Alley');
-insert into luogo (citta, indirizzo) values ('Wujiaying', '86218 Namekagon Pass');
-insert into luogo (citta, indirizzo) values ('Bayt Sīrā', '12976 Packers Junction');
-insert into luogo (citta, indirizzo) values ('Marathon', '09019 Ohio Pass');
-insert into luogo (citta, indirizzo) values ('Gaïtánion', '10 Lindbergh Alley');
-insert into luogo (citta, indirizzo) values ('Tiguion', '07 Dayton Center');
-insert into luogo (citta, indirizzo) values ('Kota Bharu', '63 Forest Lane');
-insert into luogo (citta, indirizzo) values ('Bunder', '35359 Superior Lane');
-insert into luogo (citta, indirizzo) values ('Hepingyizu', '8 Delladonna Terrace');
-insert into luogo (citta, indirizzo) values ('Gangkou', '7 Nevada Trail');
-insert into luogo (citta, indirizzo) values ('San Eugenio', '9063 Jana Junction');
-insert into luogo (citta, indirizzo) values ('Ferreira do Zêzere', '42 Holmberg Point');
-insert into luogo (citta, indirizzo) values ('Weiwangzhuang', '04 Wayridge Street');
-insert into luogo (citta, indirizzo) values ('Siruma', '66 Dwight Lane');
-insert into luogo (citta, indirizzo) values ('Linares', '51 Kim Point');
-insert into luogo (citta, indirizzo) values ('Tromsø', '5 Arizona Court');
-insert into luogo (citta, indirizzo) values ('Mbumi', '447 Dwight Street');
-insert into luogo (citta, indirizzo) values ('Obryte', '1512 Pleasure Pass');
-insert into luogo (citta, indirizzo) values ('Badīn', '557 Merry Drive');
-insert into luogo (citta, indirizzo) values ('Gävle', '1915 Stephen Hill');
-insert into luogo (citta, indirizzo) values ('Tianzhou', '77979 Anzinger Road');
-insert into luogo (citta, indirizzo) values ('Moba', '1 Lotheville Point');
-insert into luogo (citta, indirizzo) values ('Novohrad-Volyns’kyy', '7 Golden Leaf Way');
-insert into luogo (citta, indirizzo) values ('Hendaye', '17 Debs Park');
-insert into luogo (citta, indirizzo) values ('Puyo', '71496 Bayside Way');
-insert into luogo (citta, indirizzo) values ('Xuebu', '39750 Anthes Point');
-insert into luogo (citta, indirizzo) values ('Carregado', '87 Little Fleur Street');
-insert into luogo (citta, indirizzo) values ('Yaozhou', '1124 Moose Plaza');
-insert into luogo (citta, indirizzo) values ('Brniště', '7302 Canary Park');
-insert into luogo (citta, indirizzo) values ('Tambong', '80280 Mccormick Court');
-insert into luogo (citta, indirizzo) values ('Hudson Bay', '2 Crownhardt Street');
-insert into luogo (citta, indirizzo) values ('Atbasar', '3 Sullivan Center');
-insert into luogo (citta, indirizzo) values ('Estefania', '15 Nevada Circle');
-insert into luogo (citta, indirizzo) values ('Floresta', '11929 Milwaukee Parkway');
-insert into luogo (citta, indirizzo) values ('Novoorsk', '6773 Shelley Plaza');
-insert into luogo (citta, indirizzo) values ('São José de Mipibu', '9760 Forest Run Terrace');
-insert into luogo (citta, indirizzo) values ('Bonanza', '6 Lillian Way');
-insert into luogo (citta, indirizzo) values ('Cicurug', '990 Prairie Rose Hill');
-insert into luogo (citta, indirizzo) values ('Jiaozuo', '483 Rusk Center');
-insert into luogo (citta, indirizzo) values ('Entre Rios', '85050 Maple Wood Circle');
-insert into luogo (citta, indirizzo) values ('Melipilla', '7 Manley Court');
-insert into luogo (citta, indirizzo) values ('Riachão do Jacuípe', '79 Springview Alley');
-insert into luogo (citta, indirizzo) values ('Krasnokumskoye', '02 Monument Parkway');
-insert into luogo (citta, indirizzo) values ('Fiais da Beira', '691 Veith Street');
-insert into luogo (citta, indirizzo) values ('Sal’sk', '4091 Merrick Alley');
-insert into luogo (citta, indirizzo) values ('Shenshu', '93667 Village Lane');
-insert into luogo (citta, indirizzo) values ('Kunting', '6 Schurz Pass');
-insert into luogo (citta, indirizzo) values ('Khiliomódhi', '921 Debs Parkway');
-insert into luogo (citta, indirizzo) values ('Lingtou', '2004 Haas Way');
-insert into luogo (citta, indirizzo) values ('Amarillo', '56669 Anzinger Circle');
-insert into luogo (citta, indirizzo) values ('Cañaveral', '5 Anniversary Lane');
-insert into luogo (citta, indirizzo) values ('Takahata', '4290 Spohn Circle');
-insert into luogo (citta, indirizzo) values ('Muara', '69725 Doe Crossing Terrace');
-insert into luogo (citta, indirizzo) values ('Piggotts', '68768 Buhler Alley');
-insert into luogo (citta, indirizzo) values ('Tyresö', '75414 Springview Park');
-insert into luogo (citta, indirizzo) values ('Paris 01', '3 Ronald Regan Terrace');
-insert into luogo (citta, indirizzo) values ('Plan de Ayala', '839 Amoth Pass');
-insert into luogo (citta, indirizzo) values ('Księżpol', '90 Monument Trail');
-insert into luogo (citta, indirizzo) values ('Washington', '005 Scott Center');
-insert into luogo (citta, indirizzo) values ('Talitsa', '686 Meadow Ridge Park');
-insert into luogo (citta, indirizzo) values ('Dabat', '3189 Rowland Street');
-insert into luogo (citta, indirizzo) values ('Karanglo', '84 Main Drive');
-insert into luogo (citta, indirizzo) values ('Rublëvo', '2190 Arrowood Crossing');
-insert into luogo (citta, indirizzo) values ('Piribebuy', '7985 Grim Avenue');
-insert into luogo (citta, indirizzo) values ('Yongchang', '67 Union Circle');
-insert into luogo (citta, indirizzo) values ('Lanhe', '29 Oneill Park');
-insert into luogo (citta, indirizzo) values ('Kiel', '73 Delladonna Avenue');
-insert into luogo (citta, indirizzo) values ('Karuk', '098 Old Shore Park');
-insert into luogo (citta, indirizzo) values ('Yur’yev-Pol’skiy', '361 Judy Pass');
-insert into luogo (citta, indirizzo) values ('Yuanhou', '30 Lerdahl Point');
-insert into luogo (citta, indirizzo) values ('Hongmen', '39 Walton Road');
-insert into luogo (citta, indirizzo) values ('Mount Darwin', '45136 Homewood Avenue');
-insert into luogo (citta, indirizzo) values ('Passo Fundo', '6092 Forster Point');
-insert into luogo (citta, indirizzo) values ('Rubirizi', '8 Prairie Rose Point');
-insert into luogo (citta, indirizzo) values ('Oshawa', '011 Oriole Hill');
-insert into luogo (citta, indirizzo) values ('Kribi', '933 Prairieview Lane');
-insert into luogo (citta, indirizzo) values ('Gusang', '03974 Kingsford Street');
-insert into luogo (citta, indirizzo) values ('Ronggui', '5 Barnett Road');
-insert into luogo (citta, indirizzo) values ('Ardazubre', '41750 Oneill Junction');
-insert into luogo (citta, indirizzo) values ('Palpalá', '359 Buhler Street');
-insert into luogo (citta, indirizzo) values ('Pingkai', '046 Derek Place');
-insert into luogo (citta, indirizzo) values ('Beizhuang', '42228 Erie Pass');
-insert into luogo (citta, indirizzo) values ('Liucheng', '2493 Goodland Center');
-insert into luogo (citta, indirizzo) values ('Al Khafjī', '60087 Dakota Street');
-insert into luogo (citta, indirizzo) values ('Pervomaysk', '93 Arizona Circle');
-insert into luogo (citta, indirizzo) values ('Elbasan', '25906 Sunfield Plaza');
-insert into luogo (citta, indirizzo) values ('Nanhai', '9 Northport Lane');
-insert into luogo (citta, indirizzo) values ('Peoria', '10044 Scott Circle');
-insert into luogo (citta, indirizzo) values ('New York City', '90 Di Loreto Parkway');
-insert into luogo (citta, indirizzo) values ('Kompóti', '48 Florence Circle');
-insert into luogo (citta, indirizzo) values ('Soeng Sang', '223 Dottie Trail');
-insert into luogo (citta, indirizzo) values ('Älvsjö', '8 Fordem Crossing');
-insert into luogo (citta, indirizzo) values ('Ōmuta', '6 Springs Point');
-insert into luogo (citta, indirizzo) values ('Drenova', '78 Coleman Center');
-insert into luogo (citta, indirizzo) values ('Asen', '3170 Linden Way');
-insert into luogo (citta, indirizzo) values ('Lukou', '56588 Logan Drive');
-insert into luogo (citta, indirizzo) values ('Una', '31362 Forster Place');
-insert into luogo (citta, indirizzo) values ('Mutang', '7 Forest Dale Circle');
-insert into luogo (citta, indirizzo) values ('Tuusniemi', '49968 Hermina Hill');
-insert into luogo (citta, indirizzo) values ('Iset’', '857 Norway Maple Park');
-insert into luogo (citta, indirizzo) values ('Satis', '2029 Mayfield Alley');
-insert into luogo (citta, indirizzo) values ('Anding', '2 Dakota Point');
-insert into luogo (citta, indirizzo) values ('Caluquembe', '2 Del Sol Place');
-insert into luogo (citta, indirizzo) values ('Himaya', '2288 Laurel Parkway');
-insert into luogo (citta, indirizzo) values ('Balingasag', '5 Buena Vista Place');
-insert into luogo (citta, indirizzo) values ('Donghe', '69 Marcy Pass');
-insert into luogo (citta, indirizzo) values ('Ivyanyets', '5002 Sauthoff Street');
-insert into luogo (citta, indirizzo) values ('Gajiram', '79067 West Point');
-insert into luogo (citta, indirizzo) values ('Hetang', '9758 Hazelcrest Place');
-insert into luogo (citta, indirizzo) values ('Longcun', '609 Iowa Terrace');
-insert into luogo (citta, indirizzo) values ('Menuma', '731 Westend Street');
-insert into luogo (citta, indirizzo) values ('Psevdás', '391 Northfield Alley');
-insert into luogo (citta, indirizzo) values ('Tvrdonice', '69943 5th Hill');
-insert into luogo (citta, indirizzo) values ('Mriyunan', '08 School Trail');
-insert into luogo (citta, indirizzo) values ('Kabanga', '214 Almo Avenue');
-insert into luogo (citta, indirizzo) values ('Xinglongchang', '26996 Kinsman Road');
-insert into luogo (citta, indirizzo) values ('Neftçala', '484 Bluestem Park');
-insert into luogo (citta, indirizzo) values ('Patrocínio', '18 Fallview Hill');
-insert into luogo (citta, indirizzo) values ('Pasiripis', '6333 Haas Court');
-insert into luogo (citta, indirizzo) values ('Rennes', '53 Northridge Avenue');
-insert into luogo (citta, indirizzo) values ('Marseille', '05137 Saint Paul Crossing');
-insert into luogo (citta, indirizzo) values ('Lluidas Vale', '5 Dayton Circle');
-insert into luogo (citta, indirizzo) values ('Ungsang', '9599 Roth Street');
-insert into luogo (citta, indirizzo) values ('Matias Olímpio', '53226 Lindbergh Pass');
-insert into luogo (citta, indirizzo) values ('Iogach', '72425 Barby Pass');
-insert into luogo (citta, indirizzo) values ('Zhengdun', '60 Stang Court');
-insert into luogo (citta, indirizzo) values ('Cergy-Pontoise', '9 Thierer Terrace');
-insert into luogo (citta, indirizzo) values ('Sujitan', '62 Brentwood Park');
-insert into luogo (citta, indirizzo) values ('Cergy-Pontoise', '8417 Johnson Way');
-insert into luogo (citta, indirizzo) values ('Sukamulya', '9127 Dayton Road');
-insert into luogo (citta, indirizzo) values ('Budapest', '6 Upham Point');
-insert into luogo (citta, indirizzo) values ('Tempurejo', '61 Amoth Drive');
-insert into luogo (citta, indirizzo) values ('Wentai', '4 Pearson Court');
-insert into luogo (citta, indirizzo) values ('Karang Daye', '0 International Point');
-insert into luogo (citta, indirizzo) values ('Kalanchak', '884 Bartillon Parkway');
-insert into luogo (citta, indirizzo) values ('Los Lotes', '882 Spenser Center');
-insert into luogo (citta, indirizzo) values ('Maoya', '7 Sugar Circle');
-insert into luogo (citta, indirizzo) values ('Swedru', '5 Merchant Crossing');
-insert into luogo (citta, indirizzo) values ('Yaotian', '68207 Mallory Drive');
-insert into luogo (citta, indirizzo) values ('Kathmandu', '02799 Lukken Point');
-insert into luogo (citta, indirizzo) values ('Potou', '248 Michigan Court');
-insert into luogo (citta, indirizzo) values ('Huacapampa', '37 Butterfield Place');
-insert into luogo (citta, indirizzo) values ('San Sebastian', '93 Gerald Hill');
-insert into luogo (citta, indirizzo) values ('Xiyuan', '3417 Mandrake Junction');
-insert into luogo (citta, indirizzo) values ('Caxias', '411 Warbler Place');
-insert into luogo (citta, indirizzo) values ('Namīn', '24538 Hansons Street');
-insert into luogo (citta, indirizzo) values ('Březová nad Svitavou', '9 Evergreen Road');
-insert into luogo (citta, indirizzo) values ('Rudnichnyy', '35 Blue Bill Park Plaza');
-insert into luogo (citta, indirizzo) values ('Moguqi', '136 Dennis Terrace');
-insert into luogo (citta, indirizzo) values ('Makin Village', '7908 Beilfuss Way');
-insert into luogo (citta, indirizzo) values ('Thiès Nones', '9057 Bluestem Circle');
-insert into luogo (citta, indirizzo) values ('Ea T’ling', '386 Raven Point');
-insert into luogo (citta, indirizzo) values ('Paranapanema', '7197 Grayhawk Center');
-insert into luogo (citta, indirizzo) values ('Sarae', '9 Butternut Park');
-insert into luogo (citta, indirizzo) values ('Qiaobian', '601 Clemons Way');
-insert into luogo (citta, indirizzo) values ('Tungor', '787 Dixon Street');
-insert into luogo (citta, indirizzo) values ('Puerto Boyacá', '13468 Continental Parkway');
-insert into luogo (citta, indirizzo) values ('Tiecun', '7483 Myrtle Center');
-insert into luogo (citta, indirizzo) values ('Kaeng Khoi', '7447 New Castle Point');
-insert into luogo (citta, indirizzo) values ('Freiburg im Breisgau', '377 Southridge Terrace');
-insert into luogo (citta, indirizzo) values ('Nikopol’', '36052 Merry Parkway');
-insert into luogo (citta, indirizzo) values ('Ndélé', '1 Merry Alley');
-insert into luogo (citta, indirizzo) values ('Stari Grad', '94 Nova Point');
-insert into luogo (citta, indirizzo) values ('Melrose', '3 Saint Paul Alley');
-insert into luogo (citta, indirizzo) values ('Paris 07', '38627 Becker Parkway');
-insert into luogo (citta, indirizzo) values ('Chunghwa', '2 Glacier Hill Road');
-insert into luogo (citta, indirizzo) values ('Kulia Village', '16315 Autumn Leaf Center');
-insert into luogo (citta, indirizzo) values ('Lengshuitan', '1158 Tennyson Avenue');
-insert into luogo (citta, indirizzo) values ('Port Moody', '1 Oriole Way');
-insert into luogo (citta, indirizzo) values ('Oroqen Zizhiqi', '2691 Beilfuss Drive');
-insert into luogo (citta, indirizzo) values ('Nong Hin', '3132 Fairfield Trail');
-insert into luogo (citta, indirizzo) values ('Senhor do Bonfim', '3526 Ohio Place');
-insert into luogo (citta, indirizzo) values ('Areeiro', '90 Larry Alley');
-insert into luogo (citta, indirizzo) values ('Nakonde', '997 Morning Road');
-insert into luogo (citta, indirizzo) values ('Suining', '3 Chive Hill');
-insert into luogo (citta, indirizzo) values ('Ruzayevka', '8632 Jackson Drive');
-insert into luogo (citta, indirizzo) values ('Kataba', '2 Butternut Lane');
-insert into luogo (citta, indirizzo) values ('Changshou', '4908 Hermina Lane');
-insert into luogo (citta, indirizzo) values ('Nizhnyaya Omka', '286 Village Center');
-insert into luogo (citta, indirizzo) values ('Sale', '500 Ridgeway Trail');
-insert into luogo (citta, indirizzo) values ('Kowary', '8 Dexter Hill');
-insert into luogo (citta, indirizzo) values ('Pontal', '8 Blackbird Drive');
-insert into luogo (citta, indirizzo) values ('Klimontów', '3608 Myrtle Court');
-insert into luogo (citta, indirizzo) values ('Paritjunus', '57970 Parkside Plaza');
-insert into luogo (citta, indirizzo) values ('Dauriya', '8 Nevada Drive');
-insert into luogo (citta, indirizzo) values ('San Carlos', '96462 Dawn Point');
-insert into luogo (citta, indirizzo) values ('Boulogne-sur-Mer', '2796 American Lane');
-insert into luogo (citta, indirizzo) values ('Yongping', '0 Dahle Street');
-insert into luogo (citta, indirizzo) values ('Cochadas', '9382 Becker Avenue');
-insert into luogo (citta, indirizzo) values ('Torbeyevo', '5116 Moulton Way');
-insert into luogo (citta, indirizzo) values ('Tanahedang', '26 Sutherland Drive');
-insert into luogo (citta, indirizzo) values ('Pasirpengarayan', '19 Northport Court');
-insert into luogo (citta, indirizzo) values ('Vikhorevka', '935 Menomonie Point');
-insert into luogo (citta, indirizzo) values ('Hagondange', '5 Valley Edge Park');
-insert into luogo (citta, indirizzo) values ('Kabac', '57686 Shelley Alley');
-insert into luogo (citta, indirizzo) values ('Ya’ngan', '6026 Dixon Place');
-insert into luogo (citta, indirizzo) values ('Cristóbal', '37660 Corscot Lane');
-insert into luogo (citta, indirizzo) values ('Göteborg', '027 Hoepker Court');
-insert into luogo (citta, indirizzo) values ('Silvares', '1933 Ryan Circle');
-insert into luogo (citta, indirizzo) values ('Sŭedinenie', '17 Sheridan Trail');
-insert into luogo (citta, indirizzo) values ('Kozhva', '659 Dexter Way');
-insert into luogo (citta, indirizzo) values ('Hongshanyao', '3 Almo Plaza');
-insert into luogo (citta, indirizzo) values ('Nagorsk', '38 Rusk Way');
-insert into luogo (citta, indirizzo) values ('Paris La Défense', '07 Acker Court');
-insert into luogo (citta, indirizzo) values ('Mongo', '50 Ramsey Junction');
-insert into luogo (citta, indirizzo) values ('Rila', '0 Delaware Hill');
-insert into luogo (citta, indirizzo) values ('Kishk-e Nakhūd', '0583 Westerfield Parkway');
-insert into luogo (citta, indirizzo) values ('Zawiya', '40 Fallview Crossing');
-insert into luogo (citta, indirizzo) values ('Hadāli', '23613 Tennessee Avenue');
-insert into luogo (citta, indirizzo) values ('Nejo', '6 Hovde Lane');
-insert into luogo (citta, indirizzo) values ('Bulo', '80 Carioca Court');
-insert into luogo (citta, indirizzo) values ('Candon', '06726 Anzinger Hill');
-insert into luogo (citta, indirizzo) values ('Sumaré', '62 Sachtjen Parkway');
-insert into luogo (citta, indirizzo) values ('Ciénaga', '67 Gateway Alley');
-insert into luogo (citta, indirizzo) values ('Świeradów-Zdrój', '8 Becker Junction');
-insert into luogo (citta, indirizzo) values ('Sunagawa', '5 Elmside Alley');
-insert into luogo (citta, indirizzo) values ('Koronadal', '444 Grayhawk Pass');
-insert into luogo (citta, indirizzo) values ('Santa Teresa', '37 Schiller Place');
-insert into luogo (citta, indirizzo) values ('Nantes', '861 Farragut Drive');
-insert into luogo (citta, indirizzo) values ('Pashkovskiy', '611 Vermont Point');
-insert into luogo (citta, indirizzo) values ('Sukasari', '42 Doe Crossing Park');
-insert into luogo (citta, indirizzo) values ('Arlington', '2113 Dovetail Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('CYDTFN83D62O801H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrew', 'Marshall', 'Albi', '446 Forest Dale Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('RMSVPJ12E06P994U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'Wheeler', 'Sukaraja', '9 Eastlawn Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KNMRLP43R96Y949J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judy', 'Rose', 'Riangkroko', '0955 Farragut Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('AOTFCB94S88D323S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'James', 'Watson', 'Boulogne-sur-Mer', '2796 American Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('VMQEJZ38Y13H905B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Alexander', 'Wentai', '4 Pearson Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('TFUDBC18W30V753E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Riley', 'Jacksonville', '2 Lakewood Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HQRVFL93R01P879Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Deborah', 'Edwards', 'Zhengdun', '60 Stang Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('TIHJUC06C68R524A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Cook', 'Vogar', '7305 Lillian Avenue');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('XAQWPB74E93I993E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mark', 'Garza', 'Oke Mesi', '56 Amoth Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('QNOJES83S53W988H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Earl', 'Mills', 'Al Lagowa', '86 Veith Junction');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HBORAL34C91E401W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Theresa', 'Bailey', 'Lushan', '40444 7th Plaza');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HLPRKC83I35V546H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sara', 'Allen', 'Veřovice', '8435 Ronald Regan Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NJMEYH03M57C669D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'King', 'Balrothery', '13 Vahlen Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HXULSE22E51S717I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steven', 'Alvarez', 'Cergy-Pontoise', '9 Thierer Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('TFJLPA10Y55S860J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Angela', 'Reynolds', 'Madrid', '096 Melody Junction');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('YKSOUC25C67E930A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harold', 'Long', 'Iset’', '857 Norway Maple Park');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UDHIKT82U77V282R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jane', 'Thompson', 'Entre Rios', '85050 Maple Wood Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UODTQV22N12S229K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Teresa', 'Hunter', 'Vogar', '7305 Lillian Avenue');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HXAEBT11F92L476K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Willie', 'Banks', 'Kozhva', '659 Dexter Way');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('RHSCJF35F27T566D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Doris', 'Woods', 'Huitán', '9932 Golf Course Road');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('VTHXKA28Y42K903I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steve', 'Hawkins', 'Caxias', '411 Warbler Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KXFLRG41V44C012N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michael', 'Webb', 'Arlington', '2113 Dovetail Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HMXYNS02J87C389K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Gomez', 'Dondo', '295 Declaration Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ODEGLR69G25P179Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Rose', 'Henderson', 'Drenova', '78 Coleman Center');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ZWJKVL29V84W243U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Lynch', 'Jiubao', '77929 Sutteridge Hill');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('THCIQS63Z21D234V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeffrey', 'Medina', 'Huanfeng', '25 Golf View Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('AMGSOU02T42U148D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Julia', 'Little', 'Cristóbal', '37660 Corscot Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('QYIATG69M29F648O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michelle', 'Payne', 'Guocun', '02154 Bluestem Road');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('EGWYML53H52V479I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Kim', 'Täby', '4 Paget Drive');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('TNOUCX84P89Z484F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Daniel', 'Butler', 'Puyo', '71496 Bayside Way');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('YTOJSV02M26W769S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephanie', 'Mccoy', 'Rila', '0 Delaware Hill');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('VUMTIS85O67U302B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Wayne', 'Cook', 'Tamansari', '6 Crest Line Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HNQSZY85V83W309H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Diane', 'Barnes', 'Cilangkap', '1 Mayfield Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ZUOCTK93Q57W512K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Amanda', 'Andrews', 'Hetang', '9758 Hazelcrest Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('LMAZQD65D94N338U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Austin', 'Shangxian', '207 Stuart Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NKFAQS92P26L797N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Cheryl', 'Lee', 'Dankama', '4 Londonderry Trail');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('CGVBXZ84F14Q859X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Howard', 'Baker', 'Novoorsk', '6773 Shelley Plaza');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BDLNUQ87A74N842Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Betty', 'Owens', 'Senhor do Bonfim', '3526 Ohio Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('OPSJXQ88J70X471H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jonathan', 'Ross', 'Tiecun', '7483 Myrtle Center');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BSCAXW18H42R366I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jimmy', 'Dixon', 'Sarae', '9 Butternut Park');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('SGPVYC54K37Y614E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jerry', 'Bennett', 'Boston', '769 Sundown Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('EMCRAJ52W88I906Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ryan', 'Moreno', 'Ziębice', '08931 Reinke Way');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('WCUSXA52S95N012G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Charles', 'Sanders', 'Moguqi', '136 Dennis Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('GKXSOF27U19Y632J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Denise', 'Peterson', 'Provins', '517 Everett Pass');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NZURQW07V26W613Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephanie', 'Taylor', 'Hongguang', '42855 Manufacturers Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NWRYLK01G00Q732N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruby', 'Cruz', 'Capão da Canoa', '95 Bonner Way');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KZIBJF78Z54T297D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jennifer', 'Frazier', 'Gajiram', '79067 West Point');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UFNEQV92N24W661C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sharon', 'Myers', 'Dutsin Ma', '3663 Dexter Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('MEUGSC51Y39J574X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Howard', 'Myers', 'Weiwangzhuang', '04 Wayridge Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('SLWRXP97P00K363V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bruce', 'Williamson', 'Ndélé', '1 Merry Alley');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('DIWQEL90U14W018A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mark', 'Long', 'São José de Mipibu', '9760 Forest Run Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HKYQIE50Y39F640D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Warren', 'Cilangkap', '1 Mayfield Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NPQVRH26L99O487X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gerald', 'Miller', 'Palpalá', '359 Buhler Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KGICND54Y87D287H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jason', 'Ward', 'Dijon', '08197 Alpine Avenue');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BOUGHZ41R27X483Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Johnny', 'Bryant', 'Castleblayney', '74 Lake View Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('RBFELH44P82Q132O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Black', 'Areeiro', '90 Larry Alley');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('GYWIJZ29Y78P151J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'John', 'Harrison', 'Matias Olímpio', '53226 Lindbergh Pass');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UXCTMI91A28B223O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Jones', 'Jiyizhuang', '77060 Veith Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('QKVRSB10K24S736H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sean', 'Sims', 'Sanlanbahai', '500 Hazelcrest Hill');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('PKMNSJ13A54Y926P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Norma', 'Morales', 'Weiwangzhuang', '04 Wayridge Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('GMWBVD23K54N412F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Gutierrez', 'Fátima', '2455 Morningstar Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('OKBQMX01V32Z767H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donald', 'Anderson', 'Swedru', '5 Merchant Crossing');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('IRZAJM89I68C301T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Philip', 'Fisher', 'Aeka', '96 Kinsman Avenue');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('DMTSUP71S31A293U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Carroll', 'Kissónerga', '64 Bellgrove Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('JDFCYQ74B58S276E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrea', 'Jenkins', 'Tuwa', '13633 Canary Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HNTBFL70J16W581N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Martin', 'Graham', 'Gaoqiao', '61412 Eagle Crest Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('LWGEOX97W88F725Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Morales', 'Wujingfu', '821 Commercial Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('WJRXVO39T77P821G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Shirley', 'Washington', 'Klimontów', '3608 Myrtle Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('LKYCTP73V98J114E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donna', 'Kelley', 'Ferreira do Zêzere', '42 Holmberg Point');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('MJXUBS60T73U000G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Rice', 'Rennes', '53 Northridge Avenue');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ISKUAE91Y92T572K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marie', 'Berry', 'Wiang Chiang Rung', '3 Magdeline Crossing');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KZFVWL47Q21T073C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Barbara', 'Castillo', 'Cheongsong gun', '51643 Forest Dale Junction');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('EGZTYL91X92S437X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sharon', 'Weaver', 'Bielice', '44 Dexter Pass');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('TRZQDY44I41H385D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Emily', 'Carpenter', 'Göteborg', '027 Hoepker Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('WSTVXH36G23E853Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Larry', 'Cooper', 'Paranapanema', '7197 Grayhawk Center');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HNKIOQ68X17J011N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bonnie', 'Clark', 'Gazimurskiy Zavod', '9 Corben Crossing');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('WUBTSM78X70C518U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Juan', 'Ortiz', 'Selizharovo', '168 Rutledge Terrace');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('PDMQGO08G81P115R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tammy', 'Kim', 'Himaya', '2288 Laurel Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('EPRTQI78Y89U201V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Dunn', 'Zhengdun', '60 Stang Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('XUYFEV81T94F087T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Larry', 'Jones', 'Casal da Anja', '9035 Myrtle Park');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('LKHFMC28J43D552S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Margaret', 'Watson', 'Caluquembe', '2 Del Sol Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ZLGYAQ73C19V347E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'George', 'Wright', 'Paris 07', '38627 Becker Parkway');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('IWOGRM32I54V417G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jean', 'Larson', 'Hägersten', '06323 Anthes Drive');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UFCLNM80G61L837A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Brandon', 'Morrison', 'Grujugan', '63 Moulton Crossing');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('QSUPOL93H30M238B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Alvarez', 'Dupnitsa', '7471 Barby Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('KAIVWL36Z49Y360J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Scott', 'Elliott', 'Sendafa', '55 Hudson Place');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('HIUBWC48S11W075N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Kim', 'Changshou', '4908 Hermina Lane');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BKWTGV11X72P857I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Terry', 'Cruz', 'Huitán', '9932 Golf Course Road');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('UJCFRT85K88S107L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Gordon', 'Da’an', '05 Schmedeman Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('GDPXQF93J29D590I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Irene', 'Jordan', 'Dankama', '4 Londonderry Trail');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('ZUELVH09T10O307C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tina', 'Freeman', 'Marathon', '09019 Ohio Pass');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('MRWGLN45Y12N351R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathleen', 'Jenkins', 'Tamansari', '6 Crest Line Circle');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('YINTFQ59R04V058R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Catherine', 'Warren', 'Shangxian', '207 Stuart Street');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('QYWZSD26L71N133I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Mcdonald', 'Göteborg', '027 Hoepker Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('EBZPSK96V72C394W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ann', 'Jenkins', 'Lushan', '40444 7th Plaza');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BARTCQ79P64W004H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Raymond', 'Cooper', 'Bielice', '44 Dexter Pass');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('PUXKTN70V66W017O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Moreno', 'Bugis', '80 Luster Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('VRJECZ43M60R161Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Medina', 'Melipilla', '7 Manley Court');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('NWHYQK28Q80W469K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anne', 'Hansen', 'Oshawa', '011 Oriole Hill');
-insert into cliente (codice_fiscale, password_hash, nome, cognome, citta_fatturazione, indirizzo_fatturazione) values ('BCOTMU96P27J118X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Hanson', 'Oshawa', '011 Oriole Hill');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('CYDTFN83D62O801H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrew', 'Marshall', 'Albi', '446 Forest Dale Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('RMSVPJ12E06P994U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'Wheeler', 'Sukaraja', '9 Eastlawn Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KNMRLP43R96Y949J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judy', 'Rose', 'Riangkroko', '0955 Farragut Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('AOTFCB94S88D323S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'James', 'Watson', 'Boulogne-sur-Mer', '2796 American Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('VMQEJZ38Y13H905B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Alexander', 'Wentai', '4 Pearson Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('TFUDBC18W30V753E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Riley', 'Jacksonville', '2 Lakewood Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HQRVFL93R01P879Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Deborah', 'Edwards', 'Zhengdun', '60 Stang Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('TIHJUC06C68R524A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Cook', 'Vogar', '7305 Lillian Avenue');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('XAQWPB74E93I993E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mark', 'Garza', 'Oke Mesi', '56 Amoth Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('QNOJES83S53W988H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Earl', 'Mills', 'Al Lagowa', '86 Veith Junction');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HBORAL34C91E401W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Theresa', 'Bailey', 'Lushan', '40444 7th Plaza');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HLPRKC83I35V546H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sara', 'Allen', 'Veřovice', '8435 Ronald Regan Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NJMEYH03M57C669D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'King', 'Balrothery', '13 Vahlen Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HXULSE22E51S717I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steven', 'Alvarez', 'Cergy-Pontoise', '9 Thierer Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('TFJLPA10Y55S860J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Angela', 'Reynolds', 'Madrid', '096 Melody Junction');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('YKSOUC25C67E930A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harold', 'Long', 'Iset’', '857 Norway Maple Park');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UDHIKT82U77V282R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jane', 'Thompson', 'Entre Rios', '85050 Maple Wood Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UODTQV22N12S229K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Teresa', 'Hunter', 'Vogar', '7305 Lillian Avenue');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HXAEBT11F92L476K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Willie', 'Banks', 'Kozhva', '659 Dexter Way');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('RHSCJF35F27T566D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Doris', 'Woods', 'Huitán', '9932 Golf Course Road');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('VTHXKA28Y42K903I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steve', 'Hawkins', 'Caxias', '411 Warbler Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KXFLRG41V44C012N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michael', 'Webb', 'Arlington', '2113 Dovetail Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HMXYNS02J87C389K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Eric', 'Gomez', 'Dondo', '295 Declaration Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ODEGLR69G25P179Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Rose', 'Henderson', 'Drenova', '78 Coleman Center');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ZWJKVL29V84W243U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Lynch', 'Jiubao', '77929 Sutteridge Hill');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('THCIQS63Z21D234V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeffrey', 'Medina', 'Huanfeng', '25 Golf View Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('AMGSOU02T42U148D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Julia', 'Little', 'Cristóbal', '37660 Corscot Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('QYIATG69M29F648O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michelle', 'Payne', 'Guocun', '02154 Bluestem Road');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('EGWYML53H52V479I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Kim', 'Täby', '4 Paget Drive');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('TNOUCX84P89Z484F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Daniel', 'Butler', 'Puyo', '71496 Bayside Way');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('YTOJSV02M26W769S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephanie', 'Mccoy', 'Rila', '0 Delaware Hill');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('VUMTIS85O67U302B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Wayne', 'Cook', 'Tamansari', '6 Crest Line Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HNQSZY85V83W309H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Diane', 'Barnes', 'Cilangkap', '1 Mayfield Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ZUOCTK93Q57W512K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Amanda', 'Andrews', 'Hetang', '9758 Hazelcrest Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('LMAZQD65D94N338U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Austin', 'Shangxian', '207 Stuart Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NKFAQS92P26L797N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Cheryl', 'Lee', 'Dankama', '4 Londonderry Trail');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('CGVBXZ84F14Q859X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Howard', 'Baker', 'Novoorsk', '6773 Shelley Plaza');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BDLNUQ87A74N842Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Betty', 'Owens', 'Senhor do Bonfim', '3526 Ohio Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('OPSJXQ88J70X471H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jonathan', 'Ross', 'Tiecun', '7483 Myrtle Center');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BSCAXW18H42R366I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jimmy', 'Dixon', 'Sarae', '9 Butternut Park');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('SGPVYC54K37Y614E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jerry', 'Bennett', 'Boston', '769 Sundown Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('EMCRAJ52W88I906Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ryan', 'Moreno', 'Ziębice', '08931 Reinke Way');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('WCUSXA52S95N012G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Charles', 'Sanders', 'Moguqi', '136 Dennis Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('GKXSOF27U19Y632J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Denise', 'Peterson', 'Provins', '517 Everett Pass');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NZURQW07V26W613Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephanie', 'Taylor', 'Hongguang', '42855 Manufacturers Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NWRYLK01G00Q732N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruby', 'Cruz', 'Capão da Canoa', '95 Bonner Way');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KZIBJF78Z54T297D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jennifer', 'Frazier', 'Gajiram', '79067 West Point');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UFNEQV92N24W661C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sharon', 'Myers', 'Dutsin Ma', '3663 Dexter Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('MEUGSC51Y39J574X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Howard', 'Myers', 'Weiwangzhuang', '04 Wayridge Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('SLWRXP97P00K363V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bruce', 'Williamson', 'Ndélé', '1 Merry Alley');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('DIWQEL90U14W018A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mark', 'Long', 'São José de Mipibu', '9760 Forest Run Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HKYQIE50Y39F640D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Warren', 'Cilangkap', '1 Mayfield Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NPQVRH26L99O487X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gerald', 'Miller', 'Palpalá', '359 Buhler Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KGICND54Y87D287H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jason', 'Ward', 'Dijon', '08197 Alpine Avenue');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BOUGHZ41R27X483Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Johnny', 'Bryant', 'Castleblayney', '74 Lake View Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('RBFELH44P82Q132O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Black', 'Areeiro', '90 Larry Alley');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('GYWIJZ29Y78P151J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'John', 'Harrison', 'Matias Olímpio', '53226 Lindbergh Pass');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UXCTMI91A28B223O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Jones', 'Jiyizhuang', '77060 Veith Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('QKVRSB10K24S736H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sean', 'Sims', 'Sanlanbahai', '500 Hazelcrest Hill');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('PKMNSJ13A54Y926P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Norma', 'Morales', 'Weiwangzhuang', '04 Wayridge Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('GMWBVD23K54N412F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Gutierrez', 'Fátima', '2455 Morningstar Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('OKBQMX01V32Z767H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donald', 'Anderson', 'Swedru', '5 Merchant Crossing');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('IRZAJM89I68C301T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Philip', 'Fisher', 'Aeka', '96 Kinsman Avenue');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('DMTSUP71S31A293U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Carroll', 'Kissónerga', '64 Bellgrove Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('JDFCYQ74B58S276E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrea', 'Jenkins', 'Tuwa', '13633 Canary Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HNTBFL70J16W581N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Martin', 'Graham', 'Gaoqiao', '61412 Eagle Crest Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('LWGEOX97W88F725Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Morales', 'Wujingfu', '821 Commercial Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('WJRXVO39T77P821G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Shirley', 'Washington', 'Klimontów', '3608 Myrtle Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('LKYCTP73V98J114E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donna', 'Kelley', 'Ferreira do Zêzere', '42 Holmberg Point');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('MJXUBS60T73U000G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Rice', 'Rennes', '53 Northridge Avenue');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ISKUAE91Y92T572K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marie', 'Berry', 'Wiang Chiang Rung', '3 Magdeline Crossing');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KZFVWL47Q21T073C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Barbara', 'Castillo', 'Cheongsong gun', '51643 Forest Dale Junction');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('EGZTYL91X92S437X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sharon', 'Weaver', 'Bielice', '44 Dexter Pass');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('TRZQDY44I41H385D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Emily', 'Carpenter', 'Göteborg', '027 Hoepker Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('WSTVXH36G23E853Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Larry', 'Cooper', 'Paranapanema', '7197 Grayhawk Center');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HNKIOQ68X17J011N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bonnie', 'Clark', 'Gazimurskiy Zavod', '9 Corben Crossing');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('WUBTSM78X70C518U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Juan', 'Ortiz', 'Selizharovo', '168 Rutledge Terrace');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('PDMQGO08G81P115R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tammy', 'Kim', 'Himaya', '2288 Laurel Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('EPRTQI78Y89U201V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Dunn', 'Zhengdun', '60 Stang Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('XUYFEV81T94F087T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Larry', 'Jones', 'Casal da Anja', '9035 Myrtle Park');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('LKHFMC28J43D552S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Margaret', 'Watson', 'Caluquembe', '2 Del Sol Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ZLGYAQ73C19V347E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'George', 'Wright', 'Paris 07', '38627 Becker Parkway');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('IWOGRM32I54V417G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jean', 'Larson', 'Hägersten', '06323 Anthes Drive');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UFCLNM80G61L837A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Brandon', 'Morrison', 'Grujugan', '63 Moulton Crossing');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('QSUPOL93H30M238B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Alvarez', 'Dupnitsa', '7471 Barby Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('KAIVWL36Z49Y360J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Scott', 'Elliott', 'Sendafa', '55 Hudson Place');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('HIUBWC48S11W075N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lois', 'Kim', 'Changshou', '4908 Hermina Lane');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BKWTGV11X72P857I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Terry', 'Cruz', 'Huitán', '9932 Golf Course Road');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('UJCFRT85K88S107L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Gordon', 'Da’an', '05 Schmedeman Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('GDPXQF93J29D590I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Irene', 'Jordan', 'Dankama', '4 Londonderry Trail');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('ZUELVH09T10O307C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tina', 'Freeman', 'Marathon', '09019 Ohio Pass');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('MRWGLN45Y12N351R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathleen', 'Jenkins', 'Tamansari', '6 Crest Line Circle');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('YINTFQ59R04V058R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Catherine', 'Warren', 'Shangxian', '207 Stuart Street');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('QYWZSD26L71N133I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Mcdonald', 'Göteborg', '027 Hoepker Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('EBZPSK96V72C394W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ann', 'Jenkins', 'Lushan', '40444 7th Plaza');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BARTCQ79P64W004H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Raymond', 'Cooper', 'Bielice', '44 Dexter Pass');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('PUXKTN70V66W017O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Moreno', 'Bugis', '80 Luster Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('VRJECZ43M60R161Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Medina', 'Melipilla', '7 Manley Court');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('NWHYQK28Q80W469K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anne', 'Hansen', 'Oshawa', '011 Oriole Hill');
+insert into cliente (codice_fiscale, password_hash, nome, cognome, citta, indirizzo) values ('BCOTMU96P27J118X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Hanson', 'Oshawa', '011 Oriole Hill');
 INSERT INTO `caso` (`codice`, `descrizione`, `nome`, `passato`, `risolto`, `tipologia`, `cliente`)
 VALUES
 	(1, 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.', 'Il grande gioco	', 1, 1, 'ricerca', 'AMGSOU02T42U148D'),
@@ -1191,208 +648,6 @@ VALUES
 	(95, 'terrorismo'),
 	(96, 'terrorismo'),
 	(99, 'terrorismo');
-INSERT INTO `fattura` (`numero`, `data_fattura`, `descrizione`, `importo`, `cliente`, `investigazione`, `caso`)
-VALUES
-	(1, '1978-01-07', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 66831.67, 'EPRTQI78Y89U201V', 1, 2),
-	(2, '1903-07-08', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 89354.60, 'DMTSUP71S31A293U', 1, 88),
-	(3, '1994-06-16', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 58354.22, 'BCOTMU96P27J118X', 1, 78),
-	(4, '1937-05-30', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 17964.78, 'AMGSOU02T42U148D', 1, 1),
-	(5, '1901-12-11', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 7787.91, 'QYIATG69M29F648O', 1, 63),
-	(6, '1931-02-17', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 14986.50, 'MRWGLN45Y12N351R', 1, 98),
-	(7, '1919-06-28', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 25345.39, 'HXAEBT11F92L476K', 1, 4),
-	(8, '2010-06-15', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 23133.29, 'LKYCTP73V98J114E', 1, 82),
-	(9, '1932-11-20', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 86627.65, 'IWOGRM32I54V417G', 1, 27),
-	(10, '1927-07-20', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 74032.39, 'SGPVYC54K37Y614E', 1, 35),
-	(11, '1929-06-30', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 10545.45, 'VTHXKA28Y42K903I', 1, 42),
-	(12, '1890-11-15', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 50085.46, 'GMWBVD23K54N412F', 1, 65),
-	(13, '1892-06-03', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 42656.65, 'THCIQS63Z21D234V', 1, 9),
-	(14, '1931-05-02', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 2120.93, 'OPSJXQ88J70X471H', 1, 17),
-	(15, '1972-10-26', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 79710.55, 'CYDTFN83D62O801H', 1, 8),
-	(16, '1986-03-08', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 41747.96, 'NPQVRH26L99O487X', 1, 15),
-	(17, '1895-05-22', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 73712.42, 'WCUSXA52S95N012G', 1, 20),
-	(18, '1929-11-16', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 32870.27, 'AMGSOU02T42U148D', 1, 38),
-	(19, '1987-11-11', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 33343.25, 'QNOJES83S53W988H', 1, 12),
-	(20, '1891-03-18', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 45175.34, 'GMWBVD23K54N412F', 3, 65),
-	(21, '1996-09-23', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 32847.20, 'EMCRAJ52W88I906Y', 1, 57),
-	(22, '2001-06-24', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 58580.89, 'KXFLRG41V44C012N', 1, 69),
-	(23, '1917-10-16', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 20392.58, 'HXAEBT11F92L476K', 2, 4),
-	(24, '1985-12-23', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 59613.59, 'TFUDBC18W30V753E', 1, 96),
-	(25, '1960-01-23', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 66755.08, 'OPSJXQ88J70X471H', 2, 17),
-	(26, '1897-12-28', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 95412.26, 'WSTVXH36G23E853Z', 1, 32),
-	(27, '1988-03-01', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 3650.43, 'UJCFRT85K88S107L', 1, 91),
-	(28, '1987-04-05', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 92808.06, 'CYDTFN83D62O801H', 1, 6),
-	(29, '1994-09-06', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 84115.74, 'TFUDBC18W30V753E', 2, 96),
-	(30, '1960-07-17', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 55552.31, 'OKBQMX01V32Z767H', 1, 45),
-	(31, '2016-04-17', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 43527.77, 'BARTCQ79P64W004H', 1, 61),
-	(32, '1967-12-25', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 31446.20, 'MRWGLN45Y12N351R', 2, 98),
-	(33, '1927-11-14', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 12102.91, 'MRWGLN45Y12N351R', 3, 98),
-	(34, '1909-09-07', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 88216.69, 'THCIQS63Z21D234V', 2, 9),
-	(35, '1900-11-30', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 66726.04, 'PKMNSJ13A54Y926P', 1, 5),
-	(36, '2001-06-26', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 91872.00, 'NWRYLK01G00Q732N', 1, 31),
-	(37, '1936-05-12', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 12567.25, 'LKYCTP73V98J114E', 1, 92),
-	(38, '1905-12-18', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 60437.56, 'HBORAL34C91E401W', 1, 81),
-	(39, '1892-04-17', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 65050.81, 'VRJECZ43M60R161Y', 1, 94),
-	(40, '1928-02-23', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 90229.35, 'MEUGSC51Y39J574X', 1, 33),
-	(41, '1925-05-13', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 48688.84, 'TFUDBC18W30V753E', 1, 83),
-	(42, '1920-08-02', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 81176.51, 'NKFAQS92P26L797N', 1, 79),
-	(43, '1968-04-22', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 21284.76, 'IWOGRM32I54V417G', 2, 27),
-	(44, '1908-04-21', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 58355.54, 'IRZAJM89I68C301T', 1, 99),
-	(45, '1962-01-09', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 60722.36, 'DMTSUP71S31A293U', 2, 88),
-	(46, '1954-11-23', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 74732.15, 'NZURQW07V26W613Y', 1, 50),
-	(47, '1900-05-23', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 41421.24, 'QYIATG69M29F648O', 2, 63),
-	(48, '1891-07-01', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 2969.05, 'HNKIOQ68X17J011N', 1, 34),
-	(49, '1988-11-15', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 12997.42, 'THCIQS63Z21D234V', 1, 40),
-	(50, '1973-01-01', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 27854.37, 'ISKUAE91Y92T572K', 1, 7),
-	(51, '1922-02-17', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 18014.72, 'OPSJXQ88J70X471H', 3, 17),
-	(52, '1971-04-17', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 56947.46, 'NWHYQK28Q80W469K', 1, 73),
-	(53, '1923-04-08', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 30426.75, 'EPRTQI78Y89U201V', 2, 2),
-	(54, '1895-05-07', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 58072.85, 'BSCAXW18H42R366I', 1, 28),
-	(55, '1916-02-11', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 98342.79, 'WJRXVO39T77P821G', 1, 18),
-	(56, '1923-10-24', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 72493.85, 'XUYFEV81T94F087T', 1, 25),
-	(57, '1977-07-21', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 3671.59, 'NKFAQS92P26L797N', 2, 79),
-	(58, '1936-10-07', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 97398.06, 'BKWTGV11X72P857I', 1, 11),
-	(59, '1996-06-29', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 36650.97, 'HBORAL34C91E401W', 2, 81),
-	(60, '1926-05-01', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 25591.46, 'HNTBFL70J16W581N', 1, 16),
-	(61, '1964-06-22', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 98305.02, 'OKBQMX01V32Z767H', 2, 45),
-	(62, '1998-03-10', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 5121.80, 'WSTVXH36G23E853Z', 1, 21),
-	(63, '2012-06-29', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 62570.01, 'UFNEQV92N24W661C', 1, 93),
-	(64, '1912-03-29', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 10541.05, 'YTOJSV02M26W769S', 1, 84),
-	(65, '1943-02-05', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 47025.54, 'QYWZSD26L71N133I', 1, 37),
-	(66, '1967-02-24', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 49708.77, 'UODTQV22N12S229K', 1, 39),
-	(67, '1991-08-03', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 10046.94, 'LKYCTP73V98J114E', 2, 82),
-	(68, '1896-12-14', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 42966.57, 'CYDTFN83D62O801H', 1, 62),
-	(69, '1936-05-17', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 98373.41, 'EPRTQI78Y89U201V', 1, 24),
-	(70, '2002-05-18', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 56064.18, 'EPRTQI78Y89U201V', 3, 2),
-	(71, '1977-10-22', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 29310.07, 'ISKUAE91Y92T572K', 2, 7),
-	(72, '1948-05-10', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 26105.16, 'MEUGSC51Y39J574X', 2, 33),
-	(73, '1999-11-18', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 60926.00, 'VRJECZ43M60R161Y', 1, 95),
-	(74, '1970-05-23', 'Fusce consequat. Nulla nisl. Nunc nisl.', 81703.87, 'JDFCYQ74B58S276E', 1, 48),
-	(75, '1955-04-22', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 46787.99, 'IRZAJM89I68C301T', 1, 44),
-	(76, '1907-04-16', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 33499.18, 'MRWGLN45Y12N351R', 4, 98),
-	(77, '1955-01-03', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 46288.24, 'OPSJXQ88J70X471H', 4, 17),
-	(78, '2015-06-22', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 28212.57, 'VTHXKA28Y42K903I', 2, 42),
-	(79, '1904-01-13', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 59906.82, 'THCIQS63Z21D234V', 2, 40),
-	(80, '1951-01-09', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 26339.12, 'EMCRAJ52W88I906Y', 1, 86),
-	(81, '1894-07-17', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 57442.67, 'JDFCYQ74B58S276E', 2, 48),
-	(82, '1913-12-12', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 15700.58, 'PUXKTN70V66W017O', 1, 59),
-	(83, '1937-11-05', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 70024.01, 'WJRXVO39T77P821G', 1, 74),
-	(84, '1954-06-16', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 8975.16, 'TFUDBC18W30V753E', 3, 96),
-	(85, '1957-05-18', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 40928.67, 'BSCAXW18H42R366I', 3, 28),
-	(86, '1945-06-29', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 56566.70, 'BCOTMU96P27J118X', 2, 78),
-	(87, '2016-11-13', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 22226.57, 'LKYCTP73V98J114E', 3, 82),
-	(88, '2001-04-03', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 42532.00, 'UFCLNM80G61L837A', 1, 26),
-	(89, '1943-10-16', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 89336.82, 'HXAEBT11F92L476K', 3, 4),
-	(90, '1958-06-18', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 40827.09, 'BCOTMU96P27J118X', 3, 78),
-	(91, '1923-02-23', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 54076.78, 'NWHYQK28Q80W469K', 2, 73),
-	(92, '1994-05-10', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 53770.85, 'BSCAXW18H42R366I', 2, 28),
-	(93, '1915-06-30', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 70669.85, 'KXFLRG41V44C012N', 2, 69),
-	(94, '1922-05-23', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 79487.85, 'LKYCTP73V98J114E', 2, 92),
-	(95, '1922-03-13', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 92823.24, 'GYWIJZ29Y78P151J', 1, 13),
-	(96, '1929-01-11', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 52419.51, 'TRZQDY44I41H385D', 1, 87),
-	(97, '1992-11-27', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 44463.49, 'GMWBVD23K54N412F', 2, 65),
-	(98, '1922-09-25', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 51586.03, 'NKFAQS92P26L797N', 3, 79),
-	(99, '1932-07-24', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 2904.07, 'BSCAXW18H42R366I', 4, 28),
-	(100, '1940-10-19', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 36380.39, 'BKWTGV11X72P857I', 2, 11);
-insert into telefono (numero, cliente) values ('33-(581)716-3845', 'HXAEBT11F92L476K');
-insert into telefono (numero, cliente) values ('86-(851)430-8433', 'MEUGSC51Y39J574X');
-insert into telefono (numero, cliente) values ('93-(182)854-4521', 'KZFVWL47Q21T073C');
-insert into telefono (numero, cliente) values ('84-(409)228-9842', 'VUMTIS85O67U302B');
-insert into telefono (numero, cliente) values ('86-(166)944-9655', 'IRZAJM89I68C301T');
-insert into telefono (numero, cliente) values ('7-(734)911-8460', 'EBZPSK96V72C394W');
-insert into telefono (numero, cliente) values ('353-(935)555-3926', 'HNTBFL70J16W581N');
-insert into telefono (numero, cliente) values ('504-(461)997-6448', 'EMCRAJ52W88I906Y');
-insert into telefono (numero, cliente) values ('380-(487)507-0537', 'IWOGRM32I54V417G');
-insert into telefono (numero, cliente) values ('374-(966)271-7553', 'BKWTGV11X72P857I');
-insert into telefono (numero, cliente) values ('84-(864)422-1055', 'GMWBVD23K54N412F');
-insert into telefono (numero, cliente) values ('502-(815)560-0897', 'UFCLNM80G61L837A');
-insert into telefono (numero, cliente) values ('504-(529)914-8259', 'PKMNSJ13A54Y926P');
-insert into telefono (numero, cliente) values ('389-(306)657-8982', 'QYWZSD26L71N133I');
-insert into telefono (numero, cliente) values ('86-(824)889-7908', 'MRWGLN45Y12N351R');
-insert into telefono (numero, cliente) values ('86-(869)121-1766', 'VUMTIS85O67U302B');
-insert into telefono (numero, cliente) values ('55-(398)560-2397', 'QYIATG69M29F648O');
-insert into telefono (numero, cliente) values ('386-(421)492-4688', 'EGWYML53H52V479I');
-insert into telefono (numero, cliente) values ('86-(197)334-8063', 'WSTVXH36G23E853Z');
-insert into telefono (numero, cliente) values ('62-(666)753-2485', 'LKHFMC28J43D552S');
-insert into telefono (numero, cliente) values ('595-(658)554-7333', 'UODTQV22N12S229K');
-insert into telefono (numero, cliente) values ('86-(673)959-7877', 'QYIATG69M29F648O');
-insert into telefono (numero, cliente) values ('63-(561)406-9913', 'KGICND54Y87D287H');
-insert into telefono (numero, cliente) values ('55-(729)575-3978', 'OKBQMX01V32Z767H');
-insert into telefono (numero, cliente) values ('420-(567)340-2327', 'RBFELH44P82Q132O');
-insert into telefono (numero, cliente) values ('66-(642)747-6027', 'BOUGHZ41R27X483Z');
-insert into telefono (numero, cliente) values ('7-(397)769-5912', 'QYIATG69M29F648O');
-insert into telefono (numero, cliente) values ('86-(877)773-6855', 'DIWQEL90U14W018A');
-insert into telefono (numero, cliente) values ('591-(941)723-3784', 'RHSCJF35F27T566D');
-insert into telefono (numero, cliente) values ('54-(830)402-9937', 'HQRVFL93R01P879Y');
-insert into telefono (numero, cliente) values ('52-(105)213-3912', 'YINTFQ59R04V058R');
-insert into telefono (numero, cliente) values ('351-(234)863-9504', 'BKWTGV11X72P857I');
-insert into telefono (numero, cliente) values ('86-(191)384-1883', 'TFJLPA10Y55S860J');
-insert into telefono (numero, cliente) values ('62-(166)941-3615', 'HQRVFL93R01P879Y');
-insert into telefono (numero, cliente) values ('371-(615)156-5686', 'QNOJES83S53W988H');
-insert into telefono (numero, cliente) values ('1-(912)486-0376', 'HLPRKC83I35V546H');
-insert into telefono (numero, cliente) values ('1-(630)462-5210', 'WSTVXH36G23E853Z');
-insert into telefono (numero, cliente) values ('63-(420)760-5295', 'UDHIKT82U77V282R');
-insert into telefono (numero, cliente) values ('60-(501)194-6778', 'ISKUAE91Y92T572K');
-insert into telefono (numero, cliente) values ('86-(805)291-2713', 'PUXKTN70V66W017O');
-insert into telefono (numero, cliente) values ('86-(353)927-5890', 'IWOGRM32I54V417G');
-insert into telefono (numero, cliente) values ('7-(356)654-2254', 'WUBTSM78X70C518U');
-insert into telefono (numero, cliente) values ('66-(349)724-2490', 'BARTCQ79P64W004H');
-insert into telefono (numero, cliente) values ('86-(793)556-4626', 'UODTQV22N12S229K');
-insert into telefono (numero, cliente) values ('62-(627)234-4907', 'BOUGHZ41R27X483Z');
-insert into telefono (numero, cliente) values ('62-(767)216-9703', 'SGPVYC54K37Y614E');
-insert into telefono (numero, cliente) values ('63-(468)755-4558', 'HBORAL34C91E401W');
-insert into telefono (numero, cliente) values ('380-(475)590-3588', 'MEUGSC51Y39J574X');
-insert into telefono (numero, cliente) values ('86-(651)497-8302', 'YINTFQ59R04V058R');
-insert into telefono (numero, cliente) values ('63-(244)142-4413', 'OKBQMX01V32Z767H');
-insert into telefono (numero, cliente) values ('86-(731)600-3234', 'TIHJUC06C68R524A');
-insert into telefono (numero, cliente) values ('994-(848)731-2097', 'SLWRXP97P00K363V');
-insert into telefono (numero, cliente) values ('94-(935)814-1118', 'HIUBWC48S11W075N');
-insert into telefono (numero, cliente) values ('268-(727)205-8305', 'XUYFEV81T94F087T');
-insert into telefono (numero, cliente) values ('7-(534)134-5882', 'CGVBXZ84F14Q859X');
-insert into telefono (numero, cliente) values ('86-(819)117-9984', 'HMXYNS02J87C389K');
-insert into telefono (numero, cliente) values ('57-(180)495-7829', 'GMWBVD23K54N412F');
-insert into telefono (numero, cliente) values ('33-(506)998-3432', 'NZURQW07V26W613Y');
-insert into telefono (numero, cliente) values ('212-(708)525-5134', 'MRWGLN45Y12N351R');
-insert into telefono (numero, cliente) values ('63-(254)756-0342', 'THCIQS63Z21D234V');
-insert into telefono (numero, cliente) values ('33-(132)333-2163', 'LKYCTP73V98J114E');
-insert into telefono (numero, cliente) values ('63-(611)129-5598', 'GDPXQF93J29D590I');
-insert into telefono (numero, cliente) values ('86-(224)745-6207', 'MRWGLN45Y12N351R');
-insert into telefono (numero, cliente) values ('351-(455)942-7650', 'ODEGLR69G25P179Z');
-insert into telefono (numero, cliente) values ('374-(341)109-0974', 'NJMEYH03M57C669D');
-insert into telefono (numero, cliente) values ('221-(601)319-6867', 'DIWQEL90U14W018A');
-insert into telefono (numero, cliente) values ('86-(704)468-4014', 'KZFVWL47Q21T073C');
-insert into telefono (numero, cliente) values ('33-(562)818-8271', 'BCOTMU96P27J118X');
-insert into telefono (numero, cliente) values ('55-(249)520-6880', 'NWHYQK28Q80W469K');
-insert into telefono (numero, cliente) values ('1-(629)553-5979', 'EMCRAJ52W88I906Y');
-insert into telefono (numero, cliente) values ('33-(642)328-9215', 'CYDTFN83D62O801H');
-insert into telefono (numero, cliente) values ('86-(567)875-5894', 'UFNEQV92N24W661C');
-insert into telefono (numero, cliente) values ('48-(140)282-4373', 'LMAZQD65D94N338U');
-insert into telefono (numero, cliente) values ('233-(947)311-9020', 'OKBQMX01V32Z767H');
-insert into telefono (numero, cliente) values ('48-(993)842-9410', 'GMWBVD23K54N412F');
-insert into telefono (numero, cliente) values ('81-(188)322-5058', 'AOTFCB94S88D323S');
-insert into telefono (numero, cliente) values ('55-(290)964-1823', 'HNTBFL70J16W581N');
-insert into telefono (numero, cliente) values ('86-(608)212-6770', 'EBZPSK96V72C394W');
-insert into telefono (numero, cliente) values ('507-(111)461-0018', 'HLPRKC83I35V546H');
-insert into telefono (numero, cliente) values ('358-(326)474-7956', 'ODEGLR69G25P179Z');
-insert into telefono (numero, cliente) values ('55-(390)101-5205', 'MRWGLN45Y12N351R');
-insert into telefono (numero, cliente) values ('244-(562)555-1841', 'HNKIOQ68X17J011N');
-insert into telefono (numero, cliente) values ('31-(492)834-7531', 'QSUPOL93H30M238B');
-insert into telefono (numero, cliente) values ('33-(396)476-8767', 'WUBTSM78X70C518U');
-insert into telefono (numero, cliente) values ('62-(112)458-5821', 'UJCFRT85K88S107L');
-insert into telefono (numero, cliente) values ('46-(102)721-0140', 'HBORAL34C91E401W');
-insert into telefono (numero, cliente) values ('33-(451)290-6677', 'VUMTIS85O67U302B');
-insert into telefono (numero, cliente) values ('81-(558)917-4400', 'EGZTYL91X92S437X');
-insert into telefono (numero, cliente) values ('216-(103)881-8337', 'ZWJKVL29V84W243U');
-insert into telefono (numero, cliente) values ('30-(847)249-2286', 'NWRYLK01G00Q732N');
-insert into telefono (numero, cliente) values ('86-(834)135-9811', 'THCIQS63Z21D234V');
-insert into telefono (numero, cliente) values ('64-(363)535-6350', 'OKBQMX01V32Z767H');
-insert into telefono (numero, cliente) values ('86-(208)979-4778', 'UFCLNM80G61L837A');
-insert into telefono (numero, cliente) values ('63-(411)865-5789', 'CGVBXZ84F14Q859X');
-insert into telefono (numero, cliente) values ('63-(506)799-7293', 'HKYQIE50Y39F640D');
-insert into telefono (numero, cliente) values ('86-(974)143-5382', 'MRWGLN45Y12N351R');
-insert into telefono (numero, cliente) values ('86-(764)457-7656', 'HQRVFL93R01P879Y');
-insert into telefono (numero, cliente) values ('64-(388)753-9175', 'ZUELVH09T10O307C');
-insert into telefono (numero, cliente) values ('92-(220)534-4727', 'OKBQMX01V32Z767H');
-insert into telefono (numero, cliente) values ('52-(113)409-5369', 'GDPXQF93J29D590I');
 insert into criminale (codice_fiscale, nome, cognome, descrizione) values ('KIBQHW49E63Y771G', 'Jesse', 'Greene', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.
 
 Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
@@ -1877,106 +1132,6 @@ insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizi
 insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XILADC61X36M430P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Paul', 'Adams', false);
 insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RQIEKN53P28L104F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'Clark', false);
 insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('FBPSWQ99L35K802J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Romero', true);
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DPGKFL72K75W974O', 'Brenda', 'Edwards', 'Nuclear Power Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('QPKFLM88A13F088T', 'Donald', 'Peterson', 'Web Designer IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('BNLRCQ70I62Q615M', 'Kathy', 'Bishop', 'Registered Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('LVAODW03J12X152Z', 'Joshua', 'Dixon', 'Nuclear Power Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NUXQIB91Q27T038R', 'John', 'Baker', 'Structural Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('TSPBJF13Z15X392I', 'Shirley', 'Stevens', 'Analog Circuit Design manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ADBUKG15N47L682Q', 'Joan', 'Gordon', 'Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('XQFCVL59L41H379P', 'James', 'Russell', 'Civil Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PSQBME69U96U545T', 'Richard', 'Butler', 'Geological Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('SBIGXA42V79A498A', 'Norma', 'King', 'Electrical Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('EZDISV69S80G973D', 'Frank', 'Elliott', 'Database Administrator IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('VLBUHD63S10P642W', 'Patricia', 'Chavez', 'Web Designer II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('UIYOJW83O26M184N', 'Kimberly', 'Ryan', 'Administrative Officer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NJBVTQ02C55L097O', 'Rachel', 'Duncan', 'VP Quality Control');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WTCRIP81V93J190L', 'Jack', 'Reyes', 'Community Outreach Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('YBAXWQ25U78V425L', 'Paul', 'Hunter', 'Programmer Analyst IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WBGOMP66G83Q780K', 'Billy', 'Owens', 'Engineer II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('YOAKLG62I28L382H', 'Jane', 'Ross', 'Human Resources Assistant I');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('VEWBIO49L15G971Y', 'Bruce', 'Mccoy', 'Human Resources Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('YKBQCI15L61I352M', 'Ann', 'Williamson', 'Structural Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('IULBJF28L96C105N', 'Lillian', 'Jenkins', 'Environmental Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('FIQPHD02L57R061N', 'Christine', 'Ruiz', 'Technical Writer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('FDYMKG97R89K252D', 'Nicole', 'Fox', 'Clinical Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('OFJACI23L06Z793X', 'Ashley', 'Hicks', 'Project Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('CEDMVP24O08B348W', 'Gerald', 'Peterson', 'Senior Quality Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('VAHSOI48T33M887M', 'Angela', 'Baker', 'Registered Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('JANGCQ13M23D479V', 'Lori', 'Hicks', 'Clinical Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PTHKRQ13C64E721P', 'Beverly', 'Oliver', 'Registered Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WVLSKH31P96S847J', 'Helen', 'Adams', 'Junior Executive');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DQMYIL67D89X065W', 'Nicholas', 'Gonzales', 'Web Designer II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('YVTCUI82D91H917Y', 'Jane', 'Hudson', 'Recruiting Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('SYLHPU55M77O788V', 'Cynthia', 'Lane', 'Design Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('TMWPVN09E72J167C', 'Jeremy', 'Greene', 'Statistician IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('TJLRHK33C06D956V', 'Irene', 'Kennedy', 'Assistant Media Planner');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('TICNJO03V85W504D', 'Ernest', 'Ruiz', 'Registered Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ENZYKT65N76T207D', 'Sharon', 'Ross', 'General Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('GAYXBO05N79F244F', 'Walter', 'Mccoy', 'Clinical Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ZXOFNT47X97Z058K', 'Harry', 'Williams', 'Staff Accountant IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('KDOICB89U74J639W', 'Alice', 'Ford', 'Legal Assistant');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PVOAXL77H31A233Z', 'Martha', 'Hawkins', 'Internal Auditor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PKVNDF03A93Y855Q', 'Teresa', 'Crawford', 'Senior Financial Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('VFIHSZ63A57Q157M', 'Ruby', 'Martin', 'Professor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('GJNASE31L23U990G', 'Jessica', 'Green', 'Systems Administrator IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('UKMWGF09D78I774M', 'Bonnie', 'Young', 'Civil Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NEOKQR75Z08R751Y', 'Kimberly', 'Jacobs', 'Health Coach II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('KNOXFW48Y56Y441R', 'Arthur', 'Bradley', 'Database Administrator IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('JRKYVB84S29G780L', 'Martha', 'Grant', 'Clinical Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DVKAQX02S89T146O', 'Stephanie', 'Crawford', 'GIS Technical Architect');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NZWOLF20K84W546T', 'Louise', 'Riley', 'Technical Writer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('RPHINF40I51H514H', 'Brandon', 'Mcdonald', 'Account Executive');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('BWLZER77G02Y921A', 'Christopher', 'Adams', 'Professor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('GIHXYS75L74A025D', 'Billy', 'Young', 'Compensation Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('BIQOMU54N05E763E', 'Christina', 'Ferguson', 'Chief Design Engineer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WFNJUT64C54F097H', 'Jeremy', 'Reynolds', 'Pharmacist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ASWGQC99R79C997H', 'Jennifer', 'Sullivan', 'Senior Cost Accountant');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('OLAXKB28P56B076W', 'Louis', 'Peters', 'Senior Financial Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ZYMFEP79K94W681H', 'Matthew', 'Fuller', 'Software Test Engineer III');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('SPDKEL31O96Y623R', 'Raymond', 'Fowler', 'Environmental Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WNOPLR17N23T449Z', 'Jason', 'Fowler', 'Paralegal');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WBLQFK19T52X334Z', 'Samuel', 'Wood', 'Pharmacist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('FLWNSA82C07C255A', 'George', 'Ford', 'Occupational Therapist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('KAQWVH72V81F873L', 'Marie', 'Rose', 'Administrative Officer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DNXGOC11D23T992V', 'Eugene', 'Marshall', 'Business Systems Development Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('KZXURA05N30Z607Q', 'Theresa', 'Austin', 'Staff Accountant IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('OBNXHR82X76C339S', 'Bonnie', 'Harper', 'VP Sales');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WTFSCB49R51Z246Z', 'Timothy', 'Morgan', 'Tax Accountant');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('MJHPWO47Q97Z231Q', 'Lois', 'Simmons', 'Desktop Support Technician');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ROQUDH18V95Q501H', 'Jimmy', 'Morales', 'Technical Writer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('RAUTHG77N93V131Z', 'Robin', 'Edwards', 'Senior Cost Accountant');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PJYGRI23L01X998X', 'Bruce', 'Wheeler', 'Senior Financial Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('FUGXDK39R35V489U', 'Jerry', 'Ramirez', 'Environmental Tech');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('GPSMWO87C57G943X', 'Walter', 'Wheeler', 'Safety Technician II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('EUKALP28K55Y507T', 'Ann', 'Rodriguez', 'Paralegal');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('KNULFQ67L71J538V', 'Philip', 'Phillips', 'Internal Auditor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NHPSLW88I00I432R', 'Kenneth', 'Fowler', 'Budget/Accounting Analyst I');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PZGIWX42Y00P959J', 'Gregory', 'Johnston', 'Speech Pathologist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DULQXB19M73F108P', 'Jose', 'Sanchez', 'Food Chemist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('ZQXRKG62O37N638Z', 'Lois', 'Warren', 'Media Manager III');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('IGXLTF08Z10U029J', 'Martin', 'Lopez', 'Financial Analyst');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PIKXTH35Y33F998G', 'David', 'Bishop', 'Recruiting Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('BMXYST93N31W741K', 'Walter', 'Adams', 'Senior Editor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DBUQOH62O01D118W', 'Timothy', 'Franklin', 'Registered Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DPEZAS55N91U541K', 'Jerry', 'Watson', 'Pharmacist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('JCFQWN61S99O473R', 'Donna', 'Dunn', 'Financial Advisor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('PINEDS91F02T723A', 'Donna', 'Watson', 'Assistant Media Planner');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WTFGMA59G34O533B', 'Debra', 'Weaver', 'Assistant Professor');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('QPTMUG03K62J786V', 'George', 'Rodriguez', 'Technical Writer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('IYLPWV82Q52H104E', 'Christopher', 'Reed', 'Statistician II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('HJOXKL53U84O498M', 'Willie', 'Gonzalez', 'Graphic Designer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('JGHBUP99H12T677Y', 'Chris', 'Hill', 'Human Resources Assistant II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('XFVJPC61O85Z259R', 'Norma', 'Jones', 'Project Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('DECNQH71Z27J727E', 'Amanda', 'Hicks', 'Programmer Analyst I');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('NMGJHU42H50R490X', 'Deborah', 'Powell', 'Geologist II');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('QHFUNT42C60O412N', 'Kathleen', 'Carter', 'Environmental Specialist');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('WPRNFD01S72V523T', 'Joe', 'Johnston', 'Nurse');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('GAKPCL68Y38M872P', 'Aaron', 'Hall', 'Legal Assistant');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('FSPRWT52V95X358Q', 'Barbara', 'Lawson', 'Budget/Accounting Analyst IV');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('HWZIEM16L65C528V', 'Margaret', 'Schmidt', 'General Manager');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('RWTPKX68T90M455I', 'Carlos', 'Owens', 'Analyst Programmer');
-insert into collaboratore (codice_fiscale, nome, cognome, lavoro) values ('EGBNAM91Q37Q830W', 'Janice', 'Matthews', 'Quality Engineer');
 INSERT INTO `prova` (`codice`, `nome`, `descrizione`, `locazione`, `investigazione`, `caso`)
 VALUES
 	(1, 'neural-net', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 'deposito_polizia', 1, 42),
@@ -2381,107 +1536,7 @@ VALUES
 	('ZJPRNW27Q98E957V', 1, 93, 166),
 	('ZJPRNW27Q98E957V', 2, 73, 216),
 	('ZWRTNC56U87C479G', 1, 15, 349);
-INSERT INTO `collaborazione` (`collaboratore`, `investigazione`, `caso`)
-VALUES
-	('PKVNDF03A93Y855Q', 1, 5),
-	('NHPSLW88I00I432R', 1, 7),
-	('QHFUNT42C60O412N', 1, 7),
-	('VAHSOI48T33M887M', 1, 7),
-	('PIKXTH35Y33F998G', 1, 8),
-	('ZYMFEP79K94W681H', 1, 9),
-	('IGXLTF08Z10U029J', 1, 11),
-	('YVTCUI82D91H917Y', 1, 11),
-	('GAYXBO05N79F244F', 1, 12),
-	('JGHBUP99H12T677Y', 1, 12),
-	('VFIHSZ63A57Q157M', 1, 12),
-	('SYLHPU55M77O788V', 1, 15),
-	('DULQXB19M73F108P', 1, 17),
-	('JGHBUP99H12T677Y', 1, 17),
-	('DPGKFL72K75W974O', 1, 18),
-	('FLWNSA82C07C255A', 1, 20),
-	('VEWBIO49L15G971Y', 1, 20),
-	('WPRNFD01S72V523T', 1, 20),
-	('DPEZAS55N91U541K', 1, 24),
-	('EGBNAM91Q37Q830W', 1, 24),
-	('NHPSLW88I00I432R', 1, 24),
-	('SPDKEL31O96Y623R', 1, 26),
-	('XFVJPC61O85Z259R', 1, 27),
-	('JRKYVB84S29G780L', 1, 28),
-	('WPRNFD01S72V523T', 1, 28),
-	('BWLZER77G02Y921A', 1, 31),
-	('KDOICB89U74J639W', 1, 32),
-	('XFVJPC61O85Z259R', 1, 32),
-	('FDYMKG97R89K252D', 1, 33),
-	('ASWGQC99R79C997H', 1, 34),
-	('FDYMKG97R89K252D', 1, 35),
-	('KZXURA05N30Z607Q', 1, 35),
-	('RPHINF40I51H514H', 1, 37),
-	('DVKAQX02S89T146O', 1, 39),
-	('RPHINF40I51H514H', 1, 39),
-	('LVAODW03J12X152Z', 1, 40),
-	('WTCRIP81V93J190L', 1, 40),
-	('YVTCUI82D91H917Y', 1, 40),
-	('DULQXB19M73F108P', 1, 42),
-	('KNOXFW48Y56Y441R', 1, 42),
-	('QPTMUG03K62J786V', 1, 45),
-	('XFVJPC61O85Z259R', 1, 45),
-	('BWLZER77G02Y921A', 1, 57),
-	('KZXURA05N30Z607Q', 1, 57),
-	('CEDMVP24O08B348W', 1, 62),
-	('BWLZER77G02Y921A', 1, 65),
-	('WTFSCB49R51Z246Z', 1, 65),
-	('VLBUHD63S10P642W', 1, 69),
-	('PINEDS91F02T723A', 1, 73),
-	('WTFGMA59G34O533B', 1, 74),
-	('SBIGXA42V79A498A', 1, 79),
-	('ASWGQC99R79C997H', 1, 82),
-	('DPEZAS55N91U541K', 1, 82),
-	('JANGCQ13M23D479V', 1, 82),
-	('HJOXKL53U84O498M', 1, 83),
-	('JANGCQ13M23D479V', 1, 83),
-	('TICNJO03V85W504D', 1, 83),
-	('DPGKFL72K75W974O', 1, 91),
-	('NJBVTQ02C55L097O', 1, 92),
-	('YKBQCI15L61I352M', 1, 92),
-	('QPKFLM88A13F088T', 1, 93),
-	('WTFSCB49R51Z246Z', 1, 94),
-	('BMXYST93N31W741K', 1, 96),
-	('DQMYIL67D89X065W', 1, 99),
-	('TMWPVN09E72J167C', 1, 99),
-	('NUXQIB91Q27T038R', 2, 2),
-	('DQMYIL67D89X065W', 2, 4),
-	('BMXYST93N31W741K', 2, 11),
-	('HWZIEM16L65C528V', 2, 17),
-	('TSPBJF13Z15X392I', 2, 28),
-	('CEDMVP24O08B348W', 2, 33),
-	('GPSMWO87C57G943X', 2, 33),
-	('PZGIWX42Y00P959J', 2, 33),
-	('PTHKRQ13C64E721P', 2, 48),
-	('UKMWGF09D78I774M', 2, 48),
-	('BWLZER77G02Y921A', 2, 69),
-	('JCFQWN61S99O473R', 2, 69),
-	('DQMYIL67D89X065W', 2, 78),
-	('KNOXFW48Y56Y441R', 2, 78),
-	('XFVJPC61O85Z259R', 2, 79),
-	('BMXYST93N31W741K', 2, 81),
-	('FUGXDK39R35V489U', 2, 92),
-	('TICNJO03V85W504D', 2, 92),
-	('IULBJF28L96C105N', 2, 96),
-	('BNLRCQ70I62Q615M', 3, 2),
-	('NZWOLF20K84W546T', 3, 2),
-	('HJOXKL53U84O498M', 3, 78),
-	('DULQXB19M73F108P', 3, 79),
-	('BIQOMU54N05E763E', 3, 82),
-	('DPEZAS55N91U541K', 3, 82),
-	('GAKPCL68Y38M872P', 3, 82),
-	('JANGCQ13M23D479V', 3, 82),
-	('WTFSCB49R51Z246Z', 3, 82),
-	('FUGXDK39R35V489U', 3, 96),
-	('EUKALP28K55Y507T', 3, 98),
-	('KAQWVH72V81F873L', 4, 17),
-	('NJBVTQ02C55L097O', 4, 28),
-	('PINEDS91F02T723A', 4, 28),
-	('TJLRHK33C06D956V', 4, 98);
+
 DROP TRIGGER IF EXISTS CasoRisolto_ins;
 
 DELIMITER //
@@ -2556,47 +1611,8 @@ DELIMITER ;
 -- UPDATE investigazione
 -- SET data_termine = '1977-01-06'
 -- WHERE numero = 1 AND caso = 2;
-DROP TRIGGER IF EXISTS ImportoFattura_ins;
-
-DELIMITER //
-CREATE TRIGGER ImportoFattura_ins
-BEFORE INSERT ON fattura
-FOR EACH ROW 
-BEGIN
-	DECLARE importoTotale float;
-  
-	SELECT 	ore_totali * tariffa.prezzo INTO importoTotale
-	FROM	investigazione JOIN caso ON investigazione.caso = caso.codice
-			JOIN tariffa ON caso.tipologia = tariffa.tipologia_caso
-	WHERE	caso.codice = NEW.caso AND investigazione.numero = NEW.investigazione;
-
-	IF NEW.importo <> importoTotale
-	THEN SET NEW.importo = importoTotale;
-	END IF;
-END //
-DELIMITER ;
 
 
-
-DROP TRIGGER IF EXISTS ImportoFattura_upd;
-
-DELIMITER //
-CREATE TRIGGER ImportoFattura_upd
-BEFORE UPDATE ON fattura
-FOR EACH ROW 
-BEGIN
-	DECLARE importoTotale float;
-  
-	SELECT 	ore_totali * tariffa.prezzo INTO importoTotale
-	FROM	investigazione JOIN caso ON investigazione.caso = caso.codice
-			JOIN tariffa ON caso.tipologia = tariffa.tipologia_caso
-	WHERE 	caso.codice = NEW.caso AND investigazione.numero = NEW.investigazione;
-
-	IF NEW.importo <> importoTotale
-	THEN SET NEW.importo = importoTotale;
-	END IF;
-END //
-DELIMITER ;
 DROP TRIGGER IF EXISTS OreLavoroTotali_ins;
 
 DELIMITER //
@@ -2623,8 +1639,6 @@ BEGIN
 	END IF;
 END //
 DELIMITER ;
-
-
 
 
 DROP TRIGGER IF EXISTS OreLavoroTotali_upd;

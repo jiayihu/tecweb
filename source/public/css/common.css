@@ -347,7 +347,7 @@ dd {
 }
 
 .dropdown .submenu li {
-  padding: 1rem;
+  padding: 0;
   width: 100%;
 }
 
@@ -358,6 +358,8 @@ dd {
 
 .submenu a {
   color: inherit;
+  display: block;
+  padding: 0.75rem 1rem;
 }
 
 .input {
