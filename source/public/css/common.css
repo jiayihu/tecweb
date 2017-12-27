@@ -89,15 +89,14 @@ label {
   cursor: pointer;
 }
 
-input[type='text'],
-input[type='password'],
+input,
 textarea {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #d3d3d3;
   color: #4e4e4e;
   font-size: 0.875rem;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem;
   transition: all 0.4s ease-out;
 }
 
@@ -127,12 +126,24 @@ textarea {
   resize: vertical;
 }
 
-input[type='text']:focus,
-input[type='password']:focus,
+input:focus,
 textarea:focus {
   border-bottom-color: #4e4e4e;
   box-shadow: inset 0 -1px #4e4e4e;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='password'],
+input[type='email'] {
+  /* Remove outline to inputs which already have a style when focused */
   outline: none;
+}
+
+input[type='radio']:focus,
+input[type='checkbox']:focus {
+  border-bottom: none;
+  box-shadow: none;
 }
 
 textarea::-webkit-input-placeholder,

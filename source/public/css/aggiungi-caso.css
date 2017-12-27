@@ -22,40 +22,16 @@
   font-weight: bold;
 }
 
-.list-item ul {
-  display: none;
-  position: absolute;
-  padding: 0;
-  background: #4e4e4e;
-  width: fit-content;
-}
-
-.list-item ul li {
-  color: #fff;
-  padding: 0.5rem 0 0.5rem 0.5rem;
-  width: 100%;
-}
-
-.list-item:hover > ul {
-  display: block;
-}
-
-
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {
-
 }
 
 @media (min-width: 768px) {
-
 }
 
-@media (min-width: 992px) {  
-
+@media (min-width: 992px) {
 }
 
 @media (min-width: 1200px) {
-
 }
-

@@ -1,7 +1,12 @@
 <?php
 
 namespace App\Controllers;
+
 use \Core\Session;
+use \App\Models\User;
+use \App\Models\Amministratore;
+use \App\Models\Investigatore;
+use \App\Models\Cliente;
 
 require_once 'app/models/User.php';
 require_once 'app/models/Amministratore.php';
@@ -31,8 +36,6 @@ class AuthController {
     $password = \htmlentities($_POST['password']);
     $role = \htmlentities($_POST['role']);
 
-    var_dump($_POST);
-
     return $this->checkCredentials($codiceFiscale, $password, $role);
   }
 
@@ -40,8 +43,19 @@ class AuthController {
     return Session::get('user');
   }
 
+  public function getUserRole() {
+    $user = $this->getUser();
+    $role = '';
+
+    if ($user instanceof Investigatore) $role = 'detective';
+    else if ($user instanceof Amministratore) $role = 'admin';
+    else $role = 'inspector';
+
+    return $role;
+  }
+
   public function isAuthenticated() {
-    return Session::get('user') !== null;
+    return $this->getUser() !== null;
   }
 
   public function logout() {
@@ -49,7 +63,7 @@ class AuthController {
   }
 
   private function checkCredentials($codiceFiscale, $password, $role) {
-    $userClass = '\App\Models\User';
+    $userClass = 'User';
     $table = '';
 
     if ($role === 'detective') {

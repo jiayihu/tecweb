@@ -2,7 +2,7 @@
 
 <main class="main-container container">
   <aside class="main-sidebar">
-    <?php if ($isEdit && !$investigationId): ?>
+    <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
       <dl class="case-info">
         <dt>Titolo</dt>
@@ -92,10 +92,14 @@
         <li class="list-item"><span class="tag-label">Terrorismo</span></li>
       </dd>
     </dl>
+    
+    <?php if ($role !== 'inspector'): ?>
     <hr />
     <p class="center">
       <a class="btn btn-outline" href="/caso?id=1&modifica=true">Modifica i dati</a>
     </p>
+    <?php endif; ?>
+
     <?php endif; ?>
   </aside>
   <section class="main-content">

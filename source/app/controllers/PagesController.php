@@ -93,6 +93,7 @@ class PagesController {
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
       'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
       'caseId' => null,
       'investigations' => $investigations,
       'investigationId' => null,
@@ -107,7 +108,8 @@ class PagesController {
 
     return \Core\view('aggiungi-caso', [
       'routeName' => $routeName,
-      'username' => $this->getUsername()
+      'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
     ]);
   }
 
@@ -119,6 +121,7 @@ class PagesController {
     return \Core\view('ricerca', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
       'query' => 'someQuery'
     ]);
   }
@@ -127,14 +130,20 @@ class PagesController {
     $this->protectRoute();
 
     $routeName = 'caso';
+    $role = $this->authController->getUserRole();
     $caseId = Request::getQueryParam('caso');
     $investigations = [null, null, null, null, null];
     $investigationId = (int) Request::getQueryParam('investigazione');
     $isEdit = Request::getQueryParam('modifica') !== null;
 
+    if ($role === 'inspector' && $isEdit) {
+      return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
+    }
+
     return \Core\view('caso', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
+      'role' => $role,
       'caseId' => $caseId,
       'investigations' => $investigations,
       'investigationId' => $investigationId,

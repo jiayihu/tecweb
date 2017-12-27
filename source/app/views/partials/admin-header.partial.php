@@ -23,6 +23,7 @@
         </a>
       </div>
       <ul class="list navbar-right right">
+        <?php if ($role !== 'inspector'): ?>
         <li class="list-item dropdown">
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
@@ -33,21 +34,22 @@
               <a href="">Aggiungi investigazione</a>
             </li>
           </ul>
-          </li>
-          <li class="list-item">
-            <a class="navbar-link <?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
-          </li>
-          <li class="list-item dropdown dropdown-right">
-            <span class="dropdown-toggle"><?php echo $username ?></span>
-            <ul class="submenu">
-              <li class="list-item">
-                <a href="impostazioni">Impostazioni</a>
-              </li>
-              <li class="list-item">
-                <a href="/logout">Logout</a>
-              </li>
-            </ul>
-          </li>
+        </li>
+        <?php endif; ?>
+        <li class="list-item">
+          <a class="navbar-link <?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
+        </li>
+        <li class="list-item dropdown dropdown-right">
+          <span class="dropdown-toggle"><?php echo $username ?></span>
+          <ul class="submenu">
+            <li class="list-item">
+              <a href="impostazioni">Impostazioni</a>
+            </li>
+            <li class="list-item">
+              <a href="/logout">Logout</a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </header>
