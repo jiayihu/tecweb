@@ -3,13 +3,18 @@
 namespace Core\Database;
 
 class QueryBuilder {
+  /**
+   * Instance of the PDO
+   *
+   * @var \PDO
+   */
   private $pdo;
 
   public function __construct($pdo) {
     $this->pdo = $pdo;
   }
 
-  public function selectAll($table) {
+  public function selectAll(string $table) {
     $statement = $this->pdo->prepare("select * from {$table};");
     $statement->execute();
     
@@ -18,7 +23,7 @@ class QueryBuilder {
     return $results;
   }
 
-  public function selectWhere($columns, $table, $where, $parameters) {
+  public function selectWhere(array $columns, string $table, string $where, array $parameters) {
     $query = \sprintf('select %s from %s where %s;', \implode(', ', $columns), $table, $where);
     $statement = $this->pdo->prepare($query);
     $statement->execute($parameters);
@@ -26,7 +31,7 @@ class QueryBuilder {
     return $statement->fetchAll(\PDO::FETCH_OBJ); 
   }
 
-  public function insert($table, $parameters) {
+  public function insert(string $table, array $parameters) {
     $columns = \implode(', ', array_keys($parameters));
     $placeholders = \implode(
       ', ',

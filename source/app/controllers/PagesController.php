@@ -56,8 +56,8 @@ class PagesController {
     }
 
     $routeName = 'login';
-    $loginError = Request::getQueryParam('loginFailed') != null;
-    $dashboardError = Request::getQueryParam('notAuthorized') != null;
+    $loginError = Request::getQueryParam('loginFailed') !== null;
+    $dashboardError = Request::getQueryParam('notAuthorized') !== null;
 
     return \Core\view('login', [
       'routeName' => $routeName,
@@ -86,7 +86,7 @@ class PagesController {
     $this->protectRoute();
 
     $routeName = 'dashboard';
-    $autoLogin = Request::getQueryParam('autoLogin') != null;
+    $autoLogin = Request::getQueryParam('autoLogin') !== null;
     $caseId = Request::getQueryParam('caso');
     $investigations = [null, null, null, null, null];
     $investigationId = Request::getQueryParam('investigazione');

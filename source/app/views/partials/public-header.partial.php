@@ -21,16 +21,16 @@
       </div>
       <ul class="list navbar-right right">
         <li class="list-item">
-          <a class="<?php echo $routeName == 'servizi' ? 'active' : '' ?>" href="servizi">Servizi</a>
+          <a class="<?php echo $routeName === 'servizi' ? 'active' : '' ?>" href="servizi">Servizi</a>
         </li>
         <li class="list-item">
-          <a class="<?php echo $routeName == 'casi' ? 'active' : '' ?>" href="casi">Casi di Studio</a>
+          <a class="<?php echo $routeName === 'casi' ? 'active' : '' ?>" href="casi">Casi di Studio</a>
         </li>
         <li class="list-item">
-          <a class="<?php echo $routeName == 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
+          <a class="<?php echo $routeName === 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
         </li>
         <li class="list-item">
-          <a class="<?php echo $routeName == 'login' ? 'active' : '' ?>" href="login">Login</a>
+          <a class="<?php echo $routeName === 'login' ? 'active' : '' ?>" href="login">Login</a>
         </li>
       </ul>
     </div>

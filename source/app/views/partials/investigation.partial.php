@@ -3,13 +3,13 @@
     id="inv-<?php echo $index; ?>" 
     type="checkbox" 
     name="investigations" 
-    <?php echo $index == $investigationId ? 'checked' : '' ?>
+    <?php echo $index === $investigationId ? 'checked' : '' ?>
   >
   <label for="inv-<?php echo $index; ?>">Investigazione <?php echo $index; ?></label>
   <div class="investigation-content">
     <p class="actions">
-      <a href="/caso?id=1&investizione=1">Mostra dettagli</a>
-      <a href="/caso?id=1&investizione=1&modifica=true">Modifica</a>
+      <a href="/caso?id=1&investigazione=1">Mostra dettagli</a>
+      <a href="/caso?id=1&investigazione=1&modifica=true">Modifica</a>
     </p>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Svolta da: </span> Sherlock Holmes

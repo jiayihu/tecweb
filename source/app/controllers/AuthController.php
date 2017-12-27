@@ -36,7 +36,7 @@ class AuthController {
   }
 
   public function isAuthenticated() {
-    return Session::get('user') != null;
+    return Session::get('user') !== null;
   }
 
   public function logout() {
@@ -51,7 +51,7 @@ class AuthController {
       [':codice_fiscale' => $codiceFiscale]
     );
 
-    if (\count($results) != 1) return false;
+    if (\count($results) !== 1) return false;
     else {
       $user = $results[0];
       $isAuthorized = \password_verify($password, $user->password_hash);
