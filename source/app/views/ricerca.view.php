@@ -19,15 +19,15 @@
         <div class="case-fields">
           <p>
             <label class="input-label" for="input-client">Cliente</label>
-            <input class="input" type="text" name="client" id="input-client" placeholder="Codice fiscale cliente">
+            <input class="input" type="text" name="cliente" id="input-client" placeholder="Codice fiscale cliente">
           </p>
           <p>
             <label class="input-label" for="input-criminal">Criminale</label>
-            <input class="input" type="text" name="criminal" id="input-criminal" placeholder="Codice fiscale criminale">
+            <input class="input" type="text" name="criminale" id="input-criminal" placeholder="Codice fiscale criminale">
           </p>
           <p>
             <label class="input-label" for="input-rate">Tipologia</label>
-            <select class="select" name="rate" id="input-rate">
+            <select class="select" name="tariffa" id="input-rate">
               <option value="furto">Furto</option>
               <option value="omicidio">Omicidio</option>
               <option value="ricatto">Ricatto</option>
@@ -70,11 +70,11 @@
         <div class="investigation-fields">
           <p>
             <label class="input-label" for="input-investigator">Investigatore</label>
-            <input class="input" type="text" name="investigator" id="input-investigator" placeholder="Codice fiscale investigatore">
+            <input class="input" type="text" name="investigatore" id="input-investigator" placeholder="Codice fiscale investigatore">
           </p>
           <p>
             <label class="input-label" for="input-scene">Scena investigazione</label>
-            <input class="input" type="text" name="scene" id="input-scene" placeholder="Città della scena">
+            <input class="input" type="text" name="scena" id="input-scene" placeholder="Città della scena">
           </p>
           <p>
             <label class="input-label" for="input-date-from">A partire da data</label>

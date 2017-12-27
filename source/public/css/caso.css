@@ -1,6 +1,6 @@
 @import url('partials/investigation.css');
 
-.page-ricerca .col {
+.page-caso .col {
   float: none;
   width: 100%;
 }
@@ -19,6 +19,10 @@ h2 {
   display: block;
   margin-top: 0.5rem;
   padding: 0.5rem;
+}
+
+.tag input:checked + .tag-label {
+  border-left: 3px solid #c62828;
 }
 
 .status {
@@ -42,7 +46,7 @@ h2 {
 }
 
 @media (min-width: 992px) {
-  .page-ricerca .col {
+  .page-caso .col {
     float: left;
   }
 

@@ -1,22 +1,22 @@
-input {
+.investigation input {
   position: absolute;
   opacity: 0;
   z-index: -1;
 }
 
-input:checked ~ .investigation-content {
+.investigation input:checked ~ .investigation-content {
   max-height: 100vh;
 }
 
-input[type='checkbox'] + label::after {
+.investigation input[type='checkbox'] + label::after {
   content: '+';
 }
 
-input[type='checkbox']:checked + label::after {
+.investigation input[type='checkbox']:checked + label::after {
   transform: rotate(315deg);
 }
 
-label {
+.investigation label {
   background-color: #f6f6f6;
   cursor: pointer;
   display: block;
@@ -26,7 +26,11 @@ label {
   padding: 0 0 0 1em;
 }
 
-label::after {
+.investigation label:hover {
+  background-color: #d3d3d3;
+}
+
+.investigation label::after {
   display: block;
   line-height: 3;
   height: 3em;
@@ -44,10 +48,6 @@ label::after {
   overflow: hidden;
   position: relative;
   width: 100%;
-}
-
-label:hover {
-  background-color: #d3d3d3;
 }
 
 .actions {
@@ -72,15 +72,15 @@ label:hover {
   font-weight: bold;
 }
 
-table {
+.investigation table {
   width: 100%;
 }
 
-thead {
+.investigation thead {
   background-color: #d3d3d3;
 }
 
-tbody th {
+.investigation tbody th {
   font-weight: normal;
 }
 

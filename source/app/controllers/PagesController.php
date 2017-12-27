@@ -131,6 +131,7 @@ class PagesController {
     $caseId = Request::getQueryParam('caso');
     $investigations = [null, null, null, null, null];
     $investigationId = (int) Request::getQueryParam('investigazione');
+    $isEdit = Request::getQueryParam('modifica') !== null;
 
     return \Core\view('caso', [
       'routeName' => $routeName,
@@ -138,6 +139,7 @@ class PagesController {
       'caseId' => $caseId,
       'investigations' => $investigations,
       'investigationId' => $investigationId,
+      'isEdit' => $isEdit,
     ]);
   }
 

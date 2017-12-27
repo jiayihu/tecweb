@@ -2,6 +2,7 @@
 
 <main class="container">
   <aside class="col one-fourth">
+    <?php if (!$isEdit || ($isEdit && $investigationId)): ?>
     <h1 class="page-title">
       Uno scandalo in Boemia
       <span class="status status-resolved" title="Risolto"></span>
@@ -38,8 +39,64 @@
     </dl>
     <hr />
     <p class="center">
-      <a class="btn btn-outline" href="/caso?id=1&modifica=true">Modifica i dati del caso</a>
+      <a class="btn btn-outline" href="/caso?id=1&modifica=true">Modifica i dati</a>
     </p>
+    <?php elseif ($isEdit && !$investigationId): ?>
+    <form action="/caso" method="post">
+      <dl class="case-info">
+        <dt>Titolo</dt>
+        <dd><input class="input" type="text" name="title" value="Uno scandalo in Boemia"></dd>
+        <dt>Descrizione</dt>
+        <dd><textarea name="descrizione">Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.</textarea></dd>
+        <dt>Tipologia</dt>
+        <dd>
+        <select class="select" name="tariffa">
+          <option value="furto">Furto</option>
+          <option value="omicidio">Omicidio</option>
+          <option value="ricatto">Ricatto</option>
+          <option value="ricerca">Ricerca</option>
+          <option value="spionaggio">Spionaggio</option>
+        </select>
+        </dd>
+        <dt>Cliente</dt>
+        <dd><input class="input" type="text" name="cliente" value="AMGSOU02T42U148D"></dd>
+        <dt>Criminale</dt>
+        <dd><input class="input" type="text" name="criminale" value="AMGSOU02T42U148D"></dd>
+        <dt>Tag</dt>
+        <dd>
+        <ul class="tags list">
+          <li class="list-item">
+            <label class="tag">
+              <input hidden type="checkbox" name="tags" value="annegamento" />
+              <span class="tag-label">Annegamento</span>
+            </label>
+          </li>
+          <li class="list-item">
+            <label class="tag">
+              <input hidden type="checkbox" name="tags" value="cellulare" />
+              <span class="tag-label">Cellulare</span>
+            </label>
+          </li>
+          <li class="list-item">
+            <label class="tag">
+              <input hidden type="checkbox" name="tags" value="sparatoia" />
+              <span class="tag-label">Sparatoia</span>
+            </label>
+          </li>
+          <li class="list-item">
+            <label class="tag">
+              <input hidden type="checkbox" name="tags" value="terrorismo" />
+              <span class="tag-label">Terrorismo</span>
+            </label>
+          </li>
+        </ul>
+      </dl>
+      <hr />
+      <p class="center">
+        <button type="submit" class="btn btn-outline">Salva le modifiche</button>
+      </p>
+    </form>
+    <?php endif; ?>
   </aside>
   <section class="content col three-fourth">
     <h2>Investigazioni del caso</h2>
