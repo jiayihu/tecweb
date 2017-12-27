@@ -61,7 +61,11 @@
   <?php else: ?>
   <div class="investigation-content">
     <p class="actions">
+      <?php if ($routeName === 'dashboard'): ?>
+      <a href="/caso?id=1&investigazione=1">Mostra dettagli</a>
+      <?php else : ?>
       <a href="/caso?id=1&investigazione=1&modifica=true">Modifica</a>
+      <?php endif; ?>
     </p>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Svolta da: </span> Sherlock Holmes

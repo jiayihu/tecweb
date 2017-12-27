@@ -1,9 +1,10 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="clearfix">
-  <aside class="clearfix">
+<main class="main-container container">
+  <aside class="main-sidebar">
+    <h2>Casi</h2>
     <ul class="menu-case">
-      <li class="h6 case-select">Caso 1</li>
+      <li class="case case-select">Caso 1</li>
       <li class="case">Caso 2</li>
       <li class="case">Caso 3</li>
       <li class="case">Caso 4</li>
@@ -15,7 +16,9 @@
     </ul>
   </aside>
 
-  <section class="dashboard">
+  <section class="main-content dashboard">
+    <h2>Caso "Uno studio in rosa"</h2>
+
     <?php if ($autoLogin) :?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-info">

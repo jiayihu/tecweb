@@ -48,11 +48,14 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background-color: #fff;
   color: #4e4e4e;
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
 }
 
 a {
@@ -103,7 +106,7 @@ select {
   border-bottom: 1px solid #d3d3d3;
   color: #4e4e4e;
   height: 2.5rem;
-  padding: 1rem;
+  line-height: 2.5rem;
   width: 100%;
 }
 
@@ -154,6 +157,10 @@ td {
   text-align: left;
 }
 
+dl {
+  font-size: 1rem;
+}
+
 dt {
   font-weight: 700;
   margin-top: 1rem;
@@ -187,6 +194,11 @@ dd {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.main-sidebar {
+  background: #343c48;
+  color: white;
 }
 
 /*----------  Components  ----------*/
@@ -290,7 +302,8 @@ dd {
   position: absolute;
   text-align: left;
   top: 4rem;
-  width: 20rem;
+  width: 15rem;
+  z-index: 9;
 }
 
 .dropdown .submenu::after {
@@ -391,7 +404,7 @@ dd {
   margin-top: 0;
 }
 
-/*----------  Page common sections  ----------*/
+/*----------  Pages common sections  ----------*/
 
 .logo-img {
   height: 4rem;
@@ -551,16 +564,50 @@ dd {
   textarea {
     min-height: 10rem;
   }
+
+  .container {
+    max-width: 800px;
+    padding: 0 0.5rem;
+  }
+
+  /*----------  Admin common layout  ----------*/
+
+  .main-container {
+    display: table;
+    height: 90vh;
+  }
+
+  .main-sidebar {
+    display: table-cell;
+    width: 25%;
+  }
+
+  .main-content {
+    display: table-cell;
+    width: 75%;
+  }
 }
 
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
   }
+
+  .main-container {
+    padding: 0;
+  }
 }
 
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
+  }
+
+  .main-sidebar {
+    width: 20%;
+  }
+
+  .main-content {
+    width: 80%;
   }
 }

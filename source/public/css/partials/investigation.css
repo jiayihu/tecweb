@@ -45,7 +45,7 @@
 }
 
 .actions {
-  float: right;
+  margin-bottom: 0;
   text-align: right;
   text-transform: uppercase;
 }

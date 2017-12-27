@@ -1,7 +1,7 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="container">
-  <aside class="col one-fourth">
+<main class="main-container container">
+  <aside class="main-sidebar">
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
     <form action="ricerca" method="post">
       <p>
@@ -92,7 +92,7 @@
       </p>
     </form>
   </aside>
-  <section class="content col three-fourth">
+  <section class="main-content">
     <h2>Risultati per "<?php echo $query; ?>"</h2>
 
     <table class="results results-cases">

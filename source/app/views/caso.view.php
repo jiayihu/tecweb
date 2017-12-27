@@ -1,7 +1,7 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="container">
-  <aside class="col one-fourth">
+<main class="main-container container">
+  <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId): ?>
     <form action="/caso" method="post">
       <dl class="case-info">
@@ -98,7 +98,7 @@
     </p>
     <?php endif; ?>
   </aside>
-  <section class="content col three-fourth">
+  <section class="main-content">
     <h2>Investigazioni del caso</h2>
 
     <?php foreach ($investigations as $index => $investigation) : ?>

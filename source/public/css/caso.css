@@ -1,8 +1,8 @@
 @import url('partials/investigation.css');
 
-.page-caso .col {
-  float: none;
-  width: 100%;
+.main-sidebar {
+  background-color: transparent;
+  color: inherit;
 }
 
 h1,
@@ -46,19 +46,7 @@ h2 {
 }
 
 @media (min-width: 992px) {
-  .page-caso .col {
-    float: left;
-  }
-
-  .col.one-fourth {
-    width: 25%;
-  }
-
-  .col.three-fourth {
-    width: 75%;
-  }
-
-  .content {
-    padding-left: 2rem;
+  .main-content {
+    padding-left: 1rem;
   }
 }

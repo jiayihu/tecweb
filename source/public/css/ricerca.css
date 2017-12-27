@@ -1,6 +1,6 @@
-.page-ricerca .col {
-  float: none;
-  width: 100%;
+.main-sidebar {
+  background-color: transparent;
+  color: inherit;
 }
 
 h1,
@@ -65,25 +65,20 @@ h2 {
   width: 6rem;
 }
 
+@media (min-width: 480px) {
+  .main-sidebar,
+  .main-content {
+    padding-top: 1rem;
+  }
+}
+
 @media (min-width: 992px) {
-  .page-ricerca .col {
-    float: left;
-  }
-
-  .col.one-fourth {
-    width: 25%;
-  }
-
-  .col.three-fourth {
-    width: 75%;
-  }
-
   .tags .list-item {
     display: block;
     margin-right: 0 !important;
   }
 
-  .content {
-    padding-left: 2rem;
+  .main-content {
+    padding-left: 1rem;
   }
 }
