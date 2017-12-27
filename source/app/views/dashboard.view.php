@@ -30,7 +30,6 @@
     <div class="case-details">
       <p class="actions">
         <a class="" href="/caso?id=1">Mostra dettagli</a>
-        <a class="" href="/caso?id=1&modifica=true">Modifica</a>
       </p>
 
       <dl class="case-info">

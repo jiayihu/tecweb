@@ -23,29 +23,31 @@
         </a>
       </div>
       <ul class="list navbar-right right">
-        <li class="list-item">
+        <li class="list-item dropdown">
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
             <li class="list-item">
               <a href="aggiungi-caso">Aggiungi caso</a>
-              <li class="list-item">
-                <a href="">Aggiungi investigazione</a>
-              </li>
+            </li>
+            <li class="list-item">
+              <a href="">Aggiungi investigazione</a>
+            </li>
           </ul>
           </li>
           <li class="list-item">
-            <a class="<?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
+            <a class="navbar-link <?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
           </li>
-          <li class="list-item">
+          <li class="list-item dropdown dropdown-right">
             <span class="dropdown-toggle"><?php echo $username ?></span>
             <ul class="submenu">
               <li class="list-item">
                 <a href="impostazioni">Impostazioni</a>
-                <li class="list-item">
-                  <a href="/logout">Logout</a>
-                </li>
+              </li>
+              <li class="list-item">
+                <a href="/logout">Logout</a>
+              </li>
             </ul>
-            </li>
+          </li>
       </ul>
     </div>
   </header>

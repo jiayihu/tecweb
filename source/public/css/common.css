@@ -258,6 +258,81 @@ dd {
   color: #060606;
 }
 
+.dropdown {
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-toggle {
+  color: #c62828;
+}
+
+.dropdown-toggle::after {
+  content: ' ';
+  background-image: url(/public/images/admin/caret.svg);
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  margin-left: 6px;
+}
+
+.dropdown .submenu {
+  background-color: white;
+  border: 1px solid #4e4e4e;
+  border-top-width: 2px;
+  box-shadow: 0 3px 4px #d3d3d3;
+  display: none;
+  font-size: 1rem;
+  left: 0;
+  padding: 0;
+  position: absolute;
+  text-align: left;
+  top: 4rem;
+  width: 20rem;
+}
+
+.dropdown .submenu::after {
+  border-bottom: 8px solid #4e4e4e;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  content: '';
+  height: 0;
+  left: 1rem;
+  position: absolute;
+  top: -8px;
+  width: 0;
+}
+
+.dropdown-right .submenu {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-right .submenu::after {
+  left: auto;
+  right: 1rem;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+
+.dropdown .submenu li {
+  padding: 1rem;
+  width: 100%;
+}
+
+.dropdown .submenu li:hover {
+  background-color: #4e4e4e;
+  color: white;
+}
+
+.submenu a {
+  color: inherit;
+}
+
 .input {
   width: 100%;
 }
@@ -333,6 +408,21 @@ dd {
   padding: 0.5rem 0;
 }
 
+.navbar-left,
+.navbar-right {
+  margin: 0;
+  text-align: center;
+}
+
+.navbar .list-item {
+  padding: 1.5rem 0;
+}
+
+.navbar .list-item:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.navbar .dropdown-toggle,
 .navbar a {
   border-bottom: 2px solid transparent;
   color: inherit;
@@ -341,18 +431,12 @@ dd {
   transition: all 0.4s ease-out;
 }
 
-.navbar-right a:hover,
-.navbar-right a.active {
+.navbar .dropdown:hover .dropdown-toggle,
+.navbar .dropdown-toggle:hover,
+.navbar .dropdown-toggle.active,
+.navbar-link:hover,
+.navbar-link.active {
   border-bottom: 2px solid #c62828;
-}
-
-.navbar-left,
-.navbar-right {
-  text-align: center;
-}
-
-.navbar .list-item {
-  padding-top: 0.25rem;
 }
 
 .intro {

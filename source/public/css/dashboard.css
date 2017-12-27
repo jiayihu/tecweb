@@ -41,79 +41,6 @@ aside {
   text-align: left;
 }
 
-/*----------  Tutto CSS del dropdown o anche dell'accordion? 🤔  ----------*/
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-toggle {
-  color: #c62828;
-}
-
-input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1;
-}
-
-input:checked ~ .investigation-content {
-  max-height: 100vh;
-}
-
-input[type='checkbox'] + label::after {
-  content: '+';
-}
-
-input[type='checkbox']:checked + label::after {
-  transform: rotate(315deg);
-}
-
-label {
-  background-color: #f6f6f6;
-  cursor: pointer;
-  display: block;
-  font-weight: bold;
-  line-height: 3;
-  position: relative;
-  padding: 0 0 0 1em;
-}
-
-label::after {
-  display: block;
-  line-height: 3;
-  height: 3em;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  top: 0;
-  transition: all 0.35s;
-  width: 3em;
-}
-
-.list-item ul {
-  display: none;
-  position: absolute;
-  padding: 0;
-  background: #4e4e4e;
-  width: fit-content;
-}
-
-.list-item ul li {
-  color: #fff;
-  padding: 0.5rem 0 0.5rem 0.5rem;
-  width: 100%;
-}
-
-.list-item:hover > ul {
-  display: block;
-}
-
-li {
-  margin: 0;
-}
-
 .navbar-container {
   z-index: 2;
 }
@@ -128,14 +55,6 @@ li {
 
 .menu-title {
   display: none;
-}
-
-.submenu {
-  text-align: left;
-}
-
-.submenu a {
-  color: inherit;
 }
 
 /*----------  Media queries  ----------*/

@@ -61,7 +61,6 @@
   <?php else: ?>
   <div class="investigation-content">
     <p class="actions">
-      <a href="/caso?id=1&investigazione=1">Mostra dettagli</a>
       <a href="/caso?id=1&investigazione=1&modifica=true">Modifica</a>
     </p>
     <div class="investigation-content-field">
