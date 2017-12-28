@@ -14,19 +14,30 @@ class QueryBuilder {
     $this->pdo = $pdo;
   }
 
+  public function runQuery(string $query) {
+    $statement = $this->pdo->prepare($query);
+    $statement->execute();
+
+    if (!$statement) return null;
+    
+    return $statement->fetchAll(\PDO::FETCH_OBJ);
+  }
+
   public function selectAll(string $table) {
     $statement = $this->pdo->prepare("select * from {$table};");
     $statement->execute();
-    
-    $results = $statement->fetchAll(\PDO::FETCH_OBJ);
 
-    return $results;
+    if (!$statement) return null;
+    
+    return $statement->fetchAll(\PDO::FETCH_OBJ);
   }
 
   public function selectWhere(array $columns, string $table, string $where, array $parameters) {
     $query = \sprintf('select %s from %s where %s;', \implode(', ', $columns), $table, $where);
     $statement = $this->pdo->prepare($query);
     $statement->execute($parameters);
+
+    if (!$statement) return null;
     
     return $statement->fetchAll(\PDO::FETCH_OBJ); 
   }

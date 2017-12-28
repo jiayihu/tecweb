@@ -5,12 +5,8 @@ namespace App\Models;
 require_once 'app/models/User.php';
 
 class Cliente extends User {
-  public $nome;
-  public $cognome;
   public $citta;
   public $indirizzo;
-
-  private $codiceFiscale;
 
   public function __construct(
     string $codiceFiscale,

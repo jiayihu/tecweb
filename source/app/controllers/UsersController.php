@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\Request;
+use \App\Models\User;
 
 require_once 'app/controllers/AuthController.php';
 
@@ -24,22 +25,38 @@ class UsersController {
     $this->authController = new AuthController();
   }
 
+  public function getUsers() {
+    $query = "
+    (SELECT codice_fiscale, nome, cognome FROM amministratore)
+    UNION
+    (SELECT codice_fiscale, nome, cognome FROM investigatore)
+    UNION 
+    (SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale);";
+    $results = $this->database->runQuery($query);
+
+    return \array_map(function ($result) {
+      return new User($result->codice_fiscale, $result->nome, $result->cognome);
+    }, $results);
+  }
+
   public function addUserAPI() {
     $successful = false;
     $response = null;
+    $errors = null;
+
     try {
       $successful = $this->addUser();
       $response = ['success' => $successful];
     } catch (\Exception $e) {
       if ($e->getMessage() === 'passwordsNotEqual') {
-        $response = [['id' => 'passwordsNotEqual']];
+        $errors = [['id' => 'passwordsNotEqual']];
       }
       if ($e->getMessage() === 'alreadyExisting') {
-        $response = [['id' => 'alreadyExisting']];
+        $errors = [['id' => 'alreadyExisting']];
       }
     }
 
-    return \Core\json($response);
+    return $successful ? \Core\json($response) : \Core\json(null, $errors);
   }
 
   public function addUser() {

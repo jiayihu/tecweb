@@ -3,10 +3,9 @@
 namespace App\Models;
 
 class User {
+  public $codice_fiscale;
   public $nome;
   public $cognome;
-
-  private $codice_fiscale;
 
   public function __construct(string $codice_fiscale, string $nome, string $cognome) {
     $this->codice_fiscale = $codice_fiscale;

@@ -166,6 +166,7 @@ class PagesController {
     $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
     $alreadyExisting = Request::getQueryParam('esistente') !== null;
     $addFailed = Request::getQueryParam('erroreCreazione') !== null;
+    $users = $this->usersController->getUsers();
 
     if ($role !== 'admin') {
       return \Core\redirect("/dashboard?permessoNegato=true");
@@ -177,7 +178,8 @@ class PagesController {
       'role' => $role,
       'passwordsNotEqual' => $passwordsNotEqual,
       'alreadyExisting' => $alreadyExisting,
-      'addFailed' => $addFailed
+      'addFailed' => $addFailed,
+      'users' => $users,
     ]);
   }
 

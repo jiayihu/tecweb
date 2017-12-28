@@ -67,60 +67,17 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach ($users as $user): ?>
         <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
+          <td><?php echo $user->codice_fiscale ?></td>
+          <td><?php echo $user->nome ?></td>
+          <td><?php echo $user->cognome ?></td>
           <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
+            <a href="/utenti?id=<?php echo $user->codice_fiscale ?>&modifica=true">Modifica</a>
+            <a href="/utenti?id=<?php echo $user->codice_fiscale ?>&cancella=true">Cancella</a>
           </td>
         </tr>
-        <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
-          <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
-          </td>
-        </tr>
-        <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
-          <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
-          </td>
-        </tr>
-        <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
-          <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
-          </td>
-        </tr>
-        <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
-          <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
-          </td>
-        </tr>
-        <tr>
-          <td>AMGSOU02T42U148D</td>
-          <td>Julia</td>
-          <td>Little</td>
-          <td class="actions">
-            <a href="/utenti?id=1&modifica=true">Modifica</a>
-            <a href="/utenti?id=1&cancella=true">Cancella</a>
-          </td>
-        </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
   </section>
