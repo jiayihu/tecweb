@@ -42,7 +42,7 @@ class AuthController {
     else if ($role === 'admin') $userClass = '\App\Models\Amministratore';
     else $userClass = '\App\Models\Ispettore';
 
-    $user = $this->checkCredentials($codiceFiscale, $password, $role);
+    $user = $this->getUserByCredentials($codiceFiscale, $password, $role);
 
     if ($user !== null) {
       Session::start();
@@ -73,7 +73,7 @@ class AuthController {
     Session::destroy();
   }
 
-  function checkCredentials($codiceFiscale, $password, $role) {
+  function getUserByCredentials($codiceFiscale, $password, $role) {
     $table = '';
 
     if ($role === 'detective') $table = 'investigatore';
@@ -81,8 +81,8 @@ class AuthController {
     else $table = 'cliente';
 
     $results = $this->database->selectWhere(
-      ['codice_fiscale', 'password_hash', 'nome', 'cognome'],
       $table,
+      ['codice_fiscale', 'password_hash', 'nome', 'cognome'],
       'codice_fiscale = :codice_fiscale',
       [':codice_fiscale' => $codiceFiscale]
     );

@@ -163,11 +163,22 @@ class PagesController {
 
     $routeName = 'utenti';
     $role = $this->authController->getUserRole();
+    $user = $this->authController->getUser();
+
     $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
     $alreadyExisting = Request::getQueryParam('esistente') !== null;
     $addFailed = Request::getQueryParam('erroreCreazione') !== null;
+
+    $isEdit = Request::getQueryParam('modifica') !== null;
+    $editingCodiceFiscale = Request::getQueryParam('codice_fiscale');
+    $editingRole = Request::getQueryParam('role');
+    $editingUser = null;
+
+    if ($isEdit) $editingUser = $this->usersController->getUser($editingCodiceFiscale, $editingRole);
+
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
+
     $users = $this->usersController->getUsers();
 
     if ($role !== 'admin') {
@@ -176,14 +187,20 @@ class PagesController {
 
     return \Core\view('utenti', [
       'routeName' => $routeName,
-      'username' => $this->authController->getUser()->nome,
-      'userCodiceFiscale' => $this->authController->getUser()->codice_fiscale,
       'role' => $role,
+      'username' => $user->nome,
+      'userCodiceFiscale' => $user->codice_fiscale,
+
       'passwordsNotEqual' => $passwordsNotEqual,
       'alreadyExisting' => $alreadyExisting,
+
       'addFailed' => $addFailed,
       'successful' => $successful,
       'genericError' => $genericError,
+
+      'isEdit' => $isEdit,
+      'editingRole' => $editingRole,
+      'editingUser' => $editingUser,
 
       'detectives' => $users['detectives'],
       'admins' => $users['admins'],
@@ -207,6 +224,13 @@ class PagesController {
 
     if ($successful) return \Core\redirect('/utenti?successo=true');
     else return \Core\redirect('/utenti?erroreCreazione=true');
+  }
+
+  public function editUserPOST() {
+    $successful = $this->usersController->editUser();
+    
+    if ($successful) return \Core\redirect('/utenti?successo=true');
+    else return \Core\redirect('/utenti?errore=true');
   }
 
   public function deleteUserPOST() {

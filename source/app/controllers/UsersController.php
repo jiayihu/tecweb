@@ -49,6 +49,20 @@ class UsersController {
     ];
   }
 
+  public function getUser($codiceFiscale, $role) {
+    $table = $this->getRoleTable($role);
+    $where = 'codice_fiscale = :codice_fiscale';
+
+    // Nome and cognome in table 'cliente' and not 'ispettore'
+    if ($role === 'inspector') $table = 'cliente';
+
+    $results = $this->database->selectWhere($table, ['*'], $where, [
+      ':codice_fiscale' => $codiceFiscale
+    ]);
+
+    return \count($results) === 0 ? null : $results[0];
+  }
+
   public function addUserAPI() {
     $successful = false;
     $response = null;
@@ -83,7 +97,7 @@ class UsersController {
     }
 
     // Check if the user already exists
-    $existing = $this->authController->checkCredentials($codiceFiscale, $password, $role);
+    $existing = $this->authController->getUserByCredentials($codiceFiscale, $password, $role);
     if ($existing !== null) {
       throw new \Exception('alreadyExisting');
     }
@@ -93,6 +107,40 @@ class UsersController {
       'password_hash' => \password_hash($password, PASSWORD_DEFAULT),
       'nome' => $nome,
       'cognome' => $cognome,
+    ]);
+  }
+
+  public function editUser() {
+    $oldCodiceFiscale = Request::getPOSTParam('old_codice_fiscale');
+    $newCodiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $password = Request::getPOSTParam('password');
+    $passwordConfirm = Request::getPOSTParam('password_confirm');
+    $nome = Request::getPOSTParam('nome');
+    $cognome = Request::getPOSTParam('cognome');
+    $role = Request::getPOSTParam('role');
+
+    if ($passwordConfirm !== $passwordConfirm) {
+      throw new \Exception('passwordsNotEqual');
+    }
+
+    $changes = '
+      codice_fiscale = :new_codice_fiscale,
+      password_hash = :password_hash,
+      nome = :nome,
+      cognome = :cognome';
+    $where = 'codice_fiscale = :old_codice_fiscale';
+    $table = $this->getRoleTable($role);
+
+    // Changes are done in table 'cliente' and not 'ispettore'
+    if ($role === 'inspector') $table = 'cliente';
+
+    return $this->database->update($table, $changes, $where, [
+      ':new_codice_fiscale' => $newCodiceFiscale,
+      ':password_hash' => \password_hash($password, PASSWORD_DEFAULT),
+      ':nome' => $nome,
+      ':cognome' => $cognome,
+
+      ':old_codice_fiscale' => $oldCodiceFiscale
     ]);
   }
 
