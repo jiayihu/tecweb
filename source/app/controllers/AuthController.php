@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use \Core\Session;
-use \Core\Request;
 use \App\Models\User;
 use \App\Models\Amministratore;
 use \App\Models\Investigatore;
@@ -32,10 +31,7 @@ class AuthController {
     return \Core\json(['success' => $isAuthorized]);
   }
 
-  public function authenticate() {
-    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
-    $password = Request::getPOSTParam('password');
-    $role = Request::getPOSTParam('role');
+  public function authenticate($codiceFiscale, $password, $role) {
     $userClass = 'User';
 
     if ($role === 'detective') $userClass = '\App\Models\Investigatore';

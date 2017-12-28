@@ -72,7 +72,11 @@ class PagesController {
   }
 
   public function loginPOST() {
-    $isAuthenticated = $this->authController->authenticate();
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $password = Request::getPOSTParam('password');
+    $role = Request::getPOSTParam('role');
+
+    $isAuthenticated = $this->authController->authenticate($codiceFiscale, $password, $role);
     
     if ($isAuthenticated) \Core\redirect('/dashboard');
     else \Core\redirect('/login?loginFailed=true');
@@ -209,9 +213,23 @@ class PagesController {
   }
 
   public function addUserPOST() {
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $password = Request::getPOSTParam('password');
+    $passwordConfirm = Request::getPOSTParam('password_confirm');
+    $nome = Request::getPOSTParam('nome');
+    $cognome = Request::getPOSTParam('cognome');
+    $role = Request::getPOSTParam('role');
+
     $successful = false;
     try {
-      $successful = $this->usersController->addUser();
+      $successful = $this->usersController->addUser([
+        'codiceFiscale' => $codiceFiscale,
+        'password' => $password,
+        'passwordConfirm' => $passwordConfirm,
+        'nome' => $nome,
+        'cognome' => $cognome,
+        'role' => $role
+      ]);
     } catch (\Exception $e) {
       if ($e->getMessage() === 'passwordsNotEqual') {
         return \Core\redirect('/utenti?passwordNonUguali=true');
@@ -227,14 +245,33 @@ class PagesController {
   }
 
   public function editUserPOST() {
-    $successful = $this->usersController->editUser();
+    $oldCodiceFiscale = Request::getPOSTParam('old_codice_fiscale');
+    $newCodiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $password = Request::getPOSTParam('password');
+    $passwordConfirm = Request::getPOSTParam('password_confirm');
+    $nome = Request::getPOSTParam('nome');
+    $cognome = Request::getPOSTParam('cognome');
+    $role = Request::getPOSTParam('role');
+
+    $successful = $this->usersController->editUser([
+      'oldCodiceFiscale' => $oldCodiceFiscale,
+      'newCodiceFiscale' => $newCodiceFiscale,
+      'password' => $password,
+      'passwordConfirm' => $passwordConfirm,
+      'nome' => $nome,
+      'cognome' => $cognome,
+      'role' => $role,
+    ]);
     
     if ($successful) return \Core\redirect('/utenti?successo=true');
     else return \Core\redirect('/utenti?errore=true');
   }
 
   public function deleteUserPOST() {
-    $successful = $this->usersController->deleteUser();
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $role = Request::getPOSTParam('role');
+
+    $successful = $this->usersController->deleteUser($codiceFiscale, $role);
     
     if ($successful) return \Core\redirect('/utenti?successo=true');
     else return \Core\redirect('/utenti?errore=true');

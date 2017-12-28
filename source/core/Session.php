@@ -4,10 +4,12 @@ namespace Core;
 
 class Session {
   public static function start() {
-    if (empty($_SESSION)) \session_start([
-      // Set cookie lifetime to 1 day
-      'cookie_lifetime' => 86400,
-    ]);
+    if (!isset($_SESSION)) {
+      \session_start([
+        // Set cookie lifetime to 1 day
+        'cookie_lifetime' => 86400,
+      ]);
+    }
   }
 
   public static function destroy() {

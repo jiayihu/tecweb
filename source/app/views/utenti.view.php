@@ -57,7 +57,12 @@
       </dl>
       <hr />
       <p class="center">
-        <button type="submit" class="btn btn-outline"><?php echo $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</button>
+        <?php if ($isEdit): ?>
+        <a href="/utenti" class="btn btn-link">Annulla</a>
+        <button type="submit" class="btn btn-primary">Modifica utente</button>
+        <?php else: ?>
+        <button type="submit" class="btn btn-outline">Aggiunti utente</button>
+        <?php endif; ?>
 
         <?php if ($passwordsNotEqual) :?>
         <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>

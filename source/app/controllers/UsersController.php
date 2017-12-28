@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use \Core\Request;
 use \App\Models\Investigatore;
 use \App\Models\Amministratore;
 use \App\Models\Ispettore;
@@ -83,13 +82,13 @@ class UsersController {
     return $successful ? \Core\json($response) : \Core\json(null, $errors);
   }
 
-  public function addUser() {
-    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
-    $password = Request::getPOSTParam('password');
-    $passwordConfirm = Request::getPOSTParam('password_confirm');
-    $nome = Request::getPOSTParam('nome');
-    $cognome = Request::getPOSTParam('cognome');
-    $role = Request::getPOSTParam('role');
+  public function addUser(array $parameters) {
+    $codiceFiscale = $parameters['codiceFiscale'];
+    $password = $parameters['password'];
+    $passwordConfirm = $parameters['passwordConfirm'];
+    $nome = $parameters['nome'];
+    $cognome = $parameters['cognome'];
+    $role = $parameters['role'];
     $table = $this->getRoleTable($role);
 
     if ($passwordConfirm !== $passwordConfirm) {
@@ -110,14 +109,14 @@ class UsersController {
     ]);
   }
 
-  public function editUser() {
-    $oldCodiceFiscale = Request::getPOSTParam('old_codice_fiscale');
-    $newCodiceFiscale = Request::getPOSTParam('codice_fiscale');
-    $password = Request::getPOSTParam('password');
-    $passwordConfirm = Request::getPOSTParam('password_confirm');
-    $nome = Request::getPOSTParam('nome');
-    $cognome = Request::getPOSTParam('cognome');
-    $role = Request::getPOSTParam('role');
+  public function editUser(array $parameters) {
+    $oldCodiceFiscale = $parameters['oldCodiceFiscale'];
+    $newCodiceFiscale = $parameters['newCodiceFiscale'];
+    $password = $parameters['password'];
+    $passwordConfirm = $parameters['passwordConfirm'];
+    $nome = $parameters['nome'];
+    $cognome = $parameters['cognome'];
+    $role = $parameters['role'];
 
     if ($passwordConfirm !== $passwordConfirm) {
       throw new \Exception('passwordsNotEqual');
@@ -144,9 +143,7 @@ class UsersController {
     ]);
   }
 
-  public function deleteUser() {
-    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
-    $role = Request::getPOSTParam('role');
+  public function deleteUser($codiceFiscale, $role) {
     $table = $this->getRoleTable($role);
     $where = "codice_fiscale = :codice_fiscale";
 
