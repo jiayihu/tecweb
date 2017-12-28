@@ -53,4 +53,11 @@ class QueryBuilder {
     $statement = $this->pdo->prepare($query);
     return $statement->execute($parameters);
   }
+
+  public function delete(string $table, $where, array $parameters) {
+    $query = \sprintf('delete from %s where %s', $table, $where);
+    $statement = $this->pdo->prepare($query);
+
+    return $statement->execute($parameters);
+  }
 }

@@ -57,6 +57,16 @@
   <section class="main-content dashboard">
     <h2>Utenti</h2>
 
+    <?php if ($successful) :?>
+    <input id="success-alert-close" class="alert-checkbox" type="checkbox" />
+    <p class="alert alert-success">
+      <label for="success-alert-close" class="alert-close" aria-label="Chiudi">
+        <span aria-hidden="true">&times;</span>
+      </label>
+      Operazione eseguita con successo.
+    </p>
+    <?php endif; ?>
+
     <table class="results">
       <thead>
         <tr>
@@ -73,8 +83,14 @@
           <td><?php echo $user->nome ?></td>
           <td><?php echo $user->cognome ?></td>
           <td class="actions">
-            <a href="/utenti?id=<?php echo $user->codice_fiscale ?>&modifica=true">Modifica</a>
-            <a href="/utenti?id=<?php echo $user->codice_fiscale ?>&cancella=true">Cancella</a>
+            <form action="/modifica-utente" method="post">
+              <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+              <button type="submit" class="btn btn-link">Modifica</button>
+            </form>
+            <form action="/elimina-utente" method="post">
+              <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+              <button type="submit" class="btn btn-link">Elimina</button>
+            </form>
           </td>
         </tr>
         <?php endforeach; ?>

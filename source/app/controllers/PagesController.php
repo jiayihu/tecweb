@@ -166,6 +166,7 @@ class PagesController {
     $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
     $alreadyExisting = Request::getQueryParam('esistente') !== null;
     $addFailed = Request::getQueryParam('erroreCreazione') !== null;
+    $successful = Request::getQueryParam('successo') !== null;
     $users = $this->usersController->getUsers();
 
     if ($role !== 'admin') {
@@ -179,6 +180,7 @@ class PagesController {
       'passwordsNotEqual' => $passwordsNotEqual,
       'alreadyExisting' => $alreadyExisting,
       'addFailed' => $addFailed,
+      'successful' => $successful,
       'users' => $users,
     ]);
   }
@@ -197,8 +199,14 @@ class PagesController {
       }
     }
 
-    if ($successful) return \Core\redirect('/utenti');
+    if ($successful) return \Core\redirect('/utenti?successo=true');
     else return \Core\redirect('/utenti?erroreCreazione=true');
+  }
+
+  public function deleteUserPOST() {
+    $successful = $this->usersController->deleteUser();
+    
+    return \Core\redirect('/utenti');
   }
 
   public function notFound() {

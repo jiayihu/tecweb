@@ -66,11 +66,7 @@ class UsersController {
     $nome = Request::getPOSTParam('nome');
     $cognome = Request::getPOSTParam('cognome');
     $role = Request::getPOSTParam('role');
-    $table = '';
-
-    if ($role === 'detective') $table = 'investigatore';
-    else if ($role === 'admin') $table = 'amministratore';
-    else $table = 'inspector';
+    $table = $this->getRoleTable($role);
 
     if ($passwordConfirm !== $passwordConfirm) {
       throw new \Exception('passwordsNotEqual');
@@ -88,5 +84,22 @@ class UsersController {
       'nome' => $nome,
       'cognome' => $cognome,
     ]);
+  }
+
+  public function deleteUser() {
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $role = Request::getPOSTParam('role');
+    $table = $this->getRoleTable($role);
+    $where = "codice_fiscale = :codice_fiscale";
+
+    return $this->database->delete($table, $where, [
+      'codice_fiscale' => $codiceFiscale
+    ]);
+  }
+
+  private function getRoleTable(string $role) {
+    if ($role === 'detective') return 'investigatore';
+    else if ($role === 'admin') return 'amministratore';
+    else return 'inspector';
   }
 }

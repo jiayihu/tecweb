@@ -228,8 +228,12 @@ dd {
   background-color: #c62828;
 }
 
-.alert-info {
+.alert-success {
   background-color: #8bc34a;
+}
+
+.alert-info {
+  background-color: #03a9f4;
 }
 
 .alert-checkbox {
@@ -257,6 +261,14 @@ dd {
   cursor: pointer;
   display: inline-block;
   transition: all 0.4s ease-out;
+}
+
+.btn-link {
+  color: #c62828;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
 }
 
 .btn-outline {
