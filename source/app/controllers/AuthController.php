@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\Session;
+use \Core\Request;
 use \App\Models\User;
 use \App\Models\Amministratore;
 use \App\Models\Investigatore;
@@ -32,11 +33,21 @@ class AuthController {
   }
 
   public function authenticate() {
-    $codiceFiscale = \htmlentities($_POST['codice_fiscale']);
-    $password = \htmlentities($_POST['password']);
-    $role = \htmlentities($_POST['role']);
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $password = Request::getPOSTParam('password');
+    $role = Request::getPOSTParam('role');
+    $userClass = 'User';
 
-    return $this->checkCredentials($codiceFiscale, $password, $role);
+    if ($role === 'detective') $userClass = '\App\Models\Investigatore';
+    else if ($role === 'admin') $userClass = '\App\Models\Amministratore';
+    else $userClass = '\App\Models\Cliente';
+
+    $user = $this->checkCredentials($codiceFiscale, $password, $role);
+
+    if ($user !== null) {
+      Session::start();
+      Session::set('user', new $userClass($user->codice_fiscale, $user->nome, $user->cognome));
+    }
   }
 
   public function getUser() {
@@ -62,20 +73,12 @@ class AuthController {
     Session::destroy();
   }
 
-  private function checkCredentials($codiceFiscale, $password, $role) {
-    $userClass = 'User';
+  function checkCredentials($codiceFiscale, $password, $role) {
     $table = '';
 
-    if ($role === 'detective') {
-      $userClass = '\App\Models\Investigatore';
-      $table = 'investigatore';
-    } else if ($role === 'admin') {
-      $userClass = '\App\Models\Amministratore';
-      $table = 'amministratore';
-    } else {
-      $userClass = '\App\Models\Cliente';
-      $table = 'cliente';
-    }
+    if ($role === 'detective') $table = 'investigatore';
+    else if ($role === 'admin') $table = 'amministratore';
+    else $table = 'cliente';
 
     $results = $this->database->selectWhere(
       ['codice_fiscale', 'password_hash', 'nome', 'cognome'],
@@ -84,17 +87,12 @@ class AuthController {
       [':codice_fiscale' => $codiceFiscale]
     );
 
-    if (\count($results) !== 1) return false;
+    if (\count($results) !== 1) return null;
     else {
       $user = $results[0];
       $isAuthorized = \password_verify($password, $user->password_hash);
 
-      if ($isAuthorized) {
-        Session::start();
-        Session::set('user', new $userClass($user->codice_fiscale, $user->nome, $user->cognome));
-      }
-
-      return $isAuthorized;
+      return $isAuthorized ? $user : null;
     }
   }
 }

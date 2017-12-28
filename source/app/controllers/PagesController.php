@@ -4,17 +4,22 @@ namespace App\Controllers;
 use \Core\Request;
 
 require_once 'app/controllers/AuthController.php';
+require_once 'app/controllers/UsersController.php';
 
 class PagesController {
   /**
-   * Authentication controller
-   *
    * @var AuthController
    */
   private $authController;
 
+  /**
+   * @var UsersController
+   */
+  private $usersController;
+
   public function __construct() {
     $this->authController = new AuthController();
+    $this->usersController = new UsersController();
   }
 
   public function home() {
@@ -158,6 +163,9 @@ class PagesController {
 
     $routeName = 'utenti';
     $role = $this->authController->getUserRole();
+    $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
+    $alreadyExisting = Request::getQueryParam('esistente') !== null;
+    $addFailed = Request::getQueryParam('erroreCreazione') !== null;
 
     if ($role !== 'admin') {
       return \Core\redirect("/dashboard?permessoNegato=true");
@@ -166,8 +174,28 @@ class PagesController {
     return \Core\view('utenti', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
-      'role' => $role
+      'role' => $role,
+      'passwordsNotEqual' => $passwordsNotEqual,
+      'alreadyExisting' => $alreadyExisting,
+      'addFailed' => $addFailed
     ]);
+  }
+
+  public function addUserPOST() {
+    $successful = false;
+    try {
+      $successful = $this->usersController->addUser();
+    } catch (\Exception $e) {
+      if ($e->getMessage() === 'passwordsNotEqual') {
+        return \Core\redirect('/utenti?passwordNonUguali=true');
+      }
+      if ($e->getMessage() === 'alreadyExisting') {
+        return \Core\redirect('/utenti?esistente=true');
+      }
+    }
+
+    if ($successful) return \Core\redirect('/utenti');
+    else return \Core\redirect('/utenti?erroreCreazione=true');
   }
 
   public function notFound() {

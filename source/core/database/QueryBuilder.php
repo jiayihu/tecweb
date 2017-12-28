@@ -40,6 +40,6 @@ class QueryBuilder {
     $query = \sprintf('insert into %s (%s) values (%s)', $table, $placeholders);
 
     $statement = $this->pdo->prepare($sql);
-    $statement->execute($parameters);
+    return $statement->execute($parameters);
   }
 }

@@ -29,8 +29,8 @@ CREATE TABLE cliente (
 	password_hash VARCHAR(256) NOT NULL,
   nome VARCHAR(100) NOT NULL,
   cognome VARCHAR(100) NOT NULL,
-  citta VARCHAR(100) NOT NULL,
-  indirizzo VARCHAR(100) NOT NULL
+  citta VARCHAR(100),
+  indirizzo VARCHAR(100)
 );
 
 CREATE TABLE caso (
@@ -86,8 +86,7 @@ CREATE TABLE investigatore (
   codice_fiscale VARCHAR(16) PRIMARY KEY,
   password_hash VARCHAR(256) NOT NULL,
   nome VARCHAR(100) NOT NULL,
-  cognome VARCHAR(100) NOT NULL,
-  servizio_militare BOOLEAN DEFAULT 0
+  cognome VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE prova (
@@ -1032,106 +1031,106 @@ Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci
 insert into criminale (codice_fiscale, nome, cognome, descrizione) values ('IWVURB78D87F019F', 'Robert', 'Johnson', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
 
 Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.');
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('YRWNCB73I96G468M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patrick', 'Gonzalez', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('QYOFKD67M46O619X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Arnold', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SQDMIH91E22G439U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Brooks', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('EACOSZ97O58M305T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Edward', 'Walker', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ZJPRNW27Q98E957V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Palmer', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HLAKWZ42Y64H379U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Banks', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ONPXJH44H09A891B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Diane', 'Frazier', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('IPOCLN85C04P396D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gregory', 'Murray', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('QDTBJN76I47W472G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Evans', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TKINRX34C13C023K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jose', 'Olson', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HCISDQ80Q69W849I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'George', 'Griffin', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BQDMRS64X79K409E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harold', 'Reed', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('JQHNFZ56A46J754B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Sanchez', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('CKVRDJ25B52N184K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jimmy', 'Edwards', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TIQYOM49D23J164Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Samuel', 'Nelson', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XMOSRQ07C92E931O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Roy', 'Reed', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GBLUIP56O19V175G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Walter', 'Larson', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('JWTXGK76U04Y475N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gloria', 'Crawford', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HKVLQC80T24F840W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judy', 'Castillo', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XMZWID05F95C731S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judith', 'Freeman', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('WMEPSF32N04Y001I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Daniel', 'Medina', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('VIGUCO81C89W582I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Aaron', 'Bell', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('UJTOCR76H81S160S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Roger', 'White', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TDABRI67H98A258Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Robin', 'Mendoza', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('FGDBYE74A79H701M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'King', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('KAUFRY16A02Q274L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Laura', 'Harris', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ECGPUQ66E30M779T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joseph', 'Coleman', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HKUFYX18D60K305J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Jacobs', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('OCTWAP15D79K090B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Lawson', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('QGYXEF36T31X936W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marilyn', 'Perkins', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('VCMNOY15J91W546T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Pamela', 'Thompson', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('DFYCOG23Q29R987Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrew', 'Duncan', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TVADLY02V46A711M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Pamela', 'Snyder', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('MQWVYH57U36S659Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Burton', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ABQOLU62W54J888Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lisa', 'Lawrence', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('UJHSNR13Y48J646O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ashley', 'Gomez', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SIGALV68K67Q110P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathleen', 'Lee', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BMNHWK80E60S609R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joyce', 'Payne', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SUWKGL75C43X557G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Schmidt', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('MKPSGU04D69P360V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Theresa', 'White', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('DUBWXY83X76G287K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bobby', 'Marshall', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('JMEWSR33W68M299I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Denise', 'Cunningham', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('YVUQIG95X28I478V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steve', 'Price', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('UAJHGE95C70J432H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathryn', 'Duncan', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HWNJPY21Z60Y312F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ann', 'Lynch', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('DFVMYE01O18J072D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Marshall', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TERCUN98Y11Z427W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marilyn', 'Fields', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('EVYXQZ91F52Q044S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tammy', 'Montgomery', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BSFLKM81E90L609D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sarah', 'Reynolds', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HUTREA81W45G703Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ryan', 'Ford', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GIWLHV47A46M406J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Aaron', 'Little', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XYBJLN62N21X682T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Catherine', 'Bowman', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GCHNKM89S16S988K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joe', 'Foster', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('AHPKSZ91W29E376R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Thomas', 'Porter', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SZTRCY98J54I287S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Collins', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GRFKBN45G78Q351Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joshua', 'Powell', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TYVSZO24Z61A406E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Emily', 'Wheeler', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ZWRTNC56U87C479G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'David', 'Davis', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BWSXGU11J32N000T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Maria', 'Spencer', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XLSOIZ80T94C609C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jennifer', 'Cunningham', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('AMSPQJ77U39J885B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Billy', 'Richards', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('QOWHBM33D59B765E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Timothy', 'Dean', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ADJBYW11C13D832V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Frances', 'Hanson', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('JXRPAD27B88G708L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Dean', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('DCUHVM57H34R822L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathy', 'Harvey', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BYRVOG58O03S506W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ashley', 'Riley', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GWHCIJ68W13K796S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michael', 'Ford', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('HPDUAJ43W90R130T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joan', 'Hunter', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('OIHXBN65C56K590B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Holmes', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('LQVFZK78B06V398S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harry', 'Cox', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('BDCJKO65M74E532G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Richard', 'Marshall', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('FQEMKC84K53B858W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sean', 'Robertson', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SLGVYU34K56X805Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Coleman', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('USMPTR19N92Q443S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Benjamin', 'Reyes', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('ISWDJV18E85Z555I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donna', 'Willis', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('QEPJKT46K45E935D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Earl', 'Reynolds', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('CLHMXT95K53J510P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Betty', 'Grant', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RAVTSJ50O89D003E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'John', 'Franklin', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('YWHFEQ10X22R265R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Cheryl', 'Bailey', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('DFQZTJ15R99P183X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'David', 'Medina', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('MCZLAG42R29S183A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Richards', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('NTHABG94O30H959U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Carl', 'Hunter', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RPYWFQ78R57M454M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Susan', 'Anderson', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('OBDMKL65E14N872H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Christina', 'Morgan', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RWODUK55V77R196Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Wayne', 'Alvarez', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('FZHXAO56O31U785X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gerald', 'Clark', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RPCVNF44U52E935R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Fernandez', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('VUGYHT17E97X370K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephen', 'Stephens', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('KRMXYQ75D28V206U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Turner', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('WFRBMO64J00T602P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harry', 'Roberts', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('LMJCTI36E79P399G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Robert', 'Gray', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('SKIMRB41I54V011R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Palmer', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('WGYNCK65W29E742V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sandra', 'Ray', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('GETUML31V19G561F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Ruiz', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('MYXLTC36B29M000X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Burke', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('TNDBMY03G41G911D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Richard', 'Lawson', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('CHLXOW63N14W831B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Benjamin', 'Riley', true);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('XILADC61X36M430P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Paul', 'Adams', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('RQIEKN53P28L104F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'Clark', false);
-insert into investigatore (codice_fiscale, password_hash, nome, cognome, servizio_militare) values ('FBPSWQ99L35K802J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Romero', true);
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('YRWNCB73I96G468M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patrick', 'Gonzalez');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('QYOFKD67M46O619X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Arnold');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SQDMIH91E22G439U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Brooks');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('EACOSZ97O58M305T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Edward', 'Walker');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ZJPRNW27Q98E957V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Palmer');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HLAKWZ42Y64H379U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Banks');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ONPXJH44H09A891B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Diane', 'Frazier');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('IPOCLN85C04P396D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gregory', 'Murray');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('QDTBJN76I47W472G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Evans');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TKINRX34C13C023K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jose', 'Olson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HCISDQ80Q69W849I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'George', 'Griffin');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BQDMRS64X79K409E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harold', 'Reed');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('JQHNFZ56A46J754B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Sanchez');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('CKVRDJ25B52N184K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jimmy', 'Edwards');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TIQYOM49D23J164Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Samuel', 'Nelson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('XMOSRQ07C92E931O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Roy', 'Reed');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GBLUIP56O19V175G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Walter', 'Larson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('JWTXGK76U04Y475N', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gloria', 'Crawford');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HKVLQC80T24F840W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judy', 'Castillo');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('XMZWID05F95C731S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Judith', 'Freeman');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('WMEPSF32N04Y001I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Daniel', 'Medina');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('VIGUCO81C89W582I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Aaron', 'Bell');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('UJTOCR76H81S160S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Roger', 'White');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TDABRI67H98A258Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Robin', 'Mendoza');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('FGDBYE74A79H701M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'King');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('KAUFRY16A02Q274L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Laura', 'Harris');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ECGPUQ66E30M779T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joseph', 'Coleman');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HKUFYX18D60K305J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Jacobs');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('OCTWAP15D79K090B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gary', 'Lawson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('QGYXEF36T31X936W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marilyn', 'Perkins');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('VCMNOY15J91W546T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Pamela', 'Thompson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('DFYCOG23Q29R987Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Andrew', 'Duncan');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TVADLY02V46A711M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Pamela', 'Snyder');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('MQWVYH57U36S659Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ruth', 'Burton');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ABQOLU62W54J888Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lisa', 'Lawrence');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('UJHSNR13Y48J646O', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ashley', 'Gomez');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SIGALV68K67Q110P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathleen', 'Lee');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BMNHWK80E60S609R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joyce', 'Payne');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SUWKGL75C43X557G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Schmidt');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('MKPSGU04D69P360V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Theresa', 'White');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('DUBWXY83X76G287K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Bobby', 'Marshall');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('JMEWSR33W68M299I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Denise', 'Cunningham');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('YVUQIG95X28I478V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Steve', 'Price');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('UAJHGE95C70J432H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathryn', 'Duncan');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HWNJPY21Z60Y312F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ann', 'Lynch');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('DFVMYE01O18J072D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patricia', 'Marshall');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TERCUN98Y11Z427W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Marilyn', 'Fields');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('EVYXQZ91F52Q044S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Tammy', 'Montgomery');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BSFLKM81E90L609D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sarah', 'Reynolds');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HUTREA81W45G703Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ryan', 'Ford');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GIWLHV47A46M406J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Aaron', 'Little');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('XYBJLN62N21X682T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Catherine', 'Bowman');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GCHNKM89S16S988K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joe', 'Foster');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('AHPKSZ91W29E376R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Thomas', 'Porter');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SZTRCY98J54I287S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Annie', 'Collins');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GRFKBN45G78Q351Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joshua', 'Powell');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TYVSZO24Z61A406E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Emily', 'Wheeler');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ZWRTNC56U87C479G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'David', 'Davis');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BWSXGU11J32N000T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Maria', 'Spencer');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('XLSOIZ80T94C609C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jennifer', 'Cunningham');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('AMSPQJ77U39J885B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Billy', 'Richards');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('QOWHBM33D59B765E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Timothy', 'Dean');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ADJBYW11C13D832V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Frances', 'Hanson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('JXRPAD27B88G708L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Antonio', 'Dean');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('DCUHVM57H34R822L', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Kathy', 'Harvey');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BYRVOG58O03S506W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Ashley', 'Riley');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GWHCIJ68W13K796S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Michael', 'Ford');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('HPDUAJ43W90R130T', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Joan', 'Hunter');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('OIHXBN65C56K590B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Holmes');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('LQVFZK78B06V398S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harry', 'Cox');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('BDCJKO65M74E532G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Richard', 'Marshall');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('FQEMKC84K53B858W', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sean', 'Robertson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SLGVYU34K56X805Q', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anthony', 'Coleman');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('USMPTR19N92Q443S', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Benjamin', 'Reyes');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('ISWDJV18E85Z555I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Donna', 'Willis');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('QEPJKT46K45E935D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Earl', 'Reynolds');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('CLHMXT95K53J510P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Betty', 'Grant');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('RAVTSJ50O89D003E', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'John', 'Franklin');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('YWHFEQ10X22R265R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Cheryl', 'Bailey');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('DFQZTJ15R99P183X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'David', 'Medina');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('MCZLAG42R29S183A', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Mildred', 'Richards');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('NTHABG94O30H959U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Carl', 'Hunter');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('RPYWFQ78R57M454M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Susan', 'Anderson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('OBDMKL65E14N872H', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Christina', 'Morgan');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('RWODUK55V77R196Z', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Wayne', 'Alvarez');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('FZHXAO56O31U785X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Gerald', 'Clark');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('RPCVNF44U52E935R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Fernandez');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('VUGYHT17E97X370K', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Stephen', 'Stephens');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('KRMXYQ75D28V206U', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Lillian', 'Turner');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('WFRBMO64J00T602P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Harry', 'Roberts');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('LMJCTI36E79P399G', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Robert', 'Gray');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('SKIMRB41I54V011R', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jeremy', 'Palmer');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('WGYNCK65W29E742V', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sandra', 'Ray');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('GETUML31V19G561F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Anna', 'Ruiz');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('MYXLTC36B29M000X', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Karen', 'Burke');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('TNDBMY03G41G911D', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Richard', 'Lawson');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('CHLXOW63N14W831B', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Benjamin', 'Riley');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('XILADC61X36M430P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Paul', 'Adams');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('RQIEKN53P28L104F', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Matthew', 'Clark');
+insert into investigatore (codice_fiscale, password_hash, nome, cognome) values ('FBPSWQ99L35K802J', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Elizabeth', 'Romero');
 INSERT INTO `prova` (`codice`, `nome`, `descrizione`, `locazione`, `investigazione`, `caso`)
 VALUES
 	(1, 'neural-net', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 'deposito_polizia', 1, 42),

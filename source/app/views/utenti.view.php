@@ -3,22 +3,22 @@
 <main class="main-container container">
   <aside class="main-sidebar">
     <h2>Aggiungi/Modifica utente</h2>
-    <form action="/utenti" method="post">
+    <form action="/aggiungi-utente" method="post">
       <dl class="case-info">
         <dt>Codice Fiscale</dt>
-        <dd><input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale"></dd>
+        <dd><input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" required></dd>
         
         <dt>Password</dt>
-        <dd><input class="input" type="password" name="password" placeholder="Inserisci password"></dd>
+        <dd><input class="input" type="password" name="password" placeholder="Inserisci password" required></dd>
         
         <dt>Conferma password</dt>
-        <dd><input class="input" type="password" name="password-confirm" placeholder="Conferma password"></dd>
+        <dd><input class="input" type="password" name="password_confirm" placeholder="Conferma password" required></dd>
         
         <dt>Nome</dt>
-        <dd><input class="input" type="text" name="nome" placeholder="Inserisci nome"></dd>
+        <dd><input class="input" type="text" name="nome" placeholder="Inserisci nome" required></dd>
         
         <dt>Cognome</dt>
-        <dd><input class="input" type="text" name="cognome" placeholder="Inserisci cognome"></dd>
+        <dd><input class="input" type="text" name="cognome" placeholder="Inserisci cognome" required></dd>
         
         <dt>Tipologia</dt>
         <dd>
@@ -37,6 +37,19 @@
       <hr />
       <p class="center">
         <button type="submit" class="btn btn-outline">Aggiungi utente</button>
+
+        <?php if ($passwordsNotEqual) :?>
+        <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
+        <?php endif; ?>
+
+        <?php if ($alreadyExisting) :?>
+        <p class="alert alert-danger">L'utente inserito è già esistente.</p>
+        <?php endif; ?>
+        
+        <?php if ($addFailed) :?>
+        <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
+        <?php endif; ?>
+        
       </p>
     </form>
   </aside>

@@ -22,7 +22,23 @@ class Request {
     return $_SERVER['REQUEST_METHOD'];
   }
 
+  /**
+   * Returns safe values passed in GET request
+   *
+   * @param string $name
+   * @return void
+   */
   public static function getQueryParam(string $name) {
-    return empty($_GET[$name]) ? null : $_GET[$name];
+    return empty($_GET[$name]) ? null : \htmlentities(\trim($_GET[$name]));
+  }
+
+  /**
+   * Returns safe values passed in POST request
+   *
+   * @param string $name
+   * @return void
+   */
+  public static function getPOSTParam(string $name) {
+    return empty($_POST[$name]) ? null : \htmlentities(\trim($_POST[$name]));
   }
 }

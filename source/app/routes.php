@@ -19,6 +19,9 @@ return [
   ],
   'POST' => [
     'login' => 'PagesController@loginPOST',
-    'api/authenticate' => 'AuthController@authenticateAPI'
+    'api/authenticate' => 'AuthController@authenticateAPI',
+
+    'aggiungi-utente' => 'PagesController@addUserPOST',
+    'api/utenti/add' => 'UsersController@addUserAPI'
   ]
 ];
