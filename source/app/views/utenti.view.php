@@ -57,6 +57,16 @@
   <section class="main-content dashboard">
     <h2>Utenti</h2>
 
+    <?php if ($genericError) :?>
+    <input id="genericerror-alert-close" class="alert-checkbox" type="checkbox" />
+    <p class="alert alert-danger">
+      <label for="genericerror-alert-close" class="alert-close" aria-label="Chiudi">
+        <span aria-hidden="true">&times;</span>
+      </label>
+      Non è stato possibile completare l'operazione. Si consiglia di riprovare.
+    </p>
+    <?php endif; ?>
+
     <?php if ($successful) :?>
     <input id="success-alert-close" class="alert-checkbox" type="checkbox" />
     <p class="alert alert-success">

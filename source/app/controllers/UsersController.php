@@ -102,6 +102,13 @@ class UsersController {
     $table = $this->getRoleTable($role);
     $where = "codice_fiscale = :codice_fiscale";
 
+    if ($role === 'inspector') {
+      // Inspector must be deleted also from 'cliente' table
+      $this->database->delete('cliente', $where, [
+        'codice_fiscale' => $codiceFiscale
+      ]);
+    }
+
     return $this->database->delete($table, $where, [
       'codice_fiscale' => $codiceFiscale
     ]);
@@ -110,6 +117,6 @@ class UsersController {
   private function getRoleTable(string $role) {
     if ($role === 'detective') return 'investigatore';
     else if ($role === 'admin') return 'amministratore';
-    else return 'inspector';
+    else return 'ispettore';
   }
 }
