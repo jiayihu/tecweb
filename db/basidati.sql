@@ -41,8 +41,8 @@ CREATE TABLE caso (
   risolto BOOLEAN NOT NULL DEFAULT 0,
   tipologia VARCHAR(50) NOT NULL,
   cliente VARCHAR(16) NOT NULL,
-  FOREIGN KEY (tipologia) REFERENCES tariffa(tipologia_caso) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (cliente) REFERENCES cliente(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (tipologia) REFERENCES tariffa(tipologia_caso) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (cliente) REFERENCES cliente(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE investigazione (
@@ -53,7 +53,7 @@ CREATE TABLE investigazione (
   rapporto TEXT,
   ore_totali SMALLINT NOT NULL DEFAULT 0,
   PRIMARY KEY (numero, caso),
-  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE scena_investigazione (
@@ -64,15 +64,15 @@ CREATE TABLE scena_investigazione (
   indirizzo VARCHAR(100),
   investigazione TINYINT,
   caso INTEGER(10),
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE etichettamento (
   caso INTEGER(10),
   tag VARCHAR(50),
   PRIMARY KEY (caso, tag),
-  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (tag) REFERENCES tag(slug) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (tag) REFERENCES tag(slug) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE criminale (
@@ -96,7 +96,7 @@ CREATE TABLE prova (
   locazione VARCHAR(100) NOT NULL,
   investigazione TINYINT NOT NULL,
   caso INTEGER(10) NOT NULL,
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE ispettore (
@@ -126,8 +126,8 @@ CREATE TABLE risoluzione (
   criminale VARCHAR(16),
   caso INTEGER(10),
   PRIMARY KEY (criminale, caso),
-  FOREIGN KEY (criminale) REFERENCES criminale(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (criminale) REFERENCES criminale(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (caso) REFERENCES caso(codice) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE lavoro (
@@ -136,8 +136,8 @@ CREATE TABLE lavoro (
   caso INTEGER(10),
   ore_lavoro SMALLINT NOT NULL DEFAULT 0,
   PRIMARY KEY (investigatore, investigazione, caso),
-  FOREIGN KEY (investigatore) REFERENCES investigatore(codice_fiscale) ON DELETE NO ACTION ON UPDATE CASCADE,
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE NO ACTION ON UPDATE CASCADE
+  FOREIGN KEY (investigatore) REFERENCES investigatore(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 insert into amministratore (codice_fiscale, password_hash, nome, cognome) values ('YRWNCB73I96G468M', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Patrick', 'Gonzalez');
