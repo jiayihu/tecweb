@@ -3,6 +3,7 @@
 namespace Core;
 
 return [
+  'production' => false,
   'database' => [
     'name' => 'sherlock',
     'username'=> 'root',

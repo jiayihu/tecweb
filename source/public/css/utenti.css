@@ -3,6 +3,11 @@
   color: inherit;
 }
 
+.main-sidebar .btn-link {
+  color: inherit;
+  margin-right: 1rem;
+}
+
 h1,
 h2 {
   font-size: 1.25rem;
@@ -17,11 +22,6 @@ h2 {
 
 .actions form {
   display: inline-block;
-}
-
-.btn-link {
-  color: inherit;
-  margin-right: 1rem;
 }
 
 @media (min-width: 480px) {

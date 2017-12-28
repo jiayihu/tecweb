@@ -44,6 +44,8 @@ class AuthController {
       Session::start();
       Session::set('user', new $userClass($user->codice_fiscale, $user->nome, $user->cognome));
     }
+
+    return $user !== null;
   }
 
   public function getUser() {
