@@ -37,9 +37,9 @@ class QueryBuilder {
       ', ',
       \array_map(function ($key) { return ":{$key}"; }, \array_keys($parameters))
     );
-    $query = \sprintf('insert into %s (%s) values (%s)', $table, $placeholders);
+    $query = \sprintf('insert into %s (%s) values (%s)', $table,  $columns, $placeholders);
 
-    $statement = $this->pdo->prepare($sql);
+    $statement = $this->pdo->prepare($query);
     return $statement->execute($parameters);
   }
 }

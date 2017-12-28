@@ -188,9 +188,10 @@ class PagesController {
     } catch (\Exception $e) {
       if ($e->getMessage() === 'passwordsNotEqual') {
         return \Core\redirect('/utenti?passwordNonUguali=true');
-      }
-      if ($e->getMessage() === 'alreadyExisting') {
+      } else if ($e->getMessage() === 'alreadyExisting') {
         return \Core\redirect('/utenti?esistente=true');
+      } else {
+        throw $e;
       }
     }
 
