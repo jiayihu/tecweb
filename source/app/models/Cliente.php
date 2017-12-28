@@ -2,20 +2,21 @@
 
 namespace App\Models;
 
-require_once 'app/models/User.php';
-
-class Cliente extends User {
+class Cliente {
+  public $codice_fiscale;
+  public $nome;
+  public $cognome;
   public $citta;
   public $indirizzo;
 
   public function __construct(
-    string $codiceFiscale,
+    string $codice_fiscale,
     string $nome,
     string $cognome,
     string $citta = '',
     string $indirizzo = ''
   ) {
-    $this->codiceFiscale = $codiceFiscale;
+    $this->codice_fiscale = $codice_fiscale;
     $this->nome = $nome;
     $this->cognome = $cognome;
     $this->citta = $citta;

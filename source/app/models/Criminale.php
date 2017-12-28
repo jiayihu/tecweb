@@ -7,10 +7,10 @@ class Criminale {
   public $cognome;
   public $descrizione;
 
-  private $codiceFiscale;
+  private $codice_fiscale;
 
-  public function __construct(string $codiceFiscale, string $nome, string $cognome, string $descrizione) {
-    $this->codiceFiscale = $codiceFiscale;
+  public function __construct(string $codice_fiscale, string $nome, string $cognome, string $descrizione) {
+    $this->codice_fiscale = $codice_fiscale;
     $this->nome = $nome;
     $this->cognome = $cognome;
     $this->descrizione = $descrizione;

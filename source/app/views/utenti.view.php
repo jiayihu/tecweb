@@ -98,22 +98,24 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($detectives as $user): ?>
+            <?php foreach ($detectives as $genericUser): ?>
             <tr>
-              <td><?php echo $user->codice_fiscale ?></td>
-              <td><?php echo $user->nome ?></td>
-              <td><?php echo $user->cognome ?></td>
+              <td><?php echo $genericUser->codice_fiscale ?></td>
+              <td><?php echo $genericUser->nome ?></td>
+              <td><?php echo $genericUser->cognome ?></td>
               <td class="actions">
                 <form action="/modifica-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Modifica</button>
                 </form>
+                <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -132,22 +134,24 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($admins as $user): ?>
+            <?php foreach ($admins as $genericUser): ?>
             <tr>
-              <td><?php echo $user->codice_fiscale ?></td>
-              <td><?php echo $user->nome ?></td>
-              <td><?php echo $user->cognome ?></td>
+              <td><?php echo $genericUser->codice_fiscale ?></td>
+              <td><?php echo $genericUser->nome ?></td>
+              <td><?php echo $genericUser->cognome ?></td>
               <td class="actions">
                 <form action="/modifica-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="admin">
                   <button type="submit" class="btn btn-link">Modifica</button>
                 </form>
+                <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="admin">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -166,22 +170,24 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($inspectors as $user): ?>
+            <?php foreach ($inspectors as $genericUser): ?>
             <tr>
-              <td><?php echo $user->codice_fiscale ?></td>
-              <td><?php echo $user->nome ?></td>
-              <td><?php echo $user->cognome ?></td>
+              <td><?php echo $genericUser->codice_fiscale ?></td>
+              <td><?php echo $genericUser->nome ?></td>
+              <td><?php echo $genericUser->cognome ?></td>
               <td class="actions">
                 <form action="/modifica-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">
                   <button type="submit" class="btn btn-link">Modifica</button>
                 </form>
+                <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
+                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>

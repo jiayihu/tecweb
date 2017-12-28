@@ -166,7 +166,6 @@ class PagesController {
     $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
     $alreadyExisting = Request::getQueryParam('esistente') !== null;
     $addFailed = Request::getQueryParam('erroreCreazione') !== null;
-    $integrityViolation = Request::getQueryParam('nonEliminabile') !== null;
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
     $users = $this->usersController->getUsers();
@@ -177,7 +176,8 @@ class PagesController {
 
     return \Core\view('utenti', [
       'routeName' => $routeName,
-      'username' => $this->getUsername(),
+      'username' => $this->authController->getUser()->nome,
+      'userCodiceFiscale' => $this->authController->getUser()->codice_fiscale,
       'role' => $role,
       'passwordsNotEqual' => $passwordsNotEqual,
       'alreadyExisting' => $alreadyExisting,
