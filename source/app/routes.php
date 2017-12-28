@@ -22,7 +22,7 @@ return [
     'api/authenticate' => 'AuthController@authenticateAPI',
 
     'aggiungi-utente' => 'PagesController@addUserPOST',
-    'cancella-utente' => 'PagesController@deleteUserPOST',
+    'elimina-utente' => 'PagesController@deleteUserPOST',
     'api/utenti/add' => 'UsersController@addUserAPI'
   ]
 ];

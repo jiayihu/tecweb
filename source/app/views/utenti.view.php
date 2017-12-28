@@ -67,35 +67,118 @@
     </p>
     <?php endif; ?>
 
-    <table class="results">
-      <thead>
-        <tr>
-          <th>Codice Fiscale</th>
-          <th>Nome</th>
-          <th>Cognome</th>
-          <th>Azioni</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($users as $user): ?>
-        <tr>
-          <td><?php echo $user->codice_fiscale ?></td>
-          <td><?php echo $user->nome ?></td>
-          <td><?php echo $user->cognome ?></td>
-          <td class="actions">
-            <form action="/modifica-utente" method="post">
-              <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
-              <button type="submit" class="btn btn-link">Modifica</button>
-            </form>
-            <form action="/elimina-utente" method="post">
-              <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
-              <button type="submit" class="btn btn-link">Elimina</button>
-            </form>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
+    <div class="tabs">
+      <input type="radio" name="tabs" id="tab-detectives" checked>
+      <label for="tab-detectives">Investigatori</label>
+
+      <input type="radio" name="tabs" id="tab-admins">
+      <label for="tab-admins">Amministratori</label>
+
+      <input type="radio" name="tabs" id="tab-inspectors">
+      <label for="tab-inspectors">Ispettori</label>
+
+      <div class="tab">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Codice Fiscale</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($detectives as $user): ?>
+            <tr>
+              <td><?php echo $user->codice_fiscale ?></td>
+              <td><?php echo $user->nome ?></td>
+              <td><?php echo $user->cognome ?></td>
+              <td class="actions">
+                <form action="/modifica-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="detective">
+                  <button type="submit" class="btn btn-link">Modifica</button>
+                </form>
+                <form action="/elimina-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="detective">
+                  <button type="submit" class="btn btn-link">Elimina</button>
+                </form>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="tab">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Codice Fiscale</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($admins as $user): ?>
+            <tr>
+              <td><?php echo $user->codice_fiscale ?></td>
+              <td><?php echo $user->nome ?></td>
+              <td><?php echo $user->cognome ?></td>
+              <td class="actions">
+                <form action="/modifica-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="admin">
+                  <button type="submit" class="btn btn-link">Modifica</button>
+                </form>
+                <form action="/elimina-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="admin">
+                  <button type="submit" class="btn btn-link">Elimina</button>
+                </form>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="tab">
+        <table class="results">
+          <thead>
+            <tr>
+              <th>Codice Fiscale</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($inspectors as $user): ?>
+            <tr>
+              <td><?php echo $user->codice_fiscale ?></td>
+              <td><?php echo $user->nome ?></td>
+              <td><?php echo $user->cognome ?></td>
+              <td class="actions">
+                <form action="/modifica-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="inspector">
+                  <button type="submit" class="btn btn-link">Modifica</button>
+                </form>
+                <form action="/elimina-utente" method="post">
+                  <input type="hidden" name="codice_fiscale" value="<?php echo $user->codice_fiscale ?>">
+                  <input type="hidden" name="role" value="inspector">
+                  <button type="submit" class="btn btn-link">Elimina</button>
+                </form>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
 </main>

@@ -181,7 +181,10 @@ class PagesController {
       'alreadyExisting' => $alreadyExisting,
       'addFailed' => $addFailed,
       'successful' => $successful,
-      'users' => $users,
+
+      'detectives' => $users['detectives'],
+      'admins' => $users['admins'],
+      'inspectors' => $users['inspectors'],
     ]);
   }
 

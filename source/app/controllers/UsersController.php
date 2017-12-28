@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use \Core\Request;
-use \App\Models\User;
+use \App\Models\Investigatore;
+use \App\Models\Amministratore;
+use \App\Models\Ispettore;
 
 require_once 'app/controllers/AuthController.php';
 
@@ -26,17 +28,25 @@ class UsersController {
   }
 
   public function getUsers() {
-    $query = "
-    (SELECT codice_fiscale, nome, cognome FROM amministratore)
-    UNION
-    (SELECT codice_fiscale, nome, cognome FROM investigatore)
-    UNION 
-    (SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale);";
-    $results = $this->database->runQuery($query);
+    $detectiveResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM investigatore;');
+    $adminResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM amministratore;');
+    $inspectorResults = $this->database->runQuery('SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale;');
 
-    return \array_map(function ($result) {
-      return new User($result->codice_fiscale, $result->nome, $result->cognome);
-    }, $results);
+    $detectives = \array_map(function ($result) {
+      return new Investigatore($result->codice_fiscale, $result->nome, $result->cognome);
+    }, $detectiveResults);
+    $admins = \array_map(function ($result) {
+      return new Amministratore($result->codice_fiscale, $result->nome, $result->cognome);
+    }, $adminResults);
+    $inspectors = \array_map(function ($result) {
+      return new Ispettore($result->codice_fiscale, $result->nome, $result->cognome);
+    }, $inspectorResults);
+
+    return [
+      'detectives' => $detectives,
+      'admins' => $admins,
+      'inspectors' => $inspectors,
+    ];
   }
 
   public function addUserAPI() {

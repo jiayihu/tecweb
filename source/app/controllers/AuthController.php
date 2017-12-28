@@ -7,12 +7,12 @@ use \Core\Request;
 use \App\Models\User;
 use \App\Models\Amministratore;
 use \App\Models\Investigatore;
-use \App\Models\Cliente;
+use \App\Models\Ispettore;
 
 require_once 'app/models/User.php';
 require_once 'app/models/Amministratore.php';
 require_once 'app/models/Investigatore.php';
-require_once 'app/models/Cliente.php';
+require_once 'app/models/Ispettore.php';
 
 class AuthController {
   /**
@@ -40,7 +40,7 @@ class AuthController {
 
     if ($role === 'detective') $userClass = '\App\Models\Investigatore';
     else if ($role === 'admin') $userClass = '\App\Models\Amministratore';
-    else $userClass = '\App\Models\Cliente';
+    else $userClass = '\App\Models\Ispettore';
 
     $user = $this->checkCredentials($codiceFiscale, $password, $role);
 
