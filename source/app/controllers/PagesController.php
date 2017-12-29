@@ -5,6 +5,7 @@ use \Core\Request;
 
 require_once 'app/controllers/AuthController.php';
 require_once 'app/controllers/CasesController.php';
+require_once 'app/controllers/TagsController.php';
 require_once 'app/controllers/UsersController.php';
 
 class PagesController {
@@ -19,6 +20,11 @@ class PagesController {
   private $casesController;
 
   /**
+   * @var TagsController
+   */
+  private $tagsController;
+
+  /**
    * @var UsersController
    */
   private $usersController;
@@ -26,6 +32,7 @@ class PagesController {
   public function __construct() {
     $this->authController = new AuthController();
     $this->casesController = new CasesController();
+    $this->tagsController = new TagsController();
     $this->usersController = new UsersController();
   }
 
@@ -135,20 +142,27 @@ class PagesController {
     $this->protectRoute();
 
     $routeName = 'ricerca';
+    $allTags = $this->tagsController->getTags();
 
     return \Core\view('ricerca', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+
+      'allTags' => $allTags,
+
       'searchText' => null,
-      'cases' => [],
-      'investigations' => [],
+      'cases' => null,
+      'investigations' => null,
+
       'emptySearch' => false
     ]);
   }
 
   public function searchPOST() {
     $this->protectRoute();
+
+    $allTags = $this->tagsController->getTags();
     
     $searchText = Request::getPOSTParam('search_text');
     $type = Request::getPOSTParam('type');
@@ -157,8 +171,8 @@ class PagesController {
     $tipologia = Request::getPOSTParam('tipologia');
     $tags = Request::getPOSTParam('tags');
 
-    $cases = [];
-    $investigations = [];
+    $cases = null;
+    $investigations = null;
 
     $emptySearch = false;
 
@@ -186,6 +200,8 @@ class PagesController {
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+
+      'allTags' => $allTags,
 
       'searchText' => $searchText,
       'cases' => $cases,

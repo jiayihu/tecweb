@@ -4,16 +4,21 @@
   <aside class="main-sidebar">
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
     <form action="/ricerca" method="post">
-      <p>
-        <label class="input-label" for="input-query">Testo da cercare</label>
-        <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo">
-      </p>
+      <?php if ($emptySearch) :?>
+      <p class="alert alert-danger">Non è possibile eseguire una ricerca vuota.</p>
+      <?php endif; ?>
+
       <div>
         <span class="input-label">Tipologia</span>
         <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked>
         <label class="radio-label" for="input-type-case">Casi</label>
         <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation">
         <label class="radio-label" for="input-type-investigation">Investigazioni</label>
+
+        <p>
+          <label class="input-label" for="input-query">Testo da cercare</label>
+          <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo">
+        </p>
 
         <!-- Fields unique for case -->
         <div class="case-fields">
@@ -28,6 +33,7 @@
           <p>
             <label class="input-label" for="input-rate">Tipologia</label>
             <select class="select" name="tipologia" id="input-rate">
+              <option disabled selected> -- Seleziona un valore -- </option>
               <option value="furto">Furto</option>
               <option value="omicidio">Omicidio</option>
               <option value="ricatto">Ricatto</option>
@@ -38,30 +44,14 @@
           <p> 
             <span class="input-label">Tags</span>
             <ul class="tags list">
+              <?php foreach ($allTags as $tag): ?>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags[]" value="annegamento" />
-                  <span class="tag-label">Annegamento</span>
+                  <input class="hide" type="checkbox" name="tags[]" value="<?php echo $tag->getSlug() ?>" />
+                  <span class="input-label tag-label"><?php echo $tag->nome ?></span>
                 </label>
               </li>
-              <li class="list-item">
-                <label class="tag">
-                  <input hidden type="checkbox" name="tags[]" value="cellulare" />
-                  <span class="tag-label">Cellulare</span>
-                </label>
-              </li>
-              <li class="list-item">
-                <label class="tag">
-                  <input hidden type="checkbox" name="tags[]" value="sparatoia" />
-                  <span class="tag-label">Sparatoia</span>
-                </label>
-              </li>
-              <li class="list-item">
-                <label class="tag">
-                  <input hidden type="checkbox" name="tags[]" value="terrorismo" />
-                  <span class="tag-label">Terrorismo</span>
-                </label>
-              </li>
+              <?php endforeach; ?>
             </ul>
           </p>
         </div>
@@ -90,10 +80,6 @@
       <p>
         <button type="submit" class="btn btn-primary" href="contatti">Avvia ricerca</button>
       </p>
-
-      <?php if ($emptySearch) :?>
-      <p class="alert alert-danger">Non è possibile eseguire una ricerca vuota.</p>
-      <?php endif; ?>
     </form>
   </aside>
   <section class="main-content">
@@ -101,6 +87,7 @@
     <h2>Risultati per "<?php echo $searchText; ?>"</h2>
     <?php endif; ?>
 
+    <?php if ($cases !== null): ?>
     <table class="results results-cases">
       <thead>
         <tr>
@@ -134,7 +121,9 @@
         <?php endforeach; ?>
       </tbody>
     </table>
+    <?php endif; ?>
 
+    <?php if ($investigations !== null): ?>
     <table class="results results-investigations">
       <thead>
         <tr>
@@ -176,5 +165,15 @@
         </tr>
       </tbody>
     </table>
+    <?php endif; ?>
+
+    <?php if ($cases === null && $investigations === null): ?>
+    <p class="alert alert-secondary">Effettua una ricerca usando i campi a sinistra.</p>
+    <?php endif; ?>
+
+    <?php if (($cases !== null && \count($cases) === 0) || ($investigations !== null && \count($investigations) === 0)): ?>
+    <p class="alert alert-info">Non ci sono risultati per questa ricerca.</p>
+    <?php endif; ?>
+
   </section>
 </main>

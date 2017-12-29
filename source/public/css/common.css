@@ -655,7 +655,7 @@ input.hide:focus + .input-label {
   }
 
   .container {
-    max-width: 800px;
+    max-width: 960px;
     padding: 0 0.5rem;
   }
 
@@ -675,6 +675,7 @@ input.hide:focus + .input-label {
 
   .main-content {
     display: table-cell;
+    padding-left: 1rem;
     vertical-align: top;
     width: 75%;
   }
@@ -683,6 +684,7 @@ input.hide:focus + .input-label {
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
+    padding: 0 1rem;
   }
 
   .main-container {

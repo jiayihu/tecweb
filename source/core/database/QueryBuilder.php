@@ -32,7 +32,7 @@ class QueryBuilder {
 
     Logger::log($query);
 
-    $statement = $this->pdo->prepare();
+    $statement = $this->pdo->prepare($query);
     $statement->execute();
 
     if (!$statement) return null;
