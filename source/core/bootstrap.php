@@ -22,9 +22,12 @@ if (!$config['production']) {
   /**
    * Throw PhP warnings and notices as errors
    */
-  set_error_handler(function ($errNo, $errStr, $errFile, $errLine) {
+  set_error_handler(function ($errNo, $errStr, $errFile, $errLine) use ($config) {
     $msg = "$errStr in $errFile on line $errLine";
-    if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+
+    if ($config['production']) {
+      \Core\Logger::log($msg, $errNo);
+    } else if ($errNo == E_NOTICE || $errNo == E_WARNING) {
         throw new \ErrorException($msg, $errNo);
     } else {
         echo $msg;
