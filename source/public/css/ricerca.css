@@ -78,11 +78,6 @@ h2 {
 }
 
 @media (min-width: 992px) {
-  .tags .list-item {
-    display: block;
-    margin-right: 0 !important;
-  }
-
   .main-content {
     padding-left: 1rem;
   }

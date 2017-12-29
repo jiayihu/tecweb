@@ -1,8 +1,7 @@
 <div class="investigation">
   <input
     id="inv-<?php echo $index; ?>"
-    class="accordion-input"
-    hidden
+    class="accordion-input hide"
     type="checkbox" 
     name="investigations" 
     <?php echo $index === $investigationId ? 'checked' : '' ?>

@@ -105,6 +105,7 @@ select {
   border: none;
   border-bottom: 1px solid #d3d3d3;
   color: #4e4e4e;
+  font-size: 0.875rem;
   height: 2.5rem;
   line-height: 2.5rem;
   width: 100%;
@@ -226,6 +227,10 @@ dd {
   color: white;
   padding: 1rem;
   position: relative;
+}
+
+.alert-secondary {
+  background-color: #4e4e4e;
 }
 
 .alert-danger {
@@ -445,13 +450,6 @@ dd {
   margin-top: 3rem;
 }
 
-.tabs input[type='radio'] {
-  /* Hide from visibility but without using display: none or visibility: hidden to allow focus */
-  position: absolute;
-  left: -1000rem;
-  z-index: -1;
-}
-
 .tabs > label {
   border: 1px solid #aaa;
   font-weight: 700;
@@ -463,6 +461,7 @@ dd {
 .tabs input[type='radio']:focus + label,
 .tabs input[type='radio']:checked + label {
   border-top: 3px solid #03a9f4;
+  box-shadow: none; /* Disable default accessibility focus style */
   opacity: 1;
 }
 
@@ -507,11 +506,14 @@ dd {
   margin-right: 1rem;
 }
 
-.navbar .dropdown-toggle,
 .navbar a {
+  text-decoration: none;
+}
+
+.navbar .dropdown-toggle,
+.navbar-link {
   border-bottom: 2px solid transparent;
   color: inherit;
-  text-decoration: none;
   text-transform: uppercase;
   transition: all 0.4s ease-out;
 }
@@ -565,6 +567,21 @@ dd {
 
 .center {
   text-align: center;
+}
+
+/* Hide visually but still visible to screen readers */
+.hide {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+}
+
+input.hide:focus + label,
+input.hide:focus + .input-label {
+  box-shadow: 0 0 3px #03a9f4;
 }
 
 .sr-only {
@@ -652,11 +669,13 @@ dd {
 
   .main-sidebar {
     display: table-cell;
+    vertical-align: top;
     width: 25%;
   }
 
   .main-content {
     display: table-cell;
+    vertical-align: top;
     width: 75%;
   }
 }

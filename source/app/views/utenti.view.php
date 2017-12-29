@@ -103,13 +103,13 @@
     <?php endif; ?>
 
     <div class="tabs">
-      <input type="radio" name="tabs" id="tab-detectives" checked>
+      <input class="hide" type="radio" name="tabs" id="tab-detectives" checked>
       <label for="tab-detectives">Investigatori</label>
 
-      <input type="radio" name="tabs" id="tab-admins">
+      <input class="hide" type="radio" name="tabs" id="tab-admins">
       <label for="tab-admins">Amministratori</label>
 
-      <input type="radio" name="tabs" id="tab-inspectors">
+      <input class="hide" type="radio" name="tabs" id="tab-inspectors">
       <label for="tab-inspectors">Ispettori</label>
 
       <div class="tab">
