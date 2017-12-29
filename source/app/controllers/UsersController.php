@@ -94,7 +94,7 @@ class UsersController {
     $role = $parameters['role'];
     $table = $this->getRoleTable($role);
 
-    if ($passwordConfirm !== $passwordConfirm) {
+    if ($password !== $passwordConfirm) {
       throw new \Exception('passwordsNotEqual');
     }
 

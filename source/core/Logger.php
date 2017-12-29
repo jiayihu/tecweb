@@ -3,15 +3,17 @@
 namespace Core;
 
 class Logger {
-  public static function log($msg) {
+  public static function log(...$msgs) {
     if (App::get('config')['production']) {
       return;
     }
 
-    $msgString = $msg;
+    foreach ($msgs as $msg ) {
+      $msgString = $msg;
 
-    if (!\is_string($msg)) $msgString = \json_encode($msg);
+      if (!\is_string($msg)) $msgString = \json_encode($msg);
 
-    \error_log($msgString);
+      \error_log($msgString);
+    }
   }
 }

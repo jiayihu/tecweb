@@ -3,6 +3,19 @@
 <main class="main-container container">
   <aside class="main-sidebar">
     <h2><?php echo $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
+
+    <?php if ($passwordsNotEqual) :?>
+    <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
+    <?php endif; ?>
+
+    <?php if ($alreadyExisting) :?>
+    <p class="alert alert-danger">L'utente inserito è già esistente.</p>
+    <?php endif; ?>
+    
+    <?php if ($addFailed) :?>
+    <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
+    <?php endif; ?>
+
     <form action="<?php echo $isEdit ? 'modifica-utente' : 'aggiungi-utente' ?>" method="post">
       <dl class="case-info">
         <dt>Codice Fiscale</dt>
@@ -64,18 +77,6 @@
         <button type="submit" class="btn btn-outline">Aggiunti utente</button>
         <?php endif; ?>
       </p>
-
-      <?php if ($passwordsNotEqual) :?>
-      <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
-      <?php endif; ?>
-
-      <?php if ($alreadyExisting) :?>
-      <p class="alert alert-danger">L'utente inserito è già esistente.</p>
-      <?php endif; ?>
-      
-      <?php if ($addFailed) :?>
-      <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
-      <?php endif; ?>
     </form>
   </aside>
 
@@ -130,13 +131,11 @@
               <td><?php echo $genericUser->cognome ?></td>
               <td class="actions">
                 <a href="/utenti?modifica=true&codice_fiscale=<?php echo $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
-                <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
-                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -194,13 +193,11 @@
               <td><?php echo $genericUser->cognome ?></td>
               <td class="actions">
                 <a href="/utenti?modifica=true&codice_fiscale=<?php echo $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
-                <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
-                <?php endif; ?>
               </td>
             </tr>
             <?php endforeach; ?>
