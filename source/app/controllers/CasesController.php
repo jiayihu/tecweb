@@ -5,10 +5,12 @@ namespace App\Controllers;
 use \App\Models\Caso;
 use \App\Models\Cliente;
 use \App\Models\Criminale;
+use \App\Models\Tag;
 
 require_once 'app/models/Caso.php';
 require_once 'app/models/Cliente.php';
 require_once 'app/models/Criminale.php';
+require_once 'app/models/Tag.php';
 
 class CasesController {
   /**
@@ -75,21 +77,45 @@ class CasesController {
       $where,
       $parameters
     );
-    $cases = \array_map(function ($result) use ($clienteCodiceFiscale, $criminaleCodiceFiscale) {
-      $cliente = $clienteCodiceFiscale ? new Cliente() : null;
-      $criminale = $criminaleCodiceFiscale ? new Criminale() : null;
-
-      return new Caso(
-        $result->codice,
-        $result->passato,
-        $result->risolto,
-        $result->nome,
-        $result->descrizione,
-        $result->tipologia
-      );
+    $cases = \array_map(function ($result) {
+      return $this->createCaso($result);
     }, $results);
+    $cases = $this->mergeCases($cases);
 
     return $cases;
+  }
+
+  private function createCaso($result) {
+    return new Caso(
+      $result->codice,
+      $result->passato,
+      $result->risolto,
+      $result->nome,
+      $result->descrizione,
+      $result->tipologia
+    );
+  }
+
+  /**
+   * Merges rows which are the same case but with different tags
+   *
+   * @param array $cases
+   * @return void
+   */
+  private function mergeCases(array $cases) {
+    return \array_reduce($cases, function (array $merged, Caso $case) {
+      $caseId = (string) $case->getId();
+
+      if (\array_key_exists($caseId, $merged)) {
+        foreach ($case->tags as $tag) {
+          $merged[$caseId]->addTag($tag);
+        }
+      } else {
+        $merged[$caseId] = $case;
+      }
+
+      return $merged;
+    }, []);
   }
 
   private function isEmpty(array $values) {

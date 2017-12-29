@@ -27,7 +27,7 @@
           </p>
           <p>
             <label class="input-label" for="input-rate">Tipologia</label>
-            <select class="select" name="tariffa" id="input-rate">
+            <select class="select" name="tipologia" id="input-rate">
               <option value="furto">Furto</option>
               <option value="omicidio">Omicidio</option>
               <option value="ricatto">Ricatto</option>
@@ -115,8 +115,16 @@
         <?php foreach ($cases as $case): ?>
         <tr>
           <td>
+            <?php if ($case->isResolved()): ?>
             <span class="status status-resolved" title="Risolto"></span>
             <span class="sr-only">Risolto</span>
+            <?php elseif ($case->isArchived()): ?>
+            <span class="status status-archived" title="Archiviato irrisolto"></span>
+            <span class="sr-only">Archiviato irrisolto</span>
+            <?php else: ?>
+            <span class="status status-progress" title="In progress"></span>
+            <span class="sr-only">In progress</span>
+            <?php endif; ?>
           </td>
           <td><?php echo $case->nome; ?></td>
           <td><?php echo $case->tipologia; ?></td>

@@ -6,6 +6,7 @@ require_once 'app/models/Cliente.php';
 require_once 'app/models/Criminale.php';
 require_once 'app/models/Investigatore.php';
 require_once 'app/models/Investigazione.php';
+require_once 'app/models/Tag.php';
 
 class Caso {
   public $nome;
@@ -56,5 +57,17 @@ class Caso {
 
   public function getDetectives() {
     // ...
+  }
+
+  public function isArchived() {
+    return $this->passato;
+  }
+
+  public function isResolved() {
+    return $this->risolto;
+  }
+
+  public function addTag(Tag $tag) {
+    \array_push($this->tags, $tag);
   }
 }

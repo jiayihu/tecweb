@@ -8,7 +8,7 @@ class Tag {
 
   private $slug;
 
-  public function __construct(int $slug, string $nome, string $descrizione) {
+  public function __construct(int $slug, string $nome = '', string $descrizione = '') {
     $this->slug = $slug;
     $this->nome = $nome;
     $this->descrizione = $descrizione;
