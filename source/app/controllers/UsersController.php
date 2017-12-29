@@ -7,6 +7,9 @@ use \App\Models\Amministratore;
 use \App\Models\Ispettore;
 
 require_once 'app/controllers/AuthController.php';
+require_once 'app/models/Investigatore.php';
+require_once 'app/models/Amministratore.php';
+require_once 'app/models/Ispettore.php';
 
 class UsersController {
   /**

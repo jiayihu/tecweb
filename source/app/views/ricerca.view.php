@@ -3,10 +3,10 @@
 <main class="main-container container">
   <aside class="main-sidebar">
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
-    <form action="ricerca" method="post">
+    <form action="/ricerca" method="post">
       <p>
         <label class="input-label" for="input-query">Testo da cercare</label>
-        <input class="input" type="text" name="query" id="input-query" placeholder="Inserisci del testo">
+        <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo">
       </p>
       <div>
         <span class="input-label">Tipologia</span>
@@ -40,25 +40,25 @@
             <ul class="tags list">
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags" value="annegamento" />
+                  <input hidden type="checkbox" name="tags[]" value="annegamento" />
                   <span class="tag-label">Annegamento</span>
                 </label>
               </li>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags" value="cellulare" />
+                  <input hidden type="checkbox" name="tags[]" value="cellulare" />
                   <span class="tag-label">Cellulare</span>
                 </label>
               </li>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags" value="sparatoia" />
+                  <input hidden type="checkbox" name="tags[]" value="sparatoia" />
                   <span class="tag-label">Sparatoia</span>
                 </label>
               </li>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags" value="terrorismo" />
+                  <input hidden type="checkbox" name="tags[]" value="terrorismo" />
                   <span class="tag-label">Terrorismo</span>
                 </label>
               </li>
@@ -90,10 +90,16 @@
       <p>
         <button type="submit" class="btn btn-primary" href="contatti">Avvia ricerca</button>
       </p>
+
+      <?php if ($emptySearch) :?>
+      <p class="alert alert-danger">Non è possibile eseguire una ricerca vuota.</p>
+      <?php endif; ?>
     </form>
   </aside>
   <section class="main-content">
-    <h2>Risultati per "<?php echo $query; ?>"</h2>
+    <?php if ($searchText !== null): ?>
+    <h2>Risultati per "<?php echo $searchText; ?>"</h2>
+    <?php endif; ?>
 
     <table class="results results-cases">
       <thead>
@@ -106,46 +112,18 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach ($cases as $case): ?>
         <tr>
           <td>
             <span class="status status-resolved" title="Risolto"></span>
             <span class="sr-only">Risolto</span>
           </td>
-          <td>Uno scandalo in Boemia</td>
-          <td>Ricatto</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
+          <td><?php echo $case->nome; ?></td>
+          <td><?php echo $case->tipologia; ?></td>
+          <td class="case-description"><?php echo $case->descrizione; ?></td>
+          <td><a href="/caso?id=<?php echo $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
-        <tr>
-          <td>
-            <span class="status status-progress" title="In Progress"></span>
-            <span class="sr-only">In Progress</span>
-          </td>
-          <td>Uno scandalo in Boemia</td>
-          <td>Ricatto</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="status status-archived" title="Archiviato"></span>
-            <span class="sr-only">Archiviato</span>
-          </td>
-          <td>Uno scandalo in Boemia</td>
-          <td>Ricatto</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
-        <tr>
-          <td>
-            <span class="status status-archived" title="Archiviato"></span>
-            <span class="sr-only">Archiviato</span>
-          </td>
-          <td>Uno scandalo in Boemia</td>
-          <td>Ricatto</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
 
@@ -164,7 +142,7 @@
           <td>Sherlock Holmes</td>
           <td>02 Dic 2017 - 25 Dic 2017</td>
           <td>Padova (PD)</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
+          <td class="investigation-report">Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
           <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
         </tr>
         <tr>

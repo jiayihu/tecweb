@@ -21,7 +21,7 @@ class Investigazione {
     string $rapporto,
     Scena $scena,
     Scena $prove,
-    int $oreTotali,
+    int $oreTotali
     ) {
     $this->id = $id;
     $this->dataInizio = $dataInizio;

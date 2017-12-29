@@ -65,6 +65,11 @@ h2 {
   width: 6rem;
 }
 
+.case-description,
+.investigation-report {
+  font-size: 0.875rem;
+}
+
 @media (min-width: 480px) {
   .main-sidebar,
   .main-content {

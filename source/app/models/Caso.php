@@ -16,29 +16,38 @@ class Caso {
   public $tags;
   public $investigazioni;
 
-  private $id;
+  private $codice;
+  private $passato;
   private $risolto;
   
   public function __construct(
-    int $id,
+    int $codice,
+    bool $passato,
+    bool $risolto,
     string $nome,
     string $descrizione,
     string $tipologia,
-    Cliente $cliente,
-    Criminale $criminale,
-    array $tags,
-    array $investigazioni,
-    bool $risolto
+    Cliente $cliente = null,
+
+    Criminale $criminale = null,
+    array $tags = [],
+    array $investigazioni = []
   ) {
-    $this->id = $id;
-    $this->nome = $codice_fiscale;
+    $this->codice = $codice;
+    $this->passato = $passato;
+    $this->risolto = $risolto;
+    $this->nome = $nome;
     $this->descrizione = $descrizione;
     $this->tipologia = $tipologia;
     $this->cliente = $cliente;
+
     $this->criminale = $criminale;
     $this->tags = $tags;
     $this->investigazioni = $investigazioni;
-    $this->risolto = $risolto;
+  }
+
+  public function getId() {
+    return $this->codice;
   }
 
   public function getTotalHours() {

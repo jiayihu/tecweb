@@ -4,6 +4,7 @@ namespace App\Controllers;
 use \Core\Request;
 
 require_once 'app/controllers/AuthController.php';
+require_once 'app/controllers/CasesController.php';
 require_once 'app/controllers/UsersController.php';
 
 class PagesController {
@@ -13,12 +14,18 @@ class PagesController {
   private $authController;
 
   /**
+   * @var CasesController
+   */
+  private $casesController;
+
+  /**
    * @var UsersController
    */
   private $usersController;
 
   public function __construct() {
     $this->authController = new AuthController();
+    $this->casesController = new CasesController();
     $this->usersController = new UsersController();
   }
 
@@ -30,7 +37,7 @@ class PagesController {
     ]);
   }
 
-  public function servizi() {
+  public function services() {
     $routeName = 'servizi';
 
     return \Core\view('servizi', [
@@ -38,7 +45,7 @@ class PagesController {
     ]);
   }
 
-  public function casi() {
+  public function cases() {
     $routeName = 'casi';
 
     return \Core\view('casi', [
@@ -46,7 +53,7 @@ class PagesController {
     ]);
   }
 
-  public function contatti() {
+  public function contacts() {
     $routeName = 'contatti';
 
     return \Core\view('contatti', [
@@ -124,7 +131,7 @@ class PagesController {
     ]);
   }
 
-  public function ricerca() {
+  public function search() {
     $this->protectRoute();
 
     $routeName = 'ricerca';
@@ -133,11 +140,62 @@ class PagesController {
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
-      'query' => 'someQuery'
+      'searchText' => null,
+      'cases' => [],
+      'investigations' => [],
+      'emptySearch' => false
     ]);
   }
 
-  public function caso() {
+  public function searchPOST() {
+    $this->protectRoute();
+    
+    $searchText = Request::getPOSTParam('search_text');
+    $type = Request::getPOSTParam('type');
+    $clienteCodiceFiscale = Request::getPOSTParam('cliente');
+    $criminaleCodiceFiscale = Request::getPOSTParam('criminale');
+    $tipologia = Request::getPOSTParam('tipologia');
+    $tags = Request::getPOSTParam('tags');
+
+    $cases = [];
+    $investigations = [];
+
+    $emptySearch = false;
+
+    try {
+      if ($type === 'case') {
+        $cases = $this->casesController->searchCases([
+          'searchText' => $searchText,
+          'clienteCodiceFiscale' => $clienteCodiceFiscale,
+          'criminaleCodiceFiscale' => $criminaleCodiceFiscale,
+          'tipologia' => $tipologia,
+          'tags' => $tags,
+        ]);
+      }
+    } catch (\Exception $e) {
+      if ($e->getMessage() === 'emptySearch') {
+        $emptySearch = true;
+      } else {
+        throw $e;
+      }
+    }
+
+    $routeName = 'ricerca';
+    
+    return \Core\view('ricerca', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
+
+      'searchText' => $searchText,
+      'cases' => $cases,
+      'investigations' => $investigations,
+
+      'emptySearch' => $emptySearch,
+    ]);
+  }
+
+  public function case() {
     $this->protectRoute();
 
     $routeName = 'caso';
@@ -162,7 +220,7 @@ class PagesController {
     ]);
   }
 
-  public function utenti() {
+  public function users() {
     $this->protectRoute();
 
     $routeName = 'utenti';

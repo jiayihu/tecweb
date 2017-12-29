@@ -63,20 +63,19 @@
         <?php else: ?>
         <button type="submit" class="btn btn-outline">Aggiunti utente</button>
         <?php endif; ?>
-
-        <?php if ($passwordsNotEqual) :?>
-        <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
-        <?php endif; ?>
-
-        <?php if ($alreadyExisting) :?>
-        <p class="alert alert-danger">L'utente inserito è già esistente.</p>
-        <?php endif; ?>
-        
-        <?php if ($addFailed) :?>
-        <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
-        <?php endif; ?>
-        
       </p>
+
+      <?php if ($passwordsNotEqual) :?>
+      <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
+      <?php endif; ?>
+
+      <?php if ($alreadyExisting) :?>
+      <p class="alert alert-danger">L'utente inserito è già esistente.</p>
+      <?php endif; ?>
+      
+      <?php if ($addFailed) :?>
+      <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
+      <?php endif; ?>
     </form>
   </aside>
 
