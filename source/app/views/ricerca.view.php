@@ -64,7 +64,7 @@
           </p>
           <p>
             <label class="input-label" for="input-scene">Scena investigazione</label>
-            <input class="input" type="text" name="scena" id="input-scene" placeholder="Città della scena">
+            <input class="input" type="text" name="scena" id="input-scene" placeholder="Città o indirizzo della scena">
           </p>
           <p>
             <label class="input-label" for="input-date-from">A partire da data</label>
@@ -115,7 +115,7 @@
           </td>
           <td><?php echo $case->nome; ?></td>
           <td><?php echo $case->tipologia; ?></td>
-          <td class="case-description"><?php echo $case->descrizione; ?></td>
+          <td class="case-description"><?php echo \Core\ellipsis($case->descrizione); ?></td>
           <td><a href="/caso?id=<?php echo $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
         <?php endforeach; ?>
@@ -135,34 +135,19 @@
         </tr>
       </thead>
       <tbody>
+        <?php foreach ($investigations as $investigation): ?> 
         <tr>
-          <td>Sherlock Holmes</td>
-          <td>02 Dic 2017 - 25 Dic 2017</td>
-          <td>Padova (PD)</td>
-          <td class="investigation-report">Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
+          <td>Sherlock Holmes (@TODO)</td>
+          <td><?php echo $investigation->dataInizio . ' ' . $investigation->dataTermine; ?></td>
+          <td>Padova (PD) (@TODO)</td>
+          <td class="investigation-report"><?php echo \Core\ellipsis($investigation->rapporto); ?></td>
+          <td>
+            <a href="/caso?id=<?php echo $investigation->getCaseId(); ?>&investigazione=<?php echo $investigation->getId(); ?>">
+              Apri &rightarrow;
+            </a>
+          </td>
         </tr>
-        <tr>
-          <td>Sherlock Holmes</td>
-          <td>02 Dic 2017 - 25 Dic 2017</td>
-          <td>Padova (PD)</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
-        <tr>
-          <td>Sherlock Holmes</td>
-          <td>02 Dic 2017 - 25 Dic 2017</td>
-          <td>Padova (PD)</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
-        <tr>
-          <td>Sherlock Holmes</td>
-          <td>02 Dic 2017 - 25 Dic 2017</td>
-          <td>Padova (PD)</td>
-          <td>Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.</td>
-          <td><a href="/caso?id=1&investigazione=1">Apri &rightarrow;</a></td>
-        </tr>
+        <?php endforeach; ?>
       </tbody>
     </table>
     <?php endif; ?>

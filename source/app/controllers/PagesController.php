@@ -1,10 +1,12 @@
 <?php 
 
 namespace App\Controllers;
+use \Core\App;
 use \Core\Request;
 
 require_once 'app/controllers/AuthController.php';
 require_once 'app/controllers/CasesController.php';
+require_once 'app/controllers/InvestigationsController.php';
 require_once 'app/controllers/TagsController.php';
 require_once 'app/controllers/UsersController.php';
 
@@ -20,6 +22,11 @@ class PagesController {
   private $casesController;
 
   /**
+   * @var InvestigationsController
+   */
+  private $investigationsController;
+
+  /**
    * @var TagsController
    */
   private $tagsController;
@@ -32,6 +39,7 @@ class PagesController {
   public function __construct() {
     $this->authController = new AuthController();
     $this->casesController = new CasesController();
+    $this->investigationsController = new InvestigationsController();
     $this->tagsController = new TagsController();
     $this->usersController = new UsersController();
   }
@@ -159,6 +167,40 @@ class PagesController {
     ]);
   }
 
+  public function searchCasesPOST(string $searchText) {
+    $clienteCodiceFiscale = Request::getPOSTParam('cliente');
+    $criminaleCodiceFiscale = Request::getPOSTParam('criminale');
+    $tipologia = Request::getPOSTParam('tipologia');
+    $tags = Request::getPOSTParam('tags');
+
+    return $this->casesController->searchCases([
+      'searchText' => $searchText,
+      'clienteCodiceFiscale' => $clienteCodiceFiscale,
+      'criminaleCodiceFiscale' => $criminaleCodiceFiscale,
+      'tipologia' => $tipologia,
+      'tags' => $tags,
+    ]);
+  }
+
+  public function searchInvestigationsPOST(string $searchText) {
+    var_dump($_POST);
+    $investigatoreCodiceFiscale = Request::getPOSTParam('investigatore');
+    $scena = Request::getPOSTParam('scena');
+    $dateFrom = Request::getPOSTParam('date-from');
+    $dateTo = Request::getPOSTParam('date-to');
+
+    if ($dateFrom !== null) $dateFrom = \DateTime::createFromFormat('d/m/Y', $dateFrom);
+    if ($dateTo !== null) $dateTo = \DateTime::createFromFormat('d/m/Y', $dateTo);
+
+    return $this->investigationsController->searchInvestigations([
+      'searchText' => $searchText,
+      'investigatoreCodiceFiscale' => $investigatoreCodiceFiscale,
+      'scena' => $scena,
+      'dateFrom' => $dateFrom,
+      'dateTo' => $dateTo,
+    ]);
+  }
+
   public function searchPOST() {
     $this->protectRoute();
 
@@ -166,10 +208,6 @@ class PagesController {
     
     $searchText = Request::getPOSTParam('search_text');
     $type = Request::getPOSTParam('type');
-    $clienteCodiceFiscale = Request::getPOSTParam('cliente');
-    $criminaleCodiceFiscale = Request::getPOSTParam('criminale');
-    $tipologia = Request::getPOSTParam('tipologia');
-    $tags = Request::getPOSTParam('tags');
 
     $cases = null;
     $investigations = null;
@@ -178,13 +216,9 @@ class PagesController {
 
     try {
       if ($type === 'case') {
-        $cases = $this->casesController->searchCases([
-          'searchText' => $searchText,
-          'clienteCodiceFiscale' => $clienteCodiceFiscale,
-          'criminaleCodiceFiscale' => $criminaleCodiceFiscale,
-          'tipologia' => $tipologia,
-          'tags' => $tags,
-        ]);
+        $cases = $this->searchCasesPOST($searchText);
+      } else if ($type === 'investigation') {
+        $investigations = $this->searchInvestigationsPOST($searchText);
       }
     } catch (\Exception $e) {
       if ($e->getMessage() === 'emptySearch') {

@@ -2,6 +2,18 @@
 
 namespace Core;
 
+function ellipsis($text) {
+  return \strlen($text) > 100 ? \substr($text, 0, 100) . '...' : $text;
+}
+
+function isArrayEmpty(array $values) {
+  $notNullValues = \array_filter(\array_values($values), function ($value) {
+    return !empty($value);
+  });
+
+  return \count($notNullValues) === 0;
+}
+
 /**
  * Returns a JSON object to the client with the format as specified in standard
  * http://jsonapi.org/format/

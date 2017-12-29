@@ -40,7 +40,10 @@ class CasesController {
     $parameters = [];
 
     if ($searchText) {
-      \array_push($conditions, 'caso.nome LIKE CONCAT(\'%\', :search_text, \'%\')');
+      \array_push($conditions, '
+        (caso.nome LIKE CONCAT(\'%\', :search_text, \'%\') 
+        OR caso.descrizione LIKE CONCAT(\'%\', :search_text, \'%\'))'
+      );
       $parameters[':search_text'] = $searchText;
     }
     if ($clienteCodiceFiscale) {

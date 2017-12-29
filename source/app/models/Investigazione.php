@@ -9,26 +9,40 @@ class Investigazione {
   public $dataTermine;
   public $rapporto;
   public $oreTotali;
+
   public $scena;
   public $prove;
 
   private $id;
+  private $caso;
 
   public function __construct(
     int $id,
+    int $caso,
     string $dataInizio,
     string $dataTermine,
     string $rapporto,
-    Scena $scena,
-    Scena $prove,
-    int $oreTotali
+    int $oreTotali = 0,
+
+    Scena $scena = null,
+    array $prove = []
     ) {
     $this->id = $id;
+    $this->caso = $caso;
     $this->dataInizio = $dataInizio;
     $this->dataTermine = $dataTermine;
     $this->rapporto = $rapporto;
+    $this->oreTotali = $oreTotali;
+    
     $this->scena = $scena;
     $this->prove = $prove;
-    $this->oreTotali = $oreTotali;
+  }
+
+  public function getId() {
+    return $this->id;
+  }
+
+  public function getCaseId() {
+    return $this->caso;
   }
 }
