@@ -60,7 +60,8 @@ h2 {
 .results-investigations td:nth-child(1) {
   width: 10rem;
 }
-.results-investigations td:nth-child(2) {
+.results-investigations td:nth-child(2),
+.results-investigations td:nth-child(3) {
   font-size: 0.875em;
   width: 6rem;
 }

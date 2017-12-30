@@ -167,7 +167,7 @@ class PagesController {
     ]);
   }
 
-  public function searchCasesPOST(string $searchText) {
+  public function searchCasesPOST(string $searchText = null) {
     $clienteCodiceFiscale = Request::getPOSTParam('cliente');
     $criminaleCodiceFiscale = Request::getPOSTParam('criminale');
     $tipologia = Request::getPOSTParam('tipologia');
@@ -182,15 +182,14 @@ class PagesController {
     ]);
   }
 
-  public function searchInvestigationsPOST(string $searchText) {
-    var_dump($_POST);
+  public function searchInvestigationsPOST(string $searchText = null) {
     $investigatoreCodiceFiscale = Request::getPOSTParam('investigatore');
     $scena = Request::getPOSTParam('scena');
     $dateFrom = Request::getPOSTParam('date-from');
     $dateTo = Request::getPOSTParam('date-to');
 
-    if ($dateFrom !== null) $dateFrom = \DateTime::createFromFormat('d/m/Y', $dateFrom);
-    if ($dateTo !== null) $dateTo = \DateTime::createFromFormat('d/m/Y', $dateTo);
+    if ($dateFrom !== null) $dateFrom = \DateTime::createFromFormat('Y-m-d', $dateFrom);
+    if ($dateTo !== null) $dateTo = \DateTime::createFromFormat('Y-m-d', $dateTo);
 
     return $this->investigationsController->searchInvestigations([
       'searchText' => $searchText,
