@@ -22,7 +22,7 @@ class InvestigationsController {
     $this->database = \Core\App::get('database');
   }
 
-  public function searchInvestigations(array $parameters) {
+  public function searchInvestigations(array $parameters): array {
     if (\Core\isArrayEmpty($parameters)) {
       throw new \Exception('emptySearch');
     }
@@ -93,7 +93,7 @@ class InvestigationsController {
     return $investigations;
   }
 
-  private function createInvestigazione($result) {
+  private function createInvestigazione($result): Investigazione {
     $investigatore = new Investigatore($result->investigatore_codice_fiscale, $result->investigatore_nome, $result->investigatore_cognome);
     $scena = new Scena($result->scena_nome, $result->scena_descrizione, $result->citta, $result->indirizzo);
 

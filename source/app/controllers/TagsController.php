@@ -18,7 +18,7 @@ class TagsController {
     $this->database = \Core\App::get('database');
   }
 
-  public function getTags() {
+  public function getTags(): array {
     $results = $this->database->selectAll('tag');
 
     if (!$results) return [];

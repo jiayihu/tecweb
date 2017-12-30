@@ -42,11 +42,11 @@ class Investigazione {
     $this->prove = $prove;
   }
 
-  public function getId() {
+  public function getId(): int {
     return $this->id;
   }
 
-  public function getCaseId() {
+  public function getCaseId(): int {
     return $this->caso;
   }
 

@@ -2,11 +2,11 @@
 
 namespace Core;
 
-function ellipsis($text) {
+function ellipsis(string $text): string {
   return \strlen($text) > 100 ? \substr($text, 0, 100) . '...' : $text;
 }
 
-function isArrayEmpty(array $values) {
+function isArrayEmpty(array $values): bool {
   $notNullValues = \array_filter(\array_values($values), function ($value) {
     return !empty($value);
   });

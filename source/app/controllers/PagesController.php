@@ -392,7 +392,7 @@ class PagesController {
     ]);
   }
 
-  private function getUsername() {
+  private function getUsername(): string {
     $user = $this->authController->getUser();
 
     return $user->nome . ' ' . $user->cognome;

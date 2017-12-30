@@ -53,7 +53,7 @@ class QueryBuilder {
     return $statement->fetchAll(\PDO::FETCH_OBJ); 
   }
 
-  public function insert(string $table, array $parameters) {
+  public function insert(string $table, array $parameters): bool {
     $columns = \implode(', ', array_keys($parameters));
     $placeholders = \implode(
       ', ',
@@ -67,7 +67,7 @@ class QueryBuilder {
     return $statement->execute($parameters);
   }
 
-  public function update(string $table, string $changes, string $where, array $parameters) {
+  public function update(string $table, string $changes, string $where, array $parameters): bool {
     $query = \sprintf('update %s set %s where (%s)', $table, $changes, $where);
     Logger::log($query);
     
@@ -75,7 +75,7 @@ class QueryBuilder {
     return $statement->execute($parameters);
   }
 
-  public function delete(string $table, string $where, array $parameters) {
+  public function delete(string $table, string $where, array $parameters): bool {
     $query = \sprintf('delete from %s where %s', $table, $where);
     Logger::log($query);
 

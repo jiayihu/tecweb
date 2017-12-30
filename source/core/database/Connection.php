@@ -9,7 +9,7 @@ class Connection {
    * @param array $config Environment configuration with private credentials
    * @return void
    */
-  public static function make(array $config) {
+  public static function make(array $config): \PDO {
     try {
       return new \PDO(
         "mysql:host={$config['hostdb']};dbname={$config['name']}",
