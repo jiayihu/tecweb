@@ -4,20 +4,20 @@
   <aside class="main-sidebar">
     <h2>Casi</h2>
     <ul class="menu-case">
-      <li class="case case-select">Caso 1</li>
-      <li class="case">Caso 2</li>
-      <li class="case">Caso 3</li>
-      <li class="case">Caso 4</li>
-      <li class="case">Caso 5</li>
-      <li class="case">Caso 6</li>
-      <li class="case">Caso 7</li>
-      <li class="case">Caso 8</li>
-      <li class="case">Caso 9</li>
+    <?php foreach($cases as $case) : ?>
+      <?php if($case->nome == $selectcase->nome) : ?>
+      <li class="case case-select"><?= $case->nome ?></li>
+      <?php else : ?>
+        <li class="case"><?= $case->nome ?></li>
+      <?php endif; ?>
+    <?php endforeach; ?>
     </ul>
   </aside>
 
   <section class="main-content dashboard">
-    <h2>Caso "Uno studio in rosa"</h2>
+    <?php var_dump($selectcase); ?>
+
+    <h2><?= $selectcase->nome ?></h2>
 
     <?php if ($autoLogin) :?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
@@ -45,14 +45,17 @@
       </p>
 
       <dl class="case-info">
-        <dt>Risolto: </dt>
-        <dd>No</dd>
-        <dt>Tipologia: </dt>
-        <dd>Omicidio</dd>
+        <dt>Risolto </dt>
+        <?php if($selectcase->risolto == '0') : ?>
+          <dd>No</dd>
+        <?php else : ?>
+          <dd>Si</dd>
+        <?php endif; ?>
+
+        <dt>Tipologia </dt>
+        <dd><?= $selectcase->tipologia ?></dd>
         <dt>Descrizione</dt>
-        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-        ea commodo consequat</dd>
+        <dd><?= $selectcase->descrizione ?></dd>
       </dl>
 
       <?php foreach ($investigations as $index => $investigation) : ?>

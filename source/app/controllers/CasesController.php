@@ -88,6 +88,33 @@ class CasesController {
     return $cases;
   }
 
+  public function getCases() {
+    $table = 'caso';
+    $where='caso.passato = :caso_passato order by nome';
+    $parameters[':caso_passato'] = 0;
+    $result = $this->database->selectWhere(
+      $table,
+      ['nome'],
+      $where,
+      $parameters
+    );
+    return $result;
+  }
+
+  public function getCase($name) {
+    $table = 'caso';
+    $where='caso.nome = :nome_caso';
+    $parameters[':nome_caso'] = $name;
+    $result = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    return $result;
+  }
+
   private function createCaso($result) {
     return new Caso(
       $result->codice,

@@ -118,9 +118,16 @@ class PagesController {
 
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
-    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;
-    $investigations = [null, null, null, null, null];
+    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;   
+    $cases = $this->casesController->getCases();
+    
+    if($cases != null) {
+      $selectcase = $this->casesController->getCase($cases[0]->nome);
+    }
+    
 
+    $investigations = [null, null, null, null, null];
+    
     return \Core\view('dashboard', [
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
@@ -131,6 +138,8 @@ class PagesController {
       'investigations' => $investigations,
       'investigationId' => null,
       'isEdit' => false,
+      'cases' => $cases,
+      'selectcase' => $selectcase[0]
     ]);
   }
 
