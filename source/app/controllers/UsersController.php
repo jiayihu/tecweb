@@ -29,7 +29,7 @@ class UsersController {
     $this->authController = new AuthController();
   }
 
-  public function getUsers() {
+  public function getUsers(): array {
     $detectiveResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM investigatore;');
     $adminResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM amministratore;');
     $inspectorResults = $this->database->runQuery('SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale;');
@@ -85,7 +85,7 @@ class UsersController {
     return $successful ? \Core\json($response) : \Core\json(null, $errors);
   }
 
-  public function addUser(array $parameters) {
+  public function addUser(array $parameters): bool {
     $codiceFiscale = $parameters['codiceFiscale'];
     $password = $parameters['password'];
     $passwordConfirm = $parameters['passwordConfirm'];
@@ -112,7 +112,7 @@ class UsersController {
     ]);
   }
 
-  public function editUser(array $parameters) {
+  public function editUser(array $parameters): bool {
     $oldCodiceFiscale = $parameters['oldCodiceFiscale'];
     $newCodiceFiscale = $parameters['newCodiceFiscale'];
     $password = $parameters['password'];
@@ -146,7 +146,7 @@ class UsersController {
     ]);
   }
 
-  public function deleteUser($codiceFiscale, $role) {
+  public function deleteUser($codiceFiscale, $role): bool {
     $table = $this->getRoleTable($role);
     $where = "codice_fiscale = :codice_fiscale";
 
@@ -162,7 +162,7 @@ class UsersController {
     ]);
   }
 
-  private function getRoleTable(string $role) {
+  private function getRoleTable(string $role): string {
     if ($role === 'detective') return 'investigatore';
     else if ($role === 'admin') return 'amministratore';
     else return 'ispettore';

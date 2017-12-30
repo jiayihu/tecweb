@@ -24,8 +24,8 @@ class CasesController {
     $this->database = \Core\App::get('database');
   }
 
-  public function searchCases(array $parameters) {
-    if ($this->isEmpty($parameters)) {
+  public function searchCases(array $parameters): array {
+    if (\Core\isArrayEmpty($parameters)) {
       throw new \Exception('emptySearch');
     }
 
@@ -88,6 +88,7 @@ class CasesController {
     return $cases;
   }
 
+<<<<<<< HEAD
   public function getCases() {
     $table = 'caso';
     $where='caso.passato = :caso_passato order by nome';
@@ -116,6 +117,9 @@ class CasesController {
   }
 
   private function createCaso($result) {
+=======
+  private function createCaso($result): Caso {
+>>>>>>> 86e00f6b68cd12778cbce80ae1f0090de3fa15f9
     return new Caso(
       $result->codice,
       $result->passato,
@@ -132,7 +136,7 @@ class CasesController {
    * @param array $cases
    * @return void
    */
-  private function mergeCases(array $cases) {
+  private function mergeCases(array $cases): array {
     return \array_reduce($cases, function (array $merged, Caso $case) {
       $caseId = (string) $case->getId();
 
@@ -146,13 +150,5 @@ class CasesController {
 
       return $merged;
     }, []);
-  }
-
-  private function isEmpty(array $values) {
-    $notNullValues = \array_filter(\array_values($values), function ($value) {
-      return !empty($value);
-    });
-
-    return \count($notNullValues) === 0;
   }
 }

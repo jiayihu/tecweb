@@ -47,7 +47,7 @@ class Caso {
     $this->investigazioni = $investigazioni;
   }
 
-  public function getId() {
+  public function getId(): int {
     return $this->codice;
   }
 
@@ -59,11 +59,11 @@ class Caso {
     // ...
   }
 
-  public function isArchived() {
+  public function isArchived(): bool {
     return $this->passato;
   }
 
-  public function isResolved() {
+  public function isResolved(): bool {
     return $this->risolto;
   }
 

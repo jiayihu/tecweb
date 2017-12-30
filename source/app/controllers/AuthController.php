@@ -31,7 +31,7 @@ class AuthController {
     return \Core\json(['success' => $isAuthorized]);
   }
 
-  public function authenticate($codiceFiscale, $password, $role) {
+  public function authenticate($codiceFiscale, $password, $role): bool {
     $userClass = 'User';
 
     if ($role === 'detective') $userClass = '\App\Models\Investigatore';
@@ -52,7 +52,7 @@ class AuthController {
     return Session::get('user');
   }
 
-  public function getUserRole() {
+  public function getUserRole(): string {
     $user = $this->getUser();
     $role = '';
 
@@ -63,7 +63,7 @@ class AuthController {
     return $role;
   }
 
-  public function isAuthenticated() {
+  public function isAuthenticated(): bool {
     return $this->getUser() !== null;
   }
 

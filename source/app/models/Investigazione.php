@@ -3,6 +3,7 @@
 namespace App\Models;
 
 require_once 'app/models/Scena.php';
+require_once 'app/models/Investigatore.php';
 
 class Investigazione {
   public $dataInizio;
@@ -10,6 +11,7 @@ class Investigazione {
   public $rapporto;
   public $oreTotali;
 
+  public $investigatore;
   public $scena;
   public $prove;
 
@@ -24,6 +26,7 @@ class Investigazione {
     string $rapporto,
     int $oreTotali = 0,
 
+    Investigatore $investigatore = null,
     Scena $scena = null,
     array $prove = []
     ) {
@@ -34,15 +37,24 @@ class Investigazione {
     $this->rapporto = $rapporto;
     $this->oreTotali = $oreTotali;
     
+    $this->investigatore = $investigatore;
     $this->scena = $scena;
     $this->prove = $prove;
   }
 
-  public function getId() {
+  public function getId(): int {
     return $this->id;
   }
 
-  public function getCaseId() {
+  public function getCaseId(): int {
     return $this->caso;
+  }
+
+  public function getInvestigatore(): string {
+    return $this->investigatore->nome . ' ' . $this->investigatore->cognome;
+  }
+
+  public function getScene(): string {
+    return $this->scena->citta . ', ' . $this->scena->indirizzo;
   }
 }

@@ -137,9 +137,9 @@
       <tbody>
         <?php foreach ($investigations as $investigation): ?> 
         <tr>
-          <td>Sherlock Holmes (@TODO)</td>
+          <td><?php echo $investigation->getInvestigatore(); ?></td>
           <td><?php echo $investigation->dataInizio . ' ' . $investigation->dataTermine; ?></td>
-          <td>Padova (PD) (@TODO)</td>
+          <td><?php echo $investigation->getScene(); ?></td>
           <td class="investigation-report"><?php echo \Core\ellipsis($investigation->rapporto); ?></td>
           <td>
             <a href="/caso?id=<?php echo $investigation->getCaseId(); ?>&investigazione=<?php echo $investigation->getId(); ?>">
