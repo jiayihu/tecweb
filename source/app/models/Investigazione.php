@@ -22,7 +22,7 @@ class Investigazione {
     int $id,
     int $caso,
     string $dataInizio,
-    string $dataTermine,
+    string $dataTermine = null,
     string $rapporto,
     int $oreTotali = 0,
 

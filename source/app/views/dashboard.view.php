@@ -15,7 +15,6 @@
   </aside>
 
   <section class="main-content dashboard">
-    <?php var_dump($selectcase); ?>
 
     <h2><?= $selectcase->nome ?></h2>
 

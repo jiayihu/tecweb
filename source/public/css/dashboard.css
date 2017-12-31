@@ -46,6 +46,10 @@
   display: none;
 }
 
+table {
+  margin-top: 0;
+}
+
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {

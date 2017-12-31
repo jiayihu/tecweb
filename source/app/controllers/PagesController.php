@@ -124,9 +124,8 @@ class PagesController {
     if($cases != null) {
       $selectcase = $this->casesController->getCase($cases[0]->nome);
     }
-    
 
-    $investigations = [null, null, null, null, null];
+    $investigations = $this->investigationsController->getInvestigations($selectcase[0]->codice);
     
     return \Core\view('dashboard', [
       'routeName' => $routeName,
@@ -139,7 +138,7 @@ class PagesController {
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
-      'selectcase' => $selectcase[0]
+      'selectcase' => $selectcase[0],
     ]);
   }
 

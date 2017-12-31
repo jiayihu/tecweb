@@ -88,7 +88,6 @@ class CasesController {
     return $cases;
   }
 
-<<<<<<< HEAD
   public function getCases() {
     $table = 'caso';
     $where='caso.passato = :caso_passato order by nome';
@@ -116,10 +115,7 @@ class CasesController {
     return $result;
   }
 
-  private function createCaso($result) {
-=======
   private function createCaso($result): Caso {
->>>>>>> 86e00f6b68cd12778cbce80ae1f0090de3fa15f9
     return new Caso(
       $result->codice,
       $result->passato,

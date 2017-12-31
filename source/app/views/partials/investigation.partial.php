@@ -66,22 +66,33 @@
       <a href="/caso?id=1&investigazione=1&modifica=true">Modifica</a>
       <?php endif; ?>
     </p>
+
     <div class="investigation-content-field">
-      <span class="investigation-content-title">Svolta da: </span> Sherlock Holmes
+      <span class="investigation-content-title">Svolta da: </span> 
+      <?= $inv = $investigation->getInvestigatore(); ?>
     </div>
     <div class="investigation-content-field">
-      <span class="investigation-content-title">Ore di lavoro: </span>5
+      <span class="investigation-content-title">Ore di lavoro: 
+      </span> <?= $investigation->oreTotali ?>
     </div>
     <div class="investigation-content-field">
-      <span class="investigation-content-title">Data: </span>14.12.2017 - 20.12.2017
+      <span class="investigation-content-title">Data: </span>
+      <?= $investigation->dataInizio ?> -
+      <?php 
+        if($investigation->dataTermine == null) {
+          echo "in corso";
+        } else {
+          echo $investigation->dataTermine;
+         };      
+      ?>
     </div>
     <div class="investigation-content-field">
-      <span class="investigation-content-title">Luogo: </span> stanza secondo piano; via blablabla n. 6, Padova (PD)
+      <span class="investigation-content-title">Luogo: </span>
+      <?= $investigation->getScene() ?>;
     </div>
     <div class="investigation-content-field">
-      <span class="investigation-content-title">Rapporto: </span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-      ex ea commodo consequat.
+      <span class="investigation-content-title">Rapporto: </span>
+      <?= $investigation->rapporto ?>
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Prove: </span>
@@ -93,18 +104,12 @@
           </tr>
         </thead>
         <tbody>
+          <?php foreach($investigation->prove as $prova) : ?>
           <tr>
-            <th>Calzino</th>
-            <th class="descr">Piccolo, bianco, sporco di fango. Sicuramente da uomo.</th>
+            <th><?= $prova->nome ?></th>
+            <th class="descr"><?= $prova->descrizione?></th>
           </tr>
-          <tr>
-            <th>Valigia</th>
-            <th class="descr">Piccolo trolley da bagaglio a mano color rosa.</th>
-          </tr>
-          <tr>
-            <th>Pupazzo</th>
-            <th class="descr">Strano, assomiglia ad un coniglio.</th>
-          </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
     </div>
