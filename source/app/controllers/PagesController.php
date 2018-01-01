@@ -327,6 +327,76 @@ class PagesController {
     ]);
   }
 
+  public function impostazioni() {
+    $this->protectRoute();
+
+    $routeName = 'impostazioni';
+    $role = $this->authController->getUserRole();
+    $user = $this->authController->getUser();
+
+    $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
+    $alreadyExisting = Request::getQueryParam('esistente') !== null;
+    $addFailed = Request::getQueryParam('erroreCreazione') !== null;
+
+    $isEdit = Request::getQueryParam('modifica') !== null;
+    $editingCodiceFiscale = Request::getQueryParam('codice_fiscale');
+    $editingRole = Request::getQueryParam('role');
+    $editingUser = null;
+
+    if ($isEdit) $editingUser = $this->usersController->getUser($editingCodiceFiscale, $editingRole);
+
+    $successful = Request::getQueryParam('successo') !== null;
+    $genericError = Request::getQueryParam('errore') !== null;
+
+    $users = $this->usersController->getUsers();
+
+    if ($role !== 'admin') {
+      return \Core\redirect("/dashboard?permessoNegato=true");
+    }
+
+    return \Core\view('impostazioni', [
+      'routeName' => $routeName,
+      'role' => $role,
+      'username' => $user->nome,
+      'userCodiceFiscale' => $user->codice_fiscale,
+
+      'passwordsNotEqual' => $passwordsNotEqual,
+      'alreadyExisting' => $alreadyExisting,
+
+      'addFailed' => $addFailed,
+      'successful' => $successful,
+      'genericError' => $genericError,
+
+      'isEdit' => $isEdit,
+      'editingRole' => $editingRole,
+      'editingUser' => $editingUser,
+
+      'detectives' => $users['detectives'],
+      'admins' => $users['admins'],
+      'inspectors' => $users['inspectors'],
+    ]);
+  }
+
+  public function editUserPasswordPOST() {
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $oldPassword = Request::getPOSTParam('old_password');
+    $password = Request::getPOSTParam('password');
+    $passwordConfirm = Request::getPOSTParam('password_confirm');
+    $role = Request::getPOSTParam('role');
+
+    $successful = $this->usersController->editUserPassword([
+      'codice_fiscale' => $codiceFiscale,
+      'old_password' => $oldPassword,
+      'password' => $password,
+      'passwordConfirm' => $passwordConfirm,
+      'role' => $role,
+    ]);
+    
+    if ($successful) return \Core\redirect('/impostazioni');
+    else return \Core\redirect('/impostazioni');
+  }
+
+
   public function addUserPOST() {
     $codiceFiscale = Request::getPOSTParam('codice_fiscale');
     $password = Request::getPOSTParam('password');

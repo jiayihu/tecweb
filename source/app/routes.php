@@ -14,6 +14,7 @@ return [
     'ricerca' => 'PagesController@search',
     'caso' => 'PagesController@case',
     'utenti' => 'PagesController@users',
+    'impostazioni' => 'PagesController@impostazioni',
 
     '404' => 'PagesController@notFound'
   ],
@@ -27,6 +28,8 @@ return [
     'api/utenti/add' => 'UsersController@addUserAPI',
 
     'modifica-utente' => 'PagesController@editUserPOST',
-    'elimina-utente' => 'PagesController@deleteUserPOST'
+    'elimina-utente' => 'PagesController@deleteUserPOST',
+
+    'modifica-password' => 'PagesController@editUserPasswordPOST'
   ]
 ];

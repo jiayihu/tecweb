@@ -146,6 +146,28 @@ class UsersController {
     ]);
   }
 
+  public function editUserPassword(array $parameters){
+    $codiceFiscale = $parameters['codice_fiscale'];
+    $oldPassword = $parameters['old_password'];
+    $password = $parameters['password'];
+    $passwordConfirm = $parameters['passwordConfirm'];
+    $role = $parameters['role'];
+
+
+    $changes ='
+    password_hash = :password_hash';
+    $where = 'codice_fiscale = :codice_fiscale';
+    $table = $this->getRoleTable($role);
+
+    // Changes are done in table 'cliente' and not 'ispettore'
+    if ($role === 'inspector') $table = 'cliente';
+
+    return $this->database->update($table, $changes, $where, [
+      ':password_hash' => \password_hash($password, PASSWORD_DEFAULT),
+      'codice_fiscale' => $codiceFiscale
+    ]);
+  }
+
   public function deleteUser($codiceFiscale, $role): bool {
     $table = $this->getRoleTable($role);
     $where = "codice_fiscale = :codice_fiscale";
