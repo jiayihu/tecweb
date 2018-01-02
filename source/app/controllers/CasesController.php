@@ -90,21 +90,25 @@ class CasesController {
 
   public function getCases() {
     $table = 'caso';
+    $columns = [
+      'codice',
+      'nome'
+    ];
     $where='caso.passato = :caso_passato order by nome';
     $parameters[':caso_passato'] = 0;
     $result = $this->database->selectWhere(
       $table,
-      ['nome'],
+      $columns,
       $where,
       $parameters
     );
     return $result;
   }
 
-  public function getCase($name) {
+  public function getCase($codice): Caso {
     $table = 'caso';
-    $where='caso.nome = :nome_caso';
-    $parameters[':nome_caso'] = $name;
+    $where='caso.codice = :codice_caso';
+    $parameters[':codice_caso'] = $codice;
     $result = $this->database->selectWhere(
       $table,
       ['*'],
@@ -112,7 +116,7 @@ class CasesController {
       $parameters
     );
 
-    return $result;
+    return $this->createCaso($result[0]);
   }
 
   private function createCaso($result): Caso {

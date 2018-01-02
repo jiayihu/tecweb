@@ -1,5 +1,9 @@
 @import url('partials/investigation.css');
 
+ul a {
+  color: white;
+}
+
 .main-sidebar h2 {
   margin: 0;
   padding: 1rem 0 0 1rem;
@@ -11,7 +15,7 @@
 
 .case {
   color: #d3d3d3;
-  cursor: pointer;
+  
   display: inline-block;
   font-size: 1.125rem;
   padding: 0.75rem 1rem;

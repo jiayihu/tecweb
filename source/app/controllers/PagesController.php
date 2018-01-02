@@ -122,10 +122,14 @@ class PagesController {
     $cases = $this->casesController->getCases();
     
     if($cases != null) {
-      $selectcase = $this->casesController->getCase($cases[0]->nome);
+      $codice = Request::getQueryParam('id');
+      if($codice==null) {
+        $codice = $cases[0]->codice;
+      }
+      $selectcase = $this->casesController->getCase($codice);      
     }
 
-    $investigations = $this->investigationsController->getInvestigations($selectcase[0]->codice);
+    $investigations = $this->investigationsController->getInvestigations($codice);
     
     return \Core\view('dashboard', [
       'routeName' => $routeName,
@@ -138,7 +142,7 @@ class PagesController {
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
-      'selectcase' => $selectcase[0],
+      'selectcase' => $selectcase,
     ]);
   }
 

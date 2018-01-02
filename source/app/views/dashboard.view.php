@@ -8,7 +8,9 @@
       <?php if($case->nome == $selectcase->nome) : ?>
       <li class="case case-select"><?= $case->nome ?></li>
       <?php else : ?>
-        <li class="case"><?= $case->nome ?></li>
+        <li>
+          <a class="case" href="/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
+        </li>
       <?php endif; ?>
     <?php endforeach; ?>
     </ul>
@@ -45,7 +47,7 @@
 
       <dl class="case-info">
         <dt>Risolto </dt>
-        <?php if($selectcase->risolto == '0') : ?>
+        <?php if($selectcase->isResolved() == false) : ?>
           <dd>No</dd>
         <?php else : ?>
           <dd>Si</dd>
