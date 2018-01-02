@@ -118,8 +118,10 @@ class PagesController {
 
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
-    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;   
+    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
+    $nuovoCaso = Request::getQueryParam('nuovoCaso') != null; 
     $cases = $this->casesController->getCases();
+    $clienti = $this->usersController->getClients();
     
     if($cases != null) {
       $codice = Request::getQueryParam('id');
@@ -137,12 +139,89 @@ class PagesController {
       'notAuthorized' => $notAuthorized,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
-      'caseId' => null,
+      'caseId' => $codice,
       'investigations' => $investigations,
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
       'selectcase' => $selectcase,
+      'nuovoCaso' => $nuovoCaso,
+      'clienti' => $clienti
+    ]);
+  }
+
+  public function addCasePOST() {
+    $this->protectRoute();
+
+    $routeName = 'dashboard';
+
+    $nome = Request::getPOSTParam('nome');
+    $descrizione = Request::getPOSTParam('descrizione');
+    $tipo = Request::getPOSTParam('tipo');
+    $cliente = Request::getPOSTParam('cliente');
+
+    $cases = $this->casesController->getCases();
+    $clienti = $this->usersController->getClients();
+
+    $autoLogin = Request::getQueryParam('autoLogin') !== null;
+    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
+
+    if($tipo == null || $cliente == null) {
+      $errore = true;
+      $nuovoCaso = true;
+
+      return \Core\view('dashboard', [
+        'routeName' => $routeName,
+        'username' => $this->getUsername(),
+        'role' => $this->authController->getUserRole(),
+        'autoLogin' => $autoLogin,
+        'notAuthorized' => $notAuthorized,
+        'nuovoCaso' => $nuovoCaso,
+        'cases' => $cases,
+        'clienti' => $clienti,
+        'errore' => $errore,
+        'nome' => $nome,
+        'descrizione' => $descrizione
+      ]);
+
+    } else {
+      $insert = $this->casesController->insertCase($nome, $tipo, $descrizione, $cliente);
+
+      if(!$insert) {
+        // ???? errore con DB
+      } else {
+        $cases = $this->casesController->getCases();
+        $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null;
+        $nuovoCasoOk = true;
+      }
+    }
+
+    
+    if($cases != null) {
+      $codice = Request::getQueryParam('id');
+      if($codice == null) {
+        $codice = $cases[0]->codice;
+      }
+      $selectcase = $this->casesController->getCase($codice);      
+    }
+
+    $investigations = $this->investigationsController->getInvestigations($codice);
+
+    return \Core\view('dashboard', [
+      'routeName' => $routeName,
+      'autoLogin' => $autoLogin,
+      'notAuthorized' => $notAuthorized,
+      'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
+      'caseId' => $codice,
+      'investigations' => $investigations,
+      'investigationId' => null,
+      'isEdit' => false,
+      'cases' => $cases,
+      'selectcase' => $selectcase,
+      'nuovoCaso' => $nuovoCaso,
+      'clienti' => $clienti,
+      'nuovoCasoOk' => $nuovoCasoOk
     ]);
   }
 

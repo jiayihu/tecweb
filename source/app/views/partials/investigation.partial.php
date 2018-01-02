@@ -92,7 +92,7 @@
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Rapporto: </span>
-      <?= $investigation->rapporto ?>
+      <?= ucfirst($investigation->rapporto) ?>
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Prove: </span>
@@ -106,8 +106,8 @@
         <tbody>
           <?php foreach($investigation->prove as $prova) : ?>
           <tr>
-            <th><?= $prova->nome ?></th>
-            <th class="descr"><?= $prova->descrizione?></th>
+            <th><?= ucfirst($prova->nome) ?></th>
+            <th class="descr"><?= ucfirst($prova->descrizione) ?></th>
           </tr>
           <?php endforeach; ?>
         </tbody>

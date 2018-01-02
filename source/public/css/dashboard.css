@@ -1,13 +1,21 @@
 @import url('partials/investigation.css');
 
-ul a {
-  color: white;
+.btn, .btn-outline {
+  margin: auto;
+  display: block;
+  text-align: center;
+  width: min-content;
+}
+
+.btn-outline {
+  margin-bottom: 1rem;
 }
 
 .main-sidebar h2 {
   margin: 0;
   padding: 1rem 0 0 1rem;
 }
+
 .case-info {
   margin-top: 0;
   padding: 0 0.5rem;
@@ -50,8 +58,37 @@ ul a {
   display: none;
 }
 
+.new-case {
+  background-color: #d3d3d3;
+}
+
 table {
   margin-top: 0;
+}
+
+input {
+  float: right;
+  width: 100%;
+}
+
+.input-rate {
+  width: 100%;
+  float: right;
+}
+
+.form-field {
+  margin: 1rem 0;
+}
+
+.forminput {
+  border: 1px solid #d3d3d3;
+  outline: none;
+  width: 100%;
+  float: right;
+}
+
+.forminput:focus {
+  border: 2px solid #4e4e4e;
 }
 
 /*----------  Media queries  ----------*/
@@ -72,6 +109,18 @@ table {
 
   .case-info {
     padding: 0;
+  }
+
+  .forminput {
+    width: 70%;
+  }
+
+  input {
+    width: 70%;
+  }
+
+  .input-rate {
+    width: 70%;
   }
 
   li {

@@ -119,6 +119,22 @@ class CasesController {
     return $this->createCaso($result[0]);
   }
 
+  public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
+    $table = 'caso';
+
+    // controllare dplicato nel db
+
+    return $this->database->insert($table, [
+      'codice' => "",
+      'descrizione' => $descrizione,
+      'nome' => $nome,
+      'passato' => 0,
+      'risolto' => 0,
+      'tipologia' => $tipo,
+      'cliente' => $cliente
+    ]);
+  }
+
   private function createCaso($result): Caso {
     return new Caso(
       $result->codice,

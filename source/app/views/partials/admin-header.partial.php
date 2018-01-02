@@ -29,10 +29,10 @@
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
             <li class="list-item">
-              <a href="aggiungi-caso">Aggiungi caso</a>
+              <a href="">Aggiungi cliente</a>
             </li>
             <li class="list-item">
-              <a href="">Aggiungi investigazione</a>
+              <a href="">Aggiungi prova</a>
             </li>
           </ul>
         </li>

@@ -10,7 +10,6 @@ return [
     'logout' => 'PagesController@logout',
 
     'dashboard' => 'PagesController@dashboard',
-    'aggiungi-caso' => 'PagesController@addCase',
     'ricerca' => 'PagesController@search',
     'caso' => 'PagesController@case',
     'utenti' => 'PagesController@users',
@@ -22,6 +21,8 @@ return [
     'api/authenticate' => 'AuthController@authenticateAPI',
 
     'ricerca' => 'PagesController@searchPOST',
+
+    'dashboard' => 'PagesController@addCasePOST',
 
     'aggiungi-utente' => 'PagesController@addUserPOST',
     'api/utenti/add' => 'UsersController@addUserAPI',
