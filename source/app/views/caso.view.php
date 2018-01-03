@@ -60,37 +60,73 @@
     </form>
     <?php else : ?>
     <h1 class="page-title">
-      Uno scandalo in Boemia
-      <span class="status status-resolved" title="Risolto"></span>
-      <span class="sr-only">Risolto</span>
+      <?= $selectcase->nome ?>
+      <?php if($selectcase->isResolved()) : ?>
+        <span class="status status-resolved" title="Risolto"></span>
+        <span class="sr-only">Risolto</span>
+      <?php elseif($selectcase->isArchived()) : ?>
+        <span class="status status-archived" title="Archiviato"></span>
+        <span class="sr-only">Archiviato</span>
+      <?php else : ?>
+        <span class="status status-progress" title="In corso"></span>
+        <span class="sr-only">In corso</span>
+      <?php endif; ?>
     </h1>
     <dl class="case-info">
       <dt>Descrizione</dt>
-      <dd>Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.</dd>
+      <dd><?= $selectcase->descrizione ?></dd>
       <dt>Tipologia</dt>
-      <dd>Riscatto</dd>
+      <dd><?= ucfirst($selectcase->tipologia) ?></dd>
       <dt>Cliente</dt>
-      <dd>AMGSOU02T42U148D</dd>
+      <dd>
+        <?= $selectcase->cliente->getCodice() ?> <br>
+        <?= $selectcase->cliente->nome ?>
+        <?= $selectcase->cliente->cognome ?>
+      </dd>
       <dt>Criminale</dt>
-      <dd>AMGSOU02T42U148D</dd>
+      <dd>
+        <?php 
+          if($selectcase->isResolved()) {
+            echo $selectcase->criminale->getCodice().'<br';
+            echo $selectcase->criminale->nome;
+            echo $selectcase->criminale->cognome;
+          } else {
+            echo '-';
+          }
+        ?>
+      </dd>
       <dt>Investigatori</dt>
       <dd>
         <ul class="list">
-          <li>Sherlock Holmes</li>
-          <li>John Watson</li>
-          <li>Sherlock Holmes</li>
-          <li>John Watson</li>
+          <?php
+            if(sizeof($detectives) == 0) {
+              echo '-';
+            } else {
+              foreach($detectives as $detective) {
+                echo '<li>';
+                echo $detective->nome;
+                echo $detective->cognome;
+                echo '</li>';
+              }
+            }
+          ?>
         </ul>
       </dd>
-      <dt>Ore totali di investigazione</dt> <!-- Visibile solo agli investigatori e admin -->
-      <dd>160</dd>
+      <?php if($role !== 'inspector') : ?>           <!-- Visibile solo agli investigatori e admin -->
+        <dt>Ore totali di investigazione</dt> 
+        <dd><?= $selectcase->getTotalHours() ?></dd>
+      <?php endif; ?>
+
       <dt>Tag</dt>
       <dd>
       <ul class="tags list">
-        <li class="list-item"><span class="tag-label">Annegamento</span></li>
-        <li class="list-item"><span class="tag-label">Cellulare</span></li>
-        <li class="list-item"><span class="tag-label">Sparatoia</span></li>
-        <li class="list-item"><span class="tag-label">Terrorismo</span></li>
+        <?php if(sizeof($selectcase->tags) == 0) : ?>
+            -
+        <?php else: ?>
+          <?php foreach($selectcase->tags as $tag) : ?>
+            <li class="list-item"><span class="tag-label"><?= $tag->nome ?></span></li>
+          <?php endforeach; ?>
+          <?php endif; ?>
       </dd>
     </dl>
     
@@ -105,9 +141,12 @@
   </aside>
   <section class="main-content">
     <h2>Investigazioni del caso</h2>
-
-    <?php foreach ($investigations as $index => $investigation) : ?>
-      <?php require 'partials/investigation.partial.php' ?>
-    <?php endforeach; ?>
+    <?php if(sizeof($investigations) == 0) : ?>
+      <p> Nessuna investigazione disponibile.
+    <?php else : ?>
+      <?php foreach ($investigations as $index => $investigation) : ?>
+        <?php require 'partials/investigation.partial.php' ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
   </section>
 </main>

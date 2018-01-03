@@ -101,8 +101,43 @@ class CasesController {
       'codice',
       'nome'
     ];
-    $where='caso.passato = :caso_passato order by nome';
+    $where='caso.passato = :caso_passato ORDER BY nome';
     $parameters[':caso_passato'] = 0;
+    $result = $this->database->selectWhere(
+      $table,
+      $columns,
+      $where,
+      $parameters
+    );
+    return $result;
+  }
+
+  public function getIspectorCases($cf_ispector) {
+    $table = 'caso';
+    $columns = [
+      'caso.codice',
+      'caso.nome'
+    ];
+    $where='caso.passato = :caso_passato AND caso.cliente = :cf_ispettore ORDER BY nome';
+    $parameters[':caso_passato'] = 0;
+    $parameters[':cf_ispettore'] = $cf_ispector;
+    $result = $this->database->selectWhere(
+      $table,
+      $columns,
+      $where,
+      $parameters
+    );
+
+    return $result;
+  }
+
+  public function getTags($idcaso): array {
+    $table = 'etichettamento, tag';
+    $columns = [
+      'nome'
+    ];
+    $where='etichettamento.caso = :id_caso AND etichettamento.tag = tag.slug ORDER BY nome';
+    $parameters[':id_caso'] = $idcaso;
     $result = $this->database->selectWhere(
       $table,
       $columns,
@@ -124,6 +159,57 @@ class CasesController {
     );
 
     return $this->createCaso($result[0]);
+  }
+
+  public function getCaseDetails($codice): Caso {
+    $caso = $this->getCase($codice);
+
+    //var_dump($caso);
+
+    $table = 'risoluzione, criminale';
+    $where = 'risoluzione.caso = :id_caso AND risoluzione.criminale = criminale.codice_fiscale';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if(sizeof($result) > 0) {
+      $caso->criminale = new Criminale($result[0]->criminale, $result[0]->nome, $result[0]->cognome);
+      $caso->setResolved(true);
+    } else {
+      $caso->setResolved(false);
+    }
+
+    $table = 'cliente, caso';
+    $where = 'caso.codice = :id_caso AND caso.cliente = cliente.codice_fiscale';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['cliente.codice_fiscale, cliente.nome AS nome, cliente.cognome AS cognome'],
+      $where,
+      $parameters
+    );
+
+    $caso->cliente = new Cliente($result[0]->codice_fiscale, $result[0]->nome, $result[0]->cognome);
+
+    return $caso;
+  }
+
+  public function getDetectives($codice): array {
+    $table = 'lavoro, investigatore';
+    $where = 'lavoro.caso = :id_caso AND investigatore.codice_fiscale = lavoro.investigatore ORDER BY nome';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['DISTINCT nome, cognome'],
+      $where,
+      $parameters
+    );
+
+    return $result;
   }
 
   public function insertCase($nome, $tipo, $descrizione, $cliente): bool {

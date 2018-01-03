@@ -119,26 +119,23 @@ class PagesController {
     $routeName = 'dashboard';
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
     $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
-    $nuovoCaso = Request::getQueryParam('nuovoCaso') != null; 
-    $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') != null; 
+    $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null; 
+    $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') !== null; 
 
     $role = $this->authController->getUserRole();
 
     if($role == 'admin') {
       $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
     } else {
-      $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
+      if($role == 'detective') {
+        $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
+      } else {
+        $user = $this->authController->getUser();
+        $cases = $this->casesController->getIspectorCases($user->codice_fiscale); //visualizza soli i casi di cui l'ispettore è cliente
+      }
     }
 
     $clienti = $this->usersController->getClients();
-    
-    if($cases != null) {
-      $codice = Request::getQueryParam('id');
-      if($codice==null) {
-        $codice = $cases[0]->codice;
-      }
-      $selectcase = $this->casesController->getCase($codice);      
-    }
 
     $user = $this->authController->getUser();
 
@@ -146,8 +143,31 @@ class PagesController {
       $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
       unset($nuovaInvestigazione);
     }
-
-    $investigations = $this->investigationsController->getInvestigations($codice);
+    
+    if($cases != null) {
+      $codice = Request::getQueryParam('id');
+      if($codice==null) {
+        $codice = $cases[0]->codice;
+      }
+      $selectcase = $this->casesController->getCase($codice); 
+      $investigations = $this->investigationsController->getInvestigations($codice); 
+      
+      return \Core\view('dashboard', [
+        'routeName' => $routeName,
+        'autoLogin' => $autoLogin,
+        'notAuthorized' => $notAuthorized,
+        'username' => $this->getUsername(),
+        'role' => $role,
+        'caseId' => $codice,
+        'investigations' => $investigations,
+        'investigationId' => null,
+        'isEdit' => false,
+        'cases' => $cases,
+        'selectcase' => $selectcase,
+        'nuovoCaso' => $nuovoCaso,
+        'clienti' => $clienti
+      ]);
+    } 
     
     return \Core\view('dashboard', [
       'routeName' => $routeName,
@@ -155,14 +175,49 @@ class PagesController {
       'notAuthorized' => $notAuthorized,
       'username' => $this->getUsername(),
       'role' => $role,
-      'caseId' => $codice,
-      'investigations' => $investigations,
+      'caseId' => null,
+      'investigations' => null,
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
-      'selectcase' => $selectcase,
+      'selectcase' => null,
       'nuovoCaso' => $nuovoCaso,
-      'clienti' => $clienti
+      'clienti' => $clienti,
+      'zeroCasi' => true
+    ]);
+  }
+
+  public function case() {
+    $this->protectRoute();
+
+    $routeName = 'caso';
+    $role = $this->authController->getUserRole();
+    $caseId = Request::getQueryParam('id');
+    $investigations = $this->investigationsController->getInvestigations($caseId);
+    $investigationId = (int) Request::getQueryParam('investigazione');
+    $isEdit = Request::getQueryParam('modifica') !== null;
+
+    $selectcase = $this->casesController->getCaseDetails($caseId);
+    $detectives = $this->casesController->getDetectives($caseId);
+    $tags = $this->casesController->getTags($caseId);
+    
+    $selectcase->investigazioni = $investigations;
+    $selectcase->tags = $tags;
+
+    if ($role === 'inspector' && $isEdit) {
+      return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
+    }
+
+    return \Core\view('caso', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'role' => $role,
+      'caseId' => $caseId,
+      'investigations' => $investigations,
+      'investigationId' => $investigationId,
+      'isEdit' => $isEdit,
+      'selectcase' => $selectcase,
+      'detectives' => $detectives
     ]);
   }
 
@@ -370,31 +425,6 @@ class PagesController {
       'investigations' => $investigations,
 
       'emptySearch' => $emptySearch,
-    ]);
-  }
-
-  public function case() {
-    $this->protectRoute();
-
-    $routeName = 'caso';
-    $role = $this->authController->getUserRole();
-    $caseId = Request::getQueryParam('caso');
-    $investigations = [null, null, null, null, null];
-    $investigationId = (int) Request::getQueryParam('investigazione');
-    $isEdit = Request::getQueryParam('modifica') !== null;
-
-    if ($role === 'inspector' && $isEdit) {
-      return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
-    }
-
-    return \Core\view('caso', [
-      'routeName' => $routeName,
-      'username' => $this->getUsername(),
-      'role' => $role,
-      'caseId' => $caseId,
-      'investigations' => $investigations,
-      'investigationId' => $investigationId,
-      'isEdit' => $isEdit,
     ]);
   }
 

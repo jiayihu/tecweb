@@ -23,7 +23,6 @@
 
 .case {
   color: #d3d3d3;
-  
   display: inline-block;
   font-size: 1.125rem;
   padding: 0.75rem 1rem;
@@ -36,6 +35,10 @@
   box-shadow: inset 4px 0 #03a9f4;
   color: white;
   padding-left: 2rem;
+}
+
+.center {
+  text-align: center;
 }
 
 .descr {

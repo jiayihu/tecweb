@@ -52,11 +52,12 @@ class Caso {
   }
 
   public function getTotalHours() {
-    // ...
-  }
+    $ore = 0;
+    foreach($this->investigazioni as $investigazione) {
+      $ore = $ore + $investigazione->oreTotali;
+    }
 
-  public function getDetectives() {
-    // ...
+    return $ore;
   }
 
   public function isArchived(): bool {
@@ -69,5 +70,9 @@ class Caso {
 
   public function addTag(Tag $tag) {
     \array_push($this->tags, $tag);
+  }
+
+  public function setResolved($status) {
+    $this->risolto = $status;
   }
 }

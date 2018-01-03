@@ -3,17 +3,21 @@
 <main class="main-container container">
   <aside class="main-sidebar clearfix">
     <h2>Casi</h2>
-    <ul class="menu-case">
-    <?php foreach($cases as $case) : ?>
-        <?php if(!$nuovoCaso && isset($selectcase) && $case->nome == $selectcase->nome) : ?>
-          <li class="case case-select"><?= $case->nome ?></li>
-        <?php else : ?>
-          <li>
-            <a class="case" href="/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
-          </li>
-        <?php endif; ?>
-    <?php endforeach; ?>
-    </ul>
+    <?php if(!isset($zeroCasi)) : ?>
+      <ul class="menu-case">
+      <?php foreach($cases as $case) : ?>
+          <?php if(!$nuovoCaso && isset($selectcase) && $case->nome == $selectcase->nome) : ?>
+            <li class="case case-select"><?= $case->nome ?></li>
+          <?php else : ?>
+            <li>
+              <a class="case" href="/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
+            </li>
+          <?php endif; ?>
+      <?php endforeach; ?>
+      </ul>
+    <?php else: ?>
+      <p class="center">Nessun caso disponibile.</p>
+    <?php endif;?>
     <?php if($role!='inspector') : ?>
       <a class="btn btn-outline" href="/dashboard?nuovoCaso=true">Nuovo caso</a>
     <?php endif; ?>
@@ -116,34 +120,30 @@
         endif; 
         unset($nuovoCasoOk);
       ?>
-      <h2><?= $selectcase->nome ?></h2>
-      <div class="case-details">
-        <p class="actions">
-          <a class="" href="/caso?id=<?=$selectcase->getId() ?>">Mostra dettagli</a>
-        </p>
+      <?php if(!isset($zeroCasi)) : ?>
+        <h2><?= $selectcase->nome ?></h2>
+        <div class="case-details">
+          <p class="actions">
+            <a class="" href="/caso?id=<?=$selectcase->getId() ?>">Mostra dettagli</a>
+          </p>
 
-        <dl class="case-info">
-          <dt>Risolto </dt>
-          <?php if(!$selectcase->isResolved()) : ?>
-            <dd>No</dd>
-          <?php else : ?>
-            <dd>Si</dd>
+            <dt>Tipologia </dt>
+            <dd><?= ucfirst($selectcase->tipologia) ?></dd>
+            <dt>Descrizione</dt>
+            <dd><?= ucfirst($selectcase->descrizione) ?></dd>
+          </dl>
+
+          <?php if($role!='inspector') : ?>
+            <p>
+              <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
+            </p>
           <?php endif; ?>
 
-          <dt>Tipologia </dt>
-          <dd><?= ucfirst($selectcase->tipologia) ?></dd>
-          <dt>Descrizione</dt>
-          <dd><?= ucfirst($selectcase->descrizione) ?></dd>
-        </dl>
-
-        <?php if($role!='inspector') : ?>
-          <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
-        <?php endif; ?>
-
-        <?php foreach ($investigations as $index => $investigation) : ?>
-          <?php require 'partials/investigation.partial.php' ?>
-        <?php endforeach; ?>
-      </div>
+          <?php foreach ($investigations as $index => $investigation) : ?>
+            <?php require 'partials/investigation.partial.php' ?>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     <?php endif; ?>
   </section>
 </main>

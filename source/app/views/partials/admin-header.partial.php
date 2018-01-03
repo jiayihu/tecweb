@@ -32,7 +32,13 @@
               <a href="">Aggiungi cliente</a>
             </li>
             <li class="list-item">
+              <a href="">Aggiungi criminale</a>
+            </li>
+            <li class="list-item">
               <a href="">Aggiungi prova</a>
+            </li>
+            <li class="list-item">
+              <a href="">Aggiungi tag</a>
             </li>
           </ul>
         </li>
