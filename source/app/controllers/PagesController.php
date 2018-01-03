@@ -335,24 +335,15 @@ class PagesController {
     $user = $this->authController->getUser();
 
     $passwordsNotEqual = Request::getQueryParam('passwordNonUguali') !== null;
-    $alreadyExisting = Request::getQueryParam('esistente') !== null;
-    $addFailed = Request::getQueryParam('erroreCreazione') !== null;
+    $codiciNotEqual = Request::getQueryParam('codiciNonUguali') !== null;
+    $passwordSbagliata = Request::getQueryParam('wrongPassword') !== null;
 
-    $isEdit = Request::getQueryParam('modifica') !== null;
-    $editingCodiceFiscale = Request::getQueryParam('codice_fiscale');
-    $editingRole = Request::getQueryParam('role');
-    $editingUser = null;
-
-    if ($isEdit) $editingUser = $this->usersController->getUser($editingCodiceFiscale, $editingRole);
 
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
 
-    $users = $this->usersController->getUsers();
 
-    if ($role !== 'admin') {
-      return \Core\redirect("/dashboard?permessoNegato=true");
-    }
+
 
     return \Core\view('impostazioni', [
       'routeName' => $routeName,
@@ -361,41 +352,48 @@ class PagesController {
       'userCodiceFiscale' => $user->codice_fiscale,
 
       'passwordsNotEqual' => $passwordsNotEqual,
-      'alreadyExisting' => $alreadyExisting,
+      'codiciNotEqual' => $codiciNotEqual,
+      'passwordSbagliata' => $passwordSbagliata,
 
-      'addFailed' => $addFailed,
       'successful' => $successful,
       'genericError' => $genericError,
 
-      'isEdit' => $isEdit,
-      'editingRole' => $editingRole,
-      'editingUser' => $editingUser,
 
-      'detectives' => $users['detectives'],
-      'admins' => $users['admins'],
-      'inspectors' => $users['inspectors'],
     ]);
   }
 
   public function editUserPasswordPOST() {
+    $realCodiceFiscale = $this->getCodiceFiscale();
     $codiceFiscale = Request::getPOSTParam('codice_fiscale');
     $oldPassword = Request::getPOSTParam('old_password');
     $password = Request::getPOSTParam('password');
     $passwordConfirm = Request::getPOSTParam('password_confirm');
     $role = Request::getPOSTParam('role');
 
+    $successful = false;
+    try{
     $successful = $this->usersController->editUserPassword([
+      'real_codice_fiscale' => $realCodiceFiscale,
       'codice_fiscale' => $codiceFiscale,
       'old_password' => $oldPassword,
       'password' => $password,
       'passwordConfirm' => $passwordConfirm,
       'role' => $role,
     ]);
-    
+    } catch (\Exception $e){
+      if($e->getMessage()=== 'passwordsNotEqual'){
+        return \Core\redirect('/impostazioni?passwordNonUguali=true');
+      }
+      if($e->getMessage()=== 'codiciNotEqual'){
+        return \Core\redirect('/impostazioni?codiciNonUguali=true');
+      }
+      if($e->getMessage()=== 'wrongPassword'){
+        return \Core\redirect('/impostazioni?wrongPassword=true');
+      }
+    }
     if ($successful) return \Core\redirect('/impostazioni');
     else return \Core\redirect('/impostazioni');
   }
-
 
   public function addUserPOST() {
     $codiceFiscale = Request::getPOSTParam('codice_fiscale');
@@ -474,6 +472,11 @@ class PagesController {
     $user = $this->authController->getUser();
 
     return $user->nome . ' ' . $user->cognome;
+  }
+  private function getCodiceFiscale(): string {
+    $user = $this->authController->getUser();
+
+    return $user->codice_fiscale;
   }
 
   private function protectRoute() {
