@@ -106,6 +106,51 @@ class InvestigationsController {
     return $investigations;
   }
 
+  public function insertInvestigation($idcaso, $cf_investigatore) {
+    $parameters[':idcaso'] = $idcaso;
+    $parameters[':cf_investigatore'] = $cf_investigatore;
+
+    $num_inv = $this->getNumInv($idcaso) + 1;
+
+    $table = 'investigazione';
+
+    $this->database->insert($table, [
+      'numero' => $num_inv,
+      'caso' => $idcaso,
+      'data_inizio' => date('Y-m-d'),
+      'data_termine' => null,
+      'rapporto' => '',
+      'ore_totali' => 0
+    ]);
+
+    $table = 'lavoro';
+
+    $this->database->insert($table, [
+      'investigatore' => $cf_investigatore,
+      'investigazione' => $num_inv,
+      'caso' => $idcaso,
+      'ore_lavoro' => 0
+    ]);
+  }
+
+  private function getNumInv($idcaso): int {
+    $columns = ['max(numero) as max_num'];
+    $parameters[':id_caso'] = $idcaso;
+    $where = 'caso = :id_caso';
+
+    $result = $this->database->selectWhere(
+      'investigazione',
+      $columns,
+      $where,
+      $parameters
+    );
+
+    if($result == null)
+      return 0;
+    else
+      return intval($result[0]->max_num);
+  }
+
   private function getInvestigationsDetails($id) {
     $columns = [
       'investigazione.numero, investigazione.caso',
@@ -122,18 +167,13 @@ class InvestigationsController {
       'scena_investigazione.indirizzo'
     ];
     $parameters[':id_caso'] = $id;
-    $tables = ['investigazione', 'investigatore', 'lavoro', 'scena_investigazione'];
-    $conditions = [
-      'investigazione.numero = lavoro.investigazione',
-      'investigazione.caso = lavoro.caso',
-      'investigatore.codice_fiscale = lavoro.investigatore',
-      'investigazione.caso = :id_caso',
-      'scena_investigazione.caso = investigazione.caso',
-      'scena_investigazione.investigazione = investigazione.numero'];
-    $where = \implode(' AND ', $conditions);
-    $where.' order by investigazione.numero desc';
+
+    $tables = 'investigazione JOIN lavoro ON investigazione.numero = lavoro.investigazione AND investigazione.caso = lavoro.caso JOIN investigatore ON investigatore.codice_fiscale = lavoro.investigatore LEFT JOIN scena_investigazione ON scena_investigazione.caso = investigazione.caso AND scena_investigazione.investigazione = investigazione.numero';
+
+    $where = 'investigazione.caso = :id_caso ORDER BY investigazione.numero DESC';
+
     $results = $this->database->selectWhere(
-      \implode(', ', $tables),
+      $tables,
       $columns,
       $where,
       $parameters
@@ -189,7 +229,12 @@ class InvestigationsController {
 
   private function createInvestigazione($result): Investigazione {
     $investigatore = new Investigatore($result->investigatore_codice_fiscale, $result->investigatore_nome, $result->investigatore_cognome);
-    $scena = new Scena($result->scena_nome, $result->scena_descrizione, $result->citta, $result->indirizzo);
+
+    if($result->scena_nome == null) {
+      $scena = null;
+    } else {
+      $scena = new Scena($result->scena_nome, $result->scena_descrizione, $result->citta, $result->indirizzo);
+    }
 
     return new Investigazione(
       $result->numero,

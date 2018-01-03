@@ -88,7 +88,14 @@ class CasesController {
     return $cases;
   }
 
-  public function getCases() {
+  public function getAllCases() {
+
+    $result = $this->database->runQuery('SELECT codice, nome FROM caso ORDER BY nome');
+
+    return $result;
+  }
+
+  public function getPresentCases() {
     $table = 'caso';
     $columns = [
       'codice',
@@ -121,18 +128,38 @@ class CasesController {
 
   public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
     $table = 'caso';
+    $parameters[':nome_caso'] = $nome;
+    $parameters[':tipo_caso'] = $tipo;
+    $parameters[':cliente'] = $cliente;
 
-    // controllare dplicato nel db
+    $conditions = [
+      'nome = :nome_caso',
+      'tipologia = :tipo_caso',
+      'cliente = :cliente'
+    ];
 
-    return $this->database->insert($table, [
-      'codice' => "",
-      'descrizione' => $descrizione,
-      'nome' => $nome,
-      'passato' => 0,
-      'risolto' => 0,
-      'tipologia' => $tipo,
-      'cliente' => $cliente
-    ]);
+    $where = \implode(' AND ', $conditions);
+
+    $exist = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if(sizeof($exist) == 0) {
+      return $this->database->insert($table, [
+        'codice' => "",
+        'descrizione' => $descrizione,
+        'nome' => $nome,
+        'passato' => 0,
+        'risolto' => 0,
+        'tipologia' => $tipo,
+        'cliente' => $cliente
+      ]);
+    } else {
+      return false;
+    }
   }
 
   private function createCaso($result): Caso {

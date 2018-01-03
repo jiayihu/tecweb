@@ -52,6 +52,15 @@
         </p>
       <?php endif; ?>
 
+      <?php if(isset($duplicazione)) : ?>
+        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+        <p class="alert alert-danger">
+          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+            <span aria-hidden="true">&times;</span>
+          </label>
+          Caso già esistente.
+        </p>
+      <?php endif; ?>
 
       <h2>Nuovo caso</h2>
       <form action="/dashboard" method="post" class="content clearfix">
@@ -95,17 +104,19 @@
       </form>
     <?php else : ?>
       <?php if(isset($nuovoCasoOk)) : ?>
-
-      <?php endif; ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-success">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
-            <span aria-hidden="true">&times;</span>
-          </label>
-          Nuovo caso inserito con successo.
-        </p>
+          <p class="alert alert-success">
+            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+              <span aria-hidden="true">&times;</span>
+            </label>
+            Nuovo caso inserito con successo.
+          </p>
+        <h2><?= $selectcase->nome ?></h2>
+      <?php 
+        endif; 
+        unset($nuovoCasoOk);
+      ?>
       <h2><?= $selectcase->nome ?></h2>
-
       <div class="case-details">
         <p class="actions">
           <a class="" href="/caso?id=<?=$selectcase->getId() ?>">Mostra dettagli</a>
@@ -124,6 +135,10 @@
           <dt>Descrizione</dt>
           <dd><?= ucfirst($selectcase->descrizione) ?></dd>
         </dl>
+
+        <?php if($role!='inspector') : ?>
+          <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
+        <?php endif; ?>
 
         <?php foreach ($investigations as $index => $investigation) : ?>
           <?php require 'partials/investigation.partial.php' ?>

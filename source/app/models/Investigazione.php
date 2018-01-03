@@ -55,6 +55,9 @@ class Investigazione {
   }
 
   public function getScene(): string {
-    return $this->scena->citta . ', ' . $this->scena->indirizzo;
+    if(isset($scena)) {
+      return $this->scena->citta . ', ' . $this->scena->indirizzo;
+    }
+    return '';
   }
 }

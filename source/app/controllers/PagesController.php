@@ -120,7 +120,16 @@ class PagesController {
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
     $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
     $nuovoCaso = Request::getQueryParam('nuovoCaso') != null; 
-    $cases = $this->casesController->getCases();
+    $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') != null; 
+
+    $role = $this->authController->getUserRole();
+
+    if($role == 'admin') {
+      $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
+    } else {
+      $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
+    }
+
     $clienti = $this->usersController->getClients();
     
     if($cases != null) {
@@ -131,6 +140,13 @@ class PagesController {
       $selectcase = $this->casesController->getCase($codice);      
     }
 
+    $user = $this->authController->getUser();
+
+    if($nuovaInvestigazione) {
+      $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
+      unset($nuovaInvestigazione);
+    }
+
     $investigations = $this->investigationsController->getInvestigations($codice);
     
     return \Core\view('dashboard', [
@@ -138,7 +154,7 @@ class PagesController {
       'autoLogin' => $autoLogin,
       'notAuthorized' => $notAuthorized,
       'username' => $this->getUsername(),
-      'role' => $this->authController->getUserRole(),
+      'role' => $role,
       'caseId' => $codice,
       'investigations' => $investigations,
       'investigationId' => null,
@@ -160,7 +176,14 @@ class PagesController {
     $tipo = Request::getPOSTParam('tipo');
     $cliente = Request::getPOSTParam('cliente');
 
-    $cases = $this->casesController->getCases();
+    $role = $this->authController->getUserRole();
+
+    if($role == 'admin') {
+      $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
+    } else {
+      $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
+    }
+
     $clienti = $this->usersController->getClients();
 
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
@@ -173,7 +196,7 @@ class PagesController {
       return \Core\view('dashboard', [
         'routeName' => $routeName,
         'username' => $this->getUsername(),
-        'role' => $this->authController->getUserRole(),
+        'role' => $role,
         'autoLogin' => $autoLogin,
         'notAuthorized' => $notAuthorized,
         'nuovoCaso' => $nuovoCaso,
@@ -188,7 +211,22 @@ class PagesController {
       $insert = $this->casesController->insertCase($nome, $tipo, $descrizione, $cliente);
 
       if(!$insert) {
-        // ???? errore con DB
+        $duplicazione = true;
+        $nuovoCaso = true;
+
+        return \Core\view('dashboard', [
+          'routeName' => $routeName,
+          'username' => $this->getUsername(),
+          'role' => $role,
+          'autoLogin' => $autoLogin,
+          'notAuthorized' => $notAuthorized,
+          'nuovoCaso' => $nuovoCaso,
+          'cases' => $cases,
+          'clienti' => $clienti,
+          'duplicazione' => $duplicazione,
+          'nome' => $nome,
+          'descrizione' => $descrizione
+        ]);
       } else {
         $cases = $this->casesController->getCases();
         $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null;

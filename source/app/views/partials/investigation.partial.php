@@ -6,7 +6,7 @@
     name="investigations" 
     <?php echo $index === $investigationId ? 'checked' : '' ?>
   >
-  <label class="accordion-label" for="inv-<?php echo $index; ?>">Investigazione <?php echo $index; ?></label>
+  <label class="accordion-label" for="inv-<?php echo $index; ?>">Investigazione <?php echo $investigation->getId(); ?></label>
   <?php if ($isEdit &&  $index === $investigationId) : ?>
   <div class="investigation-content">
     <p class="actions">
@@ -88,30 +88,45 @@
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Luogo: </span>
-      <?= $investigation->getScene() ?>;
+         <?php 
+            if($investigation->getScene() == '') 
+              echo '-';
+            else
+              echo "$investigation->getScene()";
+         ?>
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Rapporto: </span>
-      <?= ucfirst($investigation->rapporto) ?>
+         <?php
+          if($investigation->rapporto == '') {
+            echo '-';
+          } else {
+            echo"ucfirst($investigation->rapporto)";
+          }
+         ?>
     </div>
     <div class="investigation-content-field">
       <span class="investigation-content-title">Prove: </span>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th class="descr">Descrizione</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach($investigation->prove as $prova) : ?>
-          <tr>
-            <th><?= ucfirst($prova->nome) ?></th>
-            <th class="descr"><?= ucfirst($prova->descrizione) ?></th>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+      <?php if(sizeof($investigation->prove) > 0) : ?>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th class="descr">Descrizione</th>
+            </tr>
+          </thead>
+          <tbody>           
+            <?php foreach($investigation->prove as $prova) : ?>
+              <tr>
+                <th><?= ucfirst($prova->nome) ?></th>
+                <th class="descr"><?= ucfirst($prova->descrizione) ?></th>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php else : ?>
+         -
+        <?php endif; ?>
     </div>
   </div>
   <?php endif; ?>
