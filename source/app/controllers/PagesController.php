@@ -138,11 +138,6 @@ class PagesController {
     $clienti = $this->usersController->getClients();
 
     $user = $this->authController->getUser();
-
-    if($nuovaInvestigazione) {
-      $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
-      unset($nuovaInvestigazione);
-    }
     
     if($cases != null) {
       $codice = Request::getQueryParam('id');
@@ -150,6 +145,12 @@ class PagesController {
         $codice = $cases[0]->codice;
       }
       $selectcase = $this->casesController->getCase($codice); 
+      
+      if($nuovaInvestigazione) {
+        $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
+        unset($nuovaInvestigazione);
+      }
+
       $investigations = $this->investigationsController->getInvestigations($codice); 
       
       return \Core\view('dashboard', [
