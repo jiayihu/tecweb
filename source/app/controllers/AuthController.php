@@ -93,4 +93,26 @@ class AuthController {
       return $isAuthorized ? $user : null;
     }
   }
+  public function checkPassword($codiceFiscale, $password, $role) {
+    $table = '';
+
+    if ($role === 'detective') $table = 'investigatore';
+    else if ($role === 'admin') $table = 'amministratore';
+    else $table = 'cliente';
+
+    $results = $this->database->selectWhere(
+      $table,
+      ['codice_fiscale', 'password_hash', 'nome', 'cognome'],
+      'codice_fiscale = :codice_fiscale',
+      [':codice_fiscale' => $codiceFiscale]
+    );
+
+    if (\count($results) !== 1) return null;
+    else {
+      $user = $results[0];
+      $isAuthorized = \password_verify($password, $user->password_hash);
+
+      return $isAuthorized;
+    }
+  }
 }

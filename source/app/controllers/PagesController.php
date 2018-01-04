@@ -369,10 +369,12 @@ class PagesController {
     $password = Request::getPOSTParam('password');
     $passwordConfirm = Request::getPOSTParam('password_confirm');
     $role = Request::getPOSTParam('role');
+    $realPassword= $this->authController->checkPassword($realCodiceFiscale,$oldPassword,$role);
 
     $successful = false;
     try{
     $successful = $this->usersController->editUserPassword([
+      'real_password' => $realPassword,
       'real_codice_fiscale' => $realCodiceFiscale,
       'codice_fiscale' => $codiceFiscale,
       'old_password' => $oldPassword,
@@ -394,6 +396,7 @@ class PagesController {
     if ($successful) return \Core\redirect('/impostazioni');
     else return \Core\redirect('/impostazioni');
   }
+
 
   public function addUserPOST() {
     $codiceFiscale = Request::getPOSTParam('codice_fiscale');

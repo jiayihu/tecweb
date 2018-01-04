@@ -147,13 +147,13 @@ class UsersController {
   }
 
   public function editUserPassword(array $parameters){
+    $realPassword= $parameters['real_password'];
     $realCodiceFiscale = $parameters['real_codice_fiscale'];
     $codiceFiscale = $parameters['codice_fiscale'];
     $oldPassword = $parameters['old_password'];
     $password = $parameters['password'];
     $passwordConfirm = $parameters['passwordConfirm'];
     $role = $parameters['role'];
-    $isAuthorized = \password_verify($oldPassword, $user->password_hash);
 
     if ($password !== $passwordConfirm) {
       throw new \Exception('passwordsNotEqual');
@@ -162,7 +162,7 @@ class UsersController {
     if ($realCodiceFiscale !== $codiceFiscale) {
       throw new \Exception('codiciNotEqual');
     }
-    if($isAuthorized === false){
+    if($realPassword === false){
       throw new \Exception('wrongPassword');
     }
 
