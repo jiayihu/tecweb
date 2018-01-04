@@ -1,13 +1,13 @@
 <div class="investigation">
   <input
-    id="inv-<?php echo $index; ?>"
+    id="inv-<?= $investigation->getId(); ?>"
     class="accordion-input hide"
     type="checkbox" 
     name="investigations" 
-    <?php echo $index === $investigationId ? 'checked' : '' ?>
+    <?php echo $investigation->getId() === $investigationId ? 'checked' : '' ?>
   >
-  <label class="accordion-label" for="inv-<?php echo $index; ?>">Investigazione <?php echo $investigation->getId(); ?></label>
-  <?php if ($isEdit &&  $index === $investigationId) : ?>
+  <label class="accordion-label" for="inv-<?= $investigation->getId(); ?>">Investigazione <?= $investigation->getId(); ?></label>
+  <?php if ($isEdit &&  $investigation->getId() === $investigationId) : ?>
   <div class="investigation-content">
     <p class="actions">
       <button class="btn btn-outline">Salva modifiche</button>
@@ -61,7 +61,7 @@
   <div class="investigation-content">
     <p class="actions">
       <?php if ($routeName === 'dashboard'): ?>
-      <a href="/caso?id=1&investigazione=1">Mostra dettagli</a>
+      <a href="/caso?id=<?= $selectcase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Mostra dettagli</a>
       <?php elseif ($role !== 'inspector'): ?>
       <a href="/caso?id=1&investigazione=1&modifica=true">Modifica</a>
       <?php endif; ?>

@@ -18,7 +18,7 @@
   <header id="top" class="navbar-container">
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a href="/dashboard" title="Go back to home">
+        <a href="/dashboard" title="Go back to dashboard">
           <img class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
         </a>
         </a>

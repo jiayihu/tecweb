@@ -88,8 +88,8 @@
         <?php 
           if($selectcase->isResolved()) {
             echo $selectcase->criminale->getCodice().'<br';
-            echo $selectcase->criminale->nome;
-            echo $selectcase->criminale->cognome;
+            echo ucwords($selectcase->criminale->nome);
+            echo ucwords($selectcase->criminale->cognome);
           } else {
             echo '-';
           }
@@ -104,8 +104,8 @@
             } else {
               foreach($detectives as $detective) {
                 echo '<li>';
-                echo $detective->nome;
-                echo $detective->cognome;
+                echo ucwords($detective->nome).' ';
+                echo ucwords($detective->cognome);
                 echo '</li>';
               }
             }
@@ -121,10 +121,10 @@
       <dd>
       <ul class="tags list">
         <?php if(sizeof($selectcase->tags) == 0) : ?>
-            -
+          -
         <?php else: ?>
           <?php foreach($selectcase->tags as $tag) : ?>
-            <li class="list-item"><span class="tag-label"><?= $tag->nome ?></span></li>
+            <li class="list-item"><span class="tag-label"><?= ucfirst($tag->nome) ?></span></li>
           <?php endforeach; ?>
           <?php endif; ?>
       </dd>
