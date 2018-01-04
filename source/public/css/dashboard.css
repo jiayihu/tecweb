@@ -83,6 +83,11 @@ input {
   margin: 1rem 0;
 }
 
+textarea {
+  width: 99%;
+  float: right;
+}
+
 .forminput {
   border: 1px solid #d3d3d3;
   outline: none;
@@ -106,8 +111,11 @@ input {
 }
 
 @media (min-width: 768px) {
-  .main-content {
-    padding: 1rem 2rem;
+  
+
+  .case,
+  .case-select {
+    display: block;
   }
 
   .case-info {
@@ -135,13 +143,17 @@ input {
     color: #4e4e4e;
   }
 
+  .main-content {
+    padding: 1rem 2rem;
+  }
+
   .menu-title {
     border-bottom: 1px solid #fff;
   }
 
-  .case,
-  .case-select {
-    display: block;
+  textarea {
+    border: 1px solid #d3d3d3;
+    width: 69%;
   }
 }
 

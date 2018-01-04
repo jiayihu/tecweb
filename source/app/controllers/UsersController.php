@@ -55,6 +55,10 @@ class UsersController {
     return $this->database->runQuery('SELECT codice_fiscale FROM cliente ORDER BY codice_fiscale');
   }
 
+  public function getCriminals(): array {
+    return $this->database->runQuery('SELECT codice_fiscale FROM criminale ORDER BY codice_fiscale');
+  }
+
   public function getUser($codiceFiscale, $role) {
     $table = $this->getRoleTable($role);
     $where = 'codice_fiscale = :codice_fiscale';

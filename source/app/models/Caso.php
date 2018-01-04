@@ -75,4 +75,9 @@ class Caso {
   public function setResolved($status) {
     $this->risolto = $status;
   }
+
+  public function setArchived($status) {
+    $this->passato = $status;
+    echo "aggiorno ".$status;
+  }
 }

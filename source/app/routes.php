@@ -23,6 +23,7 @@ return [
     'ricerca' => 'PagesController@searchPOST',
 
     'dashboard' => 'PagesController@addCasePOST',
+    'caso' => 'PagesController@editCasePOST',
 
     'aggiungi-utente' => 'PagesController@addUserPOST',
     'api/utenti/add' => 'UsersController@addUserAPI',

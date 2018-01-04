@@ -4,52 +4,100 @@
   <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
+      <input type="hidden" name="caseId" value="<?= $selectcase->getId() ?>"
       <dl class="case-info">
         <dt>Titolo</dt>
-        <dd><input class="input" type="text" name="title" value="Uno scandalo in Boemia"></dd>
+        <dd><input class="input" type="text" name="title" value="<?= $selectcase->nome; ?>"></dd>
         <dt>Descrizione</dt>
-        <dd><textarea name="descrizione">Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.</textarea></dd>
+        <dd><textarea name="descrizione"><?= $selectcase->descrizione ?></textarea></dd>
         <dt>Tipologia</dt>
         <dd>
         <select class="select" name="tariffa">
-          <option value="furto">Furto</option>
-          <option value="omicidio">Omicidio</option>
-          <option value="ricatto">Ricatto</option>
-          <option value="ricerca">Ricerca</option>
-          <option value="spionaggio">Spionaggio</option>
+          <?php 
+            switch($selectcase->tipologia) : 
+              case 'furto':
+            ?>
+              <option value="furto" selected>Furto</option>
+              <option value="omicidio">Omicidio</option>
+              <option value="ricatto">Ricatto</option>
+              <option value="ricerca">Ricerca</option>
+              <option value="spionaggio">Spionaggio</option>
+            <?php break; ?>
+            <?php case 'omicidio': ?>
+              <option value="furto">Furto</option>
+              <option value="omicidio"selected>Omicidio</option>
+              <option value="ricatto">Ricatto</option>
+              <option value="ricerca">Ricerca</option>
+              <option value="spionaggio">Spionaggio</option>
+            <?php break; ?>
+            <?php case 'ricatto': ?>
+              <option value="furto">Furto</option>
+              <option value="omicidio">Omicidio</option>
+              <option value="ricatto" selected>Ricatto</option>
+              <option value="ricerca">Ricerca</option>
+              <option value="spionaggio">Spionaggio</option>
+            <?php break; ?>
+            <?php case 'ricerca': ?>
+              <option value="furto">Furto</option>
+              <option value="omicidio">Omicidio</option>
+              <option value="ricatto">Ricatto</option>
+              <option value="ricerca" selected>Ricerca</option>
+              <option value="spionaggio">Spionaggio</option>
+            <?php break; ?>
+            <?php case 'spionaggio': ?>
+              <option value="furto">Furto</option>
+              <option value="omicidio">Omicidio</option>
+              <option value="ricatto">Ricatto</option>
+              <option value="ricerca">Ricerca</option>
+              <option value="spionaggio" selected>Spionaggio</option>
+            <?php break; ?>
+          <?php endswitch; ?>
         </select>
         </dd>
         <dt>Cliente</dt>
-        <dd><input class="input" type="text" name="cliente" value="AMGSOU02T42U148D"></dd>
+        <dd>
+          <select class="select" name="cliente">
+            <?php foreach($clienti as $cliente) : ?>
+              <?php if($cliente->codice_fiscale == $selectcase->cliente->getCodice()) : ?>
+                <option value="<?= $cliente->codice_fiscale; ?>" selected><?= $cliente->codice_fiscale; ?></option>
+              <?php else: ?>
+                <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </select>
+        </dd>
         <dt>Criminale</dt>
-        <dd><input class="input" type="text" name="criminale" value="AMGSOU02T42U148D"></dd>
+        <dd>
+          <select class="select" name="criminale">
+            <?php if($selectcase->isResolved()) : ?>
+              <option value="no_criminal">-</option>
+              <?php foreach($criminali as $criminale) : ?>
+                <?php if($criminale->codice_fiscale == $selectcase->criminale->getCodice()) : ?>
+                  <option value="<?= $criminale->codice_fiscale; ?>" selected><?= $criminale->codice_fiscale; ?></option>
+                <?php else: ?>
+                  <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            <?php else : ?>
+              <option value="no_criminal" selected>-</option>
+              <?php foreach($criminali as $criminale) : ?>
+                <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
+              <?php endforeach; ?>
+            <?php endif; ?>
+          </select>
+        </dd>
         <dt>Tag</dt>
         <dd>
+          Seleziona i tag da eliminare dal caso:
           <ul class="tags list">
-            <li class="list-item">
-              <label class="tag">
-                <input hidden type="checkbox" name="tags" value="annegamento" />
-                <span class="tag-label">Annegamento</span>
-              </label>
-            </li>
-            <li class="list-item">
-              <label class="tag">
-                <input hidden type="checkbox" name="tags" value="cellulare" />
-                <span class="tag-label">Cellulare</span>
-              </label>
-            </li>
-            <li class="list-item">
-              <label class="tag">
-                <input hidden type="checkbox" name="tags" value="sparatoia" />
-                <span class="tag-label">Sparatoia</span>
-              </label>
-            </li>
-            <li class="list-item">
-              <label class="tag">
-                <input hidden type="checkbox" name="tags" value="terrorismo" />
-                <span class="tag-label">Terrorismo</span>
-              </label>
-            </li>
+            <?php foreach($selectcase->tags as $tag) : ?>
+              <li class="list-item">
+                <label class="tag">
+                  <input hidden type="checkbox" name="tags" value="<?= $tag->getSlug(); ?>" />
+                  <span class="tag-label"><?= $tag->nome; ?></span>
+                </label>
+              </li>
+            <?php endforeach; ?>
           </ul>
         </dd>
       </dl>
@@ -57,8 +105,22 @@
       <p class="center">
         <button type="submit" class="btn btn-outline">Salva le modifiche</button>
       </p>
+      <p class="center">
+        <a class="btn btn-outline" href="/caso?id=<?= $selectcase->getId(); ?>">Annulla</a>
+      </p>
     </form>
     <?php else : ?>
+
+    <?php if($successo) : ?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-success">
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Caso modificato con successo.
+      </p>
+    <?php endif; ?>
+
     <h1 class="page-title">
       <?= $selectcase->nome ?>
       <?php if($selectcase->isResolved()) : ?>
@@ -74,21 +136,21 @@
     </h1>
     <dl class="case-info">
       <dt>Descrizione</dt>
-      <dd><?= $selectcase->descrizione ?></dd>
+      <dd><?= $selectcase->descrizione; ?></dd>
       <dt>Tipologia</dt>
-      <dd><?= ucfirst($selectcase->tipologia) ?></dd>
+      <dd><?= ucfirst($selectcase->tipologia); ?></dd>
       <dt>Cliente</dt>
       <dd>
-        <?= $selectcase->cliente->getCodice() ?> <br>
-        <?= $selectcase->cliente->nome ?>
-        <?= $selectcase->cliente->cognome ?>
+        <?= $selectcase->cliente->getCodice(); ?> <br>
+        <?= $selectcase->cliente->nome; ?>
+        <?= $selectcase->cliente->cognome; ?>
       </dd>
       <dt>Criminale</dt>
       <dd>
         <?php 
           if($selectcase->isResolved()) {
-            echo $selectcase->criminale->getCodice().'<br';
-            echo ucwords($selectcase->criminale->nome);
+            echo $selectcase->criminale->getCodice().'<br>';
+            echo ucwords($selectcase->criminale->nome).' ';
             echo ucwords($selectcase->criminale->cognome);
           } else {
             echo '-';
@@ -114,7 +176,7 @@
       </dd>
       <?php if($role !== 'inspector') : ?>           <!-- Visibile solo agli investigatori e admin -->
         <dt>Ore totali di investigazione</dt> 
-        <dd><?= $selectcase->getTotalHours() ?></dd>
+        <dd><?= $selectcase->getTotalHours(); ?></dd>
       <?php endif; ?>
 
       <dt>Tag</dt>
@@ -124,7 +186,7 @@
           -
         <?php else: ?>
           <?php foreach($selectcase->tags as $tag) : ?>
-            <li class="list-item"><span class="tag-label"><?= ucfirst($tag->nome) ?></span></li>
+            <li class="list-item"><span class="tag-label"><?= ucfirst($tag->nome); ?></span></li>
           <?php endforeach; ?>
           <?php endif; ?>
       </dd>
@@ -133,7 +195,7 @@
     <?php if ($role !== 'inspector'): ?>
     <hr />
     <p class="center">
-      <a class="btn btn-outline" href="/caso?id=1&modifica=true">Modifica i dati</a>
+      <a class="btn btn-outline" href="/caso?id=<?= $selectcase->getId(); ?>&modifica=true">Modifica i dati</a>
     </p>
     <?php endif; ?>
 

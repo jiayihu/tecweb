@@ -90,9 +90,9 @@
         <p class="form-field clearfix">
           <label for="descrizione">Descrizione</label>
           <?php if(isset($descrizione)) : ?>
-          <textarea class="forminput" rows="4" name="descrizione" id="descrizione" required><?= $descrizione ?></textarea>
+          <textarea rows="4" name="descrizione" id="descrizione" required><?= $descrizione ?></textarea>
           <?php else : ?>
-            <textarea class="forminput" rows="4" name="descrizione" id="descrizione" required></textarea>
+            <textarea rows="4" name="descrizione" id="descrizione" required></textarea>
           <?php endif; ?>
         </p>
         <p class="form-field clearfix">
@@ -109,12 +109,12 @@
     <?php else : ?>
       <?php if(isset($nuovoCasoOk)) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-          <p class="alert alert-success">
-            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
-              <span aria-hidden="true">&times;</span>
-            </label>
-            Nuovo caso inserito con successo.
-          </p>
+        <p class="alert alert-success">
+          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+            <span aria-hidden="true">&times;</span>
+          </label>
+          Nuovo caso inserito con successo.
+        </p>
         <h2><?= $selectcase->nome ?></h2>
       <?php 
         endif; 
@@ -133,7 +133,7 @@
             <dd><?= ucfirst($selectcase->descrizione) ?></dd>
           </dl>
 
-          <?php if($role!='inspector') : ?>
+          <?php if($role == 'detective') : ?> 
             <p>
               <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
             </p>

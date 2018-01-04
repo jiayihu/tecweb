@@ -205,6 +205,12 @@ class PagesController {
     $selectcase->investigazioni = $investigations;
     $selectcase->tags = $tags;
 
+    $clienti = $this->usersController->getClients();
+    $criminali = $this->usersController->getCriminals();
+
+    $successo = Request::getQueryParam('successo') !== null;
+    $errore = Request::getQueryParam('errore') !== null;
+
     if ($role === 'inspector' && $isEdit) {
       return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
     }
@@ -218,8 +224,74 @@ class PagesController {
       'investigationId' => $investigationId,
       'isEdit' => $isEdit,
       'selectcase' => $selectcase,
-      'detectives' => $detectives
+      'detectives' => $detectives,
+      'clienti' => $clienti,
+      'criminali' => $criminali,
+
+      'successo' => $successo,
+      'errore' => $errore
     ]);
+  }
+
+  public function editCasePOST() {
+    $this->protectRoute();
+
+    $routeName = 'caso';
+
+    $caseId = Request::getPOSTParam('caseId');
+    var_dump($caseId);
+    $nome = Request::getPOSTParam('title');
+    $descrizione = Request::getPOSTParam('descrizione');
+    $tipologia = Request::getPOSTParam('tariffa');
+    $cf_cliente = Request::getPOSTParam('cliente');
+    $criminale = Request::getPOSTParam('criminale');
+
+    $selectcase = $this->casesController->getCaseDetails($caseId);
+
+    if($criminale != 'no_criminal' && !$selectcase->isResolved()) { // caso risolto
+      $succ = $this->casesController->insertCaseCriminal($selectcase->getId(), $criminale);
+      $selectcase->setResolved(true);
+      $selectcase->setArchived(true); // un caso risolto deve essere anche archiviato
+    } else {
+      if($criminale != 'no_criminal' && $criminale != $selectcase->criminale->getCodice()) { // caso già risolto, cambia il criminale
+        $succ = $this->casesController->editCaseCriminal($selectcase->getId(), $criminale);
+      } 
+    }
+
+    if($selectcase->isResolved()) {
+      $risolto = 1;
+    } else {
+      $risolto = 0;
+    }
+
+    if($selectcase->isArchived()) {
+      $passato = 1;
+    } else {
+      $passato = 0;
+    }
+
+    var_dump($selectcase);
+
+    $successful = $this->casesController->editCase([
+      'caseId' => $selectcase->getId(),
+      'newNome' => $nome,
+      'newDescrizione' => $descrizione,
+      'tipologia' => $tipologia,
+      'cf_cliente' => $cf_cliente,
+      'risolto' => $risolto,
+      'passato' => $passato
+    ]);
+    
+    $path = '/caso?id='.$selectcase->getId();
+
+    if ($successful) {
+      $selectcase = $this->casesController->getCaseDetails($caseId);
+      $path.'&successo=true';
+    } else {
+      $path.'&errore=true';
+    }
+
+    return \Core\redirect($path);
   }
 
   public function addCasePOST() {
