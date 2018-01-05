@@ -66,6 +66,15 @@ class CasesController {
     ]);
   }
 
+  public function deleteCaseCriminal($caseId): bool {
+    $table = 'risoluzione';
+    $where = "caso = :id_caso";
+
+    return $this->database->delete($table, $where, [
+      ':id_caso' => $caseId
+    ]);
+  }
+
   public function getAllCases() {
     $result = $this->database->runQuery('SELECT codice, nome FROM caso ORDER BY nome');
     return $result;
@@ -122,7 +131,7 @@ class CasesController {
     $parameters[':id_caso'] = $codice;
     $result = $this->database->selectWhere(
       $table,
-      ['DISTINCT nome, cognome'],
+      ['DISTINCT nome, cognome, investigatore.codice_fiscale AS codice_fiscale'],
       $where,
       $parameters
     );

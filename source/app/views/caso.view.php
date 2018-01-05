@@ -121,6 +121,16 @@
       </p>
     <?php endif; ?>
 
+    <?php if($errore) : ?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-danger">
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Non è stato possibile applicare nessuna modifica. Riprovare.
+      </p>
+    <?php endif; ?>
+
     <h1 class="page-title">
       <?= $selectcase->nome ?>
       <?php if($selectcase->isResolved()) : ?>
@@ -166,6 +176,7 @@
             } else {
               foreach($detectives as $detective) {
                 echo '<li>';
+                echo $detective->codice_fiscale.'<br>';
                 echo ucwords($detective->nome).' ';
                 echo ucwords($detective->cognome);
                 echo '</li>';
@@ -188,7 +199,7 @@
           <?php foreach($selectcase->tags as $tag) : ?>
             <li class="list-item"><span class="tag-label"><?= ucfirst($tag->nome); ?></span></li>
           <?php endforeach; ?>
-          <?php endif; ?>
+        <?php endif; ?>
       </dd>
     </dl>
     

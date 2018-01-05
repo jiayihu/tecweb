@@ -60,6 +60,14 @@ class Caso {
     return $ore;
   }
 
+  public function getInvestigation($num) {
+    foreach($this->investigazioni as $investigazione) {
+      if($investigazione->getId() == $num) {
+        return $investigazione;
+      }
+    }
+  }
+
   public function isArchived(): bool {
     return $this->passato;
   }

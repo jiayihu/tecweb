@@ -115,11 +115,24 @@
           </label>
           Nuovo caso inserito con successo.
         </p>
-        <h2><?= $selectcase->nome ?></h2>
       <?php 
         endif; 
         unset($nuovoCasoOk);
       ?>
+
+      <?php if(isset($archiviato)) : ?>
+        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+        <p class="alert alert-success">
+          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+            <span aria-hidden="true">&times;</span>
+          </label>
+          Il caso risolto è stato archiviato.
+        </p>
+      <?php 
+        endif; 
+        unset($archiviato);
+      ?>
+
       <?php if(!isset($zeroCasi)) : ?>
         <h2><?= $selectcase->nome ?></h2>
         <div class="case-details">
