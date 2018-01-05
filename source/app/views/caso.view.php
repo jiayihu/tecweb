@@ -93,7 +93,7 @@
             <?php foreach($selectcase->tags as $tag) : ?>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags" value="<?= $tag->getSlug(); ?>" />
+                  <input hidden type="checkbox" name="tags[]" value="<?= $tag->getSlug(); ?>" />
                   <span class="tag-label"><?= $tag->nome; ?></span>
                 </label>
               </li>

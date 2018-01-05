@@ -34,7 +34,20 @@ class CasesController {
     $cf_cliente = $parameters['cf_cliente'];
     $risolto = $parameters['risolto'];
     $passato = $parameters['passato'];
+    $tags = $parameters['tags'];
 
+    // vengono eliminati i tags selezionati
+    $table = 'etichettamento';
+    foreach($tags as $tag) {
+      $where ='caso = :id_caso AND tag = :tag';
+      $this->database->delete($table, $where, [
+        ':id_caso' => $caseId,
+        ':tag' => $tag
+      ]);
+    }
+
+    // viene aggiornato il caso nel db
+    $table = 'caso';
     $changes = '
       descrizione = :new_descrizione,
       nome = :new_nome,

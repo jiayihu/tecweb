@@ -251,6 +251,7 @@ class PagesController {
       $tipologia = Request::getPOSTParam('tariffa');
       $cf_cliente = Request::getPOSTParam('cliente');
       $criminale = Request::getPOSTParam('criminale');
+      $tags = Request::getPOSTParam('tags');
   
       $selectcase = $this->casesController->getCaseDetails($caseId);
   
@@ -290,7 +291,8 @@ class PagesController {
         'tipologia' => $tipologia,
         'cf_cliente' => $cf_cliente,
         'risolto' => $risolto,
-        'passato' => $passato
+        'passato' => $passato,
+        'tags' => $tags
       ]);
   
       if(isset($archiviato)) {
