@@ -6,6 +6,34 @@
     <form action="/caso" method="post">
       <input type="hidden" name="caseId" value="<?= $selectcase->getId() ?>"
       <dl class="case-info">
+        <?php if($erroreArchiviazione) : ?>
+          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+          <p class="alert alert-danger">
+            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+              <span aria-hidden="true">&times;</span>
+            </label>
+            Non è possibile archiviare un caso risolto con un colpevole.
+          </p>
+        <?php endif; ?>
+
+        <?php if($duplicato) : ?>
+          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+          <p class="alert alert-danger">
+            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+              <span aria-hidden="true">&times;</span>
+            </label>
+            Esiste già un caso con il nome segnato.
+          </p>
+        <?php endif; ?>
+
+        <dt>Archivia</dt>
+        <dd>
+        <?php if($selectcase->isArchived()) : ?>
+          <input type="checkbox" name="archivia" checked>Archivia caso irrisolto</input>
+        <?php else: ?>
+          <input type="checkbox" name="archivia">Archivia caso irrisolto</input>
+        <?php endif; ?>        
+        </dd>
         <dt>Titolo</dt>
         <dd><input class="input" type="text" name="title" value="<?= $selectcase->nome; ?>"></dd>
         <dt>Descrizione</dt>
@@ -101,6 +129,7 @@
           </ul>
         </dd>
       </dl>
+      
       <hr />
       <p class="center">
         <button type="submit" class="btn btn-outline">Salva le modifiche</button>
@@ -111,7 +140,7 @@
     </form>
     <?php else : ?>
 
-    <?php if($successo) : ?>
+    <?php if($modificaOk) : ?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-success">
         <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -121,7 +150,7 @@
       </p>
     <?php endif; ?>
 
-    <?php if($errore) : ?>
+    <?php if($modificaErrore) : ?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-danger">
         <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -146,7 +175,7 @@
     </h1>
     <dl class="case-info">
       <dt>Descrizione</dt>
-      <dd><?= $selectcase->descrizione; ?></dd>
+      <dd><?= ucfirst($selectcase->descrizione); ?></dd>
       <dt>Tipologia</dt>
       <dd><?= ucfirst($selectcase->tipologia); ?></dd>
       <dt>Cliente</dt>
@@ -214,6 +243,27 @@
   </aside>
   <section class="main-content">
     <h2>Investigazioni del caso</h2>
+
+    <?php if($investigazioneErrore) : ?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-danger">
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Non è stato possibile applicare nessuna modifica. Riprovare.
+      </p>
+    <?php endif; ?>
+    
+    <?php if($investigazioneOk) : ?>
+      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-success">
+        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Investigazione modificata con successo.
+      </p>
+    <?php endif; ?>
+
     <?php if(sizeof($investigations) == 0) : ?>
       <p> Nessuna investigazione disponibile.
     <?php else : ?>

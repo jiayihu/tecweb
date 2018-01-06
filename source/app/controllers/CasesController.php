@@ -24,7 +24,7 @@ class CasesController {
     $this->database = \Core\App::get('database');
   }
 
-  public function editCase(array $parameters) {
+  public function editCase(array $parameters): bool {
     $table = 'caso';
 
     $caseId = $parameters['caseId'];
@@ -37,15 +37,17 @@ class CasesController {
     $tags = $parameters['tags'];
 
     // vengono eliminati i tags selezionati
-    $table = 'etichettamento';
-    foreach($tags as $tag) {
-      $where ='caso = :id_caso AND tag = :tag';
-      $this->database->delete($table, $where, [
-        ':id_caso' => $caseId,
-        ':tag' => $tag
-      ]);
+    if($tags != null && sizeof($tags) > 0) {
+      $table = 'etichettamento';
+      foreach($tags as $tag) {
+        $where ='caso = :id_caso AND tag = :tag';
+        $succ_tag = $this->database->delete($table, $where, [
+          ':id_caso' => $caseId,
+          ':tag' => $tag
+        ]);
+      }
     }
-
+    
     // viene aggiornato il caso nel db
     $table = 'caso';
     $changes = '
@@ -57,7 +59,7 @@ class CasesController {
       passato = :passato';
     $where = 'codice = :id_caso';
 
-    return $this->database->update($table, $changes, $where, [
+    $succ_caso = $this->database->update($table, $changes, $where, [
       ':new_nome' => $newNome,
       ':new_descrizione' => $newDescrizione,
       ':tipologia' => $tipologia,
@@ -66,6 +68,15 @@ class CasesController {
       ':risolto' => $risolto,
       ':passato' => $passato
     ]);
+
+    if((isset($succ_tag) && $succ_tag && $succ_caso)) {
+      return true;
+    } else {
+      if($succ_caso) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public function editCaseCriminal($caseId, $cf_criminale): bool {
@@ -209,19 +220,11 @@ class CasesController {
     return $tags;
   }
 
-  public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
+  public function checkCaseName($nome, $id_caso): bool {
     $table = 'caso';
     $parameters[':nome_caso'] = $nome;
-    $parameters[':tipo_caso'] = $tipo;
-    $parameters[':cliente'] = $cliente;
-
-    $conditions = [
-      'nome = :nome_caso',
-      'tipologia = :tipo_caso',
-      'cliente = :cliente'
-    ];
-
-    $where = \implode(' AND ', $conditions);
+    $parameters[':id_caso'] = $id_caso;
+    $where = 'nome = :nome_caso AND codice <> :id_caso';
 
     $exist = $this->database->selectWhere(
       $table,
@@ -229,6 +232,19 @@ class CasesController {
       $where,
       $parameters
     );
+
+    if(sizeof($exist) > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
+
+    $exist = $this->checkCaseName($nome, null);
+
+    $table = 'caso';
 
     if(sizeof($exist) == 0) {
       return $this->database->insert($table, [

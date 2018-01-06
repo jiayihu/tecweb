@@ -24,7 +24,7 @@ class InvestigationsController {
     $this->database = \Core\App::get('database');
   }
 
-  private function deleteScena(int $id_caso, int $id_investigazione): bool {
+  private function deleteScena(int $id_caso, string $id_investigazione): bool {
     $table = 'scena_investigazione';
     $where = "investigazione = ::id_investigazione AND caso = :id_caso";
 
@@ -34,7 +34,7 @@ class InvestigationsController {
     ]);
   }
 
-  public function editInvestigation(array $param) {
+  public function editInvestigation(array $param): bool {
     $caseId = $param['caseId'];
     $investigationId = $param['investigationId'];
     $investigatore = $param['investigatore'];
@@ -47,7 +47,7 @@ class InvestigationsController {
       data_termine = :data_termine,
       rapporto = :rapporto';
     $table = 'investigazione';   
-    $this->database->update($table, $changes, $where, [
+    $update_investigazione = $this->database->update($table, $changes, $where, [
       ':numero' => $investigationId,
       ':id_caso' => $caseId,
       ':data_termine' => $date_to,
@@ -58,15 +58,20 @@ class InvestigationsController {
     $changes = '
       ore_lavoro = :ore_lavoro';
     $table = 'lavoro';   
-    $this->database->update($table, $changes, $where, [
+    $update_lavoro = $this->database->update($table, $changes, $where, [
       ':numero' => $investigationId,
       ':id_caso' => $caseId,
       ':investigatore' => $investigatore,
       'ore_lavoro' => $ore
     ]);
+
+    if($update_lavoro && $update_investigazione)
+      return true;
+
+    return false;
   }
 
-  public function editScena(array $param) {
+  public function editScena(array $param): bool {
     $caseId = $param['caseId'];
     $investigationId = $param['investigationId'];
     $nome = $param['nome'];
@@ -96,23 +101,27 @@ class InvestigationsController {
           citta = :citta,
           indirizzo = :indirizzo';
         $table = 'scena_investigazione';   
-        $this->database->update($table, $changes, $where, [
+        return $this->database->update($table, $changes, $where, [
           ':descrizione' => $descrizione,
           ':indirizzo' => $indirizzo,
           ':citta' => $citta,
           ':slug' => $slug
         ]);       
       } else {                          // nome diverso (primary key), elimina vecchia scena e ne crea una nuova
-        $this->deleteScena($caseId, $investigationId);
-        $this->insertScena($slug, $caseId, $investigationId, $scena);
+        $delete = $this->deleteScena($caseId, $investigationId);
+        $insert = $this->insertScena($slug, $caseId, $investigationId, $scena);
+
+        if($delete & $insert)
+          return true;
+
+        return false;
       }
     } else {                            // non esiste nessuna scena, ne crea una nuova
-      $this->insertScena($slug, $caseId, $investigationId, $scena);
+      return $this->insertScena($slug, $caseId, $investigationId, $scena);
     }
-
   }
 
-  public function getInvestigations(int $idcaso) {
+  public function getInvestigations(int $idcaso): array {
     $investigations = $this->getInvestigationsDetails($idcaso);
 
     foreach ($investigations as $investigation) {
@@ -123,7 +132,7 @@ class InvestigationsController {
     return $investigations;
   }
 
-  private function insertScena(string $slug, int $id_caso, int $id_investigazione, Scena $scena) {
+  private function insertScena(string $slug, int $id_caso, string $id_investigazione, Scena $scena) {
     $table = 'scena_investigazione';
 
     $this->database->insert($table, [
@@ -137,7 +146,7 @@ class InvestigationsController {
     ]);
   }
  
-  public function insertInvestigation(int $idcaso, int $cf_investigatore) {
+  public function insertInvestigation(int $idcaso, string $cf_investigatore) {
     $parameters[':idcaso'] = $idcaso;
     $parameters[':cf_investigatore'] = $cf_investigatore;
 
@@ -145,7 +154,7 @@ class InvestigationsController {
 
     $table = 'investigazione';
 
-    $this->database->insert($table, [
+    $ins1 = $this->database->insert($table, [
       'numero' => $num_inv,
       'caso' => $idcaso,
       'data_inizio' => date('Y-m-d'),
@@ -156,12 +165,17 @@ class InvestigationsController {
 
     $table = 'lavoro';
 
-    $this->database->insert($table, [
+    $ins2 = $this->database->insert($table, [
       'investigatore' => $cf_investigatore,
       'investigazione' => $num_inv,
       'caso' => $idcaso,
       'ore_lavoro' => 0
     ]);
+
+    if($ins1 && $ins2) 
+      return true;
+
+    return false;
   }
 
   public function searchInvestigations(array $parameters): array {

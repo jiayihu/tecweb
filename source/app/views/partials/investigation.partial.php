@@ -30,14 +30,14 @@
         </div>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Ore di lavoro: </span> 
-          <input class="input" type="number" name="ore" value="<?= $investigation->oreTotali ?>">
+          <input class="input" type="number" name="ore" value="<?= $investigation->oreTotali ?>" min="0">
         </div>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Data fine: </span> 
           <?php if($investigation->dataTermine == null) : ?>
-            <input type="date" name="date_to" id="input-date-to" min="<?= $investigation->dataInizio ?> required">
+            <input type="date" name="date_to" id="input-date-to" min="<?= $investigation->dataInizio ?>">
           <?php else : ?>
-            <input type="date" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?> required">
+            <input type="date" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
           <?php endif; ?>     
         </div>
         <div class="investigation-content-field">

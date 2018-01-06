@@ -46,7 +46,7 @@
     <?php endif; ?>
 
     <?php if($nuovoCaso) : ?>
-      <?php if(isset($errore)) : ?>
+      <?php if($erroreCampiNuovoCaso) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-danger">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -56,13 +56,13 @@
         </p>
       <?php endif; ?>
 
-      <?php if(isset($duplicazione)) : ?>
+      <?php if($duplicazione) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-danger">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
             <span aria-hidden="true">&times;</span>
           </label>
-          Caso già esistente.
+          Caso già esistente. Provare con un altro nome.
         </p>
       <?php endif; ?>
 
@@ -107,7 +107,7 @@
         <button type="submit" class="btn btn-outline">Aggiungi caso</button>
       </form>
     <?php else : ?>
-      <?php if(isset($nuovoCasoOk)) : ?>
+      <?php if($nuovoCasoOk) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -115,12 +115,19 @@
           </label>
           Nuovo caso inserito con successo.
         </p>
-      <?php 
-        endif; 
-        unset($nuovoCasoOk);
-      ?>
+      <?php endif; ?>
 
-      <?php if(isset($archiviato)) : ?>
+      <?php if($erroreNuovaInvestigazione) : ?>
+        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+        <p class="alert alert-danger">
+          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+            <span aria-hidden="true">&times;</span>
+          </label>
+          Errore nell'inserimento della nuova investigazione. Riprovare.
+        </p>
+      <?php endif; ?>
+
+      <?php if($archiviato) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -128,10 +135,17 @@
           </label>
           Il caso risolto è stato archiviato.
         </p>
-      <?php 
-        endif; 
-        unset($archiviato);
-      ?>
+      <?php endif; ?>
+
+      <?php if($archiviatoIrrisolto) : ?>
+        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+        <p class="alert alert-success">
+          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+            <span aria-hidden="true">&times;</span>
+          </label>
+          Il caso irrisolto è stato archiviato.
+        </p>
+      <?php endif; ?>
 
       <?php if(!isset($zeroCasi)) : ?>
         <h2><?= $selectcase->nome ?></h2>

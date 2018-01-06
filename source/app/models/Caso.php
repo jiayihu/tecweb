@@ -86,6 +86,5 @@ class Caso {
 
   public function setArchived($status) {
     $this->passato = $status;
-    echo "aggiorno ".$status;
   }
 }

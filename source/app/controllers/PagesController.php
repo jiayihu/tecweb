@@ -120,10 +120,16 @@ class PagesController {
     $autoLogin = Request::getQueryParam('autoLogin') !== null;
     $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
     $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null; 
+    $erroreCampiNuovoCaso = Request::getQueryParam('erroreCampiNuovoCaso') !== null; 
     $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') !== null; 
     $archiviato = Request::getQueryParam('archiviato') !== null;
+    $archiviatoIrrisolto = Request::getQueryParam('archiviatoIrrisolto') !== null;
+    $duplicazione = Request::getQueryParam('duplicazione') !== null;
+    $nuovoCasoOk = Request::getQueryParam('nuovoCasoOk') !== null;
+    $erroreNuovaInvestigazione = false;
 
     $role = $this->authController->getUserRole();
+    $user = $this->authController->getUser();
 
     if($role == 'admin') {
       $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
@@ -131,14 +137,11 @@ class PagesController {
       if($role == 'detective') {
         $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
       } else {
-        $user = $this->authController->getUser();
         $cases = $this->casesController->getIspectorCases($user->codice_fiscale); //visualizza soli i casi di cui l'ispettore è cliente
       }
     }
 
     $clienti = $this->usersController->getClients();
-
-    $user = $this->authController->getUser();
     
     if($cases != null) {
       $codice = Request::getQueryParam('id');
@@ -148,8 +151,11 @@ class PagesController {
       $selectcase = $this->casesController->getCase($codice); 
       
       if($nuovaInvestigazione) {
-        $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
-        unset($nuovaInvestigazione);
+        $succ = $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
+
+        if(!$succ) {
+          $erroreNuovaInvestigazione = true;
+        }
       }
 
       $investigations = $this->investigationsController->getInvestigations($codice); 
@@ -168,7 +174,13 @@ class PagesController {
         'selectcase' => $selectcase,
         'nuovoCaso' => $nuovoCaso,
         'clienti' => $clienti,
-        'archiviato' => $archiviato
+
+        'archiviato' => $archiviato,
+        'archiviatoIrrisolto' => $archiviatoIrrisolto,
+        'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
+        'duplicazione' => $duplicazione,
+        'nuovoCasoOk' => $nuovoCasoOk,
+        'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
       ]);
     } 
     
@@ -186,10 +198,40 @@ class PagesController {
       'selectcase' => null,
       'nuovoCaso' => $nuovoCaso,
       'clienti' => $clienti,
+
       'zeroCasi' => true,
-      'archiviato' => $archiviato
+      'archiviato' => $archiviato,
+      'archiviatoIrrisolto' => $archiviatoIrrisolto,
+      'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
+      'duplicazione' => $duplicazione,
+      'nuovoCasoOk' => $nuovoCasoOk,
+      'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
     ]);
   }
+
+  public function addCasePOST() {
+    $this->protectRoute();
+
+    $routeName = 'dashboard';
+
+    $nome = Request::getPOSTParam('nome');
+    $descrizione = Request::getPOSTParam('descrizione');
+    $tipo = Request::getPOSTParam('tipo');
+    $cliente = Request::getPOSTParam('cliente');
+
+    if($tipo == null || $cliente == null) {
+      return \Core\redirect("/dashboard?nuovoCaso=true&erroreCampiNuovoCaso=true");
+
+    } else {
+      $insert = $this->casesController->insertCase($nome, $tipo, $descrizione, $cliente);
+
+      if(!$insert) {
+        return \Core\redirect("/dashboard?nuovoCaso=true&duplicazione=true");
+      }
+    }
+    return \Core\redirect("/dashboard?nuovoCasoOk=true");
+  }
+
 
   public function case() {
     $this->protectRoute();
@@ -200,6 +242,13 @@ class PagesController {
     $investigations = $this->investigationsController->getInvestigations($caseId);
     $investigationId = (int) Request::getQueryParam('investigazione');
     $isEdit = Request::getQueryParam('modifica') !== null;
+
+    $erroreArchiviazione = Request::getQueryParam('erroreArchiviazione') !== null;
+    $duplicato = Request::getQueryParam('duplicato') !== null;
+    $modificaOk = Request::getQueryParam('modificaOk') !== null;
+    $modificaErrore = Request::getQueryParam('modificaErrore') !== null;
+    $investigazioneOk = Request::getQueryParam('investigazioneOk') !== null;
+    $investigazioneErrore = Request::getQueryParam('investigazioneErrore') !== null;
 
     $selectcase = $this->casesController->getCaseDetails($caseId);
     $detectives = $this->casesController->getDetectives($caseId);
@@ -232,8 +281,13 @@ class PagesController {
       'clienti' => $clienti,
       'criminali' => $criminali,
       'investigatori' => $investigatori,
-      'successo' => $successo,
-      'errore' => $errore
+
+      'erroreArchiviazione' => $erroreArchiviazione,
+      'duplicato' => $duplicato,
+      'modificaOk' => $modificaOk,
+      'modificaErrore' => $modificaErrore,
+      'investigazioneOk' => $investigazioneOk,
+      'investigazioneErrore' => $investigazioneErrore
     ]);
   }
 
@@ -245,30 +299,46 @@ class PagesController {
     $caseId = Request::getPOSTParam('caseId');
     $investigationId = Request::getPOSTParam('invId');
 
-    if($investigationId == null) {            // modifica caso
+    if($investigationId == null) {                              // modifica caso
       $nome = Request::getPOSTParam('title');
       $descrizione = Request::getPOSTParam('descrizione');
       $tipologia = Request::getPOSTParam('tariffa');
       $cf_cliente = Request::getPOSTParam('cliente');
       $criminale = Request::getPOSTParam('criminale');
       $tags = Request::getPOSTParam('tags');
+      $archiviaIrrisolto = Request::getPOSTParam('archivia');
   
       $selectcase = $this->casesController->getCaseDetails($caseId);
-  
-      if($criminale != 'no_criminal' && !$selectcase->isResolved()) { // caso risolto
-        $succ = $this->casesController->insertCaseCriminal($selectcase->getId(), $criminale);
-        $selectcase->setResolved(true);
-        $selectcase->setArchived(true);
-        $archiviato = true; // un caso risolto deve essere anche archiviato
+
+      // far tornare attivo un caso irrisolto
+
+      if($archiviaIrrisolto && $criminale != 'no_criminal') {
+        return \Core\redirect('/caso?id='.$caseId.'&modifica=true&erroreArchiviazione=true');
       } else {
-        if($criminale != 'no_criminal' && $criminale != $selectcase->criminale->getCodice()) { // caso già risolto, cambia il criminale
-          $succ = $this->casesController->editCaseCriminal($selectcase->getId(), $criminale);
-        } else {
-          if($criminale == 'no_criminal' && $selectcase->isResolved()) { // caso da risolto ritorna attivo
-            $succ = $this->casesController->deleteCaseCriminal($selectcase->getId());
-            $selectcase->setResolved(false);
-            $selectcase->setArchived(false);
+        if(!$archiviaIrrisolto) {
+          if($criminale != 'no_criminal' && !$selectcase->isResolved()) { // caso risolto
+            $succ = $this->casesController->insertCaseCriminal($selectcase->getId(), $criminale);
+            $selectcase->setResolved(true);
+            $selectcase->setArchived(true);
+            $archiviato = true;                                 // un caso risolto deve essere anche archiviato
+          } else {
+            if($criminale != 'no_criminal' && $criminale != $selectcase->criminale->getCodice()) { // caso già risolto, cambia il criminale
+              $succ = $this->casesController->editCaseCriminal($selectcase->getId(), $criminale);
+            } else {
+              if($criminale == 'no_criminal' && $selectcase->isResolved()) { // caso da risolto ritorna attivo (oerazione possibile solo da admin)
+                $succ = $this->casesController->deleteCaseCriminal($selectcase->getId());
+                $selectcase->setResolved(false);
+                $selectcase->setArchived(false);
+              } else {
+                if($criminale == 'no_criminal' && !$selectcase->isResolved()) {
+                  $selectcase->setArchived(false);
+                }
+              }
+            }
           }
+        } else {
+          $selectcase->setArchived(true);     // caso irrisolto viene archiviato
+          $archiviaIrrisolto = true;
         }
       }
   
@@ -283,31 +353,36 @@ class PagesController {
       } else {
         $passato = 0;
       }
+
+      $exist = $this->casesController->checkCaseName($nome, $selectcase->getId());
+
+      if(!$exist) {
+        $successo = $this->casesController->editCase([
+          'caseId' => $selectcase->getId(),
+          'newNome' => $nome,
+          'newDescrizione' => $descrizione,
+          'tipologia' => $tipologia,
+          'cf_cliente' => $cf_cliente,
+          'risolto' => $risolto,
+          'passato' => $passato,
+          'tags' => $tags
+        ]);
+      } else {
+        $path = '/caso?id='.$caseId.'&modifica=true&duplicato=true';
+        return \Core\redirect($path);
+      }
   
-      $successo = $this->casesController->editCase([
-        'caseId' => $selectcase->getId(),
-        'newNome' => $nome,
-        'newDescrizione' => $descrizione,
-        'tipologia' => $tipologia,
-        'cf_cliente' => $cf_cliente,
-        'risolto' => $risolto,
-        'passato' => $passato,
-        'tags' => $tags
-      ]);
-  
-      if(isset($archiviato)) {
-        return \Core\redirect('/dashboard?archiviato=true');
+      if(isset($archiviaIrrisolto)) {
+        return \Core\redirect('/dashboard?archiviatoIrrisolto=true');
       } else {
         $path = '/caso?id='.$selectcase->getId();
-  
-        if($successo) {
-          $selectcase = $this->casesController->getCaseDetails($caseId);
-          $path.'&successo=true';
+        if((isset($succ) && $succ && $successo) || $successo) {
+          $path = $path.'&modificaOk=true';
+          return \Core\redirect($path);
         } else {
-          $path.'&errore=true';
+            $path = $path.'&modificaErrore=true';
+            return \Core\redirect($path);          
         }
-
-        return \Core\redirect($path);
       }
     } else {                // modifica di una investigazione
       $investigationId = Request::getPOSTParam('invId');
@@ -320,7 +395,7 @@ class PagesController {
       $scena_citta = Request::getPOSTParam('scena_citta');
       $scena_indirizzo = Request::getPOSTParam('scena_indirizzo');
 
-      $succ_case = $this->investigationsController->editScena([
+      $succ_scena = $this->investigationsController->editScena([
         'caseId' => $caseId,
         'investigationId' => $investigationId,
         'nome' => $scena_nome,
@@ -339,105 +414,15 @@ class PagesController {
       ]);
 
       $path = '/caso?id='.$caseId.'&investigazione='.$investigationId;
+      
+      if($succ_scena && $succ_inv) {
+        $path = $path.'&investigazioneOk=true';
+      } else {
+        $path = $path.'&investigazioneErrore=true';
+      }
+
       return \Core\redirect($path);
     }
-  }
-
-  public function addCasePOST() {
-    $this->protectRoute();
-
-    $routeName = 'dashboard';
-
-    $nome = Request::getPOSTParam('nome');
-    $descrizione = Request::getPOSTParam('descrizione');
-    $tipo = Request::getPOSTParam('tipo');
-    $cliente = Request::getPOSTParam('cliente');
-
-    $role = $this->authController->getUserRole();
-
-    if($role == 'admin') {
-      $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
-    } else {
-      $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
-    }
-
-    $clienti = $this->usersController->getClients();
-
-    $autoLogin = Request::getQueryParam('autoLogin') !== null;
-    $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
-
-    if($tipo == null || $cliente == null) {
-      $errore = true;
-      $nuovoCaso = true;
-
-      return \Core\view('dashboard', [
-        'routeName' => $routeName,
-        'username' => $this->getUsername(),
-        'role' => $role,
-        'autoLogin' => $autoLogin,
-        'notAuthorized' => $notAuthorized,
-        'nuovoCaso' => $nuovoCaso,
-        'cases' => $cases,
-        'clienti' => $clienti,
-        'errore' => $errore,
-        'nome' => $nome,
-        'descrizione' => $descrizione
-      ]);
-
-    } else {
-      $insert = $this->casesController->insertCase($nome, $tipo, $descrizione, $cliente);
-
-      if(!$insert) {
-        $duplicazione = true;
-        $nuovoCaso = true;
-
-        return \Core\view('dashboard', [
-          'routeName' => $routeName,
-          'username' => $this->getUsername(),
-          'role' => $role,
-          'autoLogin' => $autoLogin,
-          'notAuthorized' => $notAuthorized,
-          'nuovoCaso' => $nuovoCaso,
-          'cases' => $cases,
-          'clienti' => $clienti,
-          'duplicazione' => $duplicazione,
-          'nome' => $nome,
-          'descrizione' => $descrizione
-        ]);
-      } else {
-        $cases = $this->casesController->getCases();
-        $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null;
-        $nuovoCasoOk = true;
-      }
-    }
-
-    
-    if($cases != null) {
-      $codice = Request::getQueryParam('id');
-      if($codice == null) {
-        $codice = $cases[0]->codice;
-      }
-      $selectcase = $this->casesController->getCase($codice);      
-    }
-
-    $investigations = $this->investigationsController->getInvestigations($codice);
-
-    return \Core\view('dashboard', [
-      'routeName' => $routeName,
-      'autoLogin' => $autoLogin,
-      'notAuthorized' => $notAuthorized,
-      'username' => $this->getUsername(),
-      'role' => $this->authController->getUserRole(),
-      'caseId' => $codice,
-      'investigations' => $investigations,
-      'investigationId' => null,
-      'isEdit' => false,
-      'cases' => $cases,
-      'selectcase' => $selectcase,
-      'nuovoCaso' => $nuovoCaso,
-      'clienti' => $clienti,
-      'nuovoCasoOk' => $nuovoCasoOk
-    ]);
   }
 
   public function addCase() {
