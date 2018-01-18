@@ -327,6 +327,34 @@ class PagesController {
     ]);
   }
 
+  public function addCriminale() {
+    $this->protectRoute();
+
+    $routeName = 'aggiungi-criminale';
+
+    return \Core\view('aggiungi-criminale', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
+    ]);
+  }
+
+  public function aggiungiCriminale(){
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $nome = Request::getPOSTParam('nome');
+    $cognome = Request::getPOSTParam('cognome');
+    $descrizione = Request::getPOSTParam("descrizione");
+
+    $successful=$this->casesController->addCriminale([
+      'codice_fiscale' => $codiceFiscale,
+      'nome' => $nome,
+      'cognome' => $cognome,
+      'descrizione' => $descrizione,
+    ]);
+    if ($successful) return \Core\redirect('/aggiungi-criminale');
+    else return \Core\redirect('/aggiungi-criminale');
+  }
+
   public function impostazioni() {
     $this->protectRoute();
 

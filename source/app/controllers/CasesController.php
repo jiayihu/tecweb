@@ -147,4 +147,16 @@ class CasesController {
       return $merged;
     }, []);
   }
+
+  public function addCriminale(array $parameters){
+    $codiceFiscale = $parameters['codice_fiscale'];
+    $nome=$parameters['nome'];
+    $cognome=$parameters['cognome'];
+
+    return $this->database->insert('criminale', [
+      'codice_fiscale' => $codiceFiscale,
+      'nome' => $nome,
+      'cognome' => $cognome,
+    ]);
+  }
 }

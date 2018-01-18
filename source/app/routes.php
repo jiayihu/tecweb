@@ -15,6 +15,7 @@ return [
     'caso' => 'PagesController@case',
     'utenti' => 'PagesController@users',
     'impostazioni' => 'PagesController@impostazioni',
+    'aggiungi-criminale' => 'PagesController@addCriminale',
 
     '404' => 'PagesController@notFound'
   ],
@@ -30,6 +31,8 @@ return [
     'modifica-utente' => 'PagesController@editUserPOST',
     'elimina-utente' => 'PagesController@deleteUserPOST',
 
-    'modifica-password' => 'PagesController@editUserPasswordPOST'
+    'modifica-password' => 'PagesController@editUserPasswordPOST',
+
+    'aggiunta-criminale' => 'PagesController@aggiungiCriminale'
   ]
 ];
