@@ -152,11 +152,13 @@ class CasesController {
     $codiceFiscale = $parameters['codice_fiscale'];
     $nome=$parameters['nome'];
     $cognome=$parameters['cognome'];
+    $descrizione=$parameters['descrizione'];
 
     return $this->database->insert('criminale', [
       'codice_fiscale' => $codiceFiscale,
       'nome' => $nome,
       'cognome' => $cognome,
+      'descrizione' => $descrizione,
     ]);
   }
 }
