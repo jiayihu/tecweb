@@ -355,6 +355,34 @@ class PagesController {
     else return \Core\redirect('/aggiungi-criminale');
   }
 
+  public function addCliente() {
+    $this->protectRoute();
+
+    $routeName = 'aggiungi-cliente';
+
+    return \Core\view('aggiungi-cliente', [
+      'routeName' => $routeName,
+      'username' => $this->getUsername(),
+      'role' => $this->authController->getUserRole(),
+    ]);
+  }
+
+  public function aggiungiCliente(){
+    $codiceFiscale = Request::getPOSTParam('codice_fiscale');
+    $nome = Request::getPOSTParam('nome');
+    $cognome = Request::getPOSTParam('cognome');
+    $password = Request::getPOSTParam("password");
+
+    $successful=$this->casesController->addCliente([
+      'codice_fiscale' => $codiceFiscale,
+      'nome' => $nome,
+      'cognome' => $cognome,
+      'password' => $password,
+    ]);
+    if ($successful) return \Core\redirect('/aggiungi-cliente');
+    else return \Core\redirect('/aggiungi-cliente');
+  }
+
   public function impostazioni() {
     $this->protectRoute();
 

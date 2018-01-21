@@ -37,6 +37,9 @@
             <li class="list-item">
               <a href="aggiungi-criminale">Aggiungi criminale</a>
             </li>
+            <li class="list-item">
+              <a href="aggiungi-cliente">Aggiungi cliente</a>
+            </li>
           </ul>
         </li>
         <?php endif; ?>
