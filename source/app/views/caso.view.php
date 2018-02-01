@@ -4,7 +4,7 @@
   <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
-      <input type="hidden" name="caseId" value="<?= $case->getId() ?>"
+      <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>"
       <dl class="case-info">
         <?php if ($erroreArchiviazione) : ?>
           <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
@@ -28,27 +28,27 @@
 
         <dt>Archivia</dt>
         <dd>
-        <input type="checkbox" name="archivia" <?= $case->isArchived() ? 'checked' : ''?>> Archivia come irrisolto</input>
+        <input type="checkbox" name="archivia" <?= $selectedCase->isArchived() ? 'checked' : ''?>> Archivia come irrisolto</input>
         </dd>
         <dt>Titolo</dt>
-        <dd><input class="input" type="text" name="title" value="<?= $case->nome; ?>"></dd>
+        <dd><input class="input" type="text" name="title" value="<?= $selectedCase->nome; ?>"></dd>
         <dt>Descrizione</dt>
-        <dd><textarea name="descrizione"><?= $case->descrizione ?></textarea></dd>
+        <dd><textarea name="descrizione"><?= $selectedCase->descrizione ?></textarea></dd>
         <dt>Tipologia</dt>
         <dd>
         <select class="select" name="tariffa">
-          <option value="furto" <?= $case->tipologia === 'furto' ? 'selected' : '' ?> >Furto</option>
-          <option value="omicidio" <?= $case->tipologia === 'omicidio' ? 'selected' : '' ?> >Omicidio</option>
-          <option value="ricatto" <?= $case->tipologia === 'ricatto' ? 'selected' : '' ?> >Ricatto</option>
-          <option value="ricerca" <?= $case->tipologia === 'ricerca' ? 'selected' : '' ?> >Ricerca</option>
-          <option value="spionaggio" <?= $case->tipologia === 'spionaggio' ? 'selected' : '' ?> >Spionaggio</option>
+          <option value="furto" <?= $selectedCase->tipologia === 'furto' ? 'selected' : '' ?> >Furto</option>
+          <option value="omicidio" <?= $selectedCase->tipologia === 'omicidio' ? 'selected' : '' ?> >Omicidio</option>
+          <option value="ricatto" <?= $selectedCase->tipologia === 'ricatto' ? 'selected' : '' ?> >Ricatto</option>
+          <option value="ricerca" <?= $selectedCase->tipologia === 'ricerca' ? 'selected' : '' ?> >Ricerca</option>
+          <option value="spionaggio" <?= $selectedCase->tipologia === 'spionaggio' ? 'selected' : '' ?> >Spionaggio</option>
         </select>
         </dd>
         <dt>Cliente</dt>
         <dd>
           <select class="select" name="cliente">
             <?php foreach ($clienti as $cliente) : ?>
-              <?php if ($cliente->codice_fiscale === $case->cliente->getCodice()) : ?>
+              <?php if ($cliente->codice_fiscale === $selectedCase->cliente->getCodice()) : ?>
                 <option value="<?= $cliente->codice_fiscale; ?>" selected><?= $cliente->codice_fiscale; ?></option>
               <?php else: ?>
                 <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
@@ -59,11 +59,11 @@
         <dt>Criminale</dt>
         <dd>
           <select class="select" name="criminale">
-            <option value="no_criminal" <?= $case->isResolved() ? '' : 'selected' ?>>Nessun criminale</option>
+            <option value="no_criminal" <?= $selectedCase->isResolved() ? '' : 'selected' ?>>Nessun criminale</option>
             <?php foreach ($criminali as $criminale) : ?>
               <option
                 value="<?= $criminale->codice_fiscale; ?>"
-                <?= isset($case->criminale) && $case->criminale->getCodice() === $criminale->codice_fiscale ? 'selected' : '' ?>
+                <?= isset($selectedCase->criminale) && $selectedCase->criminale->getCodice() === $criminale->codice_fiscale ? 'selected' : '' ?>
               >
                 <?= $criminale->codice_fiscale; ?>
               </option>
@@ -78,8 +78,8 @@
                 <label class="tag">
                   <input class="hide" type="checkbox" name="tags[]" value="<?php $tag->getSlug() ?>"
                     <?php
-                      $selected = \array_filter($case->tags, function($caseTag) use ($tag) {
-                        return $caseTag->getSlug() === $tag->getSlug();
+                      $selected = \array_filter($selectedCase->tags, function($selectedCaseTag) use ($tag) {
+                        return $selectedCaseTag->getSlug() === $tag->getSlug();
                       });
                       $isSelected = \count($selected) > 0;
                       echo $isSelected ? 'checked' : '';
@@ -95,7 +95,7 @@
       
       <hr />
       <p class="center">
-        <a class="btn btn-link" href="/caso?id=<?= $case->getId(); ?>">Annulla</a>
+        <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId(); ?>">Annulla</a>
         <button type="submit" class="btn btn-primary">Salva le modifiche</button>
       </p>
     </form>
@@ -122,11 +122,11 @@
     <?php endif; ?>
 
     <h1 class="page-title">
-      <?= $case->nome ?>
-      <?php if ($case->isResolved()) : ?>
+      <?= $selectedCase->nome ?>
+      <?php if ($selectedCase->isResolved()) : ?>
         <span class="status status-resolved" title="Risolto"></span>
         <span class="sr-only">Risolto</span>
-      <?php elseif ($case->isArchived()) : ?>
+      <?php elseif ($selectedCase->isArchived()) : ?>
         <span class="status status-archived" title="Archiviato"></span>
         <span class="sr-only">Archiviato</span>
       <?php else : ?>
@@ -136,22 +136,22 @@
     </h1>
     <dl class="case-info">
       <dt>Descrizione</dt>
-      <dd><?= ucfirst($case->descrizione); ?></dd>
+      <dd><?= ucfirst($selectedCase->descrizione); ?></dd>
       <dt>Tipologia</dt>
-      <dd><?= ucfirst($case->tipologia); ?></dd>
+      <dd><?= ucfirst($selectedCase->tipologia); ?></dd>
       <dt>Cliente</dt>
       <dd>
-        <?= $case->cliente->getCodice(); ?> <br>
-        <?= $case->cliente->nome; ?>
-        <?= $case->cliente->cognome; ?>
+        <?= $selectedCase->cliente->getCodice(); ?> <br>
+        <?= $selectedCase->cliente->nome; ?>
+        <?= $selectedCase->cliente->cognome; ?>
       </dd>
       <dt>Criminale</dt>
       <dd>
         <?php 
-          if ($case->isResolved()) {
-            echo $case->criminale->getCodice().'<br>';
-            echo ucwords($case->criminale->nome).' ';
-            echo ucwords($case->criminale->cognome);
+          if ($selectedCase->isResolved()) {
+            echo $selectedCase->criminale->getCodice().'<br>';
+            echo ucwords($selectedCase->criminale->nome).' ';
+            echo ucwords($selectedCase->criminale->cognome);
           } else {
             echo '-';
           }
@@ -177,16 +177,16 @@
       </dd>
       <?php if ($role !== 'inspector') : ?>           <!-- Visibile solo agli investigatori e admin -->
         <dt>Ore totali di investigazione</dt> 
-        <dd><?= $case->getTotalHours(); ?></dd>
+        <dd><?= $selectedCase->getTotalHours(); ?></dd>
       <?php endif; ?>
 
       <dt>Tag</dt>
       <dd>
       <ul class="tags list">
-        <?php if (count($case->tags) === 0) : ?>
+        <?php if (count($selectedCase->tags) === 0) : ?>
           Nessun tag
         <?php else: ?>
-          <?php foreach ($case->tags as $tag) : ?>
+          <?php foreach ($selectedCase->tags as $tag) : ?>
             <li class="list-item"><span class="tag-label"><?= $tag->nome; ?></span></li>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -196,7 +196,7 @@
     <?php if ($role !== 'inspector'): ?>
     <hr />
     <p class="center">
-      <a class="btn btn-outline" href="/caso?id=<?= $case->getId(); ?>&modifica=true">Modifica i dati</a>
+      <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId(); ?>&modifica=true">Modifica i dati</a>
     </p>
     <?php endif; ?>
 

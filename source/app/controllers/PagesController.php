@@ -171,7 +171,7 @@ class PagesController {
         'investigationId' => null,
         'isEdit' => false,
         'cases' => $cases,
-        'selectcase' => $case,
+        'selectedCase' => $case,
         'nuovoCaso' => $nuovoCaso,
         'clienti' => $clienti,
 
@@ -195,7 +195,7 @@ class PagesController {
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
-      'selectcase' => null,
+      'selectedCase' => null,
       'nuovoCaso' => $nuovoCaso,
       'clienti' => $clienti,
 
@@ -274,7 +274,7 @@ class PagesController {
       'investigations' => $investigations,
       'investigationId' => $investigationId,
       'isEdit' => $isEdit,
-      'case' => $case,
+      'selectedCase' => $case,
       'detectives' => $detectives,
       'clienti' => $clienti,
       'criminali' => $criminali,

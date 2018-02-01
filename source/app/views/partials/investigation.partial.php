@@ -10,11 +10,11 @@
     <label class="accordion-label" for="inv-<?= $investigation->getId(); ?>">Investigazione <?= $investigation->getId(); ?></label>
     <?php if ($isEdit &&  $investigation->getId() === $investigationId) : ?> 
       <input type="hidden" name="invId" value="<?= $investigation->getId(); ?>">
-      <input type="hidden" name="caseId" value="<?= $selectcase->getId(); ?>">
+      <input type="hidden" name="caseId" value="<?= $selectedCase->getId(); ?>">
       <div class="investigation-content">
         <p class="center">
           <button class="btn btn-outline">Salva</button>
-          <a class="btn btn-outline" href="/caso?id=<?= $selectcase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
+          <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
         </p>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Svolta da: </span> 
@@ -64,9 +64,9 @@
     <div class="investigation-content">
       <p class="actions">
         <?php if ($routeName === 'dashboard'): ?>
-        <a href="/caso?id=<?= $selectcase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Mostra dettagli</a>
+        <a href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Mostra dettagli</a>
         <?php elseif ($role !== 'inspector'): ?>
-        <a href="/caso?id=<?= $selectcase->getId() ?>&investigazione=<?= $investigation->getId(); ?>&modifica=true">Modifica</a>
+        <a href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>&modifica=true">Modifica</a>
         <?php endif; ?>
       </p>
 

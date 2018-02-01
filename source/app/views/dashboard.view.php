@@ -6,7 +6,7 @@
     <?php if (!isset($zeroCasi)) : ?>
       <ul class="menu-case">
       <?php foreach ($cases as $case) : ?>
-          <?php if (!$nuovoCaso && isset($selectcase) && $case->nome === $selectcase->nome) : ?>
+          <?php if (!$nuovoCaso && isset($selectedCase) && $case->nome === $selectedCase->nome) : ?>
             <li class="case case-select"><?= $case->nome ?></li>
           <?php else : ?>
             <li>
@@ -148,22 +148,22 @@
       <?php endif; ?>
 
       <?php if (!isset($zeroCasi)) : ?>
-        <h2><?= $selectcase->nome ?></h2>
+        <h2><?= $selectedCase->nome ?></h2>
         <div class="case-details">
           <p class="actions">
-            <a class="" href="/caso?id=<?=$selectcase->getId() ?>">Mostra dettagli</a>
+            <a class="" href="/caso?id=<?=$selectedCase->getId() ?>">Mostra dettagli</a>
           </p>
 
           <dl>
             <dt>Tipologia </dt>
-            <dd><?= ucfirst($selectcase->tipologia) ?></dd>
+            <dd><?= ucfirst($selectedCase->tipologia) ?></dd>
             <dt>Descrizione</dt>
-            <dd><?= ucfirst($selectcase->descrizione) ?></dd>
+            <dd><?= ucfirst($selectedCase->descrizione) ?></dd>
           </dl>
 
           <?php if ($role === 'detective') : ?> 
             <p>
-              <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
+              <a class="btn btn-outline" href="/dashboard?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
             </p>
           <?php endif; ?>
 
