@@ -154,6 +154,7 @@
             <a class="" href="/caso?id=<?=$selectcase->getId() ?>">Mostra dettagli</a>
           </p>
 
+          <dl>
             <dt>Tipologia </dt>
             <dd><?= ucfirst($selectcase->tipologia) ?></dd>
             <dt>Descrizione</dt>

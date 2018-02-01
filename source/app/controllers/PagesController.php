@@ -250,12 +250,12 @@ class PagesController {
     $investigazioneOk = Request::getQueryParam('investigazioneOk') !== null;
     $investigazioneErrore = Request::getQueryParam('investigazioneErrore') !== null;
 
-    $selectcase = $this->casesController->getCaseDetails($caseId);
+    $selectedCase = $this->casesController->getCaseDetails($caseId);
     $detectives = $this->casesController->getDetectives($caseId);
     $tags = $this->casesController->getTags($caseId);
     
-    $selectcase->investigazioni = $investigations;
-    $selectcase->tags = $tags;
+    $selectedCase->investigazioni = $investigations;
+    $selectedCase->tags = $tags;
 
     $clienti = $this->usersController->getClients();
     $criminali = $this->usersController->getCriminals();
@@ -276,7 +276,7 @@ class PagesController {
       'investigations' => $investigations,
       'investigationId' => $investigationId,
       'isEdit' => $isEdit,
-      'selectcase' => $selectcase,
+      'selectedCase' => $selectedCase,
       'detectives' => $detectives,
       'clienti' => $clienti,
       'criminali' => $criminali,
