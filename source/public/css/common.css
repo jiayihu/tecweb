@@ -220,6 +220,11 @@ dd {
   color: white;
 }
 
+.main-sidebar .btn-link {
+  color: inherit;
+  margin-right: 1rem;
+}
+
 /*----------  Components  ----------*/
 /* CSS styles for reused components like buttons, lists etc. */
 

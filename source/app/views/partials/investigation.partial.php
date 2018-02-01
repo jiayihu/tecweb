@@ -110,7 +110,7 @@
       </div>
       <div class="investigation-content-field">
         <span class="investigation-content-title">Prove: </span>
-        <?php if(sizeof($investigation->prove) > 0) : ?>
+        <?php if(count($investigation->prove) > 0) : ?>
           <table>
             <thead>
               <tr>

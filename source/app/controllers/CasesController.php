@@ -27,7 +27,7 @@ class CasesController {
   public function editCase(array $parameters): bool {
     $table = 'caso';
 
-    $caseId = $parameters['caseId'];
+    $case = $parameters['case'];
     $newNome = $parameters['newNome'];
     $newDescrizione = $parameters['newDescrizione'];
     $tipologia = $parameters['tipologia'];
@@ -36,15 +36,16 @@ class CasesController {
     $passato = $parameters['passato'];
     $tags = $parameters['tags'];
 
-    // vengono eliminati i tags selezionati
-    if($tags != null && sizeof($tags) > 0) {
-      $table = 'etichettamento';
+    // Delete all case tags then add the new ones
+    $this->deleteCaseTags($case);
+    if($tags != null && count($tags) > 0) {
       foreach($tags as $tag) {
-        $where ='caso = :id_caso AND tag = :tag';
-        $succ_tag = $this->database->delete($table, $where, [
-          ':id_caso' => $caseId,
-          ':tag' => $tag
+        $succ_tag = $this->database->insert('etichettamento', [
+          'caso' => $case->getId(),
+          'tag' => $tag
         ]);
+
+        if (!$succ_tag) return false;
       }
     }
     
@@ -64,22 +65,22 @@ class CasesController {
       ':new_descrizione' => $newDescrizione,
       ':tipologia' => $tipologia,
       ':cf_cliente' => $cf_cliente,
-      ':id_caso' => $caseId,
+      ':id_caso' => $case->getId(),
       ':risolto' => $risolto,
       ':passato' => $passato
     ]);
-
-    if((isset($succ_tag) && $succ_tag && $succ_caso)) {
-      return true;
-    } else {
-      if($succ_caso) {
-        return true;
-      }
-    }
-    return false;
+    
+    return $succ_caso;
   }
 
-  public function editCaseCriminal($caseId, $cf_criminale): bool {
+  public function deleteCaseTags(Caso $case) {
+    $where ='caso = :id_caso';
+    $this->database->delete('etichettamento', $where, [
+      ':id_caso' => $case->getId()
+    ]);
+  }
+
+  public function editCaseCriminal(int $caseId, string $cf_criminale): bool {
     $table = 'risoluzione';
     $changes = 'cf_criminale = :new_cf_criminale';
     $where = 'caso = :id_caso';
@@ -90,7 +91,7 @@ class CasesController {
     ]);
   }
 
-  public function deleteCaseCriminal($caseId): bool {
+  public function deleteCaseCriminal(int $caseId): bool {
     $table = 'risoluzione';
     $where = "caso = :id_caso";
 
@@ -104,7 +105,7 @@ class CasesController {
     return $result;
   }
 
-  public function getCase($codice): Caso {
+  public function getCase(int $codice): Caso {
     $table = 'caso';
     $where='caso.codice = :codice_caso';
     $parameters[':codice_caso'] = $codice;
@@ -118,7 +119,7 @@ class CasesController {
     return $this->createCaso($result[0]);
   }
 
-  public function getCaseDetails($codice): Caso {
+  public function getCaseDetails(int $codice): Caso {
     $caso = $this->getCase($codice);
     
     $table = 'risoluzione, criminale';
@@ -131,7 +132,7 @@ class CasesController {
       $parameters
     );
 
-    if(sizeof($result) > 0) {
+    if(count($result) > 0) {
       $caso->criminale = new Criminale($result[0]->criminale, $result[0]->nome, $result[0]->cognome);
     }
 
@@ -149,7 +150,7 @@ class CasesController {
     return $caso;
   }
 
-  public function getDetectives($codice): array {
+  public function getDetectives(int $codice): array {
     $table = 'lavoro, investigatore';
     $where = 'lavoro.caso = :id_caso AND investigatore.codice_fiscale = lavoro.investigatore ORDER BY nome';
     $parameters[':id_caso'] = $codice;
@@ -163,7 +164,7 @@ class CasesController {
     return $result;
   }
 
-  public function getIspectorCases($cf_ispector) {
+  public function getIspectorCases(string $cf_ispector) {
     $table = 'caso';
     $columns = [
       'caso.codice',
@@ -199,7 +200,7 @@ class CasesController {
     return $result;
   }
 
-  public function getTags($idcaso): array {
+  public function getTags(int $idcaso): array {
     $table = 'etichettamento, tag';
     $columns = [
       'nome',
@@ -220,7 +221,7 @@ class CasesController {
     return $tags;
   }
 
-  public function checkCaseName($nome, $id_caso): bool {
+  public function checkCaseName(string $nome, int $id_caso): bool {
     $table = 'caso';
     $parameters[':nome_caso'] = $nome;
     $parameters[':id_caso'] = $id_caso;
@@ -233,20 +234,20 @@ class CasesController {
       $parameters
     );
 
-    if(sizeof($exist) > 0) {
+    if(count($exist) > 0) {
       return true;
     }
 
     return false;
   }
 
-  public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
+  public function insertCase(string $nome, string $tipo, string $descrizione, string $cliente): bool {
 
     $exist = $this->checkCaseName($nome, null);
 
     $table = 'caso';
 
-    if(sizeof($exist) == 0) {
+    if(count($exist) == 0) {
       return $this->database->insert($table, [
         'codice' => "",
         'descrizione' => $descrizione,
@@ -261,7 +262,7 @@ class CasesController {
     }
   }
 
-  public function insertCaseCriminal($caseId, $cf_criminale): bool {
+  public function insertCaseCriminal(int $caseId, string $cf_criminale): bool {
     $table = 'risoluzione';
 
     return $this->database->insert( $table, [

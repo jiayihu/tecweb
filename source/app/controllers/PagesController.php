@@ -148,7 +148,7 @@ class PagesController {
       if($codice==null) {
         $codice = $cases[0]->codice;
       }
-      $selectcase = $this->casesController->getCase($codice); 
+      $case = $this->casesController->getCase($codice); 
       
       if($nuovaInvestigazione) {
         $succ = $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
@@ -171,7 +171,7 @@ class PagesController {
         'investigationId' => null,
         'isEdit' => false,
         'cases' => $cases,
-        'selectcase' => $selectcase,
+        'selectcase' => $case,
         'nuovoCaso' => $nuovoCaso,
         'clienti' => $clienti,
 
@@ -243,26 +243,24 @@ class PagesController {
     $investigationId = (int) Request::getQueryParam('investigazione');
     $isEdit = Request::getQueryParam('modifica') !== null;
 
+    $case = $this->casesController->getCaseDetails($caseId);
+    $detectives = $this->casesController->getDetectives($caseId);
+    $tags = $this->casesController->getTags($caseId);
+    
+    $case->investigazioni = $investigations;
+    $case->tags = $tags;
+
+    $clienti = $this->usersController->getClients();
+    $criminali = $this->usersController->getCriminals();
+    $investigatori = $this->usersController->getDetectives();
+    $allTags = $this->tagsController->getTags();
+
     $erroreArchiviazione = Request::getQueryParam('erroreArchiviazione') !== null;
     $duplicato = Request::getQueryParam('duplicato') !== null;
     $modificaOk = Request::getQueryParam('modificaOk') !== null;
     $modificaErrore = Request::getQueryParam('modificaErrore') !== null;
     $investigazioneOk = Request::getQueryParam('investigazioneOk') !== null;
     $investigazioneErrore = Request::getQueryParam('investigazioneErrore') !== null;
-
-    $selectedCase = $this->casesController->getCaseDetails($caseId);
-    $detectives = $this->casesController->getDetectives($caseId);
-    $tags = $this->casesController->getTags($caseId);
-    
-    $selectedCase->investigazioni = $investigations;
-    $selectedCase->tags = $tags;
-
-    $clienti = $this->usersController->getClients();
-    $criminali = $this->usersController->getCriminals();
-    $investigatori = $this->usersController->getDetectives();
-
-    $successo = Request::getQueryParam('successo') !== null;
-    $errore = Request::getQueryParam('errore') !== null;
 
     if ($role === 'inspector' && $isEdit) {
       return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
@@ -276,11 +274,12 @@ class PagesController {
       'investigations' => $investigations,
       'investigationId' => $investigationId,
       'isEdit' => $isEdit,
-      'selectedCase' => $selectedCase,
+      'case' => $case,
       'detectives' => $detectives,
       'clienti' => $clienti,
       'criminali' => $criminali,
       'investigatori' => $investigatori,
+      'allTags' => $allTags,
 
       'erroreArchiviazione' => $erroreArchiviazione,
       'duplicato' => $duplicato,
@@ -299,130 +298,131 @@ class PagesController {
     $caseId = Request::getPOSTParam('caseId');
     $investigationId = Request::getPOSTParam('invId');
 
-    if($investigationId == null) {                              // modifica caso
-      $nome = Request::getPOSTParam('title');
-      $descrizione = Request::getPOSTParam('descrizione');
-      $tipologia = Request::getPOSTParam('tariffa');
-      $cf_cliente = Request::getPOSTParam('cliente');
-      $criminale = Request::getPOSTParam('criminale');
-      $tags = Request::getPOSTParam('tags');
-      $archiviaIrrisolto = Request::getPOSTParam('archivia');
-  
-      $selectcase = $this->casesController->getCaseDetails($caseId);
+    if($investigationId === null) {
+      $this->handleEditCasePOST($caseId);
+    } else {
+      $this->handleEditInvestigationPOST($investigationId);
+    }
+  }
 
-      // far tornare attivo un caso irrisolto
+  public function handleEditCasePOST(int $caseId) {
+    $nome = Request::getPOSTParam('title');
+    $descrizione = Request::getPOSTParam('descrizione');
+    $tipologia = Request::getPOSTParam('tariffa');
+    $cf_cliente = Request::getPOSTParam('cliente');
+    $criminale = Request::getPOSTParam('criminale');
+    $tags = Request::getPOSTParam('tags');
+    $archiviaIrrisolto = Request::getPOSTParam('archivia');
 
-      if($archiviaIrrisolto && $criminale != 'no_criminal') {
-        return \Core\redirect('/caso?id='.$caseId.'&modifica=true&erroreArchiviazione=true');
-      } else {
-        if(!$archiviaIrrisolto) {
-          if($criminale != 'no_criminal' && !$selectcase->isResolved()) { // caso risolto
-            $succ = $this->casesController->insertCaseCriminal($selectcase->getId(), $criminale);
-            $selectcase->setResolved(true);
-            $selectcase->setArchived(true);
-            $archiviato = true;                                 // un caso risolto deve essere anche archiviato
-          } else {
-            if($criminale != 'no_criminal' && $criminale != $selectcase->criminale->getCodice()) { // caso già risolto, cambia il criminale
-              $succ = $this->casesController->editCaseCriminal($selectcase->getId(), $criminale);
-            } else {
-              if($criminale == 'no_criminal' && $selectcase->isResolved()) { // caso da risolto ritorna attivo (oerazione possibile solo da admin)
-                $succ = $this->casesController->deleteCaseCriminal($selectcase->getId());
-                $selectcase->setResolved(false);
-                $selectcase->setArchived(false);
-              } else {
-                if($criminale == 'no_criminal' && !$selectcase->isResolved()) {
-                  $selectcase->setArchived(false);
-                }
-              }
-            }
-          }
-        } else {
-          $selectcase->setArchived(true);     // caso irrisolto viene archiviato
-          $archiviaIrrisolto = true;
-        }
-      }
-  
-      if($selectcase->isResolved()) {
-        $risolto = 1;
-      } else {
-        $risolto = 0;
-      }
-  
-      if($selectcase->isArchived()) {
-        $passato = 1;
-      } else {
-        $passato = 0;
+    $case = $this->casesController->getCaseDetails($caseId);
+
+    // Cannot archived without a criminal
+    if($archiviaIrrisolto && $criminale != 'no_criminal') {
+      return \Core\redirect('/caso?id='.$caseId.'&modifica=true&erroreArchiviazione=true');
+    }
+
+    if ($archiviaIrrisolto) {
+      $case->setArchived(true);
+    }
+    
+    if(!$archiviaIrrisolto) {
+      // Resolved case
+      if($criminale != 'no_criminal' && !$case->isResolved()) {
+        $succ = $this->casesController->insertCaseCriminal($case->getId(), $criminale);
+        $case->setResolved(true);
+        $case->setArchived(true);
       }
 
-      $exist = $this->casesController->checkCaseName($nome, $selectcase->getId());
-
-      if(!$exist) {
-        $successo = $this->casesController->editCase([
-          'caseId' => $selectcase->getId(),
-          'newNome' => $nome,
-          'newDescrizione' => $descrizione,
-          'tipologia' => $tipologia,
-          'cf_cliente' => $cf_cliente,
-          'risolto' => $risolto,
-          'passato' => $passato,
-          'tags' => $tags
-        ]);
-      } else {
-        $path = '/caso?id='.$caseId.'&modifica=true&duplicato=true';
-        return \Core\redirect($path);
-      }
-  
-      if(isset($archiviaIrrisolto)) {
-        return \Core\redirect('/dashboard?archiviatoIrrisolto=true');
-      } else {
-        $path = '/caso?id='.$selectcase->getId();
-        if((isset($succ) && $succ && $successo) || $successo) {
-          $path = $path.'&modificaOk=true';
-          return \Core\redirect($path);
-        } else {
-            $path = $path.'&modificaErrore=true';
-            return \Core\redirect($path);          
-        }
-      }
-    } else {                // modifica di una investigazione
-      $investigationId = Request::getPOSTParam('invId');
-      $investigatore = Request::getPOSTParam('investigatore');
-      $ore = Request::getPOSTParam('ore');
-      $date_to = Request::getPOSTParam('date_to');
-      $rapporto = Request::getPOSTParam('rapporto');
-      $scena_nome = Request::getPOSTParam('scena_nome');
-      $scena_descrizione = Request::getPOSTParam('scena_descrizione');
-      $scena_citta = Request::getPOSTParam('scena_citta');
-      $scena_indirizzo = Request::getPOSTParam('scena_indirizzo');
-
-      $succ_scena = $this->investigationsController->editScena([
-        'caseId' => $caseId,
-        'investigationId' => $investigationId,
-        'nome' => $scena_nome,
-        'descrizione' => $scena_descrizione,
-        'citta' => $scena_citta,
-        'indirizzo' => $scena_indirizzo
-      ]);
-
-      $succ_inv = $this->investigationsController->editInvestigation([
-        'caseId' => $caseId,
-        'investigationId' => $investigationId,
-        'investigatore' => $investigatore,
-        'date_to' => $date_to,
-        'rapporto' => $rapporto,
-        'ore' => $ore
-      ]);
-
-      $path = '/caso?id='.$caseId.'&investigazione='.$investigationId;
-      
-      if($succ_scena && $succ_inv) {
-        $path = $path.'&investigazioneOk=true';
-      } else {
-        $path = $path.'&investigazioneErrore=true';
+      // Case already resolved, just changing the criminal
+      if($criminale != 'no_criminal' && $case->isResolved() && $criminale != $case->criminale->getCodice()) {
+        $succ = $this->casesController->editCaseCriminal($case->getId(), $criminale);
       }
 
+      // Resolved case is set back as active
+      if($criminale == 'no_criminal' && $case->isResolved()) {
+        $succ = $this->casesController->deleteCaseCriminal($case->getId());
+        $case->setResolved(false);
+        $case->setArchived(false);
+      }
+
+      if($criminale == 'no_criminal' && !$case->isResolved()) {
+        $case->setArchived(false);
+      }
+    }
+
+    $risolto = $case->isResolved() ? 1 : 0;
+    $passato = $case->isArchived() ? 1 : 0;
+
+    $exist = $this->casesController->checkCaseName($nome, $case->getId());
+
+    if ($exist) {
+      $path = '/caso?id='.$caseId.'&modifica=true&duplicato=true';
       return \Core\redirect($path);
     }
+
+    $success = $this->casesController->editCase([
+      'case' => $case,
+      'newNome' => $nome,
+      'newDescrizione' => $descrizione,
+      'tipologia' => $tipologia,
+      'cf_cliente' => $cf_cliente,
+      'risolto' => $risolto,
+      'passato' => $passato,
+      'tags' => $tags
+    ]);
+
+    if(isset($archiviaIrrisolto)) {
+      return \Core\redirect('/dashboard?archiviatoIrrisolto=true');
+    }
+
+    $path = "/caso?id={$case->getId()}";
+
+    if((isset($succ) && !$succ) || !$success) {
+      $path = "${$path}&modificaErrore=true";
+    } else {
+      $path = "${$path}&modificaOk=true";
+    }
+
+    return \Core\redirect($path);          
+  }
+
+  public function handleEditInvestigationPOST($investigationId) {
+    $investigatore = Request::getPOSTParam('investigatore');
+    $ore = Request::getPOSTParam('ore');
+    $date_to = Request::getPOSTParam('date_to');
+    $rapporto = Request::getPOSTParam('rapporto');
+    $scena_nome = Request::getPOSTParam('scena_nome');
+    $scena_descrizione = Request::getPOSTParam('scena_descrizione');
+    $scena_citta = Request::getPOSTParam('scena_citta');
+    $scena_indirizzo = Request::getPOSTParam('scena_indirizzo');
+
+    $succ_scena = $this->investigationsController->editScena([
+      'caseId' => $caseId,
+      'investigationId' => $investigationId,
+      'nome' => $scena_nome,
+      'descrizione' => $scena_descrizione,
+      'citta' => $scena_citta,
+      'indirizzo' => $scena_indirizzo
+    ]);
+
+    $succ_inv = $this->investigationsController->editInvestigation([
+      'caseId' => $caseId,
+      'investigationId' => $investigationId,
+      'investigatore' => $investigatore,
+      'date_to' => $date_to,
+      'rapporto' => $rapporto,
+      'ore' => $ore
+    ]);
+
+    $path = "/caso?id={$caseId}&investigazione={$investigationId}";
+    
+    if($succ_scena && $succ_inv) {
+      $path = "{$path}&investigazioneOk=true";
+    } else {
+      $path = "{$path}&investigazioneErrore=true";
+    }
+
+    return \Core\redirect($path);
   }
 
   public function addCase() {

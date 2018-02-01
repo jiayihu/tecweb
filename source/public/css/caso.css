@@ -45,6 +45,16 @@ h2 {
   background: #c62828;
 }
 
+@media (min-width: 768px) {
+  .main-sidebar {
+    width: 33.3333%;
+  }
+
+  .main-content {
+    width: 66.6666%;
+  }
+}
+
 @media (min-width: 992px) {
   .main-content {
     padding-left: 1rem;

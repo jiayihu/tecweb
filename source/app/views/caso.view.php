@@ -4,7 +4,7 @@
   <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
-      <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>"
+      <input type="hidden" name="caseId" value="<?= $case->getId() ?>"
       <dl class="case-info">
         <?php if($erroreArchiviazione) : ?>
           <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
@@ -28,21 +28,17 @@
 
         <dt>Archivia</dt>
         <dd>
-        <?php if($selectedCase->isArchived()) : ?>
-          <input type="checkbox" name="archivia" checked>Archivia caso irrisolto</input>
-        <?php else: ?>
-          <input type="checkbox" name="archivia">Archivia caso irrisolto</input>
-        <?php endif; ?>        
+        <input type="checkbox" name="archivia" <?php echo $case->isArchived() ? 'checked' : ''?>> Archivia come irrisolto</input>
         </dd>
         <dt>Titolo</dt>
-        <dd><input class="input" type="text" name="title" value="<?= $selectedCase->nome; ?>"></dd>
+        <dd><input class="input" type="text" name="title" value="<?= $case->nome; ?>"></dd>
         <dt>Descrizione</dt>
-        <dd><textarea name="descrizione"><?= $selectedCase->descrizione ?></textarea></dd>
+        <dd><textarea name="descrizione"><?= $case->descrizione ?></textarea></dd>
         <dt>Tipologia</dt>
         <dd>
         <select class="select" name="tariffa">
           <?php 
-            switch($selectedCase->tipologia) : 
+            switch($case->tipologia) : 
               case 'furto':
             ?>
               <option value="furto" selected>Furto</option>
@@ -86,7 +82,7 @@
         <dd>
           <select class="select" name="cliente">
             <?php foreach($clienti as $cliente) : ?>
-              <?php if($cliente->codice_fiscale == $selectedCase->cliente->getCodice()) : ?>
+              <?php if($cliente->codice_fiscale == $case->cliente->getCodice()) : ?>
                 <option value="<?= $cliente->codice_fiscale; ?>" selected><?= $cliente->codice_fiscale; ?></option>
               <?php else: ?>
                 <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
@@ -97,31 +93,33 @@
         <dt>Criminale</dt>
         <dd>
           <select class="select" name="criminale">
-            <?php if($selectedCase->isResolved()) : ?>
-              <option value="no_criminal">-</option>
-              <?php foreach($criminali as $criminale) : ?>
-                <?php if($criminale->codice_fiscale == $selectedCase->criminale->getCodice()) : ?>
-                  <option value="<?= $criminale->codice_fiscale; ?>" selected><?= $criminale->codice_fiscale; ?></option>
-                <?php else: ?>
-                  <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
-                <?php endif; ?>
-              <?php endforeach; ?>
-            <?php else : ?>
-              <option value="no_criminal" selected>-</option>
-              <?php foreach($criminali as $criminale) : ?>
-                <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
-              <?php endforeach; ?>
-            <?php endif; ?>
+            <option value="no_criminal" <?php echo $case->isResolved() ? '' : 'selected' ?>>Nessun criminale</option>
+            <?php foreach($criminali as $criminale) : ?>
+              <option
+                value="<?= $criminale->codice_fiscale; ?>"
+                <?php echo isset($case->criminale) && $case->criminale->getCodice() === $criminale->codice_fiscale ? 'selected' : '' ?>
+              >
+                <?= $criminale->codice_fiscale; ?>
+              </option>
+            <?php endforeach; ?>
           </select>
         </dd>
         <dt>Tag</dt>
         <dd>
           <ul class="tags list">
-            <?php foreach($selectedCase->tags as $tag) : ?>
+            <?php foreach($allTags as $tag) : ?>
               <li class="list-item">
                 <label class="tag">
-                  <input hidden type="checkbox" name="tags[]" value="<?= $tag->getSlug(); ?>" />
-                  <span class="tag-label"><?= $tag->nome; ?></span>
+                  <input class="hide" type="checkbox" name="tags[]" value="<?php echo $tag->getSlug() ?>"
+                    <?php
+                      $selected = \array_filter($case->tags, function($caseTag) use ($tag) {
+                        return $caseTag->getSlug() === $tag->getSlug();
+                      });
+                      $isSelected = \count($selected) > 0;
+                      echo $isSelected ? 'checked' : '';
+                    ?>
+                  />
+                  <span class="input-label tag-label"><?php echo $tag->nome ?></span>
                 </label>
               </li>
             <?php endforeach; ?>
@@ -131,10 +129,8 @@
       
       <hr />
       <p class="center">
-        <button type="submit" class="btn btn-outline">Salva le modifiche</button>
-      </p>
-      <p class="center">
-        <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId(); ?>">Annulla</a>
+        <a class="btn btn-link" href="/caso?id=<?= $case->getId(); ?>">Annulla</a>
+        <button type="submit" class="btn btn-primary">Salva le modifiche</button>
       </p>
     </form>
     <?php else : ?>
@@ -160,11 +156,11 @@
     <?php endif; ?>
 
     <h1 class="page-title">
-      <?= $selectedCase->nome ?>
-      <?php if($selectedCase->isResolved()) : ?>
+      <?= $case->nome ?>
+      <?php if($case->isResolved()) : ?>
         <span class="status status-resolved" title="Risolto"></span>
         <span class="sr-only">Risolto</span>
-      <?php elseif($selectedCase->isArchived()) : ?>
+      <?php elseif($case->isArchived()) : ?>
         <span class="status status-archived" title="Archiviato"></span>
         <span class="sr-only">Archiviato</span>
       <?php else : ?>
@@ -174,22 +170,22 @@
     </h1>
     <dl class="case-info">
       <dt>Descrizione</dt>
-      <dd><?= ucfirst($selectedCase->descrizione); ?></dd>
+      <dd><?= ucfirst($case->descrizione); ?></dd>
       <dt>Tipologia</dt>
-      <dd><?= ucfirst($selectedCase->tipologia); ?></dd>
+      <dd><?= ucfirst($case->tipologia); ?></dd>
       <dt>Cliente</dt>
       <dd>
-        <?= $selectedCase->cliente->getCodice(); ?> <br>
-        <?= $selectedCase->cliente->nome; ?>
-        <?= $selectedCase->cliente->cognome; ?>
+        <?= $case->cliente->getCodice(); ?> <br>
+        <?= $case->cliente->nome; ?>
+        <?= $case->cliente->cognome; ?>
       </dd>
       <dt>Criminale</dt>
       <dd>
         <?php 
-          if($selectedCase->isResolved()) {
-            echo $selectedCase->criminale->getCodice().'<br>';
-            echo ucwords($selectedCase->criminale->nome).' ';
-            echo ucwords($selectedCase->criminale->cognome);
+          if($case->isResolved()) {
+            echo $case->criminale->getCodice().'<br>';
+            echo ucwords($case->criminale->nome).' ';
+            echo ucwords($case->criminale->cognome);
           } else {
             echo '-';
           }
@@ -199,7 +195,7 @@
       <dd>
         <ul class="list">
           <?php
-            if(sizeof($detectives) == 0) {
+            if(count($detectives) == 0) {
               echo '-';
             } else {
               foreach($detectives as $detective) {
@@ -215,17 +211,17 @@
       </dd>
       <?php if($role !== 'inspector') : ?>           <!-- Visibile solo agli investigatori e admin -->
         <dt>Ore totali di investigazione</dt> 
-        <dd><?= $selectedCase->getTotalHours(); ?></dd>
+        <dd><?= $case->getTotalHours(); ?></dd>
       <?php endif; ?>
 
       <dt>Tag</dt>
       <dd>
       <ul class="tags list">
-        <?php if(sizeof($selectedCase->tags) == 0) : ?>
+        <?php if(count($case->tags) == 0) : ?>
           Nessun tag
         <?php else: ?>
-          <?php foreach($selectedCase->tags as $tag) : ?>
-            <li class="list-item"><span class="tag-label"><?= ucfirst($tag->nome); ?></span></li>
+          <?php foreach($case->tags as $tag) : ?>
+            <li class="list-item"><span class="tag-label"><?= $tag->nome; ?></span></li>
           <?php endforeach; ?>
         <?php endif; ?>
       </dd>
@@ -234,7 +230,7 @@
     <?php if ($role !== 'inspector'): ?>
     <hr />
     <p class="center">
-      <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId(); ?>&modifica=true">Modifica i dati</a>
+      <a class="btn btn-outline" href="/caso?id=<?= $case->getId(); ?>&modifica=true">Modifica i dati</a>
     </p>
     <?php endif; ?>
 
@@ -263,7 +259,7 @@
       </p>
     <?php endif; ?>
 
-    <?php if(sizeof($investigations) == 0) : ?>
+    <?php if(count($investigations) == 0) : ?>
       <p> Nessuna investigazione disponibile.
     <?php else : ?>
       <?php foreach ($investigations as $index => $investigation) : ?>
