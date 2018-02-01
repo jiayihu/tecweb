@@ -28,18 +28,11 @@
         <li class="list-item dropdown">
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
+            <?php if ($role === 'admin'): ?>
             <li class="list-item">
-              <a href="">Aggiungi cliente</a>
+              <a href="">Gestisci tag</a>
             </li>
-            <li class="list-item">
-              <a href="">Aggiungi criminale</a>
-            </li>
-            <li class="list-item">
-              <a href="">Aggiungi prova</a>
-            </li>
-            <li class="list-item">
-              <a href="">Aggiungi tag</a>
-            </li>
+            <?php endif; ?>
             <li class="list-item">
               <a href="aggiungi-criminale">Aggiungi criminale</a>
             </li>

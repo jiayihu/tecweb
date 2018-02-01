@@ -5,12 +5,10 @@ namespace App\Controllers;
 use \App\Models\Investigazione;
 use \App\Models\Investigatore;
 use \App\Models\Scena;
-use \App\Models\Prova;
 
 require_once 'app/models/Investigazione.php';
 require_once 'app/models/Investigatore.php';
 require_once 'app/models/Scena.php';
-require_once 'app/models/Prova.php';
 
 class InvestigationsController {
   /**
@@ -122,14 +120,7 @@ class InvestigationsController {
   }
 
   public function getInvestigations(int $idcaso): array {
-    $investigations = $this->getInvestigationsDetails($idcaso);
-
-    foreach ($investigations as $investigation) {
-      $prove = $this->getProve($investigation->getCaseId(), $investigation->getId());
-      $investigation->prove = $prove;
-    }
-
-    return $investigations;
+    return $this->getInvestigationsDetails($idcaso);
   }
 
   private function insertScena(string $slug, int $id_caso, string $id_investigazione, Scena $scena) {
@@ -300,47 +291,6 @@ class InvestigationsController {
     }, $results);
 
     return $investigations;
-  }
-
-  private function getProve($idcase, $investigation) {
-    $parameters[':id_caso'] = $idcase;
-    $parameters[':investigazione'] = $investigation;
-    $columns = [
-      'nome',
-      'codice',
-      'locazione',
-      'descrizione'
-    ];
-
-    $conditions = [
-      'prova.caso = :id_caso',
-      'prova.investigazione = :investigazione'
-    ];
-
-    $where = \implode(' AND ', $conditions);
-    $where . " order by nome";
-
-    $results = $this->database->selectWhere(
-      'prova',
-      $columns,
-      $where,
-      $parameters
-    );
-
-    $prove = \array_map(function ($result) {
-      return $this->createProva($result);
-    }, $results);
-
-    return $prove;
-  }
-
-  private function createProva($result): Prova {
-    return new Prova(
-      $result->codice,
-      $result->nome,
-      $result->descrizione,
-      $result->locazione
-    );
   }
 
   private function createInvestigazione($result): Investigazione {

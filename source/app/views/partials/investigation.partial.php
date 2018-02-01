@@ -108,29 +108,6 @@
             }
           ?>
       </div>
-      <div class="investigation-content-field">
-        <span class="investigation-content-title">Prove: </span>
-        <?php if (count($investigation->prove) > 0) : ?>
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th class="descr">Descrizione</th>
-              </tr>
-            </thead>
-            <tbody>           
-              <?php foreach ($investigation->prove as $prova) : ?>
-                <tr>
-                  <th><?= ucfirst($prova->nome) ?></th>
-                  <th class="descr"><?= ucfirst($prova->descrizione) ?></th>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        <?php else : ?>
-          -
-        <?php endif; ?>
-      </div>
     </div>
     <?php endif; ?>
   </div>

@@ -2,7 +2,7 @@
   * L'ordine è importante a causa delle chiavi esterne. Non si può droppare una
   * tabella se prima non si droppano quelle relazionate come FOREIGN KEY
  */
-DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, etichettamento, ispettore, lavoro, prova, risoluzione, scena_investigazione, tag;
+DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, etichettamento, ispettore, lavoro, risoluzione, scena_investigazione, tag;
 DROP TABLE IF EXISTS criminale, investigatore, investigazione;
 DROP TABLE IF EXISTS caso, cliente, tariffa;
 
@@ -87,16 +87,6 @@ CREATE TABLE investigatore (
   password_hash VARCHAR(256) NOT NULL,
   nome VARCHAR(100) NOT NULL,
   cognome VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE prova (
-  codice INTEGER(10) auto_increment PRIMARY KEY,
-  nome VARCHAR(100) NOT NULL,
-  descrizione TEXT NOT NULL,
-  locazione VARCHAR(100) NOT NULL,
-  investigazione TINYINT NOT NULL,
-  caso INTEGER(10) NOT NULL,
-  FOREIGN KEY (investigazione, caso) REFERENCES investigazione(numero, caso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE ispettore (
@@ -226,8 +216,7 @@ INSERT INTO `caso` (`codice`, `descrizione`, `nome`, `passato`, `risolto`, `tipo
 (89, 'Una famiglia mentre &egrave; in vacanza viene derubata di tutti i beni preziosi in casa. L\'abitazione &egrave; collocata nelle campagne padove.', 'Grosso furto in campagna', 0, 0, 'furto', 'EGWYML53H52V479I'),
 (91, 'Marrry, una bimba di soli 3 anni di una riccaaaa famiglia romana, &egrave; stataa rapiiita ddda una famosa bandaaa in cerrrcaaa di soldiiii.', 'La piccola Mary', 0, 0, 'ricatto', 'EGWYML53H52V479I'),
 (93, 'E\' sparito il cane di un famoso avvocato milanese che amava saltellare per la campagna. Le ricerche si concetrerrano l&agrave;.', 'Il cane salterino', 1, 1, 'ricerca', 'CYDTFN83D62O801H'),
-(98, 'Dei cani randagi si aggirano per la citt&agrave; spaventando i bambini e rubando cibo dalle macellerie.', 'La banda dei cani randagi', 0, 0, 'furto', 'DMTSUP71S31A293U'),
-(99, 'qwertyuiop', 'Prova prova', 1, 1, 'furto', 'EMCRAJ52W88I906Y');
+(98, 'Dei cani randagi si aggirano per la citt&agrave; spaventando i bambini e rubando cibo dalle macellerie.', 'La banda dei cani randagi', 0, 0, 'furto', 'DMTSUP71S31A293U');
 
 INSERT INTO `investigazione` (`numero`, `caso`, `data_inizio`, `data_termine`, `rapporto`, `ore_totali`) VALUES
 (1, 28, '2018-01-03', NULL, '', 5),

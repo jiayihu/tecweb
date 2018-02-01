@@ -13,7 +13,6 @@ class Investigazione {
 
   public $investigatore;
   public $scena;
-  public $prove;
 
   private $id;
   private $caso;
@@ -27,8 +26,7 @@ class Investigazione {
     int $oreTotali = 0,
 
     Investigatore $investigatore = null,
-    Scena $scena = null,
-    array $prove = []
+    Scena $scena = null
     ) {
     $this->id = $id;
     $this->caso = $caso;
@@ -39,7 +37,6 @@ class Investigazione {
     
     $this->investigatore = $investigatore;
     $this->scena = $scena;
-    $this->prove = $prove;
   }
 
   public function getId(): int {
