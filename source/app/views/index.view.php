@@ -12,9 +12,9 @@
 </div>
 
 <main class="container">
-  <section class="history">
+  <div class="history">
     <p>Nato nel 1887 nel cuore di Londra, da oltre un secolo si occupa di risolvere i più controversi ed enigmatici casi di criminalità offrendo consulenza a privati, aziende e alla polizia tra cui Scotland Yard.</p>
-  </section>
+  </div>
 
   <section class="service clearfix">
     <div class="service-content col half">
@@ -23,13 +23,13 @@
       <p><a href="servizi#private" class="btn btn-outline">Open service</a></p>
     </div>
     <div class="service-photo col half">
-      <img src="public/images/home/private.jpg"> <!-- alt non importante -->
+      <img src="public/images/home/private.jpg" alt="Investigazioni private">
     </div>
   </section>
 
   <section class="service clearfix">
     <div class="service-photo col half">
-      <img src="public/images/home/agency.jpg"> <!-- alt non importante -->
+      <img src="public/images/home/agency.jpg" alt="Investigazioni aziendali">
     </div>
     <div class="service-content col half">
       <h2>Investigazioni aziendali</h2>
@@ -45,13 +45,13 @@
       <p><a href="servizi#difensive" class="btn btn-outline">Open service</a></p>
     </div>
     <div class="service-photo col half">
-      <img src="public/images/home/legal.jpg"> <!-- alt non importante -->
+      <img src="public/images/home/legal.jpg" alt="Investigazioni difensive">
     </div>
   </section>
 
   <section class="service clearfix">
     <div class="service-photo col half">
-      <img src="public/images/home/special.jpg"> <!-- alt non importante -->
+      <img src="public/images/home/special.jpg" alt="Investigazioni cyber-security">
     </div>
     <div class="service-content col half">
       <h2>Investigazioni cyber-security</h2>
@@ -65,21 +65,21 @@
     <div class="method-content"> 
       <h3 class="method-content-title">#1 Analisi del caso</h3>
       <div class="method-content-image">
-          <img src="public/images/home/microscopio.png">
+          <img src="public/images/home/microscopio.png" alt="Icon analisi dettagliata come un microscopio">
       </div>
       <p class="method-content-text">Nella fase iniziale il cliente trasferirà tutte le informazioni in suo possesso, in maniera tale da permettere ai nostri esperti di valutare la situazione e predisporre l'attività investigativa più idonea al raggiungimento del risultato.</p>
     </div>
     <div class="method-content"> 
         <h3 class="method-content-title">#2 Attività investigativa</h3>
         <div class="method-content-image">
-            <img src="public/images/home/lente.png">
+            <img src="public/images/home/lente.png" alt="Icona investigazione con lente">
         </div>
         <p class="method-content-text">Mediante l'applicazione di metodologie di comprovata efficacia, operiamo sul campo tramite strumenti tecnologici e informatici, per raccogliere informazioni e prove certe, ottenute legalmente.</p>
       </div>
       <div class="method-content"> 
           <h3 class="method-content-title">#3 Report finale</h3>
           <div class="method-content-image">
-              <img src="public/images/home/note.png">
+              <img src="public/images/home/note.png" alt="Icona report">
           </div>
           <p class="method-content-text">Al termine dell'attività investigativa, l'investigatore incaricato del caso, redigerà un documento estremamente dettagliato di tutte le situazioni osservate e gli elementi di prova raccolti, consegnando al cliente tutto quanto il materiale.</p>
         </div>
