@@ -147,12 +147,6 @@ input[type='checkbox']:focus {
   box-shadow: none;
 }
 
-textarea::-webkit-input-placeholder,
-input::-webkit-input-placeholder {
-  color: #aaa;
-  font-size: 0.875rem;
-}
-
 table {
   border-collapse: collapse;
   margin-top: 2rem;
@@ -259,7 +253,7 @@ dd {
 }
 
 .alert-close {
-  background-color: #0000;
+  background-color: transparent;
   font-size: 1.25em;
   line-height: 1;
   padding: 0.5rem;
@@ -300,7 +294,7 @@ dd {
 
 .btn-primary {
   background-color: #060606;
-  border: 2px solid #060606;
+  border: 2px solid transparent;
   color: #fff;
   padding: 0.75rem 3rem;
 }
@@ -578,7 +572,6 @@ dd {
 .hide {
   position: absolute;
   overflow: hidden;
-  clip: rect(0 0 0 0);
   height: 1px;
   width: 1px;
   margin: -1px;
