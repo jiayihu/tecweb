@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="public/css/external/normalize.css" rel="stylesheet">  
   <link href="public/css/common.css" rel="stylesheet">  
-  <link href="public/css/<?php echo $routeName ?>.css" rel="stylesheet">  
+  <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">  
 </head>
 <body>
   <header class="navbar-container">
@@ -22,16 +22,16 @@
       </div>
       <ul class="list navbar-right right">
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'servizi' ? 'active' : '' ?>" href="servizi">Servizi</a>
+          <a class="navbar-link <?= $routeName === 'servizi' ? 'active' : '' ?>" href="servizi">Servizi</a>
         </li>
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'casi' ? 'active' : '' ?>" href="casi">Casi di Studio</a>
+          <a class="navbar-link <?= $routeName === 'casi' ? 'active' : '' ?>" href="casi">Casi di Studio</a>
         </li>
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
+          <a class="navbar-link <?= $routeName === 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
         </li>
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'login' ? 'active' : '' ?>" href="login">Login</a>
+          <a class="navbar-link <?= $routeName === 'login' ? 'active' : '' ?>" href="login">Login</a>
         </li>
       </ul>
     </div>

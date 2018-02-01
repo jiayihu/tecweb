@@ -5,7 +5,7 @@
       class="accordion-input hide"
       type="checkbox" 
       name="investigations" 
-      <?php echo $investigation->getId() === $investigationId ? 'checked' : '' ?>
+      <?= (!$investigationId && $index === 0) || ($investigation->getId() === $investigationId) ? 'checked' : '' ?>
     >
     <label class="accordion-label" for="inv-<?= $investigation->getId(); ?>">Investigazione <?= $investigation->getId(); ?></label>
     <?php if ($isEdit &&  $investigation->getId() === $investigationId) : ?> 

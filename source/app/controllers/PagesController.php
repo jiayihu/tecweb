@@ -121,8 +121,6 @@ class PagesController {
     $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
     $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null; 
     $erroreCampiNuovoCaso = Request::getQueryParam('erroreCampiNuovoCaso') !== null; 
-    $archiviato = Request::getQueryParam('archiviato') !== null;
-    $archiviatoIrrisolto = Request::getQueryParam('archiviatoIrrisolto') !== null;
     $duplicazione = Request::getQueryParam('duplicazione') !== null;
     $nuovoCasoOk = Request::getQueryParam('nuovoCasoOk') !== null;
 
@@ -164,8 +162,6 @@ class PagesController {
       'clienti' => $clienti,
 
       'zeroCasi' => $cases === null,
-      'archiviato' => $archiviato,
-      'archiviatoIrrisolto' => $archiviatoIrrisolto,
       'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
       'duplicazione' => $duplicazione,
       'nuovoCasoOk' => $nuovoCasoOk,
@@ -229,6 +225,7 @@ class PagesController {
     $investigatori = $this->usersController->getDetectives();
     $allTags = $this->tagsController->getTags();
 
+    $archiviato = Request::getQueryParam('archiviato') !== null;
     $erroreArchiviazione = Request::getQueryParam('erroreArchiviazione') !== null;
     $duplicato = Request::getQueryParam('duplicato') !== null;
     $modificaOk = Request::getQueryParam('modificaOk') !== null;
@@ -255,6 +252,7 @@ class PagesController {
       'investigatori' => $investigatori,
       'allTags' => $allTags,
 
+      'archiviato' => $archiviato,
       'erroreArchiviazione' => $erroreArchiviazione,
       'duplicato' => $duplicato,
       'modificaOk' => $modificaOk,
@@ -306,21 +304,15 @@ class PagesController {
         $succ = $this->casesController->insertCaseCriminal($case->getId(), $criminale);
         $case->setResolved(true);
         $case->setArchived(true);
-      }
-
-      // Case already resolved, just changing the criminal
-      if ($criminale !== 'no_criminal' && $case->isResolved() && $criminale !== $case->criminale->getCodice()) {
+      } else if ($criminale !== 'no_criminal' && $criminale !== $case->criminale->getCodice()) {
+        // Case already resolved, just changing the criminal
         $succ = $this->casesController->editCaseCriminal($case->getId(), $criminale);
-      }
-
-      // Resolved case is set back as active
-      if ($criminale === 'no_criminal' && $case->isResolved()) {
+      } else if ($criminale === 'no_criminal' && $case->isResolved()) {
+        // Resolved case is set back as active
         $succ = $this->casesController->deleteCaseCriminal($case->getId());
         $case->setResolved(false);
         $case->setArchived(false);
-      }
-
-      if ($criminale === 'no_criminal' && !$case->isResolved()) {
+      } else if ($criminale === 'no_criminal' && !$case->isResolved()) {
         $case->setArchived(false);
       }
     }
@@ -346,16 +338,16 @@ class PagesController {
       'tags' => $tags
     ]);
 
-    if (isset($archiviaIrrisolto)) {
-      return \Core\redirect('/dashboard?archiviatoIrrisolto=true');
-    }
-
     $path = "/caso?id={$case->getId()}";
 
+    if (isset($archiviaIrrisolto)) {
+      $path = "{$path}&archiviatoIrrisolto=true";
+    }
+
     if ((isset($succ) && !$succ) || !$success) {
-      $path = "${$path}&modificaErrore=true";
+      $path = "{$path}&modificaErrore=true";
     } else {
-      $path = "${$path}&modificaOk=true";
+      $path = "{$path}&modificaOk=true";
     }
 
     return \Core\redirect($path);          

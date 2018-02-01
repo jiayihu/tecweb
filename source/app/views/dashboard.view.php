@@ -117,26 +117,6 @@
         </p>
       <?php endif; ?>
 
-      <?php if ($archiviato) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-success">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
-            <span aria-hidden="true">&times;</span>
-          </label>
-          Il caso risolto è stato archiviato.
-        </p>
-      <?php endif; ?>
-
-      <?php if ($archiviatoIrrisolto) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-success">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
-            <span aria-hidden="true">&times;</span>
-          </label>
-          Il caso irrisolto è stato archiviato.
-        </p>
-      <?php endif; ?>
-
       <?php if (!$zeroCasi) : ?>
         <h2><?= $selectedCase->nome ?></h2>
         <div class="case-details">

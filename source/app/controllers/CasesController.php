@@ -82,7 +82,7 @@ class CasesController {
 
   public function editCaseCriminal(int $caseId, string $cf_criminale): bool {
     $table = 'risoluzione';
-    $changes = 'cf_criminale = :new_cf_criminale';
+    $changes = 'criminale = :new_cf_criminale';
     $where = 'caso = :id_caso';
 
     return $this->database->update($table, $changes, $where, [

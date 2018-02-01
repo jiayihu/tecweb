@@ -46,11 +46,11 @@ h2 {
 }
 
 .status-resolved {
-  background: #8bc34a;
+  background: #bdbdbd;
 }
 
 .status-progress {
-  background: #03a9f4;
+  background: #8bc34a;
 }
 
 .status-archived {

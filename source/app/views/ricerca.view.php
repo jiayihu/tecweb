@@ -47,7 +47,7 @@
               <?php foreach ($allTags as $tag): ?>
               <li class="list-item">
                 <label class="tag">
-                  <input class="hide" type="checkbox" name="tags[]" value="<?php $tag->getSlug() ?>" />
+                  <input class="hide" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>" />
                   <span class="input-label tag-label"><?= $tag->nome ?></span>
                 </label>
               </li>

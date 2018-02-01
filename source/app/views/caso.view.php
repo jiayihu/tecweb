@@ -26,10 +26,16 @@
           </p>
         <?php endif; ?>
 
-        <dt>Archivia</dt>
-        <dd>
-        <input type="checkbox" name="archivia" <?= $selectedCase->isArchived() ? 'checked' : ''?>> Archivia come irrisolto</input>
-        </dd>
+        <?php if ($archiviato) : ?>
+          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+          <p class="alert alert-success">
+            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+              <span aria-hidden="true">&times;</span>
+            </label>
+            Il caso è stato archiviato.
+          </p>
+        <?php endif; ?>
+
         <dt>Titolo</dt>
         <dd><input class="input" type="text" name="title" value="<?= $selectedCase->nome; ?>"></dd>
         <dt>Descrizione</dt>
@@ -56,6 +62,13 @@
             <?php endforeach; ?>
           </select>
         </dd>
+        <dt>Archiviato</dt>
+        <dd>
+        <label>
+          <input type="checkbox" name="archivia" <?= $selectedCase->isArchived() && !$selectedCase->isResolved() ? 'checked' : ''?> />
+          Archivia come irrisolto
+        </label>
+        </dd>
         <dt>Criminale</dt>
         <dd>
           <select class="select" name="criminale">
@@ -76,7 +89,7 @@
             <?php foreach ($allTags as $tag) : ?>
               <li class="list-item">
                 <label class="tag">
-                  <input class="hide" type="checkbox" name="tags[]" value="<?php $tag->getSlug() ?>"
+                  <input class="hide" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>"
                     <?php
                       $selected = \array_filter($selectedCase->tags, function($selectedCaseTag) use ($tag) {
                         return $selectedCaseTag->getSlug() === $tag->getSlug();
@@ -141,7 +154,6 @@
       <dd><?= ucfirst($selectedCase->tipologia); ?></dd>
       <dt>Cliente</dt>
       <dd>
-        <?= $selectedCase->cliente->getCodice(); ?> <br>
         <?= $selectedCase->cliente->nome; ?>
         <?= $selectedCase->cliente->cognome; ?>
       </dd>
@@ -149,11 +161,10 @@
       <dd>
         <?php 
           if ($selectedCase->isResolved()) {
-            echo $selectedCase->criminale->getCodice().'<br>';
             echo ucwords($selectedCase->criminale->nome).' ';
             echo ucwords($selectedCase->criminale->cognome);
           } else {
-            echo '-';
+            echo 'Non individuato ancora.';
           }
         ?>
       </dd>
@@ -166,7 +177,6 @@
             } else {
               foreach ($detectives as $detective) {
                 echo '<li>';
-                echo $detective->codice_fiscale.'<br>';
                 echo ucwords($detective->nome).' ';
                 echo ucwords($detective->cognome);
                 echo '</li>';

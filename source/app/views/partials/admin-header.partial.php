@@ -11,10 +11,10 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="public/css/external/normalize.css" rel="stylesheet">
   <link href="public/css/common.css" rel="stylesheet">
-  <link href="public/css/<?php echo $routeName ?>.css" rel="stylesheet">
+  <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">
 </head>
 
-<body class="page-<?php echo $routeName ?>">
+<body class="page-<?= $routeName ?>">
   <header id="top" class="navbar-container">
     <div class="navbar container clearfix">
       <div class="navbar-left left">
@@ -50,15 +50,15 @@
         </li>
         <?php endif; ?>
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
+          <a class="navbar-link <?= $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
         </li>
         <?php if ($role === 'admin'): ?>
         <li class="list-item">
-          <a class="navbar-link <?php echo $routeName === 'utenti' ? 'active' : '' ?>" href="utenti">Utenti</a>
+          <a class="navbar-link <?= $routeName === 'utenti' ? 'active' : '' ?>" href="utenti">Utenti</a>
         </li>
         <?php endif; ?>
         <li class="list-item dropdown dropdown-right">
-          <span class="dropdown-toggle"><?php echo $username ?></span>
+          <span class="dropdown-toggle"><?= $username ?></span>
           <ul class="submenu">
             <li class="list-item">
               <a href="impostazioni">Impostazioni</a>
