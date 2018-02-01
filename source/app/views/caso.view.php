@@ -206,9 +206,9 @@
     <h2>Investigazioni del caso</h2>
 
     <?php if ($investigazioneErrore) : ?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <input id="inv-error-alert-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-danger">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+        <label for="inv-error-alert-close" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Non è stato possibile applicare nessuna modifica. Riprovare.
@@ -216,18 +216,38 @@
     <?php endif; ?>
     
     <?php if ($investigazioneOk) : ?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
+      <input id="inv-edit-close" class="alert-checkbox" type="checkbox" />
       <p class="alert alert-success">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+        <label for="inv-edit-close" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Investigazione modificata con successo.
       </p>
     <?php endif; ?>
 
+    <?php if ($erroreNuovaInvestigazione) : ?>
+      <input id="new-inv-alert-close" class="alert-checkbox" type="checkbox" />
+      <p class="alert alert-danger">
+        <label for="new-inv-alert-close" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Errore nell'inserimento della nuova investigazione. Riprovare.
+      </p>
+    <?php endif; ?>
+
     <?php if (count($investigations) === 0) : ?>
-      <p> Nessuna investigazione disponibile.
+      <p> Nessuna investigazione disponibile.</p>
+      <?php if ($role === 'detective') : ?> 
+        <p>
+          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
+        </p>
+      <?php endif; ?>
     <?php else : ?>
+      <?php if ($role === 'detective') : ?> 
+        <p>
+          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
+        </p>
+      <?php endif; ?>
       <?php foreach ($investigations as $index => $investigation) : ?>
         <?php require 'partials/investigation.partial.php' ?>
       <?php endforeach; ?>

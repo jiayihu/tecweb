@@ -121,91 +121,54 @@ class PagesController {
     $notAuthorized = Request::getQueryParam('permessoNegato') !== null;  
     $nuovoCaso = Request::getQueryParam('nuovoCaso') !== null; 
     $erroreCampiNuovoCaso = Request::getQueryParam('erroreCampiNuovoCaso') !== null; 
-    $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') !== null; 
     $archiviato = Request::getQueryParam('archiviato') !== null;
     $archiviatoIrrisolto = Request::getQueryParam('archiviatoIrrisolto') !== null;
     $duplicazione = Request::getQueryParam('duplicazione') !== null;
     $nuovoCasoOk = Request::getQueryParam('nuovoCasoOk') !== null;
-    $erroreNuovaInvestigazione = false;
 
     $role = $this->authController->getUserRole();
     $user = $this->authController->getUser();
 
-    if ($role === 'admin') {
-      $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
+    if ($role === 'admin' || $role === 'detective') {
+      // Show only open cases
+      $cases = $this->casesController->getOpenCases();
     } else {
-      if ($role === 'detective') {
-        $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
-      } else {
-        $cases = $this->casesController->getIspectorCases($user->codice_fiscale); //visualizza soli i casi di cui l'ispettore è cliente
-      }
+      // Show only cases relative to the inspector
+      $cases = $this->casesController->getIspectorCases($user->codice_fiscale);
     }
 
+    $codice = Request::getQueryParam('id');
+    $investigations = null;
     $clienti = $this->usersController->getClients();
+    $case = null;
     
-    if ($cases !== null) {
-      $codice = Request::getQueryParam('id');
-      if ($codice === null) {
-        $codice = $cases[0]->codice;
-      }
+    if ($cases !== null && \count($cases) > 0) {
+      if ($codice === null) $codice = $cases[0]->codice;
       $case = $this->casesController->getCase($codice); 
-      
-      if ($nuovaInvestigazione) {
-        $succ = $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
-
-        if (!$succ) {
-          $erroreNuovaInvestigazione = true;
-        }
-      }
-
-      $investigations = $this->investigationsController->getInvestigations($codice); 
-      
-      return \Core\view('dashboard', [
-        'routeName' => $routeName,
-        'autoLogin' => $autoLogin,
-        'notAuthorized' => $notAuthorized,
-        'username' => $this->getUsername(),
-        'role' => $role,
-        'caseId' => $codice,
-        'investigations' => $investigations,
-        'investigationId' => null,
-        'isEdit' => false,
-        'cases' => $cases,
-        'selectedCase' => $case,
-        'nuovoCaso' => $nuovoCaso,
-        'clienti' => $clienti,
-
-        'archiviato' => $archiviato,
-        'archiviatoIrrisolto' => $archiviatoIrrisolto,
-        'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
-        'duplicazione' => $duplicazione,
-        'nuovoCasoOk' => $nuovoCasoOk,
-        'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
-      ]);
+      $investigations = $this->investigationsController->getInvestigations($codice);
     } 
-    
+
     return \Core\view('dashboard', [
       'routeName' => $routeName,
       'autoLogin' => $autoLogin,
       'notAuthorized' => $notAuthorized,
       'username' => $this->getUsername(),
       'role' => $role,
-      'caseId' => null,
-      'investigations' => null,
+      'caseId' => $codice,
+      'investigations' => $investigations,
       'investigationId' => null,
       'isEdit' => false,
       'cases' => $cases,
-      'selectedCase' => null,
+      'selectedCase' => $case,
       'nuovoCaso' => $nuovoCaso,
       'clienti' => $clienti,
 
-      'zeroCasi' => true,
+      'zeroCasi' => $cases === null,
       'archiviato' => $archiviato,
       'archiviatoIrrisolto' => $archiviatoIrrisolto,
       'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
       'duplicazione' => $duplicazione,
       'nuovoCasoOk' => $nuovoCasoOk,
-      'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
     ]);
   }
 
@@ -239,6 +202,17 @@ class PagesController {
     $routeName = 'caso';
     $role = $this->authController->getUserRole();
     $caseId = Request::getQueryParam('id');
+
+    $nuovaInvestigazione = Request::getQueryParam('nuovaInvestigazione') !== null; 
+    $erroreNuovaInvestigazione = false;
+
+    if ($nuovaInvestigazione) {
+      $user = $this->authController->getUser();
+      $succ = $this->investigationsController->insertInvestigation($caseId, $user->codice_fiscale);
+
+      if (!$succ) $erroreNuovaInvestigazione = true;
+    }
+
     $investigations = $this->investigationsController->getInvestigations($caseId);
     $investigationId = (int) Request::getQueryParam('investigazione');
     $isEdit = Request::getQueryParam('modifica') !== null;
@@ -286,7 +260,8 @@ class PagesController {
       'modificaOk' => $modificaOk,
       'modificaErrore' => $modificaErrore,
       'investigazioneOk' => $investigazioneOk,
-      'investigazioneErrore' => $investigazioneErrore
+      'investigazioneErrore' => $investigazioneErrore,
+      'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
     ]);
   }
 

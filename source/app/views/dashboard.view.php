@@ -3,7 +3,7 @@
 <main class="main-container container">
   <aside class="main-sidebar clearfix">
     <h2>Casi</h2>
-    <?php if (!isset($zeroCasi)) : ?>
+    <?php if (!$zeroCasi) : ?>
       <ul class="menu-case">
       <?php foreach ($cases as $case) : ?>
           <?php if (!$nuovoCaso && isset($selectedCase) && $case->nome === $selectedCase->nome) : ?>
@@ -117,16 +117,6 @@
         </p>
       <?php endif; ?>
 
-      <?php if ($erroreNuovaInvestigazione) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-danger">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
-            <span aria-hidden="true">&times;</span>
-          </label>
-          Errore nell'inserimento della nuova investigazione. Riprovare.
-        </p>
-      <?php endif; ?>
-
       <?php if ($archiviato) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
@@ -147,7 +137,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if (!isset($zeroCasi)) : ?>
+      <?php if (!$zeroCasi) : ?>
         <h2><?= $selectedCase->nome ?></h2>
         <div class="case-details">
           <p class="actions">
@@ -160,12 +150,6 @@
             <dt>Descrizione</dt>
             <dd><?= ucfirst($selectedCase->descrizione) ?></dd>
           </dl>
-
-          <?php if ($role === 'detective') : ?> 
-            <p>
-              <a class="btn btn-outline" href="/dashboard?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
-            </p>
-          <?php endif; ?>
 
           <?php foreach ($investigations as $index => $investigation) : ?>
             <?php require 'partials/investigation.partial.php' ?>

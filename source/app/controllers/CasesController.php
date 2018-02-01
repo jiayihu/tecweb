@@ -183,7 +183,7 @@ class CasesController {
     return $result;
   }
 
-  public function getPresentCases() {
+  public function getOpenCases() {
     $table = 'caso';
     $columns = [
       'codice',
