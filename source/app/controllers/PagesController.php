@@ -414,6 +414,7 @@ class PagesController {
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+      'user' => $this->authController->getUser(),
 
       'allTags' => $allTags,
 
@@ -491,6 +492,7 @@ class PagesController {
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+      'user' => $this->authController->getUser(),
 
       'allTags' => $allTags,
 

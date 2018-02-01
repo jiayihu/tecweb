@@ -22,10 +22,16 @@
 
         <!-- Fields unique for case -->
         <div class="case-fields">
+          <?php if ($role !== 'inspector'): ?>
           <p>
             <label class="input-label" for="input-client">Cliente</label>
             <input class="input" type="text" name="cliente" id="input-client" placeholder="Codice fiscale cliente">
           </p>
+          <?php else: ?>
+          <p>
+            <input hidden type="text" name="cliente" value="<?= $user->codice_fiscale ?>">
+          </p>
+          <?php endif; ?>
           <p>
             <label class="input-label" for="input-criminal">Criminale</label>
             <input class="input" type="text" name="criminale" id="input-criminal" placeholder="Codice fiscale criminale">
