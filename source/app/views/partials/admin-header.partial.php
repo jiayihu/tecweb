@@ -18,7 +18,7 @@
   <header id="top" class="navbar-container">
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a href="/dashboard" title="Go back to home">
+        <a href="/dashboard" title="Go back to dashboard">
           <img class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
         </a>
         </a>
@@ -29,10 +29,16 @@
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
             <li class="list-item">
-              <a href="aggiungi-caso">Aggiungi caso</a>
+              <a href="">Aggiungi cliente</a>
             </li>
             <li class="list-item">
-              <a href="">Aggiungi investigazione</a>
+              <a href="">Aggiungi criminale</a>
+            </li>
+            <li class="list-item">
+              <a href="">Aggiungi prova</a>
+            </li>
+            <li class="list-item">
+              <a href="">Aggiungi tag</a>
             </li>
             <li class="list-item">
               <a href="aggiungi-criminale">Aggiungi criminale</a>

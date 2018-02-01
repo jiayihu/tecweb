@@ -3,11 +3,12 @@
 namespace App\Models;
 
 class Cliente {
-  public $codice_fiscale;
   public $nome;
   public $cognome;
   public $citta;
   public $indirizzo;
+
+  private $codice_fiscale;
 
   public function __construct(
     string $codice_fiscale,
@@ -21,5 +22,9 @@ class Cliente {
     $this->cognome = $cognome;
     $this->citta = $citta;
     $this->indirizzo = $indirizzo;
+  }
+
+  public function getCodice(): string {
+    return $this->codice_fiscale;
   }
 }

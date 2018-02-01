@@ -24,6 +24,252 @@ class CasesController {
     $this->database = \Core\App::get('database');
   }
 
+  public function editCase(array $parameters): bool {
+    $table = 'caso';
+
+    $caseId = $parameters['caseId'];
+    $newNome = $parameters['newNome'];
+    $newDescrizione = $parameters['newDescrizione'];
+    $tipologia = $parameters['tipologia'];
+    $cf_cliente = $parameters['cf_cliente'];
+    $risolto = $parameters['risolto'];
+    $passato = $parameters['passato'];
+    $tags = $parameters['tags'];
+
+    // vengono eliminati i tags selezionati
+    if($tags != null && sizeof($tags) > 0) {
+      $table = 'etichettamento';
+      foreach($tags as $tag) {
+        $where ='caso = :id_caso AND tag = :tag';
+        $succ_tag = $this->database->delete($table, $where, [
+          ':id_caso' => $caseId,
+          ':tag' => $tag
+        ]);
+      }
+    }
+    
+    // viene aggiornato il caso nel db
+    $table = 'caso';
+    $changes = '
+      descrizione = :new_descrizione,
+      nome = :new_nome,
+      risolto = :risolto,
+      tipologia = :tipologia,
+      cliente = :cf_cliente,
+      passato = :passato';
+    $where = 'codice = :id_caso';
+
+    $succ_caso = $this->database->update($table, $changes, $where, [
+      ':new_nome' => $newNome,
+      ':new_descrizione' => $newDescrizione,
+      ':tipologia' => $tipologia,
+      ':cf_cliente' => $cf_cliente,
+      ':id_caso' => $caseId,
+      ':risolto' => $risolto,
+      ':passato' => $passato
+    ]);
+
+    if((isset($succ_tag) && $succ_tag && $succ_caso)) {
+      return true;
+    } else {
+      if($succ_caso) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public function editCaseCriminal($caseId, $cf_criminale): bool {
+    $table = 'risoluzione';
+    $changes = 'cf_criminale = :new_cf_criminale';
+    $where = 'caso = :id_caso';
+
+    return $this->database->update($table, $changes, $where, [
+      ':new_cf_criminale' => $cf_criminale,
+      ':id_caso' => $caseId
+    ]);
+  }
+
+  public function deleteCaseCriminal($caseId): bool {
+    $table = 'risoluzione';
+    $where = "caso = :id_caso";
+
+    return $this->database->delete($table, $where, [
+      ':id_caso' => $caseId
+    ]);
+  }
+
+  public function getAllCases() {
+    $result = $this->database->runQuery('SELECT codice, nome FROM caso ORDER BY nome');
+    return $result;
+  }
+
+  public function getCase($codice): Caso {
+    $table = 'caso';
+    $where='caso.codice = :codice_caso';
+    $parameters[':codice_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    return $this->createCaso($result[0]);
+  }
+
+  public function getCaseDetails($codice): Caso {
+    $caso = $this->getCase($codice);
+    
+    $table = 'risoluzione, criminale';
+    $where = 'risoluzione.caso = :id_caso AND risoluzione.criminale = criminale.codice_fiscale';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if(sizeof($result) > 0) {
+      $caso->criminale = new Criminale($result[0]->criminale, $result[0]->nome, $result[0]->cognome);
+    }
+
+    $table = 'cliente, caso';
+    $where = 'caso.codice = :id_caso AND caso.cliente = cliente.codice_fiscale';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['cliente.codice_fiscale, cliente.nome AS nome, cliente.cognome AS cognome'],
+      $where,
+      $parameters
+    );
+
+    $caso->cliente = new Cliente($result[0]->codice_fiscale, $result[0]->nome, $result[0]->cognome);
+    return $caso;
+  }
+
+  public function getDetectives($codice): array {
+    $table = 'lavoro, investigatore';
+    $where = 'lavoro.caso = :id_caso AND investigatore.codice_fiscale = lavoro.investigatore ORDER BY nome';
+    $parameters[':id_caso'] = $codice;
+    $result = $this->database->selectWhere(
+      $table,
+      ['DISTINCT nome, cognome, investigatore.codice_fiscale AS codice_fiscale'],
+      $where,
+      $parameters
+    );
+
+    return $result;
+  }
+
+  public function getIspectorCases($cf_ispector) {
+    $table = 'caso';
+    $columns = [
+      'caso.codice',
+      'caso.nome'
+    ];
+    $where='caso.passato = :caso_passato AND caso.cliente = :cf_ispettore ORDER BY nome';
+    $parameters[':caso_passato'] = 0;
+    $parameters[':cf_ispettore'] = $cf_ispector;
+    $result = $this->database->selectWhere(
+      $table,
+      $columns,
+      $where,
+      $parameters
+    );
+
+    return $result;
+  }
+
+  public function getPresentCases() {
+    $table = 'caso';
+    $columns = [
+      'codice',
+      'nome'
+    ];
+    $where='caso.passato = :caso_passato ORDER BY nome';
+    $parameters[':caso_passato'] = 0;
+    $result = $this->database->selectWhere(
+      $table,
+      $columns,
+      $where,
+      $parameters
+    );
+    return $result;
+  }
+
+  public function getTags($idcaso): array {
+    $table = 'etichettamento, tag';
+    $columns = [
+      'nome',
+      'slug'
+    ];
+    $where='etichettamento.caso = :id_caso AND etichettamento.tag = tag.slug ORDER BY nome';
+    $parameters[':id_caso'] = $idcaso;
+    $results = $this->database->selectWhere(
+      $table,
+      $columns,
+      $where,
+      $parameters
+    );
+    $tags = \array_map(function ($result) {
+      return $this->createTag($result);
+    }, $results);
+
+    return $tags;
+  }
+
+  public function checkCaseName($nome, $id_caso): bool {
+    $table = 'caso';
+    $parameters[':nome_caso'] = $nome;
+    $parameters[':id_caso'] = $id_caso;
+    $where = 'nome = :nome_caso AND codice <> :id_caso';
+
+    $exist = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if(sizeof($exist) > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  public function insertCase($nome, $tipo, $descrizione, $cliente): bool {
+
+    $exist = $this->checkCaseName($nome, null);
+
+    $table = 'caso';
+
+    if(sizeof($exist) == 0) {
+      return $this->database->insert($table, [
+        'codice' => "",
+        'descrizione' => $descrizione,
+        'nome' => $nome,
+        'passato' => 0,
+        'risolto' => 0,
+        'tipologia' => $tipo,
+        'cliente' => $cliente
+      ]);
+    } else {
+      return false;
+    }
+  }
+
+  public function insertCaseCriminal($caseId, $cf_criminale): bool {
+    $table = 'risoluzione';
+
+    return $this->database->insert( $table, [
+      'criminale' => $cf_criminale,
+      'caso' => $caseId
+    ]);
+  }
+
   public function searchCases(array $parameters): array {
     if (\Core\isArrayEmpty($parameters)) {
       throw new \Exception('emptySearch');
@@ -88,31 +334,11 @@ class CasesController {
     return $cases;
   }
 
-  public function getCases() {
-    $table = 'caso';
-    $where='caso.passato = :caso_passato order by nome';
-    $parameters[':caso_passato'] = 0;
-    $result = $this->database->selectWhere(
-      $table,
-      ['nome'],
-      $where,
-      $parameters
+  private function createTag($result): Tag {
+    return new Tag(
+      $result->slug,
+      $result->nome
     );
-    return $result;
-  }
-
-  public function getCase($name) {
-    $table = 'caso';
-    $where='caso.nome = :nome_caso';
-    $parameters[':nome_caso'] = $name;
-    $result = $this->database->selectWhere(
-      $table,
-      ['*'],
-      $where,
-      $parameters
-    );
-
-    return $result;
   }
 
   private function createCaso($result): Caso {

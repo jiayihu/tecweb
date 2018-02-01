@@ -23,7 +23,7 @@ class Investigazione {
     int $caso,
     string $dataInizio,
     string $dataTermine = null,
-    string $rapporto,
+    string $rapporto = null,
     int $oreTotali = 0,
 
     Investigatore $investigatore = null,
@@ -55,6 +55,10 @@ class Investigazione {
   }
 
   public function getScene(): string {
-    return $this->scena->citta . ', ' . $this->scena->indirizzo;
+
+    if($this->scena != null) {
+      return $this->scena->citta . ', ' . $this->scena->indirizzo;
+    }
+    return '';
   }
 }
