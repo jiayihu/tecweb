@@ -56,7 +56,7 @@ class Investigazione {
 
   public function getScene(): string {
 
-    if($this->scena != null) {
+    if ($this->scena !== null) {
       return $this->scena->citta . ', ' . $this->scena->indirizzo;
     }
     return '';

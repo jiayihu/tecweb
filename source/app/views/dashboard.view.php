@@ -3,10 +3,10 @@
 <main class="main-container container">
   <aside class="main-sidebar clearfix">
     <h2>Casi</h2>
-    <?php if(!isset($zeroCasi)) : ?>
+    <?php if (!isset($zeroCasi)) : ?>
       <ul class="menu-case">
-      <?php foreach($cases as $case) : ?>
-          <?php if(!$nuovoCaso && isset($selectcase) && $case->nome == $selectcase->nome) : ?>
+      <?php foreach ($cases as $case) : ?>
+          <?php if (!$nuovoCaso && isset($selectcase) && $case->nome === $selectcase->nome) : ?>
             <li class="case case-select"><?= $case->nome ?></li>
           <?php else : ?>
             <li>
@@ -18,7 +18,7 @@
     <?php else: ?>
       <p class="center">Nessun caso disponibile.</p>
     <?php endif;?>
-    <?php if($role!='inspector') : ?>
+    <?php if ($role!='inspector') : ?>
       <a class="btn btn-outline" href="/dashboard?nuovoCaso=true">Nuovo caso</a>
     <?php endif; ?>
   </aside>
@@ -45,8 +45,8 @@
       </p>
     <?php endif; ?>
 
-    <?php if($nuovoCaso) : ?>
-      <?php if($erroreCampiNuovoCaso) : ?>
+    <?php if ($nuovoCaso) : ?>
+      <?php if ($erroreCampiNuovoCaso) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-danger">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -56,7 +56,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if($duplicazione) : ?>
+      <?php if ($duplicazione) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-danger">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -70,7 +70,7 @@
       <form action="/dashboard" method="post" class="content clearfix">
         <p class="form-field clearfix">
           <label for="nome">Nome</label>
-            <?php if(isset($nome)) : ?>
+            <?php if (isset($nome)) : ?>
               <input type="text" name="nome" id="nome" value="<?= $nome ?>"required>
             <?php else : ?>
               <input type="text" name="nome" id="nome" required>
@@ -89,7 +89,7 @@
         </p>
         <p class="form-field clearfix">
           <label for="descrizione">Descrizione</label>
-          <?php if(isset($descrizione)) : ?>
+          <?php if (isset($descrizione)) : ?>
           <textarea rows="4" name="descrizione" id="descrizione" required><?= $descrizione ?></textarea>
           <?php else : ?>
             <textarea rows="4" name="descrizione" id="descrizione" required></textarea>
@@ -99,7 +99,7 @@
           <label for="cliente">Cliente</label>
           <select class="input-rate" name="cliente" id="cliente">
             <option disabled selected> -- Seleziona un valore -- </option>
-            <?php foreach($clienti as $cliente) : ?>
+            <?php foreach ($clienti as $cliente) : ?>
               <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
             <?php endforeach; ?>
           </select>
@@ -107,7 +107,7 @@
         <button type="submit" class="btn btn-outline">Aggiungi caso</button>
       </form>
     <?php else : ?>
-      <?php if($nuovoCasoOk) : ?>
+      <?php if ($nuovoCasoOk) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -117,7 +117,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if($erroreNuovaInvestigazione) : ?>
+      <?php if ($erroreNuovaInvestigazione) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-danger">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -127,7 +127,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if($archiviato) : ?>
+      <?php if ($archiviato) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -137,7 +137,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if($archiviatoIrrisolto) : ?>
+      <?php if ($archiviatoIrrisolto) : ?>
         <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
         <p class="alert alert-success">
           <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
@@ -147,7 +147,7 @@
         </p>
       <?php endif; ?>
 
-      <?php if(!isset($zeroCasi)) : ?>
+      <?php if (!isset($zeroCasi)) : ?>
         <h2><?= $selectcase->nome ?></h2>
         <div class="case-details">
           <p class="actions">
@@ -161,7 +161,7 @@
             <dd><?= ucfirst($selectcase->descrizione) ?></dd>
           </dl>
 
-          <?php if($role == 'detective') : ?> 
+          <?php if ($role === 'detective') : ?> 
             <p>
               <a class="btn btn-outline" href="/dashboard?id=<?= $selectcase->getId() ?>&nuovaInvestigazione=true">Nuova investigazione</a>
             </p>

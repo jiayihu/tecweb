@@ -19,8 +19,8 @@
         <div class="investigation-content-field">
           <span class="investigation-content-title">Svolta da: </span> 
           <select class="select" name="investigatore">
-            <?php foreach($investigatori as $investigatore) : ?>
-              <?php if($investigatore->codice_fiscale == $investigation->investigatore->codice_fiscale) : ?>
+            <?php foreach ($investigatori as $investigatore) : ?>
+              <?php if ($investigatore->codice_fiscale === $investigation->investigatore->codice_fiscale) : ?>
                 <option value="<?= $investigatore->codice_fiscale; ?>" selected><?= $investigatore->codice_fiscale; ?></option>
               <?php else: ?>
                 <option value="<?= $investigatore->codice_fiscale; ?>"><?= $investigatore->codice_fiscale; ?></option>
@@ -34,7 +34,7 @@
         </div>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Data fine: </span> 
-          <?php if($investigation->dataTermine == null) : ?>
+          <?php if ($investigation->dataTermine === null) : ?>
             <input type="date" name="date_to" id="input-date-to" min="<?= $investigation->dataInizio ?>">
           <?php else : ?>
             <input type="date" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
@@ -42,7 +42,7 @@
         </div>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Luogo: </span> 
-          <?php if($investigation->scena == null) : ?>
+          <?php if ($investigation->scena === null) : ?>
             <input class="input" type="text" name="scena_nome" value="" placeholder="nome" required>
             <input class="input" type="text" name="scena_descrizione" value="" placeholder="descrizione" required>
             <input class="input" type="text" name="scena_citta" value="" placeholder="città" required>
@@ -82,7 +82,7 @@
         <span class="investigation-content-title">Data: </span>
         <?= $investigation->dataInizio ?> -
         <?php 
-          if($investigation->dataTermine == null) {
+          if ($investigation->dataTermine === null) {
             echo "in corso";
           } else {
             echo $investigation->dataTermine;
@@ -92,7 +92,7 @@
       <div class="investigation-content-field">
         <span class="investigation-content-title">Luogo: </span>
           <?php 
-              if($investigation->scena == null) 
+              if ($investigation->scena === null) 
                 echo '-';
               else
                 echo $investigation->getScene();
@@ -101,7 +101,7 @@
       <div class="investigation-content-field">
         <span class="investigation-content-title">Rapporto: </span>
           <?php
-            if($investigation->rapporto == '') {
+            if ($investigation->rapporto === '') {
               echo '-';
             } else {
               echo ucfirst($investigation->rapporto);
@@ -110,7 +110,7 @@
       </div>
       <div class="investigation-content-field">
         <span class="investigation-content-title">Prove: </span>
-        <?php if(count($investigation->prove) > 0) : ?>
+        <?php if (count($investigation->prove) > 0) : ?>
           <table>
             <thead>
               <tr>
@@ -119,7 +119,7 @@
               </tr>
             </thead>
             <tbody>           
-              <?php foreach($investigation->prove as $prova) : ?>
+              <?php foreach ($investigation->prove as $prova) : ?>
                 <tr>
                   <th><?= ucfirst($prova->nome) ?></th>
                   <th class="descr"><?= ucfirst($prova->descrizione) ?></th>

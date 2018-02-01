@@ -131,10 +131,10 @@ class PagesController {
     $role = $this->authController->getUserRole();
     $user = $this->authController->getUser();
 
-    if($role == 'admin') {
+    if ($role === 'admin') {
       $cases = $this->casesController->getAllCases(); // visualizza casi presenti e passati
     } else {
-      if($role == 'detective') {
+      if ($role === 'detective') {
         $cases = $this->casesController->getPresentCases(); // visualizza casi solo presenti
       } else {
         $cases = $this->casesController->getIspectorCases($user->codice_fiscale); //visualizza soli i casi di cui l'ispettore è cliente
@@ -143,17 +143,17 @@ class PagesController {
 
     $clienti = $this->usersController->getClients();
     
-    if($cases != null) {
+    if ($cases !== null) {
       $codice = Request::getQueryParam('id');
-      if($codice==null) {
+      if ($codice === null) {
         $codice = $cases[0]->codice;
       }
       $case = $this->casesController->getCase($codice); 
       
-      if($nuovaInvestigazione) {
+      if ($nuovaInvestigazione) {
         $succ = $this->investigationsController->insertInvestigation($codice, $user->codice_fiscale);
 
-        if(!$succ) {
+        if (!$succ) {
           $erroreNuovaInvestigazione = true;
         }
       }
@@ -219,13 +219,13 @@ class PagesController {
     $tipo = Request::getPOSTParam('tipo');
     $cliente = Request::getPOSTParam('cliente');
 
-    if($tipo == null || $cliente == null) {
+    if ($tipo === null || $cliente === null) {
       return \Core\redirect("/dashboard?nuovoCaso=true&erroreCampiNuovoCaso=true");
 
     } else {
       $insert = $this->casesController->insertCase($nome, $tipo, $descrizione, $cliente);
 
-      if(!$insert) {
+      if (!$insert) {
         return \Core\redirect("/dashboard?nuovoCaso=true&duplicazione=true");
       }
     }
@@ -298,7 +298,7 @@ class PagesController {
     $caseId = Request::getPOSTParam('caseId');
     $investigationId = Request::getPOSTParam('invId');
 
-    if($investigationId === null) {
+    if ($investigationId === null) {
       $this->handleEditCasePOST($caseId);
     } else {
       $this->handleEditInvestigationPOST($investigationId);
@@ -317,7 +317,7 @@ class PagesController {
     $case = $this->casesController->getCaseDetails($caseId);
 
     // Cannot archived without a criminal
-    if($archiviaIrrisolto && $criminale != 'no_criminal') {
+    if ($archiviaIrrisolto && $criminale !== 'no_criminal') {
       return \Core\redirect('/caso?id='.$caseId.'&modifica=true&erroreArchiviazione=true');
     }
 
@@ -325,27 +325,27 @@ class PagesController {
       $case->setArchived(true);
     }
     
-    if(!$archiviaIrrisolto) {
+    if (!$archiviaIrrisolto) {
       // Resolved case
-      if($criminale != 'no_criminal' && !$case->isResolved()) {
+      if ($criminale !== 'no_criminal' && !$case->isResolved()) {
         $succ = $this->casesController->insertCaseCriminal($case->getId(), $criminale);
         $case->setResolved(true);
         $case->setArchived(true);
       }
 
       // Case already resolved, just changing the criminal
-      if($criminale != 'no_criminal' && $case->isResolved() && $criminale != $case->criminale->getCodice()) {
+      if ($criminale !== 'no_criminal' && $case->isResolved() && $criminale !== $case->criminale->getCodice()) {
         $succ = $this->casesController->editCaseCriminal($case->getId(), $criminale);
       }
 
       // Resolved case is set back as active
-      if($criminale == 'no_criminal' && $case->isResolved()) {
+      if ($criminale === 'no_criminal' && $case->isResolved()) {
         $succ = $this->casesController->deleteCaseCriminal($case->getId());
         $case->setResolved(false);
         $case->setArchived(false);
       }
 
-      if($criminale == 'no_criminal' && !$case->isResolved()) {
+      if ($criminale === 'no_criminal' && !$case->isResolved()) {
         $case->setArchived(false);
       }
     }
@@ -371,13 +371,13 @@ class PagesController {
       'tags' => $tags
     ]);
 
-    if(isset($archiviaIrrisolto)) {
+    if (isset($archiviaIrrisolto)) {
       return \Core\redirect('/dashboard?archiviatoIrrisolto=true');
     }
 
     $path = "/caso?id={$case->getId()}";
 
-    if((isset($succ) && !$succ) || !$success) {
+    if ((isset($succ) && !$succ) || !$success) {
       $path = "${$path}&modificaErrore=true";
     } else {
       $path = "${$path}&modificaOk=true";
@@ -416,7 +416,7 @@ class PagesController {
 
     $path = "/caso?id={$caseId}&investigazione={$investigationId}";
     
-    if($succ_scena && $succ_inv) {
+    if ($succ_scena && $succ_inv) {
       $path = "{$path}&investigazioneOk=true";
     } else {
       $path = "{$path}&investigazioneErrore=true";
@@ -697,13 +697,13 @@ class PagesController {
       'role' => $role,
     ]);
     } catch (\Exception $e){
-      if($e->getMessage()=== 'passwordsNotEqual'){
+      if ($e->getMessage()=== 'passwordsNotEqual'){
         return \Core\redirect('/impostazioni?passwordNonUguali=true');
       }
-      if($e->getMessage()=== 'codiciNotEqual'){
+      if ($e->getMessage()=== 'codiciNotEqual'){
         return \Core\redirect('/impostazioni?codiciNonUguali=true');
       }
-      if($e->getMessage()=== 'wrongPassword'){
+      if ($e->getMessage()=== 'wrongPassword'){
         return \Core\redirect('/impostazioni?wrongPassword=true');
       }
     }

@@ -2,7 +2,7 @@
 
 <main class="main-container container">
   <aside class="main-sidebar">
-    <h2><?php echo $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
+    <h2><?= $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
 
     <?php if ($passwordsNotEqual) :?>
     <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
@@ -16,16 +16,16 @@
     <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
     <?php endif; ?>
 
-    <form action="<?php echo $isEdit ? 'modifica-utente' : 'aggiungi-utente' ?>" method="post">
+    <form action="<?= $isEdit ? 'modifica-utente' : 'aggiungi-utente' ?>" method="post">
       <dl class="case-info">
         <dt>Codice Fiscale</dt>
         <dd>
           <?php if ($isEdit): ?>
-          <input type="hidden" name="old_codice_fiscale" value="<?php echo $editingUser->codice_fiscale ?>">
+          <input type="hidden" name="old_codice_fiscale" value="<?= $editingUser->codice_fiscale ?>">
           <?php endif; ?>
 
           <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale"
-            <?php echo $isEdit ? "value=\"{$editingUser->codice_fiscale}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->codice_fiscale}\"" : '' ?> required>
         </dd>
         
         <dt>Password</dt>
@@ -41,17 +41,17 @@
         <dt>Nome</dt>
         <dd>
           <input class="input" type="text" name="nome" placeholder="Inserisci nome"
-            <?php echo $isEdit ? "value=\"{$editingUser->nome}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->nome}\"" : '' ?> required>
         </dd>
         
         <dt>Cognome</dt>
         <dd>
           <input class="input" type="text" name="cognome" placeholder="Inserisci cognome"
-            <?php echo $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required>
         </dd>
 
         <?php if ($isEdit): ?>
-        <input type="hidden" name="role" value="<?php echo $editingRole ?>">
+        <input type="hidden" name="role" value="<?= $editingRole ?>">
         <?php else: ?>
         <dt>Tipologia</dt>
         <dd>
@@ -126,13 +126,13 @@
           <tbody>
             <?php foreach ($detectives as $genericUser): ?>
             <tr>
-              <td><?php echo $genericUser->codice_fiscale ?></td>
-              <td><?php echo $genericUser->nome ?></td>
-              <td><?php echo $genericUser->cognome ?></td>
+              <td><?= $genericUser->codice_fiscale ?></td>
+              <td><?= $genericUser->nome ?></td>
+              <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="/utenti?modifica=true&codice_fiscale=<?php echo $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
+                <a href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
@@ -156,14 +156,14 @@
           <tbody>
             <?php foreach ($admins as $genericUser): ?>
             <tr>
-              <td><?php echo $genericUser->codice_fiscale ?></td>
-              <td><?php echo $genericUser->nome ?></td>
-              <td><?php echo $genericUser->cognome ?></td>
+              <td><?= $genericUser->codice_fiscale ?></td>
+              <td><?= $genericUser->nome ?></td>
+              <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="/utenti?modifica=true&codice_fiscale=<?php echo $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
+                <a href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
                 <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="admin">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
@@ -188,13 +188,13 @@
           <tbody>
             <?php foreach ($inspectors as $genericUser): ?>
             <tr>
-              <td><?php echo $genericUser->codice_fiscale ?></td>
-              <td><?php echo $genericUser->nome ?></td>
-              <td><?php echo $genericUser->cognome ?></td>
+              <td><?= $genericUser->codice_fiscale ?></td>
+              <td><?= $genericUser->nome ?></td>
+              <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="/utenti?modifica=true&codice_fiscale=<?php echo $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
+                <a href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
                 <form action="/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?php echo $genericUser->codice_fiscale ?>">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>

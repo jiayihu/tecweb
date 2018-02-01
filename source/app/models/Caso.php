@@ -53,7 +53,7 @@ class Caso {
 
   public function getTotalHours() {
     $ore = 0;
-    foreach($this->investigazioni as $investigazione) {
+    foreach ($this->investigazioni as $investigazione) {
       $ore = $ore + $investigazione->oreTotali;
     }
 
@@ -61,8 +61,8 @@ class Caso {
   }
 
   public function getInvestigation($num) {
-    foreach($this->investigazioni as $investigazione) {
-      if($investigazione->getId() == $num) {
+    foreach ($this->investigazioni as $investigazione) {
+      if ($investigazione->getId() === $num) {
         return $investigazione;
       }
     }

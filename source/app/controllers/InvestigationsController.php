@@ -65,7 +65,7 @@ class InvestigationsController {
       'ore_lavoro' => $ore
     ]);
 
-    if($update_lavoro && $update_investigazione)
+    if ($update_lavoro && $update_investigazione)
       return true;
 
     return false;
@@ -93,8 +93,8 @@ class InvestigationsController {
       $parameters
     );
 
-    if($exist != null) {
-      if($exist[0]->slug == $slug) {    // stesso slug, aggiorna descrizione, indirizzo e città
+    if ($exist !== null) {
+      if ($exist[0]->slug === $slug) {    // stesso slug, aggiorna descrizione, indirizzo e città
         $where = 'slug = :slug';   
         $changes = '
           descrizione = :descrizione,
@@ -111,7 +111,7 @@ class InvestigationsController {
         $delete = $this->deleteScena($caseId, $investigationId);
         $insert = $this->insertScena($slug, $caseId, $investigationId, $scena);
 
-        if($delete & $insert)
+        if ($delete & $insert)
           return true;
 
         return false;
@@ -172,7 +172,7 @@ class InvestigationsController {
       'ore_lavoro' => 0
     ]);
 
-    if($ins1 && $ins2) 
+    if ($ins1 && $ins2) 
       return true;
 
     return false;
@@ -261,7 +261,7 @@ class InvestigationsController {
       $parameters
     );
 
-    if($result == null)
+    if ($result === null)
       return 0;
     else
       return intval($result[0]->max_num);
@@ -346,7 +346,7 @@ class InvestigationsController {
   private function createInvestigazione($result): Investigazione {
     $investigatore = new Investigatore($result->investigatore_codice_fiscale, $result->investigatore_nome, $result->investigatore_cognome);
 
-    if($result->scena_nome == null) {
+    if ($result->scena_nome === null) {
       $scena = null;
     } else {
       $scena = new Scena($result->scena_nome, $result->scena_descrizione, $result->citta, $result->indirizzo);

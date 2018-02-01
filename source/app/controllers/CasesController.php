@@ -38,8 +38,8 @@ class CasesController {
 
     // Delete all case tags then add the new ones
     $this->deleteCaseTags($case);
-    if($tags != null && count($tags) > 0) {
-      foreach($tags as $tag) {
+    if ($tags !== null && count($tags) > 0) {
+      foreach ($tags as $tag) {
         $succ_tag = $this->database->insert('etichettamento', [
           'caso' => $case->getId(),
           'tag' => $tag
@@ -132,7 +132,7 @@ class CasesController {
       $parameters
     );
 
-    if(count($result) > 0) {
+    if (count($result) > 0) {
       $caso->criminale = new Criminale($result[0]->criminale, $result[0]->nome, $result[0]->cognome);
     }
 
@@ -234,7 +234,7 @@ class CasesController {
       $parameters
     );
 
-    if(count($exist) > 0) {
+    if (count($exist) > 0) {
       return true;
     }
 
@@ -247,7 +247,7 @@ class CasesController {
 
     $table = 'caso';
 
-    if(count($exist) == 0) {
+    if (count($exist) === 0) {
       return $this->database->insert($table, [
         'codice' => "",
         'descrizione' => $descrizione,

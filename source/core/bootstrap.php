@@ -27,7 +27,7 @@ if (!$config['production']) {
 
     if ($config['production']) {
       \Core\Logger::log($msg, $errNo);
-    } else if ($errNo == E_NOTICE || $errNo == E_WARNING) {
+    } else if ($errNo === E_NOTICE || $errNo === E_WARNING) {
         throw new \ErrorException($msg, $errNo);
     } else {
         echo $msg;

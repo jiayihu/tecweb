@@ -29,7 +29,7 @@
  *    $desktop-xl: 1200px
  *
  * 3. Use relative misures instead of 'px' to scale based on the device font-size
- *    Example: '2rem' == "2 times the root font size"
+ *    Example: '2rem' === "2 times the root font size"
  *
  * 4. Order lines alphabetically in a declaration
  *    Example:

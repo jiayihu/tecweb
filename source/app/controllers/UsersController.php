@@ -174,7 +174,7 @@ class UsersController {
     if ($realCodiceFiscale !== $codiceFiscale) {
       throw new \Exception('codiciNotEqual');
     }
-    if($realPassword === false){
+    if ($realPassword === false){
       throw new \Exception('wrongPassword');
     }
 

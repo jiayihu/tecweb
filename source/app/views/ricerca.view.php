@@ -47,8 +47,8 @@
               <?php foreach ($allTags as $tag): ?>
               <li class="list-item">
                 <label class="tag">
-                  <input class="hide" type="checkbox" name="tags[]" value="<?php echo $tag->getSlug() ?>" />
-                  <span class="input-label tag-label"><?php echo $tag->nome ?></span>
+                  <input class="hide" type="checkbox" name="tags[]" value="<?php $tag->getSlug() ?>" />
+                  <span class="input-label tag-label"><?= $tag->nome ?></span>
                 </label>
               </li>
               <?php endforeach; ?>
@@ -84,7 +84,7 @@
   </aside>
   <section class="main-content">
     <?php if ($searchText !== null): ?>
-    <h2>Risultati per "<?php echo $searchText; ?>"</h2>
+    <h2>Risultati per "<?= $searchText; ?>"</h2>
     <?php endif; ?>
 
     <?php if ($cases !== null): ?>
@@ -113,10 +113,10 @@
             <span class="sr-only">In progress</span>
             <?php endif; ?>
           </td>
-          <td><?php echo $case->nome; ?></td>
-          <td><?php echo $case->tipologia; ?></td>
-          <td class="case-description"><?php echo \Core\ellipsis($case->descrizione); ?></td>
-          <td><a href="/caso?id=<?php echo $case->getId(); ?>">Apri &rightarrow;</a></td>
+          <td><?= $case->nome; ?></td>
+          <td><?= $case->tipologia; ?></td>
+          <td class="case-description"><?= \Core\ellipsis($case->descrizione); ?></td>
+          <td><a href="/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -137,12 +137,12 @@
       <tbody>
         <?php foreach ($investigations as $investigation): ?> 
         <tr>
-          <td><?php echo $investigation->getInvestigatore(); ?></td>
-          <td><?php echo $investigation->dataInizio . ' ' . $investigation->dataTermine; ?></td>
-          <td><?php echo $investigation->getScene(); ?></td>
-          <td class="investigation-report"><?php echo \Core\ellipsis($investigation->rapporto); ?></td>
+          <td><?= $investigation->getInvestigatore(); ?></td>
+          <td><?= $investigation->dataInizio . ' ' . $investigation->dataTermine; ?></td>
+          <td><?= $investigation->getScene(); ?></td>
+          <td class="investigation-report"><?= \Core\ellipsis($investigation->rapporto); ?></td>
           <td>
-            <a href="/caso?id=<?php echo $investigation->getCaseId(); ?>&investigazione=<?php echo $investigation->getId(); ?>">
+            <a href="/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
               Apri &rightarrow;
             </a>
           </td>
