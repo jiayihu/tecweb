@@ -97,7 +97,6 @@ textarea {
   color: #4e4e4e;
   font-size: 0.875rem;
   padding: 0.5rem;
-  transition: all 0.4s ease-out;
 }
 
 select {
@@ -131,6 +130,7 @@ input:focus,
 textarea:focus {
   border-bottom-color: #4e4e4e;
   box-shadow: inset 0 -1px #4e4e4e;
+  transition: border 0.4s ease-out, box-shadow 0.4s ease-out;
 }
 
 input[type='text'],
@@ -206,7 +206,7 @@ dd {
 .v-centered {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(0, -50%);
 }
 
 .main-sidebar {
@@ -337,7 +337,7 @@ dd {
   position: absolute;
   text-align: left;
   top: 4rem;
-  width: 15rem;
+  width: 12rem;
   z-index: 9;
 }
 
@@ -446,7 +446,10 @@ dd {
  */
 
 .tabs {
-  margin-top: 3rem;
+  margin-top: 1rem;
+  overflow: auto;
+  padding-top: 1rem;
+  white-space: nowrap;
 }
 
 .tabs > label {
@@ -487,7 +490,6 @@ dd {
 }
 
 .navbar {
-  font-size: 1.15rem;
   padding: 0.5rem 0;
 }
 
@@ -633,6 +635,10 @@ input.hide:focus + .input-label {
 
   .col.three-fourth {
     width: 75%;
+  }
+
+  .navbar {
+    font-size: 1.15rem;
   }
 
   .navbar-left {

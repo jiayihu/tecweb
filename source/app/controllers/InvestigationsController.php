@@ -79,7 +79,7 @@ class InvestigationsController {
 
     $scena = new Scena($nome, $descrizione, $indirizzo, $citta);
     $slug = $scena->createSlug();
-    $slug = $slug.'-'.$caseId.'-'.$investigationId;
+    $slug = $slug . '-' . $caseId . '-' . $investigationId;
 
     $parameters[':id_caso'] = $caseId;
     $parameters[':id_investigazione'] = $investigationId;
@@ -91,7 +91,7 @@ class InvestigationsController {
       $parameters
     );
 
-    if ($exist !== null) {
+    if ($exist !== null && count($exist) > 0) {
       if ($exist[0]->slug === $slug) {    // stesso slug, aggiorna descrizione, indirizzo e città
         $where = 'slug = :slug';   
         $changes = '
@@ -115,7 +115,7 @@ class InvestigationsController {
         return false;
       }
     } else {                            // non esiste nessuna scena, ne crea una nuova
-      return $this->insertScena($slug, $caseId, $investigationId, $scena);
+      return (bool) $this->insertScena($slug, $caseId, $investigationId, $scena);
     }
   }
 
