@@ -51,8 +51,8 @@
             <?= $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required>
         </dd>
 
-        <dt>Tipologia <?= $isEdit ? '(non modificabile)' : '' ?></dt>
-        <dd>
+        <dt id="type-label">Tipologia <?= $isEdit ? '(non modificabile)' : '' ?></dt>
+        <dd role="group" aria-labelledby="type-label">
           <?php if ($isEdit): ?>
           <?= $editingRole ?>
           <input type="hidden" name="role" value="<?= $editingRole ?>">

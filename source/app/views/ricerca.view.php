@@ -48,8 +48,8 @@
               <option value="spionaggio">Spionaggio</option>
             </select>
           </p>
-          <div> 
-            <span class="input-label">Tags</span>
+          <fieldset> 
+            <legend class="input-label">Tags</legend>
             <ul class="tags list">
               <?php foreach ($allTags as $tag): ?>
               <li class="list-item">
@@ -60,7 +60,7 @@
               </li>
               <?php endforeach; ?>
             </ul>
-          </div>
+          </fieldset>
         </div>
 
         <!-- Fields unique for investigation -->

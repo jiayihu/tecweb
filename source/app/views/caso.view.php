@@ -84,8 +84,8 @@
             <?php endforeach; ?>
           </select>
         </dd>
-        <dt>Tag</dt>
-        <dd>
+        <dt id="tags-label">Tag</dt>
+        <dd role="group" aria-labelledby="tags-label">
           <ul class="tags list">
             <?php foreach ($allTags as $tag) : ?>
               <li class="list-item">

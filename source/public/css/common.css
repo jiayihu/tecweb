@@ -150,6 +150,10 @@ input[type='checkbox']:focus {
   box-shadow: none;
 }
 
+fieldset {
+  border: 1px solid #d3d3d3;
+}
+
 table {
   border-collapse: collapse;
   margin-top: 2rem;
@@ -332,7 +336,6 @@ dd {
   background-color: white;
   border: 1px solid #4e4e4e;
   border-top-width: 2px;
-  box-shadow: 0 3px 4px #d3d3d3;
   font-size: 1rem;
   left: 0;
   padding: 0;

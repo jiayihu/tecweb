@@ -39,8 +39,8 @@
             <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
           <?php endif; ?>     
         </div>
-        <div class="investigation-content-field">
-          <span class="investigation-content-title">Luogo: </span> 
+        <fieldset class="investigation-content-field">
+          <legend class="investigation-content-title">Luogo </legend> 
           <?php if ($investigation->scena === null) : ?>
             <input class="input" type="text" name="scena_nome" value="" placeholder="nome" aria-label="nome" required>
             <input class="input" type="text" name="scena_descrizione" value="" placeholder="descrizione" aria-label="descrizione" required>
@@ -52,7 +52,7 @@
             <input class="input" type="text" name="scena_citta" value="<?= $investigation->scena->citta ?>" placeholder="città" aria-label="città" required>
             <input class="input" type="text" name="scena_indirizzo" value="<?= $investigation->scena->indirizzo ?>" placeholder="indirizzo" aria-label="indirizzo" required>
           <?php endif; ?>
-        </div>
+        </fieldset>
         <div class="investigation-content-field">
           <label for="rapporto" class="investigation-content-title">Rapporto: </label>
           <textarea id="rapporto" name="rapporto"><?= ucfirst($investigation->rapporto) ?></textarea>

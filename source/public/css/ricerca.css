@@ -15,11 +15,16 @@ h2 {
   display: none;
 }
 
+.tags {
+  margin: 0;
+}
+
 .tag-label {
   background-color: #f6f6f6;
   border-radius: 3px;
   border-left: 3px solid transparent;
   display: block;
+  font-size: 0.875rem;
   margin-top: 0.5rem;
   padding: 0.5rem;
 }
