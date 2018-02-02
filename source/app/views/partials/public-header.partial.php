@@ -30,9 +30,6 @@
         <li class="list-item">
           <a class="navbar-link <?= $routeName === 'contatti' ? 'active' : '' ?>" href="contatti">Contatti</a>
         </li>
-        <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'login' ? 'active' : '' ?>" href="login">Login</a>
-        </li>
       </ul>
     </div>
   </header>
