@@ -671,7 +671,7 @@ class PagesController {
         return \Core\redirect('/impostazioni?codiciNonUguali=true');
       }
     }
-    if ($successful) return \Core\redirect('/impostazioni');
+    if ($successful)  return \Core\redirect('/impostazioni?successo=true');
     else return \Core\redirect('/impostazioni');
   }
 
