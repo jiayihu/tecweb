@@ -13,11 +13,12 @@
 <main class="container">
   <section class="service clearfix">
     <div class="service-content col half">
-      <h3>PADOVA, ITALIA</h3>
-      <p>221B Baker St</p>
-      <p>Marylebone, London UK</p>
-      <h3>TELEFONO</h3>
-      <p>+39 (0)45 875 2845</p>
+      <h2>INDIRIZZO</h2>
+      <p>Via Trieste, 63 -</p>
+      <p>35121 Padova</p>
+      <p>Italia</p>
+      <h2>TELEFONO</h2>
+      <p>+39 049 827 5111</p>
       <a href="https://goo.gl/maps/vpzLkY5mzd22" class="underl">google maps</a>
     </div>
     <div class="service-photo col half img">
@@ -30,7 +31,7 @@
       <img src="public/images/contatti/envelop.jpg" alt="Lettera">
     </div>
     <div class="service-content col half">
-      <h3>Contattaci</h3>
+      <h2>Contattaci</h2>
       <form id="formcontatti" action="/" method="post">
         <div class="contactbox">
           <div class="contactbox-field">
@@ -44,7 +45,7 @@
             <span class="underline"></span>
           </div>
           <div class="contactbox-field">
-            <label for="email" class="hidden">email</label>
+            <label for="email" class="hidden" lang="en">email</label>
             <input id="email" class="input" type="email" name="email" required placeholder="Email">
             <span class="underline"></span>
           </div>

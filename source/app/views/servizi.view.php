@@ -73,7 +73,7 @@
       <img src="public/images/home/special.jpg" alt="Investigazioni cyber-security">
     </div>
     <div class="service-content col two-third">
-    <h2>Investigazioni cyber-security</h2>
+    <h2>Investigazioni <span lang="en">cyber-security</span></h2>
     <p>
       In questo particolare periodo storico, dove tutti i device sono connessi tra di loro e la facilità di essere “controllati” è altissima, un servizio di controspionaggio è alla base della sicurezza.
     </p>
@@ -84,7 +84,7 @@
       <li>Controspionaggio informatico</li>
       <li>Vulnerability assestment</li>
       <li>Furto d'identità e truffe online</li>
-      <li>Social Engeneering</li>
+      <li><span lang="en">Social Engeneering</span></li>
     </ul>
     </div>
   </section>

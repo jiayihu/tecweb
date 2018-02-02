@@ -23,14 +23,12 @@
   margin: auto;
   padding-top: 2rem;
   text-align: center;
-  width: 80%;
 }
 .contactbox-message {
   display: block;
   margin: auto;
   padding-top: 2rem;
   text-align: center;
-  width: 80%;
 }
 
 .service {
@@ -39,10 +37,6 @@
 
 .service-content {
   padding: 1rem;
-}
-
-.service-content p {
-  width: 80%;
 }
 
 .service-photo {
@@ -54,6 +48,11 @@
   text-decoration: underline;
 }
 
+.col.half {
+  text-align: center;
+  width: 100%;
+}
+
 /*--------- Media queries- --------*/
 
 @media (min-width: 768px) {
@@ -63,6 +62,10 @@
 
   .service-photo {
     display: initial;
+  }
+
+  .col.half {
+    width: 50%;
   }
 }
 

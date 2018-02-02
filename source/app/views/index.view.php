@@ -3,7 +3,7 @@
 <div class="intro">
   <div class="container v-centered-wrapper">
     <div class="v-centered">
-      <h1 class="intro-name">Studio Sherlock & Watson</h1>
+      <h1 lang="en" class="intro-name">Studio Sherlock & Watson</h1>
       <p>
         <a class="btn btn-outline" href="contatti">Entra in contatto</a>
       </p>
@@ -55,7 +55,7 @@
       <img src="public/images/home/special.jpg" alt="Investigazioni cyber-security">
     </div>
     <div class="service-content col half">
-      <h2>Investigazioni cyber-security</h2>
+      <h2>Investigazioni <span lang="en">cyber-security</span></h2>
       <p>La nostra divisione informatica, attraverso dotazioni software all’avanguardia è in grado di offrirvi servizi di analisi forense sui dispositivi ormai di uso quotidiano come PC, tablet, e smartphone.</p>
       <p><a href="servizi#cyber" class="btn btn-outline">Open service</a></p>
     </div>
