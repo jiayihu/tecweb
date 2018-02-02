@@ -274,7 +274,7 @@ class PagesController {
     if ($investigationId === null) {
       $this->handleEditCasePOST($caseId);
     } else {
-      $this->handleEditInvestigationPOST($investigationId);
+      $this->handleEditInvestigationPOST($caseId, $investigationId);
     }
   }
 
@@ -353,7 +353,7 @@ class PagesController {
     return \Core\redirect($path);          
   }
 
-  public function handleEditInvestigationPOST($investigationId) {
+  public function handleEditInvestigationPOST(int $caseId, int $investigationId) {
     $investigatore = Request::getPOSTParam('investigatore');
     $ore = Request::getPOSTParam('ore');
     $date_to = Request::getPOSTParam('date_to');

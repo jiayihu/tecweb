@@ -216,7 +216,6 @@ dd {
 
 .main-sidebar .btn-link {
   color: inherit;
-  margin-right: 1rem;
 }
 
 /*----------  Components  ----------*/
@@ -274,6 +273,7 @@ dd {
 
 .btn-link {
   color: #c62828;
+  margin-right: 1rem;
 }
 
 .btn-link:hover {
@@ -573,6 +573,7 @@ dd {
   position: absolute;
   overflow: hidden;
   height: 1px;
+  left: -10000px;
   width: 1px;
   margin: -1px;
 }

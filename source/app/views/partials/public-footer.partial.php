@@ -1,8 +1,8 @@
     <footer class="footer">
       <div class="container clearfix">
-          <div class="left">&copy; 2017 Sherlock and Watson | 221B Baker St, Marylebone, London | VAT 0123456789</div>
+          <div class="left">&copy; 2018 Sherlock and Watson | Via Trieste, 63 - 35121 Padova (Italy) | PIVA 0123456789</div>
           <div class="right">
-            <a href="#top">Go back to top</a>
+            <a href="#top">Torna in cima</a>
           </div>
       </div>
     </footer>

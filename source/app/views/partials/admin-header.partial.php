@@ -15,12 +15,11 @@
 </head>
 
 <body class="page-<?= $routeName ?>">
-  <header id="top" class="navbar-container">
+  <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
         <a href="/dashboard" title="Go back to dashboard">
           <img class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
-        </a>
         </a>
       </div>
       <ul class="list navbar-right right">
@@ -64,5 +63,3 @@
       </ul>
     </div>
   </header>
-  <div id="top"></div>
-  <!-- Per il back to top -->

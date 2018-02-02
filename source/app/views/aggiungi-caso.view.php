@@ -20,3 +20,5 @@
     </div>
   </form>
 </main>
+
+<?php require 'partials/admin-footer.partial.php' ?>

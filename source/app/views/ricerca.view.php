@@ -29,7 +29,7 @@
           </p>
           <?php else: ?>
           <p>
-            <input hidden type="text" name="cliente" value="<?= $user->codice_fiscale ?>">
+            <input type="hidden" name="cliente" value="<?= $user->codice_fiscale ?>">
           </p>
           <?php endif; ?>
           <p>
@@ -47,7 +47,7 @@
               <option value="spionaggio">Spionaggio</option>
             </select>
           </p>
-          <p> 
+          <div> 
             <span class="input-label">Tags</span>
             <ul class="tags list">
               <?php foreach ($allTags as $tag): ?>
@@ -59,7 +59,7 @@
               </li>
               <?php endforeach; ?>
             </ul>
-          </p>
+          </div>
         </div>
 
         <!-- Fields unique for investigation -->
@@ -74,23 +74,25 @@
           </p>
           <p>
             <label class="input-label" for="input-date-from">A partire da data</label>
-            <input type="date" name="date-from" id="input-date-from">
+            <input pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from">
           </p>
           <p>
             <label class="input-label" for="input-date-to">Fino a data</label>
-            <input type="date" name="date-to" id="input-date-to">
+            <input pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to">
           </p>
         </div>
       </div>
 
       <p>
-        <button type="submit" class="btn btn-primary" href="contatti">Avvia ricerca</button>
+        <button type="submit" class="btn btn-primary">Avvia ricerca</button>
       </p>
     </form>
   </aside>
   <section class="main-content">
     <?php if ($searchText !== null): ?>
     <h2>Risultati per "<?= $searchText; ?>"</h2>
+    <?php else: ?>
+    <h2>Nessuna ricerca</h2>
     <?php endif; ?>
 
     <?php if ($cases !== null): ?>
@@ -168,3 +170,5 @@
 
   </section>
 </main>
+
+<?php require 'partials/admin-footer.partial.php' ?>

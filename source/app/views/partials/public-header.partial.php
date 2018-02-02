@@ -13,7 +13,7 @@
   <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">  
 </head>
 <body>
-  <header class="navbar-container">
+  <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
         <a class="home-link" href="/" title="Go back to home">
@@ -36,4 +36,3 @@
       </ul>
     </div>
   </header>
-  <div id="top"></div> <!-- Per il back to top -->
