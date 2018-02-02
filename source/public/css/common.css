@@ -333,7 +333,6 @@ dd {
   border: 1px solid #4e4e4e;
   border-top-width: 2px;
   box-shadow: 0 3px 4px #d3d3d3;
-  display: none;
   font-size: 1rem;
   left: 0;
   padding: 0;
@@ -366,8 +365,17 @@ dd {
   right: 1rem;
 }
 
-.dropdown:hover .submenu {
+.dropdown:hover .submenu,
+.dropdown-toggle:focus + .submenu {
   display: block;
+}
+
+.dropdown:hover .submenu,
+.dropdown-toggle:focus + .submenu {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
 }
 
 .dropdown .submenu li {
@@ -576,12 +584,14 @@ dd {
 
 /* Hide visually but still visible to screen readers */
 .screen-reader {
-  position: absolute;
-  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
   height: 1px;
-  left: -10000px;
-  width: 1px;
   margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 
 input.screen-reader:focus + label,
@@ -589,13 +599,18 @@ input.screen-reader:focus + .input-label {
   box-shadow: 0 0 3px #03a9f4;
 }
 
-.sr-only {
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
+/*
+ * Extends the .screen-reader class to allow the element to be focusable when
+ * navigated to via the keyboard
+ */
+.screen-reader.focusable:active,
+.screen-reader.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
 }
 
 /*----------  Media queries  ----------*/

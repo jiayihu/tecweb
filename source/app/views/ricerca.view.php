@@ -2,6 +2,7 @@
 
 <main id="content" class="main-container container">
   <aside class="main-sidebar">
+    <a class="screen-reader" href="#result">Salta i campi di ricerca e vai ai risultati</a>
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
     <form action="/ricerca" method="post">
       <?php if ($emptySearch) :?>
@@ -88,9 +89,11 @@
       </p>
     </form>
   </aside>
-  <section class="main-content">
+  <section id="result" class="main-content">
     <?php if ($searchText !== null): ?>
     <h2>Risultati per "<?= $searchText; ?>"</h2>
+    <?php elseif ($cases !== null): ?>
+    <h2>Risultati ricerca</h2>
     <?php else: ?>
     <h2>Nessuna ricerca</h2>
     <?php endif; ?>
@@ -112,13 +115,13 @@
           <td>
             <?php if ($case->isResolved()): ?>
             <span class="status status-resolved" title="Risolto"></span>
-            <span class="sr-only">Risolto</span>
+            <span class="screen-reader">Risolto</span>
             <?php elseif ($case->isArchived()): ?>
             <span class="status status-archived" title="Archiviato irrisolto"></span>
-            <span class="sr-only">Archiviato irrisolto</span>
+            <span class="screen-reader">Archiviato irrisolto</span>
             <?php else: ?>
             <span class="status status-progress" title="In progress"></span>
-            <span class="sr-only">In progress</span>
+            <span class="screen-reader">In progress</span>
             <?php endif; ?>
           </td>
           <td><?= $case->nome; ?></td>

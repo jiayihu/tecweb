@@ -26,8 +26,8 @@
       <ul class="list navbar-right right">
         <?php if ($role !== 'inspector'): ?>
         <li class="list-item dropdown">
-          <span class="dropdown-toggle">Dashboard</span>
-          <ul class="submenu">
+          <span tabindex="0" class="dropdown-toggle">Dashboard</span>
+          <ul class="submenu screen-reader">
             <?php if ($role === 'admin'): ?>
             <?php endif; ?>
             <li class="list-item">
@@ -48,8 +48,8 @@
         </li>
         <?php endif; ?>
         <li class="list-item dropdown dropdown-right">
-          <span class="dropdown-toggle"><?= $username ?></span>
-          <ul class="submenu">
+          <span tabindex="0" class="dropdown-toggle"><?= $username ?></span>
+          <ul class="submenu screen-reader">
             <li class="list-item">
               <a href="impostazioni">Impostazioni</a>
             </li>

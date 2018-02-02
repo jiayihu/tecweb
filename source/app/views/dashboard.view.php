@@ -7,7 +7,9 @@
       <ul class="menu-case">
       <?php foreach ($cases as $case) : ?>
           <?php if (!$nuovoCaso && isset($selectedCase) && $case->nome === $selectedCase->nome) : ?>
-            <li class="case case-select"><?= $case->nome ?></li>
+            <li>
+              <a class="case case-select" href="#dettaglio-caso"><?= $case->nome ?></a>
+            </li>
           <?php else : ?>
             <li>
               <a class="case" href="/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
@@ -23,7 +25,7 @@
     <?php endif; ?>
   </aside>
 
-  <section class="main-content dashboard">
+  <section id="dettaglio-caso" class="main-content dashboard">
 
     <?php if ($autoLogin) :?>
       <input id="login-alert-close" class="alert-checkbox" type="checkbox" />

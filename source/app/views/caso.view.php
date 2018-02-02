@@ -2,6 +2,7 @@
 
 <main id="content" class="main-container container">
   <aside class="main-sidebar">
+    <a class="screen-reader" href="#investigations">Salta i dettagli del caso</a>
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>" />
@@ -138,13 +139,13 @@
       <?= $selectedCase->nome ?>
       <?php if ($selectedCase->isResolved()) : ?>
         <span class="status status-resolved" title="Risolto"></span>
-        <span class="sr-only">Risolto</span>
+        <span class="screen-reader">Risolto</span>
       <?php elseif ($selectedCase->isArchived()) : ?>
         <span class="status status-archived" title="Archiviato"></span>
-        <span class="sr-only">Archiviato</span>
+        <span class="screen-reader">Archiviato</span>
       <?php else : ?>
         <span class="status status-progress" title="In corso"></span>
-        <span class="sr-only">In corso</span>
+        <span class="screen-reader">In corso</span>
       <?php endif; ?>
     </h1>
     <dl class="case-info">
@@ -213,7 +214,7 @@
 
     <?php endif; ?>
   </aside>
-  <section class="main-content">
+  <section id="investigations" class="main-content">
     <h2>Investigazioni del caso</h2>
 
     <?php if ($investigazioneErrore) : ?>

@@ -2,6 +2,7 @@
 
 <main id="content" class="main-container container">
   <aside class="main-sidebar">
+    <a class="screen-reader" href="#users">Salta i campi di modifica o inserimento utente e vai alla lista utenti</a>
     <h2><?= $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
 
     <?php if ($passwordsNotEqual) :?>
@@ -81,7 +82,7 @@
     </form>
   </aside>
 
-  <section class="main-content dashboard">
+  <section id="users" class="main-content dashboard">
     <h2>Utenti</h2>
 
     <?php if ($genericError) :?>
