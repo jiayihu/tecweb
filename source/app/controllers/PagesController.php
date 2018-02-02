@@ -651,7 +651,7 @@ class PagesController {
     $oldPassword = Request::getPOSTParam('old_password');
     $password = Request::getPOSTParam('password');
     $passwordConfirm = Request::getPOSTParam('password_confirm');
-    $role = Request::getPOSTParam('role');
+    $role = $this->authController->getUserRole();
     $realPassword= $this->authController->checkPassword($realCodiceFiscale,$oldPassword,$role);
 
     $successful = false;
