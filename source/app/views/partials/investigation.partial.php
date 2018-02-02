@@ -12,10 +12,6 @@
       <input type="hidden" name="invId" value="<?= $investigation->getId(); ?>">
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId(); ?>">
       <div class="investigation-content">
-        <p class="center">
-          <button class="btn btn-outline">Salva</button>
-          <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
-        </p>
         <div class="investigation-content-field">
           <span class="investigation-content-title">Svolta da: </span> 
           <select class="select" name="investigatore">
@@ -35,9 +31,9 @@
         <div class="investigation-content-field">
           <span class="investigation-content-title">Data fine: </span> 
           <?php if ($investigation->dataTermine === null) : ?>
-            <input type="date" name="date_to" id="input-date-to" min="<?= $investigation->dataInizio ?>">
+            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to">
           <?php else : ?>
-            <input type="date" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
+            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
           <?php endif; ?>     
         </div>
         <div class="investigation-content-field">
@@ -58,6 +54,10 @@
           <span class="investigation-content-title">Rapporto: </span>
           <textarea name="rapporto"><?= ucfirst($investigation->rapporto) ?></textarea>
         </div>
+        <p class="center">
+          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
+          <button class="btn btn-primary">Salva</button>
+        </p>
       </div>
   
     <?php else: ?>
@@ -80,7 +80,7 @@
       </div>
       <div class="investigation-content-field">
         <span class="investigation-content-title">Data: </span>
-        <?= $investigation->dataInizio ?> -
+        <?= $investigation->dataInizio ?> /
         <?php 
           if ($investigation->dataTermine === null) {
             echo "in corso";

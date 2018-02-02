@@ -139,3 +139,5 @@
     <?php endif; ?>
   </section>
 </main>
+
+<?php require 'partials/admin-footer.partial.php' ?>

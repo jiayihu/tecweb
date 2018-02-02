@@ -4,7 +4,7 @@
   <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
-      <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>"
+      <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>" />
       <dl class="case-info">
         <?php if ($erroreArchiviazione) : ?>
           <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
@@ -194,12 +194,13 @@
       <dd>
       <ul class="tags list">
         <?php if (count($selectedCase->tags) === 0) : ?>
-          Nessun tag
+        <li class="list-item">Nessun tag</li>
         <?php else: ?>
           <?php foreach ($selectedCase->tags as $tag) : ?>
             <li class="list-item"><span class="tag-label"><?= $tag->nome; ?></span></li>
           <?php endforeach; ?>
         <?php endif; ?>
+        </ul>
       </dd>
     </dl>
     
@@ -264,3 +265,5 @@
     <?php endif; ?>
   </section>
 </main>
+
+<?php require 'partials/admin-footer.partial.php' ?>

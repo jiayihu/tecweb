@@ -23,6 +23,7 @@
     <?php endif; ?>
 
     <form action="modifica-password" method="post">
+      <dl>
         <dt>Codice Fiscale</dt>
         <dd>
             <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" required>
@@ -42,3 +43,5 @@
         <button type="submit" class="btn btn-primary">Cambia Password</button>
     </form>
 </main>
+
+<?php require 'partials/admin-footer.partial.php' ?>

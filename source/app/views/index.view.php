@@ -13,7 +13,7 @@
 
 <main class="container">
   <div class="history">
-    <p>Nato nel 1887 nel cuore di Londra, da oltre un secolo si occupa di risolvere i più controversi ed enigmatici casi di criminalità offrendo consulenza a privati, aziende e alla polizia tra cui Scotland Yard.</p>
+    <p>Nato nel 1887 a Padova, da oltre un secolo si occupa di risolvere i più controversi ed enigmatici casi di criminalità offrendo consulenza a privati, aziende e alla polizia.</p>
   </div>
 
   <section class="service clearfix">
