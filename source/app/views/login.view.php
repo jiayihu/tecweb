@@ -2,7 +2,7 @@
 
 <main id="content" class="container">
   <?php if ($dashboardError) :?>
-    <p class="alert alert-danger">
+    <p role="alert" class="alert alert-danger">
       Accedi con le tue credenziali per poter visualizzare l'area amministrativa.
     </p>
   <?php endif; ?>
@@ -38,7 +38,7 @@
       </fieldset>
       <input type="submit" class="btn btn-outline" value="Login">
       <?php if ($loginError) :?>
-        <p class="alert alert-danger">Non esiste un utente con questo codice fiscale e password</p>
+        <p role="alert" class="alert alert-danger">Non esiste un utente con questo codice fiscale e password</p>
       <?php endif; ?>
     </form>    
   </div> 

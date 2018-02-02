@@ -3,21 +3,21 @@
 <main id="content" class="main-container container">
     <h2> Modifica password</h2>
     <?php if ($passwordsNotEqual) :?>
-    <p class="alert alert-danger">La nuova password inserita non è uguale a quella di conferma.</p>
+    <p role="alert" class="alert alert-danger">La nuova password inserita non è uguale a quella di conferma.</p>
     <?php endif; ?>
 
     <?php if ($codiciNotEqual) :?>
-    <p class="alert alert-danger">Codice Fiscale Sbagliato</p>
+    <p role="alert" class="alert alert-danger">Codice Fiscale Sbagliato</p>
     <?php endif; ?>
     
     <?php if ($passwordSbagliata) :?>
-    <p class="alert alert-danger">La password vecchia è sbagliata</p>
+    <p role="alert" class="alert alert-danger">La password vecchia è sbagliata</p>
     <?php endif; ?>
 
     <?php if ($successful) :?>
-    <input id="success-alert-close" class="alert-checkbox" type="checkbox" />
-    <p class="alert alert-success">
-      <label for="success-alert-close" class="alert-close" aria-label="Chiudi">
+    <input id="success-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <p role="alert" class="alert alert-success">
+      <label for="success-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
       </label>
       Operazione eseguita con successo.
     </p>

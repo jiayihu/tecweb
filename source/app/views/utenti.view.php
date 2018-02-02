@@ -6,15 +6,15 @@
     <h2><?= $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
 
     <?php if ($passwordsNotEqual) :?>
-    <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
+    <p role="alert" class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
     <?php endif; ?>
 
     <?php if ($alreadyExisting) :?>
-    <p class="alert alert-danger">L'utente inserito è già esistente.</p>
+    <p role="alert" class="alert alert-danger">L'utente inserito è già esistente.</p>
     <?php endif; ?>
     
     <?php if ($addFailed) :?>
-    <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
+    <p role="alert" class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
     <?php endif; ?>
 
     <ul class="form-instructions">
@@ -91,9 +91,9 @@
     <h2>Utenti</h2>
 
     <?php if ($genericError) :?>
-    <input id="genericerror-alert-close" class="alert-checkbox" type="checkbox" />
-    <p class="alert alert-danger">
-      <label for="genericerror-alert-close" class="alert-close" aria-label="Chiudi">
+    <input id="genericerror-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <p role="alert" class="alert alert-danger">
+      <label for="genericerror-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Non è stato possibile completare l'operazione. Si consiglia di riprovare.
@@ -101,9 +101,9 @@
     <?php endif; ?>
 
     <?php if ($successful) :?>
-    <input id="success-alert-close" class="alert-checkbox" type="checkbox" />
-    <p class="alert alert-success">
-      <label for="success-alert-close" class="alert-close" aria-label="Chiudi">
+    <input id="success-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <p role="alert" class="alert alert-success">
+      <label for="success-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Operazione eseguita con successo.

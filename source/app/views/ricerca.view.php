@@ -6,9 +6,9 @@
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
 
     <?php if ($emptySearch) :?>
-    <input id="empty-search-alert-close" class="alert-checkbox" type="checkbox" />
-    <p class="alert alert-danger">
-      <label for="empty-search-alert-close" class="alert-close" aria-label="Chiudi">
+    <input id="empty-search-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <p role="alert" class="alert alert-danger">
+      <label for="empty-search-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Non è possibile eseguire una ricerca vuota.
@@ -175,11 +175,11 @@
     <?php endif; ?>
 
     <?php if ($cases === null && $investigations === null): ?>
-    <p class="alert alert-secondary">Effettua una ricerca usando i campi a sinistra.</p>
+    <p role="alert" class="alert alert-secondary">Effettua una ricerca usando i campi a sinistra.</p>
     <?php endif; ?>
 
     <?php if (($cases !== null && \count($cases) === 0) || ($investigations !== null && \count($investigations) === 0)): ?>
-    <p class="alert alert-info">Non ci sono risultati per questa ricerca.</p>
+    <p role="alert" class="alert alert-info">Non ci sono risultati per questa ricerca.</p>
     <?php endif; ?>
 
   </section>

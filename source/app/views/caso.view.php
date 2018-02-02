@@ -8,9 +8,9 @@
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>" />
       <dl class="case-info">
         <?php if ($erroreArchiviazione) : ?>
-          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-          <p class="alert alert-danger">
-            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+          <p role="alert" class="alert alert-danger">
+            <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
               <span aria-hidden="true">&times;</span>
             </label>
             Non è possibile archiviare un caso risolto con un colpevole.
@@ -18,9 +18,9 @@
         <?php endif; ?>
 
         <?php if ($duplicato) : ?>
-          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-          <p class="alert alert-danger">
-            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+          <p role="alert" class="alert alert-danger">
+            <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
               <span aria-hidden="true">&times;</span>
             </label>
             Esiste già un caso con il nome segnato.
@@ -28,9 +28,9 @@
         <?php endif; ?>
 
         <?php if ($archiviato) : ?>
-          <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-          <p class="alert alert-success">
-            <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+          <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+          <p role="alert" class="alert alert-success">
+            <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
               <span aria-hidden="true">&times;</span>
             </label>
             Il caso è stato archiviato.
@@ -116,9 +116,9 @@
     <?php else : ?>
 
     <?php if ($modificaOk) : ?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-success">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-success">
+        <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Caso modificato con successo.
@@ -126,9 +126,9 @@
     <?php endif; ?>
 
     <?php if ($modificaErrore) : ?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-danger">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Non è stato possibile applicare nessuna modifica. Riprovare.
@@ -218,9 +218,9 @@
     <h2>Investigazioni del caso</h2>
 
     <?php if ($investigazioneErrore) : ?>
-      <input id="inv-error-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-danger">
-        <label for="inv-error-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="inv-error-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="inv-error-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Non è stato possibile applicare nessuna modifica. Riprovare.
@@ -228,9 +228,9 @@
     <?php endif; ?>
     
     <?php if ($investigazioneOk) : ?>
-      <input id="inv-edit-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-success">
-        <label for="inv-edit-close" class="alert-close" aria-label="Chiudi">
+      <input id="inv-edit-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-success">
+        <label for="inv-edit-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Investigazione modificata con successo.
@@ -238,9 +238,9 @@
     <?php endif; ?>
 
     <?php if ($erroreNuovaInvestigazione) : ?>
-      <input id="new-inv-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-danger">
-        <label for="new-inv-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="new-inv-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="new-inv-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Errore nell'inserimento della nuova investigazione. Riprovare.

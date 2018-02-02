@@ -28,9 +28,9 @@
   <section id="dettaglio-caso" class="main-content dashboard">
 
     <?php if ($autoLogin) :?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-info">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-info">
+        <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Sei stato automaticamente rimandato all'area amministrativa.
@@ -38,9 +38,9 @@
     <?php endif; ?>
 
     <?php if ($notAuthorized) :?>
-      <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-      <p class="alert alert-danger">
-        <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+      <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
           <span aria-hidden="true">&times;</span>
         </label>
         Non hai i permessi per accedere alla pagina. Sei stato rimandato alla pagina iniziale.
@@ -49,9 +49,9 @@
 
     <?php if ($nuovoCaso) : ?>
       <?php if ($erroreCampiNuovoCaso) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-danger">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+        <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+        <p role="alert" class="alert alert-danger">
+          <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
             <span aria-hidden="true">&times;</span>
           </label>
           Tutti i campi devono essere compilati.
@@ -59,9 +59,9 @@
       <?php endif; ?>
 
       <?php if ($duplicazione) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-danger">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+        <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+        <p role="alert" class="alert alert-danger">
+          <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
             <span aria-hidden="true">&times;</span>
           </label>
           Caso già esistente. Provare con un altro nome.
@@ -110,9 +110,9 @@
       </form>
     <?php else : ?>
       <?php if ($nuovoCasoOk) : ?>
-        <input id="login-alert-close" class="alert-checkbox" type="checkbox" />
-        <p class="alert alert-success">
-          <label for="login-alert-close" class="alert-close" aria-label="Chiudi">
+        <input id="login-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+        <p role="alert" class="alert alert-success">
+          <label for="login-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
             <span aria-hidden="true">&times;</span>
           </label>
           Nuovo caso inserito con successo.
