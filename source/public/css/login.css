@@ -33,6 +33,10 @@ footer {
   padding-top: 2rem;
 }
 
+.loginbox-field:first-child {
+  padding-top: 0;
+}
+
 .loginbox-fieldset {
   margin-top: 1rem;
 }

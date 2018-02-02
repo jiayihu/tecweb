@@ -7,16 +7,21 @@
     </p>
   <?php endif; ?>
 
-  <form id="login" action="/login" method="post">
-    <div class="loginbox v-centered">
+  <div class="loginbox v-centered">
+   <ul class="form-instructions">
+      <li>Tutti i campi sono obbligatori</li>
+      <li>La password deve essere almeno di almeno 6 caratteri</li>
+    </ul>
+
+    <form id="login" action="/login" method="post">
       <div class="loginbox-field">
-        <label for="codice_fiscale" class="input-label">Codice fiscale (*)</label>
+        <label for="codice_fiscale" class="input-label">Codice fiscale</label>
         <input id="codice_fiscale" class="input" name="codice_fiscale" type="text" placeholder="Il tuo codice fiscale" required>
         <span class="underline"></span>
       </div>
       <div class="loginbox-field">
-        <label for="password" class="input-label">Password (*)</label>
-        <input id="password" class="input" name="password" type="password" placeholder="La tua password" required>
+        <label for="password" class="input-label">Password</label>
+        <input id="password" class="input" name="password" type="password" placeholder="La tua password" required pattern=".{6,}">
         <span class="underline"></span>
       </div>
       <fieldset class="loginbox-fieldset">
@@ -35,8 +40,8 @@
       <?php if ($loginError) :?>
         <p class="alert alert-danger">Non esiste un utente con questo codice fiscale e password</p>
       <?php endif; ?>
-    </div> 
-  </form>    
+    </form>    
+  </div> 
 </main>
 
 <?php require 'partials/public-footer.partial.php' ?>

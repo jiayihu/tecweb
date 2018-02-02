@@ -17,6 +17,11 @@
     <p class="alert alert-danger">Non è stato possibile creare l'utente. Si consiglia di riprovare.</p>
     <?php endif; ?>
 
+    <ul class="form-instructions">
+      <li>Tutti i campi sono obbligatori</li>
+      <li>La password deve essere almeno di almeno 6 caratteri</li>
+    </ul>
+
     <form action="<?= $isEdit ? 'modifica-utente' : 'aggiungi-utente' ?>" method="post">
       <dl class="case-info">
         <dt>Codice Fiscale</dt>
@@ -31,12 +36,12 @@
         
         <dt>Password</dt>
         <dd>
-          <input class="input" type="password" name="password" placeholder="Inserisci password" aria-label="Inserisci password" minlength="6" required>
+          <input class="input" type="password" name="password" placeholder="Inserisci password" aria-label="Inserisci password" pattern=".{6,}" required>
         </dd>
         
         <dt>Conferma password</dt>
         <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" aria-label="Conferma password" minlength="6" required>
+          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" aria-label="Conferma password" pattern=".{6,}" required>
         </dd>
         
         <dt>Nome</dt>
@@ -52,7 +57,7 @@
         </dd>
 
         <dt id="type-label">Tipologia <?= $isEdit ? '(non modificabile)' : '' ?></dt>
-        <dd role="group" aria-labelledby="type-label">
+        <dd <?= $isEdit ? '' : 'role="group" aria-labelledby="type-label"' ?>>
           <?php if ($isEdit): ?>
           <?= $editingRole ?>
           <input type="hidden" name="role" value="<?= $editingRole ?>">

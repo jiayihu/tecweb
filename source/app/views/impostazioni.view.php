@@ -23,6 +23,11 @@
     </p>
     <?php endif; ?>
 
+    <ul class="form-instructions">
+      <li>Tutti i campi sono obbligatori</li>
+      <li>La password deve essere almeno di almeno 6 caratteri</li>
+    </ul>
+
     <form action="modifica-password" method="post">
       <dl>
         <dt>Codice Fiscale</dt>
@@ -31,15 +36,15 @@
         </dd>
         <dt>Vecchia Password</dt>
             <dd>
-            <input class="input" type="password" name="old_password" placeholder="Inserisci vecchia password" minlength="6" required>
+            <input class="input" type="password" name="old_password" placeholder="Inserisci vecchia password" pattern=".{6,}" required>
             </dd>
         <dt>Nuova Password</dt>
             <dd>
-            <input class="input" type="password" name="password" placeholder="Inserisci nuova password" minlength="6" required>
+            <input class="input" type="password" name="password" placeholder="Inserisci nuova password" pattern=".{6,}" required>
             </dd>
         <dt>Conferma nuova password</dt>
         <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma nuova password" minlength="6" required>
+          <input class="input" type="password" name="password_confirm" placeholder="Conferma nuova password" pattern=".{6,}" required>
         </dd>
         <button type="submit" class="btn btn-primary">Cambia Password</button>
     </form>

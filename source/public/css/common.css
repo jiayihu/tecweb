@@ -449,6 +449,12 @@ dd {
   margin-right: 0.5rem;
 }
 
+.form-instructions {
+  font-style: italic;
+  margin: 2rem 0;
+  padding-left: 1rem;
+}
+
 .page-title {
   color: #060606;
   text-align: center;
@@ -718,13 +724,5 @@ input.screen-reader:focus + .input-label {
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
-  }
-
-  .main-sidebar {
-    width: 20%;
-  }
-
-  .main-content {
-    width: 80%;
   }
 }

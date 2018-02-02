@@ -4,11 +4,22 @@
   <aside class="main-sidebar">
     <a class="screen-reader" href="#result">Salta i campi di ricerca e vai ai risultati</a>
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
-    <form action="/ricerca" method="post">
-      <?php if ($emptySearch) :?>
-      <p class="alert alert-danger">Non è possibile eseguire una ricerca vuota.</p>
-      <?php endif; ?>
 
+    <?php if ($emptySearch) :?>
+    <input id="empty-search-alert-close" class="alert-checkbox" type="checkbox" />
+    <p class="alert alert-danger">
+      <label for="empty-search-alert-close" class="alert-close" aria-label="Chiudi">
+        <span aria-hidden="true">&times;</span>
+      </label>
+      Non è possibile eseguire una ricerca vuota.
+    </p>
+    <?php endif; ?>
+
+    <ul class="form-instructions">
+      <li>Almeno un campo, oltre la tipologia, è obbligatorio</li>
+    </ul>
+
+    <form action="/ricerca" method="post">
       <div>
         <span class="input-label">Tipologia</span>
         <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked>
@@ -74,12 +85,12 @@
             <input class="input" type="text" name="scena" id="input-scene" placeholder="Città o indirizzo della scena">
           </p>
           <p>
-            <label class="input-label" for="input-date-from">A partire da data</label>
-            <input pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from">
+            <label class="input-label" for="input-date-from">A partire da data (YYYY-MM-DD)</label>
+            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from">
           </p>
           <p>
-            <label class="input-label" for="input-date-to">Fino a data</label>
-            <input pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to">
+            <label class="input-label" for="input-date-to">Fino a data (YYYY-MM-DD)</label>
+            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to">
           </p>
         </div>
       </div>
