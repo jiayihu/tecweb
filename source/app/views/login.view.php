@@ -10,13 +10,13 @@
   <form id="login" action="/login" method="post">
     <div class="loginbox v-centered">
       <div class="loginbox-field">
-        <span class="input-label">Codice fiscale (*)</span>
-        <input class="input" name="codice_fiscale" type="text" placeholder="Il tuo codice fiscale" required>
+        <label for="codice_fiscale" class="input-label">Codice fiscale (*)</label>
+        <input id="codice_fiscale" class="input" name="codice_fiscale" type="text" placeholder="Il tuo codice fiscale" required>
         <span class="underline"></span>
       </div>
       <div class="loginbox-field">
-        <span class="input-label">Password (*)</span>
-        <input class="input" name="password" type="password" placeholder="La tua password" required>
+        <label for="password" class="input-label">Password (*)</label>
+        <input id="password" class="input" name="password" type="password" placeholder="La tua password" required>
         <span class="underline"></span>
       </div>
       <div class="loginbox-field">

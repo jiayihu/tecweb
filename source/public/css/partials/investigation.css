@@ -20,11 +20,11 @@
   padding: 0 0 0 1em;
 }
 
-.investigation label:hover {
+.accordion-label:hover {
   background-color: #d3d3d3;
 }
 
-.investigation label::after {
+.accordion-label::after {
   display: block;
   line-height: 3;
   height: 3em;

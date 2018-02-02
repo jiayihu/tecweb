@@ -18,7 +18,7 @@
     <div class="navbar container clearfix">
       <div class="navbar-left left">
         <a class="home-link" href="/" title="Go back to home">
-          <img class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
+          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
         </a>
       </div>
       <ul class="list navbar-right right">

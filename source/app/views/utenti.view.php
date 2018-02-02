@@ -25,29 +25,29 @@
           <input type="hidden" name="old_codice_fiscale" value="<?= $editingUser->codice_fiscale ?>">
           <?php endif; ?>
 
-          <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale"
+          <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" aria-label="Inserisci codice fiscale"
             <?= $isEdit ? "value=\"{$editingUser->codice_fiscale}\"" : '' ?> required>
         </dd>
         
         <dt>Password</dt>
         <dd>
-          <input class="input" type="password" name="password" placeholder="Inserisci password" minlength="6" required>
+          <input class="input" type="password" name="password" placeholder="Inserisci password" aria-label="Inserisci password" minlength="6" required>
         </dd>
         
         <dt>Conferma password</dt>
         <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" minlength="6" required>
+          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" aria-label="Conferma password" minlength="6" required>
         </dd>
         
         <dt>Nome</dt>
         <dd>
-          <input class="input" type="text" name="nome" placeholder="Inserisci nome"
+          <input class="input" type="text" name="nome" placeholder="Inserisci nome" aria-label="Inserisci nome"
             <?= $isEdit ? "value=\"{$editingUser->nome}\"" : '' ?> required>
         </dd>
         
         <dt>Cognome</dt>
         <dd>
-          <input class="input" type="text" name="cognome" placeholder="Inserisci cognome"
+          <input class="input" type="text" name="cognome" placeholder="Inserisci cognome" aria-label="Inserisci cognome"
             <?= $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required>
         </dd>
 

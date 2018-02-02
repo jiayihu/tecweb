@@ -38,12 +38,12 @@
         <?php endif; ?>
 
         <dt>Titolo</dt>
-        <dd><input class="input" type="text" name="title" value="<?= $selectedCase->nome; ?>"></dd>
+        <dd><input class="input" type="text" name="nome" aria-label="nome"  value="<?= $selectedCase->nome; ?>"></dd>
         <dt>Descrizione</dt>
-        <dd><textarea name="descrizione"><?= $selectedCase->descrizione ?></textarea></dd>
+        <dd><textarea name="descrizione" aria-label="descrizione" ><?= $selectedCase->descrizione ?></textarea></dd>
         <dt>Tipologia</dt>
         <dd>
-        <select class="select" name="tariffa">
+        <select class="select" name="tariffa" aria-label="tariffa" >
           <option value="furto" <?= $selectedCase->tipologia === 'furto' ? 'selected' : '' ?> >Furto</option>
           <option value="omicidio" <?= $selectedCase->tipologia === 'omicidio' ? 'selected' : '' ?> >Omicidio</option>
           <option value="ricatto" <?= $selectedCase->tipologia === 'ricatto' ? 'selected' : '' ?> >Ricatto</option>
@@ -53,7 +53,7 @@
         </dd>
         <dt>Cliente</dt>
         <dd>
-          <select class="select" name="cliente">
+          <select class="select" name="cliente" aria-label="cliente" >
             <?php foreach ($clienti as $cliente) : ?>
               <?php if ($cliente->codice_fiscale === $selectedCase->cliente->getCodice()) : ?>
                 <option value="<?= $cliente->codice_fiscale; ?>" selected><?= $cliente->codice_fiscale; ?></option>
@@ -66,13 +66,13 @@
         <dt>Archiviato</dt>
         <dd>
         <label>
-          <input type="checkbox" name="archivia" <?= $selectedCase->isArchived() && !$selectedCase->isResolved() ? 'checked' : ''?> />
+          <input type="checkbox" name="archivia"  <?= $selectedCase->isArchived() && !$selectedCase->isResolved() ? 'checked' : ''?> />
           Archivia come irrisolto
         </label>
         </dd>
         <dt>Criminale</dt>
         <dd>
-          <select class="select" name="criminale">
+          <select class="select" name="criminale" aria-label="criminale" >
             <option value="no_criminal" <?= $selectedCase->isResolved() ? '' : 'selected' ?>>Nessun criminale</option>
             <?php foreach ($criminali as $criminale) : ?>
               <option
