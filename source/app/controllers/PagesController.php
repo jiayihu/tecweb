@@ -625,9 +625,6 @@ class PagesController {
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
 
-
-
-
     return \Core\view('impostazioni', [
       'routeName' => $routeName,
       'role' => $role,
@@ -652,15 +649,16 @@ class PagesController {
     $password = Request::getPOSTParam('password');
     $passwordConfirm = Request::getPOSTParam('password_confirm');
     $role = $this->authController->getUserRole();
-    $realPassword= $this->authController->checkPassword($realCodiceFiscale,$oldPassword,$role);
+
+    $checkOldPwd= $this->authController->checkPassword($realCodiceFiscale, $oldPassword, $role);
+
+    if (!$checkOldPwd) return \Core\redirect('/impostazioni?wrongPassword=true');
 
     $successful = false;
     try{
     $successful = $this->usersController->editUserPassword([
-      'real_password' => $realPassword,
       'real_codice_fiscale' => $realCodiceFiscale,
       'codice_fiscale' => $codiceFiscale,
-      'old_password' => $oldPassword,
       'password' => $password,
       'passwordConfirm' => $passwordConfirm,
       'role' => $role,
@@ -671,9 +669,6 @@ class PagesController {
       }
       if ($e->getMessage()=== 'codiciNotEqual'){
         return \Core\redirect('/impostazioni?codiciNonUguali=true');
-      }
-      if ($e->getMessage()=== 'wrongPassword'){
-        return \Core\redirect('/impostazioni?wrongPassword=true');
       }
     }
     if ($successful) return \Core\redirect('/impostazioni');

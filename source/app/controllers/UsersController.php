@@ -67,9 +67,6 @@ class UsersController {
     $table = $this->getRoleTable($role);
     $where = 'codice_fiscale = :codice_fiscale';
 
-    // Nome and cognome in table 'cliente' and not 'ispettore'
-    if ($role === 'inspector') $table = 'cliente';
-
     $results = $this->database->selectWhere($table, ['*'], $where, [
       ':codice_fiscale' => $codiceFiscale
     ]);
@@ -116,12 +113,23 @@ class UsersController {
       throw new \Exception('alreadyExisting');
     }
 
-    return $this->database->insert($table, [
+    $successful = $this->database->insert($table, [
       'codice_fiscale' => $codiceFiscale,
       'password_hash' => \password_hash($password, PASSWORD_DEFAULT),
       'nome' => $nome,
       'cognome' => $cognome,
     ]);
+
+    if ($role === 'inspector') {
+      // Inspector must be added also the 'ispettore' table
+      $succ = $this->database->insert('ispettore', [
+        'codice_fiscale' => $codiceFiscale
+      ]);
+
+      return $succ && $successful;
+    }
+
+    return $successful;
   }
 
   public function editUser(array $parameters): bool {
@@ -145,9 +153,6 @@ class UsersController {
     $where = 'codice_fiscale = :old_codice_fiscale';
     $table = $this->getRoleTable($role);
 
-    // Changes are done in table 'cliente' and not 'ispettore'
-    if ($role === 'inspector') $table = 'cliente';
-
     return $this->database->update($table, $changes, $where, [
       ':new_codice_fiscale' => $newCodiceFiscale,
       ':password_hash' => \password_hash($password, PASSWORD_DEFAULT),
@@ -159,10 +164,8 @@ class UsersController {
   }
 
   public function editUserPassword(array $parameters){
-    $realPassword= $parameters['real_password'];
     $realCodiceFiscale = $parameters['real_codice_fiscale'];
     $codiceFiscale = $parameters['codice_fiscale'];
-    $oldPassword = $parameters['old_password'];
     $password = $parameters['password'];
     $passwordConfirm = $parameters['passwordConfirm'];
     $role = $parameters['role'];
@@ -174,21 +177,14 @@ class UsersController {
     if ($realCodiceFiscale !== $codiceFiscale) {
       throw new \Exception('codiciNotEqual');
     }
-    if ($realPassword === false){
-      throw new \Exception('wrongPassword');
-    }
 
-    $changes ='
-    password_hash = :password_hash';
+    $changes = 'password_hash = :password_hash';
     $where = 'codice_fiscale = :codice_fiscale';
     $table = $this->getRoleTable($role);
 
-    // Changes are done in table 'cliente' and not 'ispettore'
-    if ($role === 'inspector') $table = 'cliente';
-
     return $this->database->update($table, $changes, $where, [
       ':password_hash' => \password_hash($password, PASSWORD_DEFAULT),
-      'codice_fiscale' => $codiceFiscale
+      ':codice_fiscale' => $codiceFiscale
     ]);
   }
 
@@ -198,8 +194,8 @@ class UsersController {
     $where = "codice_fiscale = :codice_fiscale";
 
     if ($role === 'inspector') {
-      // Inspector must be deleted also from 'cliente' table
-      $this->database->delete('cliente', $where, [
+      // Inspector must be deleted also from 'ispettore' table
+      $this->database->delete('ispettore', $where, [
         'codice_fiscale' => $codiceFiscale
       ]);
     }
@@ -212,6 +208,6 @@ class UsersController {
   private function getRoleTable(string $role): string {
     if ($role === 'detective') return 'investigatore';
     else if ($role === 'admin') return 'amministratore';
-    else return 'ispettore';
+    else return 'cliente';
   }
 }

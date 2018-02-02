@@ -53,7 +53,8 @@
         <dt>Tipologia <?= $isEdit ? '(non modificabile)' : '' ?></dt>
         <dd>
           <?php if ($isEdit): ?>
-          <input type="text" name="role" value="<?= $editingRole ?>" disabled>
+          <?= $editingRole ?>
+          <input type="hidden" name="role" value="<?= $editingRole ?>">
           <?php else: ?>
           <input class="input-role" id="input-role-detective" type="radio" name="role" value="detective" checked>
           <label class="radio-label" for="input-role-detective">Investigatore</label>

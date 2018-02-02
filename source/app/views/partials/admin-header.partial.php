@@ -28,9 +28,6 @@
           <span class="dropdown-toggle">Dashboard</span>
           <ul class="submenu">
             <?php if ($role === 'admin'): ?>
-            <li class="list-item">
-              <a href="">Gestisci tag</a>
-            </li>
             <?php endif; ?>
             <li class="list-item">
               <a href="aggiungi-criminale">Aggiungi criminale</a>

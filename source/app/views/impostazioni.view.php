@@ -2,7 +2,7 @@
 <main class="main-container container">
     <h2> Modifica password</h2>
     <?php if ($passwordsNotEqual) :?>
-    <p class="alert alert-danger">La password inserita non è uguale a quella di conferma.</p>
+    <p class="alert alert-danger">La nuova password inserita non è uguale a quella di conferma.</p>
     <?php endif; ?>
 
     <?php if ($codiciNotEqual) :?>
@@ -10,7 +10,7 @@
     <?php endif; ?>
     
     <?php if ($passwordSbagliata) :?>
-    <p class="alert alert-danger">Password Sbagliata</p>
+    <p class="alert alert-danger">La password vecchia è sbagliata</p>
     <?php endif; ?>
 
     <form action="modifica-password" method="post">
