@@ -676,7 +676,7 @@ class PagesController {
         return \Core\redirect('/impostazioni?wrongPassword=true');
       }
     }
-    if ($successful) return \Core\redirect('/impostazioni');
+    if ($successful)  return \Core\redirect('/impostazioni?successo=true');
     else return \Core\redirect('/impostazioni');
   }
 

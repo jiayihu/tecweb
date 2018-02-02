@@ -13,6 +13,15 @@
     <p class="alert alert-danger">Password Sbagliata</p>
     <?php endif; ?>
 
+    <?php if ($successful) :?>
+    <input id="success-alert-close" class="alert-checkbox" type="checkbox" />
+    <p class="alert alert-success">
+      <label for="success-alert-close" class="alert-close" aria-label="Chiudi">
+      </label>
+      Operazione eseguita con successo.
+    </p>
+    <?php endif; ?>
+
     <form action="modifica-password" method="post">
         <dt>Codice Fiscale</dt>
         <dd>
