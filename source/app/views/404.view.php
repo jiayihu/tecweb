@@ -1,6 +1,6 @@
 <?php require 'partials/public-header.partial.php' ?>
 
-<main class="container">
+<main id="content" class="container">
   <section class="not-found">
     <img class="image-404" src="public/images/404.svg" alt="Pagina non trovata">
     <h1>404 Pagina non trovata</h1>

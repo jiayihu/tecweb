@@ -1,6 +1,6 @@
 <?php require 'partials/public-header.partial.php' ?>
 
-<div class="intro">
+<div id="content" class="intro">
   <div class="container v-centered-wrapper">
     <div class="v-centered">
       <h1 class="intro-name">

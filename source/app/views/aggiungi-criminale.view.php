@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="container">
+<main id="content" class="container">
   <h1 class="page-title">Nuovo criminale</h1>
   <form action="aggiunta-criminale" class="content clearfix" method='post'>
     <div class="form-field clearfix">

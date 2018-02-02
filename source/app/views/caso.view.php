@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="main-container container">
+<main id="content" class="main-container container">
   <aside class="main-sidebar">
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
     <form action="/caso" method="post">
@@ -89,7 +89,7 @@
             <?php foreach ($allTags as $tag) : ?>
               <li class="list-item">
                 <label class="tag">
-                  <input class="hide" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>"
+                  <input class="screen-reader" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>"
                     <?php
                       $selected = \array_filter($selectedCase->tags, function($selectedCaseTag) use ($tag) {
                         return $selectedCaseTag->getSlug() === $tag->getSlug();

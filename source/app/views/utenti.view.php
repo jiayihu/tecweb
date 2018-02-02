@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="main-container container">
+<main id="content" class="main-container container">
   <aside class="main-sidebar">
     <h2><?= $isEdit ? 'Modifica' : 'Aggiungi' ?> utente</h2>
 
@@ -105,13 +105,13 @@
     <?php endif; ?>
 
     <div class="tabs">
-      <input class="hide" type="radio" name="tabs" id="tab-detectives" checked>
+      <input class="screen-reader" type="radio" name="tabs" id="tab-detectives" checked>
       <label for="tab-detectives">Investigatori</label>
 
-      <input class="hide" type="radio" name="tabs" id="tab-admins">
+      <input class="screen-reader" type="radio" name="tabs" id="tab-admins">
       <label for="tab-admins">Amministratori</label>
 
-      <input class="hide" type="radio" name="tabs" id="tab-inspectors">
+      <input class="screen-reader" type="radio" name="tabs" id="tab-inspectors">
       <label for="tab-inspectors">Ispettori</label>
 
       <div class="tab">

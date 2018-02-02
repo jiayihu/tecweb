@@ -575,7 +575,7 @@ dd {
 }
 
 /* Hide visually but still visible to screen readers */
-.hide {
+.screen-reader {
   position: absolute;
   overflow: hidden;
   height: 1px;
@@ -584,8 +584,8 @@ dd {
   margin: -1px;
 }
 
-input.hide:focus + label,
-input.hide:focus + .input-label {
+input.screen-reader:focus + label,
+input.screen-reader:focus + .input-label {
   box-shadow: 0 0 3px #03a9f4;
 }
 

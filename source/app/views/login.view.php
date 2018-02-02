@@ -1,6 +1,6 @@
 <?php require 'partials/public-header.partial.php' ?>
 
-<main class="container">
+<main id="content" class="container">
   <?php if ($dashboardError) :?>
     <p class="alert alert-danger">
       Accedi con le tue credenziali per poter visualizzare l'area amministrativa.

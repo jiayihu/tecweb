@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="main-container container">
+<main id="content" class="main-container container">
   <aside class="main-sidebar clearfix">
     <h2>Casi</h2>
     <?php if (!$zeroCasi) : ?>

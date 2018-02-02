@@ -1,5 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
-<main class="main-container container">
+
+<main id="content" class="main-container container">
     <h2> Modifica password</h2>
     <?php if ($passwordsNotEqual) :?>
     <p class="alert alert-danger">La nuova password inserita non è uguale a quella di conferma.</p>

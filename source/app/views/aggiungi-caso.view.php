@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="container">
+<main id="content" class="container">
   <h1 class="page-title">Nuovo caso</h1>
   <form action="" class="content clearfix">
     <div class="form-field clearfix">

@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main class="main-container container">
+<main id="content" class="main-container container">
   <aside class="main-sidebar">
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
     <form action="/ricerca" method="post">
@@ -53,7 +53,7 @@
               <?php foreach ($allTags as $tag): ?>
               <li class="list-item">
                 <label class="tag">
-                  <input class="hide" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>" />
+                  <input class="screen-reader" type="checkbox" name="tags[]" value="<?= $tag->getSlug() ?>" />
                   <span class="input-label tag-label"><?= $tag->nome ?></span>
                 </label>
               </li>

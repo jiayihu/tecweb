@@ -15,6 +15,7 @@
 </head>
 
 <body class="page-<?= $routeName ?>">
+  <a class="screen-reader" href="#content">Salta la navigazione</a>
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">

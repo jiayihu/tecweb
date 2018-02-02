@@ -2,7 +2,7 @@
   <div class="investigation">
     <input
       id="inv-<?= $investigation->getId(); ?>"
-      class="accordion-input hide"
+      class="accordion-input screen-reader"
       type="checkbox" 
       name="investigations" 
       <?= (!$investigationId && $index === 0) || ($investigation->getId() === $investigationId) ? 'checked' : '' ?>
