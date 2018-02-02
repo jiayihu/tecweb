@@ -42,7 +42,6 @@
  */
 
 /*----------  General  ----------*/
-/* CSS styles with HTML tags as selector and without classes or ids */
 
 * {
   box-sizing: border-box;
@@ -65,6 +64,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.public a:visited {
+  color: #aaa;
 }
 
 h1,

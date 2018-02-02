@@ -12,7 +12,7 @@
   <link href="public/css/common.css" rel="stylesheet">  
   <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">  
 </head>
-<body>
+<body class="public">
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
