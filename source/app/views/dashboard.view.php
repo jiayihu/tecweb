@@ -104,7 +104,7 @@
             <?php endforeach; ?>
           </select>
         </p>
-        <button type="submit" class="btn btn-outline">Aggiungi caso</button>
+        <button type="submit" class="btn btn-primary">Aggiungi caso</button>
       </form>
     <?php else : ?>
       <?php if ($nuovoCasoOk) : ?>

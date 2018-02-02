@@ -189,7 +189,7 @@ class CasesController {
       'codice',
       'nome'
     ];
-    $where='caso.passato = :caso_passato ORDER BY nome';
+    $where='caso.passato = :caso_passato ORDER BY codice DESC';
     $parameters[':caso_passato'] = 0;
     $result = $this->database->selectWhere(
       $table,
@@ -242,14 +242,12 @@ class CasesController {
   }
 
   public function insertCase(string $nome, string $tipo, string $descrizione, string $cliente): bool {
-
-    $exist = $this->checkCaseName($nome, null);
+    $exist = $this->checkCaseName($nome, 0);
 
     $table = 'caso';
 
-    if (count($exist) === 0) {
+    if (!$exist) {
       return $this->database->insert($table, [
-        'codice' => "",
         'descrizione' => $descrizione,
         'nome' => $nome,
         'passato' => 0,
