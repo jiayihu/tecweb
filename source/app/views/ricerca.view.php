@@ -16,12 +16,12 @@
     <?php endif; ?>
 
     <ul class="form-instructions">
-      <li>Almeno un campo, oltre la tipologia, è obbligatorio</li>
+      <li>Almeno un campo, oltre la tipologia di ricerca, è obbligatorio</li>
     </ul>
 
     <form action="/ricerca" method="post">
       <div>
-        <span class="input-label">Tipologia</span>
+        <span class="input-label">Tipologia di ricerca</span>
         <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked>
         <label class="radio-label" for="input-type-case">Casi</label>
         <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation">

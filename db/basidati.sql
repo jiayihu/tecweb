@@ -2,7 +2,7 @@
   * L'ordine è importante a causa delle chiavi esterne. Non si può droppare una
   * tabella se prima non si droppano quelle relazionate come FOREIGN KEY
  */
-DROP TABLE IF EXISTS amministratore, amministratore_aziendale, cittadino, etichettamento, ispettore, lavoro, risoluzione, scena_investigazione, tag;
+DROP TABLE IF EXISTS amministratore, etichettamento, ispettore, lavoro, risoluzione, scena_investigazione, tag;
 DROP TABLE IF EXISTS criminale, investigatore, investigazione;
 DROP TABLE IF EXISTS caso, cliente, tariffa;
 
@@ -96,22 +96,6 @@ CREATE TABLE ispettore (
   FOREIGN KEY (codice_fiscale) REFERENCES cliente(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE amministratore_aziendale (
-  codice_fiscale VARCHAR(16) PRIMARY KEY,
-  vat VARCHAR(16) NOT NULL UNIQUE,
-  settore VARCHAR(50) NOT NULL,
-  nome_azienda VARCHAR(50) NOT NULL UNIQUE,
-  FOREIGN KEY (codice_fiscale) REFERENCES cliente(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE cittadino (
-  codice_fiscale VARCHAR(16) PRIMARY KEY,
-  data_nascita DATE NOT NULL,
-  professione VARCHAR(50),
-  codice_fiscale_compagno VARCHAR(16),
-  FOREIGN KEY (codice_fiscale) REFERENCES cliente(codice_fiscale) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 CREATE TABLE risoluzione (
   criminale VARCHAR(16),
   caso INTEGER(10),
@@ -146,18 +130,24 @@ VALUES
 	('omicidio', 40),
 	('ricatto', 50);
 
-INSERT INTO tag(slug, nome, descrizione)
-VALUES 
-	('perla-dei-borgia', 'Perla dei Borgia', 'Perla dei Boargia del Royal Regent Museum'),
+INSERT INTO `tag` (`slug`, `nome`, `descrizione`) VALUES
 	('annegamento', 'Annegamento', NULL),
-	('sparatoia', 'Sparatoia', NULL),
-	('rosa', 'Rosa', 'Il colpevole sembra amare il colore rosa'),
-	('stanza-senza-scasso', 'Stanza senza scasso', 'Il crimine è avvuto in una stanza chiusa dall\'interno senza apparente segno di scasso'),
-	('servizi-segreti', 'Servizi segreti', NULL),
+	('bambini', 'Bambini', NULL),
+	('cellulare', 'Cellulare', NULL),
+	('donna', 'Donna', NULL),
+	('droga', 'Droga', 'Casi in cui è coinvolta la droga'),
 	('esplosione', 'Esplosione', 'Il caso riguardo l\'esplosione di qualcosa'),
 	('foto', 'Foto', NULL),
-	('cellulare', 'Cellulare', NULL),
-	('terrorismo', 'Terrorismo', NULL);
+	('narcotraffico', 'Narcotraffico', 'Casi in cui si verifica un narcotraffico'),
+	('omicidio', 'Omicidio', NULL),
+	('perla-dei-borgia', 'Perla dei Borgia', 'Perla dei Boargia del Royal Regent Museum'),
+	('rapina', 'Rapina', NULL),
+	('rosa', 'Rosa', 'Il colpevole sembra amare il colore rosa'),
+	('servizi-segreti', 'Servizi segreti', NULL),
+	('sparatoia', 'Sparatoia', NULL),
+	('stanza-senza-scasso', 'Stanza senza scasso', 'Il crimine è avvuto in una stanza chiusa dall\'interno senza apparente segno di scasso'),
+	('terrorismo', 'Terrorismo', NULL),
+	('terrorista', 'Terrorista', NULL);
 
 INSERT INTO `cliente` (`codice_fiscale`, `password_hash`, `nome`, `cognome`, `citta`, `indirizzo`)
 VALUES
@@ -332,15 +322,6 @@ VALUES
 	('HKYQIE50Y39F640D', '5419', 'PSAIKZ45M35H218M'),
 	('HLPRKC83I35V546H', '285', 'WRCEZA76Z72M948V'),
 	('HMXYNS02J87C389K', '3850', 'CSGXUL75K55F717I');
-
-INSERT INTO `amministratore_aziendale` (`codice_fiscale`, `vat`, `settore`, `nome_azienda`)
-VALUES
-	('AMGSOU02T42U148D', 'MB845621236', 'gaming', 'Flashset'),
-	('AOTFCB94S88D323S', 'MB845621232', 'automotive', 'Jaxbean');
-
-INSERT INTO `cittadino` (`codice_fiscale`, `data_nascita`, `professione`, `codice_fiscale_compagno`)
-VALUES
-	('BARTCQ79P64W004H', '1944-05-02', 'Teacher', 'LOPWFY44D01A812F');
 
 INSERT INTO `risoluzione` (`criminale`, `caso`)
 VALUES
