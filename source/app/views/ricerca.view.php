@@ -37,7 +37,12 @@
           <?php if ($role !== 'inspector'): ?>
           <p>
             <label class="input-label" for="input-client">Cliente</label>
-            <input class="input" type="text" name="cliente" id="input-client" placeholder="Codice fiscale cliente">
+            <select class="select" name="cliente" id="input-client">
+              <option disabled selected> -- Seleziona un valore -- </option>
+              <?php foreach ($clienti as $cliente) : ?>
+                  <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
+              <?php endforeach; ?>
+            </select>
           </p>
           <?php else: ?>
           <p>
@@ -46,7 +51,12 @@
           <?php endif; ?>
           <p>
             <label class="input-label" for="input-criminal">Criminale</label>
-            <input class="input" type="text" name="criminale" id="input-criminal" placeholder="Codice fiscale criminale">
+            <select class="select" name="criminale" id="input-criminal">
+              <option disabled selected> -- Seleziona un valore -- </option>
+              <?php foreach ($criminali as $criminale) : ?>
+                  <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
+              <?php endforeach; ?>
+            </select>
           </p>
           <p>
             <label class="input-label" for="input-rate">Tipologia</label>
@@ -78,7 +88,12 @@
         <div class="investigation-fields">
           <p>
             <label class="input-label" for="input-investigator">Investigatore</label>
-            <input class="input" type="text" name="investigatore" id="input-investigator" placeholder="Codice fiscale investigatore">
+            <select class="select" name="criminale" id="input-investigator">
+              <option disabled selected> -- Seleziona un valore -- </option>
+              <?php foreach ($criminali as $criminale) : ?>
+                  <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
+              <?php endforeach; ?>
+            </select>
           </p>
           <p>
             <label class="input-label" for="input-scene">Scena investigazione</label>

@@ -63,7 +63,7 @@
           Credendo che i due fatti siano collegati, ingaggia lo studio “Sherlock & Watson” per un’investigazione più accurata.
           L’incarico viene preso dall’investigatore Mario Rossi.</p>
         <div class="case-imm">
-          <a href="public/images/casi/case1.jpg">
+          <a href="public/images/casi/case2.jpg">
             <img src="public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli non identificabili scritti con una bomboletta spray gialla su una parete e su un quadro.">
           </a>
         </div>

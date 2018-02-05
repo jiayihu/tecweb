@@ -409,6 +409,9 @@ class PagesController {
 
     $routeName = 'ricerca';
     $allTags = $this->tagsController->getTags();
+    $clienti = $this->usersController->getClients();
+    $criminali = $this->usersController->getCriminals();
+    $investigatori = $this->usersController->getDetectives();
 
     return \Core\view('ricerca', [
       'routeName' => $routeName,
@@ -417,6 +420,8 @@ class PagesController {
       'user' => $this->authController->getUser(),
 
       'allTags' => $allTags,
+      'clienti' => $clienti,
+      'criminali' => $criminali,
 
       'searchText' => null,
       'cases' => null,
@@ -463,6 +468,9 @@ class PagesController {
     $this->protectRoute();
 
     $allTags = $this->tagsController->getTags();
+    $clienti = $this->usersController->getClients();
+    $criminali = $this->usersController->getCriminals();
+    $investigatori = $this->usersController->getDetectives();
     
     $searchText = Request::getPOSTParam('search_text');
     $type = Request::getPOSTParam('type');
@@ -495,6 +503,9 @@ class PagesController {
       'user' => $this->authController->getUser(),
 
       'allTags' => $allTags,
+      'criminali' => $criminali,
+      'clienti' => $clienti,
+      'investigatori' => $investigatori,
 
       'searchText' => $searchText,
       'cases' => $cases,
