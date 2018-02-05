@@ -13,6 +13,12 @@
   width: 50%;
 }
 
+.contact {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 1rem;
+}
+
 .contactbox {
   box-sizing: border-box;
   display: block;
@@ -29,6 +35,14 @@
   margin: auto;
   padding-top: 2rem;
   text-align: center;
+}
+
+.directions {
+  clear: left;
+}
+
+.direction {
+  text-align: left;
 }
 
 .service {

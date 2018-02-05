@@ -34,7 +34,7 @@
         <div class="investigation-content-field">
           <label for="input-date-to" class="investigation-content-title">Data fine: </label> 
           <?php if ($investigation->dataTermine === null) : ?>
-            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to">
+            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" placeholder="aaaa-mm-gg">
           <?php else : ?>
             <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
           <?php endif; ?>     

@@ -13,13 +13,41 @@
 <main class="container">
   <section class="service clearfix">
     <div class="service-content col half">
-      <h2>INDIRIZZO</h2>
-      <p>Via Trieste, 63 -</p>
-      <p>35121 Padova</p>
-      <p>Italia</p>
-      <h2>TELEFONO</h2>
-      <p>+39 049 827 5111</p>
-      <a href="https://goo.gl/maps/vpzLkY5mzd22" class="underl">google maps</a>
+      <div class="contacts">
+        <div class="contact">
+          <h2>INDIRIZZO</h2>
+          <p>Via Trieste, 63</p>
+          <p>35121 Padova (IT)</p>
+          <a href="https://goo.gl/maps/LPorPN1PNZG2">Google maps</a>
+        </div>
+        <div class="contact">
+        <h2>TELEFONO</h2>
+        <p>+39 049 827 5111</p>
+      </div>
+      
+      
+      </div>
+      <div class="directions">
+      <h2>COME RAGGIUNGERCI</h2>
+      <h4>AUTO</h4>
+      <ul class="direction">
+        <li>All'uscita Padova Est dell'autostrada A4 seguire le indicazioni per Padova Centro ed immettersi in via S. Marco</li>
+        <li>Alla rotonda, prendere la 3a uscita</li>
+        <li>Continuare su via S. Marco e alla rotonda prendere la 2a uscita in via Venezia</li>
+        <li>Proseguire dritto su via Venezia e alla rotonda prendere la 2a uscita in via N. Tommaseo</li>
+        <li>Proseguire dritto e alla rotonda prendere la 3a uscita su via E. Berlinguer</li>
+        <li>Proseguire dritto e alla rotonda prendere la 3a uscita su via E. degli Scrovegni</li>
+        <li>Al primo incrocio, svoltare a sinistra</li>
+        <li>L'ufficio è situato sulla sinistra</li>
+      </ul>
+      <h4>MEZZI PUBBLICI</h4>
+      <ul class="direction">
+        <li>Dalla stazione di Padova, prendere uno tra gli autobus urbani numero 5, 7, 10, 12 e 18</li>
+        <li>Scendere alla seconda fermata</li>
+        <li>Prendere la prima laterale sulla destra, via U. Bassi</li>
+        <li>L'ufficio è a 200m sulla destra</li>
+      <ul>
+      </div>
     </div>
     <div class="service-photo col half img">
       <img src="public/images/contatti/office.jpg" alt="Il nostro ufficio">
