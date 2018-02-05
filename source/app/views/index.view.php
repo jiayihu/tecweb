@@ -21,7 +21,7 @@
     <div class="service-content col half">
       <h2>Investigazioni private</h2>
       <p>Le indagini private svolte con la massima professionalità e riservatezza, sono un necessario strumento nei casi in cui si necessiti verificare la fedeltà del proprio compagno o coniuge per la tutela dei figli minori. Le indagini private sono fruibili a fronte di un diritto giuridicamente rilevante. In questo ambito rientra anche il controllo su figli minori compagnie sospette e qualsiasi accertamento di infedeltà.</p>
-      <p><a href="servizi#private" class="btn btn-outline">Open service</a></p>
+      <p><a href="servizi#private" class="btn btn-outline">Apri servizio</a></p>
     </div>
     <div class="service-photo col half">
       <img src="public/images/home/private.jpg" alt="Investigazioni private">
@@ -35,7 +35,7 @@
     <div class="service-content col half">
       <h2>Investigazioni aziendali</h2>
       <p>Effettuiamo indagini aziendali di qualsiasi tipo, per verificare l’infedeltà dei soci o dei dipendenti, l’assenteismo, per tutelare il marchio o il brevetto, Antisabotaggio, Controspionaggio industriale, concorrenza sleale, violazione patto di non concorrenza furti e ammanchi, antifrode assicurativa.</p>
-      <p><a href="servizi#aziendali" class="btn btn-outline">Open service</a></p>
+      <p><a href="servizi#aziendali" class="btn btn-outline">Apri servizio</a></p>
     </div>
   </section>
 
@@ -43,7 +43,7 @@
     <div class="service-content col half">
       <h2>Investigazioni difensive</h2>
       <p>La nostra agenzia investigativa è specializzata in investigazioni a supporto degli studi legali sia nell’ambito civile sia nella difesa penale. Le indagini investigative rappresentano uno strumento rapido ed efficace che si rivela di fondamentale importanza qualora ci sia la necessità di raccogliere informazioni o elementi di prova da far valere nel processo civile o penale.</p>
-      <p><a href="servizi#difensive" class="btn btn-outline">Open service</a></p>
+      <p><a href="servizi#difensive" class="btn btn-outline">Apri servizio</a></p>
     </div>
     <div class="service-photo col half">
       <img src="public/images/home/legal.jpg" alt="Investigazioni difensive">
@@ -57,7 +57,7 @@
     <div class="service-content col half">
       <h2>Investigazioni <span lang="en">cyber-security</span></h2>
       <p>La nostra divisione informatica, attraverso dotazioni software all’avanguardia è in grado di offrirvi servizi di analisi forense sui dispositivi ormai di uso quotidiano come PC, tablet, e smartphone.</p>
-      <p><a href="servizi#cyber" class="btn btn-outline">Open service</a></p>
+      <p><a href="servizi#cyber" class="btn btn-outline">Apri servizio</a></p>
     </div>
   </section>
 

@@ -17,8 +17,8 @@
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a class="home-link" href="/" title="Go back to home">
-          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
+        <a class="home-link" href="/" title="Ritorna alla pagina principale">
+          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla home" />
         </a>
       </div>
       <ul class="list navbar-right right">

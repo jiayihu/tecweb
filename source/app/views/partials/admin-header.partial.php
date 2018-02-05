@@ -19,8 +19,8 @@
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a href="/dashboard" title="Go back to dashboard">
-          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson" />
+        <a href="/dashboard" title="Ritorna alla dashboard">
+          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla dashboard" />
         </a>
       </div>
       <ul class="list navbar-right right">
@@ -54,7 +54,7 @@
               <a href="impostazioni">Impostazioni</a>
             </li>
             <li class="list-item">
-              <a href="/logout">Logout</a>
+              <a href="/logout">Esci</a>
             </li>
           </ul>
         </li>
