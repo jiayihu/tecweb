@@ -15,9 +15,9 @@
     <?php endif; ?>
 
     <?php if ($successful) :?>
-    <input id="success-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
     <p role="alert" class="alert alert-success">
-      <label for="success-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
       </label>
       Operazione eseguita con successo.
     </p>

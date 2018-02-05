@@ -6,9 +6,9 @@
     <h1 class="page-title">Ricerca casi o investigazioni</h1>
 
     <?php if ($emptySearch) :?>
-    <input id="empty-search-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <input id="empty-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
     <p role="alert" class="alert alert-danger">
-      <label for="empty-search-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <label for="empty-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Non è possibile eseguire una ricerca vuota.

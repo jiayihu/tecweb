@@ -91,9 +91,9 @@
     <h2>Utenti</h2>
 
     <?php if ($genericError) :?>
-    <input id="genericerror-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
     <p role="alert" class="alert alert-danger">
-      <label for="genericerror-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Non è stato possibile completare l'operazione. Si consiglia di riprovare.
@@ -101,9 +101,9 @@
     <?php endif; ?>
 
     <?php if ($successful) :?>
-    <input id="success-alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
     <p role="alert" class="alert alert-success">
-      <label for="success-alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
         <span aria-hidden="true">&times;</span>
       </label>
       Operazione eseguita con successo.
