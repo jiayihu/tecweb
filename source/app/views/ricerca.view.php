@@ -88,10 +88,10 @@
         <div class="investigation-fields">
           <p>
             <label class="input-label" for="input-investigator">Investigatore</label>
-            <select class="select" name="criminale" id="input-investigator">
-              <option disabled selected> -- Seleziona un valore -- </option>
-              <?php foreach ($criminali as $criminale) : ?>
-                  <option value="<?= $criminale->codice_fiscale; ?>"><?= $criminale->codice_fiscale; ?></option>
+            <select class="select" name="investigatore" id="input-investigator">
+              <option value="null" disabled selected> -- Seleziona un valore -- </option>
+              <?php foreach ($investigatori as $investigatore) : ?>
+                  <option value="<?= $investigatore->codice_fiscale; ?>"><?= $investigatore->codice_fiscale; ?></option>
               <?php endforeach; ?>
             </select>
           </p>
@@ -100,11 +100,11 @@
             <input class="input" type="text" name="scena" id="input-scene" placeholder="Città o indirizzo della scena">
           </p>
           <p>
-            <label class="input-label" for="input-date-from">A partire da data (YYYY-MM-DD)</label>
+            <label class="input-label" for="input-date-from">A partire da data (aaaa-mm-gg)</label>
             <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from">
           </p>
           <p>
-            <label class="input-label" for="input-date-to">Fino a data (YYYY-MM-DD)</label>
+            <label class="input-label" for="input-date-to">Fino a data (aaaa-mm-gg)</label>
             <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to">
           </p>
         </div>

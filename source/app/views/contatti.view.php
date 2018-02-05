@@ -16,7 +16,7 @@
       <div class="contacts">
         <div class="contact">
           <h2>INDIRIZZO</h2>
-          <p>Via Trieste, 63 <br>35121 Padova (IT)</p>
+          <p>Via Trieste, 63<br/>35121 Padova (IT)</p>
           <a href="https://goo.gl/maps/LPorPN1PNZG2">Google maps</a>
         </div>
         <div class="contact">
@@ -28,8 +28,8 @@
       </div>
       <div class="directions">
       <h2>COME RAGGIUNGERCI</h2>
-      <h4>AUTO</h4>
-      <ul class="direction">
+      <h3>AUTO</h3>
+      <ol class="direction">
         <li>All'uscita Padova Est dell'autostrada A4 seguire le indicazioni per Padova Centro ed immettersi in via S. Marco</li>
         <li>Alla rotonda, prendere la 3a uscita</li>
         <li>Continuare su via S. Marco e alla rotonda prendere la 2a uscita in via Venezia</li>
@@ -38,14 +38,14 @@
         <li>Proseguire dritto e alla rotonda prendere la 3a uscita su via E. degli Scrovegni</li>
         <li>Al primo incrocio, svoltare a sinistra</li>
         <li>L'ufficio è situato sulla sinistra</li>
-      </ul>
-      <h4>MEZZI PUBBLICI</h4>
-      <ul class="direction">
+      </ol>
+      <h3>MEZZI PUBBLICI</h3>
+      <ol class="direction">
         <li>Dalla stazione di Padova, prendere uno tra gli autobus urbani numero 5, 7, 10, 12 e 18</li>
         <li>Scendere alla seconda fermata</li>
         <li>Prendere la prima laterale sulla destra, via U. Bassi</li>
         <li>L'ufficio è a 200m sulla destra</li>
-      <ul>
+      <ol>
       </div>
     </div>
     <div class="service-photo col half img">

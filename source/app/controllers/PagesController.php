@@ -422,6 +422,7 @@ class PagesController {
       'allTags' => $allTags,
       'clienti' => $clienti,
       'criminali' => $criminali,
+      'investigatori' => $investigatori,
 
       'searchText' => null,
       'cases' => null,

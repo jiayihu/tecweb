@@ -12,9 +12,9 @@
   <section class="case">
     <h2>Uno studio in rosa</h2>
     <div class="case-content">
-      <h5 class="tag">omicidio</h5>
-      <h5 class="tag">collaborazione con la Polizia</h5>
-      <h5 class="tag">serial killer</h5>
+      <h3 class="tag">omicidio</h3>
+      <h3 class="tag">collaborazione con la Polizia</h3>
+      <h3 class="tag">serial killer</h3>
       <div class="case-text">
         <p class="case-date">Milano, luglio 2010</p>
         <p>Quando la polizia milanese non è in grado di venire a capo di quattro suicidi apparentemente collegati tra loro
@@ -51,10 +51,10 @@
   <section class="case">
     <h2>Strani simboli al museo torinese</h2>
     <div class="case-content">
-      <h5 class="tag">sequestro di persona</h5>
-      <h5 class="tag">tonge</h5>
-      <h5 class="tag">loto nero</h5>
-      <h5 class="tag clearfix">contrabbando</h5>
+      <h3 class="tag">sequestro di persona</h3>
+      <h3 class="tag">tonge</h3>
+      <h3 class="tag">loto nero</h3>
+      <h3 class="tag clearfix">contrabbando</h3>
       <div class="case-text">
         <p class="case-date">Torino, agosto 2011</p>
         <p>Al Museo Nazionale d'Antichità, un'esperta di ceramica cinese di nome Soo Lin Yao si licenzia senza motivo e sparisce
