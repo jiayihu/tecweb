@@ -13,8 +13,15 @@
 
       <input type="hidden" name="invId" value="<?= $investigation->getId(); ?>">
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId(); ?>">
+      <input type="hidden" name="data_inizio" value="<?= $investigation->dataInizio ?>">
 
       <div class="investigation-content">
+        <ul class="form-instructions">
+          <li>E' obbligatorio inserire il luogo dell'investigazione</li>
+          <li>E' obbligatorio inserire la data di fine investigazione</li>
+          <li>La data di fine investigazione deve essere maggiore di quella d'inizio (<?= $investigation->dataInizio ?>)</li>
+          <li>Il numero di ore di lavoro deve essere maggiore o uguale a zero</li>
+        </ul>
         <div class="investigation-content-field">
           <label for="investigatore" class="investigation-content-title">Svolta da: </label> 
           <select class="select" id="investigatore" name="investigatore">
@@ -29,12 +36,12 @@
         </div>
         <div class="investigation-content-field">
           <label for="ore" class="investigation-content-title">Ore di lavoro: </label> 
-          <input class="input" type="number" id="ore" name="ore" value="<?= $investigation->oreTotali ?>" min="0">
+          <input class="input" type="number" id="ore" name="ore" value="<?= $investigation->oreTotali ?>">
         </div>
         <div class="investigation-content-field">
           <label for="input-date-to" class="investigation-content-title">Data fine: </label> 
           <?php if ($investigation->dataTermine === null) : ?>
-            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" placeholder="aaaa-mm-gg">
+            <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" placeholder="aaaa-mm-gg" required>
           <?php else : ?>
             <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" value="<?= $investigation->dataTermine ?>" required>
           <?php endif; ?>     

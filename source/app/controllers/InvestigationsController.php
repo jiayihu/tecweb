@@ -22,9 +22,9 @@ class InvestigationsController {
     $this->database = \Core\App::get('database');
   }
 
-  private function deleteScena(int $id_caso, string $id_investigazione): bool {
+  private function deleteScena(int $id_caso, int $id_investigazione): bool {
     $table = 'scena_investigazione';
-    $where = "investigazione = ::id_investigazione AND caso = :id_caso";
+    $where = "investigazione = :id_investigazione AND caso = :id_caso";
 
      return $this->database->delete($table, $where, [
       ':id_caso' => $id_caso,
@@ -40,10 +40,12 @@ class InvestigationsController {
     $rapporto = $param['rapporto'];
     $ore = $param['ore'];
 
-    $where = 'numero = :numero AND caso = :id_caso';   
     $changes = '
-      data_termine = :data_termine,
-      rapporto = :rapporto';
+    data_termine = :data_termine,
+    rapporto = :rapporto';
+
+    $where = 'numero = :numero AND caso = :id_caso';   
+    
     $table = 'investigazione';   
     $update_investigazione = $this->database->update($table, $changes, $where, [
       ':numero' => $investigationId,
@@ -110,9 +112,9 @@ class InvestigationsController {
         $insert = $this->insertScena($slug, $caseId, $investigationId, $scena);
 
         if ($delete & $insert)
-          return true;
+          return false;
 
-        return false;
+        return true;
       }
     } else {                            // non esiste nessuna scena, ne crea una nuova
       return (bool) $this->insertScena($slug, $caseId, $investigationId, $scena);

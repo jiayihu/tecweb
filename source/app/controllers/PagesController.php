@@ -232,6 +232,8 @@ class PagesController {
     $modificaErrore = Request::getQueryParam('modificaErrore') !== null;
     $investigazioneOk = Request::getQueryParam('investigazioneOk') !== null;
     $investigazioneErrore = Request::getQueryParam('investigazioneErrore') !== null;
+    $investigazioneErroreOre = Request::getQueryParam('investigazioneErroreOre') !== null;
+    $investigazioneErroreDataFine = Request::getQueryParam('investigazioneErroreDataFine') !== null;
 
     if ($role === 'inspector' && $isEdit) {
       return \Core\redirect("/caso?caso={$caseId}&investigazione={$investigationId}");
@@ -259,6 +261,8 @@ class PagesController {
       'modificaErrore' => $modificaErrore,
       'investigazioneOk' => $investigazioneOk,
       'investigazioneErrore' => $investigazioneErrore,
+      'investigazioneErroreOre' => $investigazioneErroreOre,
+      'investigazioneErroreDataFine' => $investigazioneErroreDataFine,
       'erroreNuovaInvestigazione' => $erroreNuovaInvestigazione
     ]);
   }
@@ -357,11 +361,27 @@ class PagesController {
     $investigatore = Request::getPOSTParam('investigatore');
     $ore = Request::getPOSTParam('ore');
     $date_to = Request::getPOSTParam('date_to');
+    $data_inizio = Request::getPOSTParam('data_inizio');
     $rapporto = Request::getPOSTParam('rapporto');
     $scena_nome = Request::getPOSTParam('scena_nome');
     $scena_descrizione = Request::getPOSTParam('scena_descrizione');
     $scena_citta = Request::getPOSTParam('scena_citta');
     $scena_indirizzo = Request::getPOSTParam('scena_indirizzo');
+
+    $path = "/caso?id={$caseId}&investigazione={$investigationId}";
+
+    if($ore < 0) {
+      $path = "{$path}&modifica=true&investigazioneErroreOre=true";
+      return \Core\redirect($path);
+    }
+
+    $inizio = new \DateTime($data_inizio);
+    $fine = new \DateTime($date_to);
+
+    if($inizio >= $fine) {
+      $path = "{$path}&modifica=true&investigazioneErroreDataFine=true";
+      return \Core\redirect($path);
+    }
 
     $succ_scena = $this->investigationsController->editScena([
       'caseId' => $caseId,
@@ -381,7 +401,7 @@ class PagesController {
       'ore' => $ore
     ]);
 
-    $path = "/caso?id={$caseId}&investigazione={$investigationId}";
+    
     
     if ($succ_scena && $succ_inv) {
       $path = "{$path}&investigazioneOk=true";

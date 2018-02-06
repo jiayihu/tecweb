@@ -37,6 +37,10 @@
           </p>
         <?php endif; ?>
 
+        <ul class="form-instructions">
+          <li>Non è possibile archiviare un caso come irrisolto e assegnare un colpevole</li>
+        </ul>
+
         <dt>Titolo</dt>
         <dd><input class="input" type="text" name="nome" aria-label="nome"  value="<?= $selectedCase->nome; ?>"></dd>
         <dt>Descrizione</dt>
@@ -84,7 +88,7 @@
             <?php endforeach; ?>
           </select>
         </dd>
-        <dt id="tags-label">Tag</dt>
+        <dt id="tags-label">Tags</dt>
         <dd role="group" aria-labelledby="tags-label">
           <ul class="tags list">
             <?php foreach ($allTags as $tag) : ?>
@@ -244,6 +248,26 @@
           <span aria-hidden="true">&times;</span>
         </label>
         Errore nell'inserimento della nuova investigazione. Riprovare.
+      </p>
+    <?php endif; ?>
+
+    <?php if ($investigazioneErroreOre) : ?>
+      <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        Ore inserite non valide. Inserire un formato numerico.
+      </p>
+    <?php endif; ?>
+
+    <?php if ($investigazioneErroreDataFine) : ?>
+      <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+      <p role="alert" class="alert alert-danger">
+        <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+          <span aria-hidden="true">&times;</span>
+        </label>
+        La data di fine investigazione deve essere maggiore di quella d'inizio.
       </p>
     <?php endif; ?>
 
