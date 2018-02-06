@@ -60,6 +60,7 @@ body {
 a {
   color: #c62828;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 a:hover {
@@ -281,6 +282,7 @@ dd {
 .btn-link {
   color: #c62828;
   margin-right: 1rem;
+  text-transform: uppercase;
 }
 
 .btn-link:hover {
@@ -290,6 +292,7 @@ dd {
 .btn-outline {
   padding: 0.75rem 3rem;
   border: 2px solid currentColor;
+  text-transform: none;
 }
 
 .btn-outline:hover {
@@ -629,9 +632,6 @@ input.screen-reader:focus + .input-label {
   /**
    * General
    */
-
-  body {
-  }
 
   /**
    * Layout
