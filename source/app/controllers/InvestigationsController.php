@@ -112,9 +112,9 @@ class InvestigationsController {
         $insert = $this->insertScena($slug, $caseId, $investigationId, $scena);
 
         if ($delete & $insert)
-          return false;
+          return true;
 
-        return true;
+        return false;
       }
     } else {                            // non esiste nessuna scena, ne crea una nuova
       return (bool) $this->insertScena($slug, $caseId, $investigationId, $scena);
@@ -128,7 +128,7 @@ class InvestigationsController {
   private function insertScena(string $slug, int $id_caso, string $id_investigazione, Scena $scena) {
     $table = 'scena_investigazione';
 
-    $this->database->insert($table, [
+    return $this->database->insert($table, [
       'slug' => $slug,
       'nome' => $scena->nome,
       'descrizione' => $scena->descrizione,
