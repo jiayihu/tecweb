@@ -391,13 +391,15 @@ class CasesController {
     $codiceFiscale = $parameters['codice_fiscale'];
     $nome=$parameters['nome'];
     $cognome=$parameters['cognome'];
-    $password=$parameters['password'];
+    $citta=$parameters['citta'];
+    $indirizzo=$parameters['indirizzo'];
 
     return $this->database->insert('cliente', [
       'codice_fiscale' => $codiceFiscale,
       'nome' => $nome,
       'cognome' => $cognome,
-      'password_hash' => \password_hash($password, PASSWORD_DEFAULT),
+      'citta' => $citta,
+      'indirizzo' => $indirizzo,
     ]);
   }
 

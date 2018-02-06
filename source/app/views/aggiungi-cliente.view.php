@@ -3,6 +3,26 @@
 <main id="content" class="container">
   <h1 class="page-title">Nuovo cliente</h1>
 
+  <?php if ($successful) :?>
+  <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+  <p role="alert" class="alert alert-success">
+    <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <span aria-hidden="true">&times;</span>
+    </label>
+    Operazione eseguita con successo.
+  </p>
+  <?php endif; ?>
+
+  <?php if ($genericError) :?>
+  <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+  <p role="alert" class="alert alert-danger">
+    <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <span aria-hidden="true">&times;</span>
+    </label>
+    Non è stato possibile completare l'operazione. Si consiglia di riprovare.
+  </p>
+  <?php endif; ?>
+
   <ul class="form-instructions">
     <li>Tutti i campi sono obbligatori</li>
   </ul>
@@ -21,8 +41,12 @@
       <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" required>
     </div>
     <div class="form-field clearfix">
-      <label class="input-text" for="password">Password</label>
-      <input id="password" class="forminput" type="password" name="password" required>
+      <label class="input-text" for="citta">Citta'</label>
+      <input id="citta" class="forminput" type="text" name="citta" required>
+    </div>
+    <div class="form-field clearfix">
+      <label class="input-text" for="indirizzo">Indirizzo</label>
+      <input id="indirizzo" class="forminput" type="text" name="indirizzo" required>
     </div>
     <button type="submit" class="btn btn-primary">Aggiungi</button>
   </form>

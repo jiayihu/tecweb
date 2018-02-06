@@ -3,6 +3,26 @@
 <main id="content" class="container">
   <h1 class="page-title">Nuovo criminale</h1>
 
+  <?php if ($successful) :?>
+  <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+  <p role="alert" class="alert alert-success">
+    <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <span aria-hidden="true">&times;</span>
+    </label>
+    Operazione eseguita con successo.
+  </p>
+  <?php endif; ?>
+
+  <?php if ($genericError) :?>
+  <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+  <p role="alert" class="alert alert-danger">
+    <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <span aria-hidden="true">&times;</span>
+    </label>
+    Non è stato possibile completare l'operazione. Si consiglia di riprovare.
+  </p>
+  <?php endif; ?>
+
   <ul class="form-instructions">
     <li>Tutti i campi sono obbligatori</li>
   </ul>
