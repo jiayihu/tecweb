@@ -571,10 +571,15 @@ class PagesController {
 
     $routeName = 'aggiungi-criminale';
 
+    $successful = Request::getQueryParam('successo') !== null;
+    $genericError = Request::getQueryParam('errore') !== null;
+
     return \Core\view('aggiungi-criminale', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+      'successful' => $successful,
+      'genericError' => $genericError,
     ]);
   }
 
@@ -590,8 +595,8 @@ class PagesController {
       'cognome' => $cognome,
       'descrizione' => $descrizione,
     ]);
-    if ($successful) return \Core\redirect('/aggiungi-criminale');
-    else return \Core\redirect('/aggiungi-criminale');
+    if ($successful) return \Core\redirect('/aggiungi-criminale?successo=true');
+    else return \Core\redirect('/aggiungi-criminale?errore=true');
   }
 
   public function addCliente() {
@@ -599,10 +604,15 @@ class PagesController {
 
     $routeName = 'aggiungi-cliente';
 
+    $successful = Request::getQueryParam('successo') !== null;
+    $genericError = Request::getQueryParam('errore') !== null;
+
     return \Core\view('aggiungi-cliente', [
       'routeName' => $routeName,
       'username' => $this->getUsername(),
       'role' => $this->authController->getUserRole(),
+      'successful' => $successful,
+      'genericError' => $genericError,
     ]);
   }
 
@@ -610,16 +620,18 @@ class PagesController {
     $codiceFiscale = Request::getPOSTParam('codice_fiscale');
     $nome = Request::getPOSTParam('nome');
     $cognome = Request::getPOSTParam('cognome');
-    $password = Request::getPOSTParam("password");
+    $citta = Request::getPOSTParam("citta");
+    $indirizzo = Request::getPOSTParam("indirizzo");
 
     $successful=$this->casesController->addCliente([
       'codice_fiscale' => $codiceFiscale,
       'nome' => $nome,
       'cognome' => $cognome,
-      'password' => $password,
+      'citta' => $citta,
+      'indirizzo' => $indirizzo,
     ]);
-    if ($successful) return \Core\redirect('/aggiungi-cliente');
-    else return \Core\redirect('/aggiungi-cliente');
+    if ($successful) return \Core\redirect('/aggiungi-cliente?successo=true');
+    else return \Core\redirect('/aggiungi-cliente?errore=true');
   }
 
   public function impostazioni() {
@@ -684,7 +696,7 @@ class PagesController {
       }
     }
     if ($successful)  return \Core\redirect('/impostazioni?successo=true');
-    else return \Core\redirect('/impostazioni');
+    else return \Core\redirect('/impostazioni?errore=true');
   }
 
 

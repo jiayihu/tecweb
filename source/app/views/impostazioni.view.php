@@ -18,8 +18,19 @@
     <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
     <p role="alert" class="alert alert-success">
       <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+        <span aria-hidden="true">&times;</span>
       </label>
       Operazione eseguita con successo.
+    </p>
+    <?php endif; ?>
+
+    <?php if ($genericError) :?>
+    <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+    <p role="alert" class="alert alert-danger">
+      <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+        <span aria-hidden="true">&times;</span>
+      </label>
+      Non è stato possibile completare l'operazione. Si consiglia di riprovare.
     </p>
     <?php endif; ?>
 
@@ -32,19 +43,19 @@
       <dl>
         <dt>Codice Fiscale</dt>
         <dd>
-            <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" required>
+            <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" aria-label="Inserisci codice fiscale" required>
         </dd>
         <dt>Vecchia Password</dt>
             <dd>
-            <input class="input" type="password" name="old_password" placeholder="Inserisci vecchia password" pattern=".{6,}" required>
+            <input class="input" type="password" name="old_password" placeholder="Inserisci vecchia password" aria-label="Inserisci vecchia password" pattern=".{6,}" required>
             </dd>
         <dt>Nuova Password</dt>
             <dd>
-            <input class="input" type="password" name="password" placeholder="Inserisci nuova password" pattern=".{6,}" required>
+            <input class="input" type="password" name="password" placeholder="Inserisci nuova password" aria-label="Inserisci nuova password" pattern=".{6,}" required>
             </dd>
         <dt>Conferma nuova password</dt>
         <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma nuova password" pattern=".{6,}" required>
+          <input class="input" type="password" name="password_confirm" placeholder="Conferma nuova password" aria-label="Conferma nuova password" pattern=".{6,}" required>
         </dd>
         <button type="submit" class="btn btn-primary">Cambia Password</button>
     </form>
