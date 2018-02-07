@@ -49,17 +49,17 @@
       </div>
     </div>
     <div class="service-photo col half img">
-      <img src="public/images/contatti/office.jpg" alt="Il nostro ufficio">
+      <img src="<?= ROOT ?>/public/images/contatti/office.jpg" alt="Il nostro ufficio">
     </div>
   </section>
 
   <section class="service clearfix">
     <div class="service-photo col half img">
-      <img src="public/images/contatti/envelop.jpg" alt="Lettera">
+      <img src="<?= ROOT ?>/public/images/contatti/envelop.jpg" alt="Lettera">
     </div>
     <div class="service-content col half">
       <h2>Contattaci</h2>
-      <form id="formcontatti" action="/" method="post">
+      <form id="formcontatti" action="<?= ROOT ?>/" method="post">
         <div class="contactbox">
           <div class="contactbox-field">
             <label for="name" class="screen-reader">nome e cognome</label>

@@ -57,5 +57,7 @@ function view(string $filename, array $data = []) {
  * @example `redirect('/login')` Redirect to login page
  */
 function redirect(string $path) {
-  header("Location: {$path}");
+  $root = ROOT;
+
+  header("Location: {$root}{$path}");
 }

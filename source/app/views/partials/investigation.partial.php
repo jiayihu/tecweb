@@ -1,4 +1,4 @@
-<form action="/caso" method="post">
+<form action="<?= ROOT ?>/caso" method="post">
   <div class="investigation">
     <input
       id="inv-<?= $investigation->getId(); ?>"
@@ -65,7 +65,7 @@
           <textarea id="rapporto" name="rapporto"><?= ucfirst($investigation->rapporto) ?></textarea>
         </div>
         <p class="center">
-          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
+          <a class="btn btn-link" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Annulla</a>
           <button class="btn btn-primary">Salva</button>
         </p>
       </div>
@@ -74,9 +74,9 @@
     <div class="investigation-content">
       <p class="actions">
         <?php if ($routeName === 'dashboard'): ?>
-        <a href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Mostra dettagli</a>
+        <a href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>">Mostra dettagli</a>
         <?php elseif ($role !== 'inspector'): ?>
-        <a href="/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>&modifica=true">Modifica</a>
+        <a href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&investigazione=<?= $investigation->getId(); ?>&modifica=true">Modifica</a>
         <?php endif; ?>
       </p>
 

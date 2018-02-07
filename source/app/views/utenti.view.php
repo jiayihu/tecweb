@@ -78,7 +78,7 @@
       <hr />
       <p class="center">
         <?php if ($isEdit): ?>
-        <a href="/utenti" class="btn btn-link">Annulla</a>
+        <a href="<?= ROOT ?>/utenti" class="btn btn-link">Annulla</a>
         <button type="submit" class="btn btn-primary">Modifica utente</button>
         <?php else: ?>
         <button type="submit" class="btn btn-outline">Aggiunti utente</button>
@@ -137,8 +137,13 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
+<<<<<<< HEAD
                 <a class="uppercase" href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
                 <form action="/elimina-utente" method="post">
+=======
+                <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
+                <form action="<?= ROOT ?>/elimina-utente" method="post">
+>>>>>>> 22234bbb5d1e4ea3ff9fb72a9ebab242b8ef882b
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Elimina</button>
@@ -167,9 +172,9 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
+                <a href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
                 <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
-                <form action="/elimina-utente" method="post">
+                <form action="<?= ROOT ?>/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="admin">
                   <button type="submit" class="btn btn-link">Elimina</button>
@@ -199,8 +204,8 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
-                <form action="/elimina-utente" method="post">
+                <a href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
+                <form action="<?= ROOT ?>/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">
                   <button type="submit" class="btn btn-link">Elimina</button>

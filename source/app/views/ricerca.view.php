@@ -19,7 +19,7 @@
       <li>Almeno un campo, oltre la tipologia di ricerca, è obbligatorio</li>
     </ul>
 
-    <form action="/ricerca" method="post">
+    <form action="<?= ROOT ?>/ricerca" method="post">
       <div>
         <span class="input-label">Tipologia di ricerca</span>
         <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked>
@@ -153,7 +153,7 @@
           <td><?= $case->nome; ?></td>
           <td><?= $case->tipologia; ?></td>
           <td class="case-description"><?= \Core\ellipsis($case->descrizione); ?></td>
-          <td><a class="uppercase" href="/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
+          <td><a class="uppercase" href="<?= ROOT ?>/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -179,7 +179,11 @@
           <td><?= $investigation->getScene(); ?></td>
           <td class="investigation-report"><?= \Core\ellipsis($investigation->rapporto); ?></td>
           <td>
+<<<<<<< HEAD
             <a class="uppercase" href="/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
+=======
+            <a href="<?= ROOT ?>/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
+>>>>>>> 22234bbb5d1e4ea3ff9fb72a9ebab242b8ef882b
               Apri &rightarrow;
             </a>
           </td>

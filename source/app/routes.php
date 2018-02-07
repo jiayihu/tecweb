@@ -3,6 +3,7 @@
 return [
   'GET' => [
     '' => 'PagesController@home',
+    'index.php' => 'PagesController@home',
     'servizi' => 'PagesController@services',
     'casi' => 'PagesController@cases',
     'contatti' => 'PagesController@contacts',
