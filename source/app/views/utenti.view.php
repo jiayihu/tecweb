@@ -167,7 +167,7 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
+                <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
                 <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
@@ -199,7 +199,7 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-                <a href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
+                <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="inspector">

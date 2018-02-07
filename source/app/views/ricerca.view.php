@@ -179,11 +179,7 @@
           <td><?= $investigation->getScene(); ?></td>
           <td class="investigation-report"><?= \Core\ellipsis($investigation->rapporto); ?></td>
           <td>
-<<<<<<< HEAD
-            <a class="uppercase" href="/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
-=======
-            <a href="<?= ROOT ?>/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
->>>>>>> 22234bbb5d1e4ea3ff9fb72a9ebab242b8ef882b
+            <a class="uppercase" href="<?= ROOT ?>/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
               Apri &rightarrow;
             </a>
           </td>
