@@ -153,7 +153,7 @@
           <td><?= $case->nome; ?></td>
           <td><?= $case->tipologia; ?></td>
           <td class="case-description"><?= \Core\ellipsis($case->descrizione); ?></td>
-          <td><a href="/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
+          <td><a class="uppercase" href="/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -179,7 +179,7 @@
           <td><?= $investigation->getScene(); ?></td>
           <td class="investigation-report"><?= \Core\ellipsis($investigation->rapporto); ?></td>
           <td>
-            <a href="/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
+            <a class="uppercase" href="/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
               Apri &rightarrow;
             </a>
           </td>

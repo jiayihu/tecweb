@@ -27,12 +27,9 @@
   max-width: 100%;
 }
 
-h3 {
-  font-size: 1rem;
-}
-
 .tag {
   display: none;
+  text-transform: uppercase;
 }
 
 /*----------  Media queries  ----------*/

@@ -7,7 +7,7 @@
       <p>
         <a class="btn btn-outline" href="contatti">Entra in contatto</a>
       </p>
-      <p>Sei un ispettore? <a href="login">Accedi</a> all'area amministrativa.</p>
+      <p>Sei un ispettore? <a class="uppercase" href="login">Accedi</a> all'area amministrativa.</p>
     </div>
   </div>
 </div>

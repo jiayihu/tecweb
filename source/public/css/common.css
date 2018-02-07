@@ -60,7 +60,6 @@ body {
 a {
   color: #c62828;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 a:hover {
@@ -592,6 +591,14 @@ dd {
 
 .center {
   text-align: center;
+}
+
+.text-xl {
+  font-size: 1rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 /* Hide visually but still visible to screen readers */

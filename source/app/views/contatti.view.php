@@ -17,7 +17,7 @@
         <div class="contact">
           <h2>INDIRIZZO</h2>
           <p>Via Trieste, 63<br/>35121 Padova (IT)</p>
-          <a href="https://goo.gl/maps/LPorPN1PNZG2">Google maps</a>
+          <a class="uppercase" href="https://goo.gl/maps/LPorPN1PNZG2">Google maps</a>
         </div>
         <div class="contact">
         <h2>TELEFONO</h2>

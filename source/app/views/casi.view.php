@@ -12,15 +12,15 @@
   <section class="case">
     <h2>Uno studio in rosa</h2>
     <div class="case-content">
-      <h3 class="tag">omicidio</h3>
-      <h3 class="tag">collaborazione con la Polizia</h3>
-      <h3 class="tag">serial killer</h3>
+      <span class="tag">omicidio</span>
+      <span class="tag">collaborazione con la Polizia</span>
+      <span class="tag">serial killer</span>
       <div class="case-text">
         <p class="case-date">Milano, luglio 2010</p>
         <p>Quando la polizia milanese non è in grado di venire a capo di quattro suicidi apparentemente collegati tra loro
           (le vittime sono tutte morte ingerendo una pasticca avvelenata, in luoghi a loro inusuali e senza una motivazione
-          evidente), l'ispettore incaricato Gregorio Le Strade chiede aiuto allo studio "
-          <span lang="en">Sherlock & Watson</span>” per risolvere il caso. A prendere in mano il caso è l’investigatore
+          evidente), l'ispettore incaricato Gregorio Le Strade chiede aiuto allo studio 
+          "<span lang="en">Sherlock & Watson</span>" per risolvere il caso. A prendere in mano il caso è l’investigatore
           <span lang="en">Sherlock Holmes</span>.
           <span lang="en">Holmes</span> si reca ad ispezionare la scena del quarto crimine: una donna vestita interamente di rosa giace
           a terra; poco prima di morire è riuscita a scrivere la parola "Rache" sul pavimento.</p>
@@ -30,8 +30,8 @@
           </a>
         </div>
         <p>Su consiglio di
-          <span lang="en">Sherlock</span>, la polizia scopre che "
-          <span lang="en">Rachel</span>" è il nome della figlia mai nata della donna, nonchè; la password dell'account del suo smartphone.
+          <span lang="en">Sherlock</span>, la polizia scopre che 
+          "<span lang="en">Rachel</span>" è il nome della figlia mai nata della donna, nonchè; la password dell'account del suo smartphone.
           Il cellulare, che manca dalla scena del crimine, è evidentemente nelle mani del serial killer: mentre la polizia
           tenta di individuarlo via satellite, a Sherlock fa inaspettatamente visita l'assassino, un tassista milanese.</p>
         <p>Quest'ultimo invita Sherlock a seguirlo senza chiamare la Polizia, promettendogli di rivelargli come è riuscito
@@ -51,17 +51,19 @@
   <section class="case">
     <h2>Strani simboli al museo torinese</h2>
     <div class="case-content">
-      <h3 class="tag">sequestro di persona</h3>
-      <h3 class="tag">tonge</h3>
-      <h3 class="tag">loto nero</h3>
-      <h3 class="tag clearfix">contrabbando</h3>
+      <span class="tag">sequestro di persona</span>
+      <span class="tag">tonge</span>
+      <span class="tag">loto nero</span>
+      <span class="tag clearfix">contrabbando</span>
       <div class="case-text">
         <p class="case-date">Torino, agosto 2011</p>
         <p>Al Museo Nazionale d'Antichità, un'esperta di ceramica cinese di nome Soo Lin Yao si licenzia senza motivo e sparisce
           nel nulla. Dopo un paio di giorni dalla sua sparizione, il direttore del museo scopre che sono apparsi degli
           strani simboli su delle pareti: la telecamera di sicurezza è stata manomessa e non c'è segno di scasso o di furto.
-          Credendo che i due fatti siano collegati, ingaggia lo studio “Sherlock & Watson” per un’investigazione più accurata.
-          L’incarico viene preso dall’investigatore Mario Rossi.</p>
+          Credendo che i due fatti siano collegati, ingaggia lo studio 
+          "<span lang="en">Sherlock & Watson</span>" per un’investigazione più accurata.
+          L’incarico viene preso dall’investigatore Mario Rossi.
+        </p>
         <div class="case-imm">
           <a href="public/images/casi/case2.jpg">
             <img src="public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli non identificabili scritti con una bomboletta spray gialla su una parete e su un quadro.">
