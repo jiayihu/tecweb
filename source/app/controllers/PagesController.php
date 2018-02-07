@@ -283,7 +283,7 @@ class PagesController {
   }
 
   public function handleEditCasePOST(int $caseId) {
-    $nome = Request::getPOSTParam('title');
+    $nome = Request::getPOSTParam('nome');
     $descrizione = Request::getPOSTParam('descrizione');
     $tipologia = Request::getPOSTParam('tariffa');
     $cf_cliente = Request::getPOSTParam('cliente');

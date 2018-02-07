@@ -27,7 +27,7 @@
     <li>Tutti i campi sono obbligatori</li>
   </ul>
 
-  <form action="aggiunta-cliente" class="content clearfix" method='post'>
+  <form action="<?= ROOT ?>/aggiunta-cliente" class="content clearfix" method='post'>
     <div class="form-field clearfix">
       <label class="input-text" for="nome">Nome</label>
       <input id="nome" class="forminput" type="text" name="nome" required>

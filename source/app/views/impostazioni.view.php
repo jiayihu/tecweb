@@ -39,7 +39,7 @@
       <li>La password deve essere almeno di almeno 6 caratteri</li>
     </ul>
 
-    <form action="modifica-password" method="post">
+    <form action="<?= ROOT ?>/modifica-password" method="post">
       <dl>
         <dt>Codice Fiscale</dt>
         <dd>

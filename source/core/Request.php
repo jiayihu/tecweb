@@ -9,8 +9,9 @@ class Request {
    * @return void
    */
   public static function uri(): string {
-    $path = empty($_SERVER['PATH_INFO']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PATH_INFO'];
+    $path = $_SERVER['REQUEST_URI'];
 
+    $path = preg_replace('/\?.+/', '', $path);
     $path = str_replace(['ddisomma', 'ghu', 'emattiaz', 'source'], '', $path);
 
     return \trim($path, '/');

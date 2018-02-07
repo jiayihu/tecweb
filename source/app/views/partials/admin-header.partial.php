@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="icon" href="favicon.ico?v=3" type="image/x-icon">
+  <link rel="icon" href="<?= ROOT ?>/favicon.ico?v=3" type="image/x-icon">
   <title>Studio Sherlock & Watson</title>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -31,27 +31,27 @@
             <?php if ($role === 'admin'): ?>
             <?php endif; ?>
             <li class="list-item">
-              <a href="aggiungi-criminale">Aggiungi criminale</a>
+              <a href="<?= ROOT ?>/aggiungi-criminale">Aggiungi criminale</a>
             </li>
             <li class="list-item">
-              <a href="aggiungi-cliente">Aggiungi cliente</a>
+              <a href="<?= ROOT ?>/aggiungi-cliente">Aggiungi cliente</a>
             </li>
           </ul>
         </li>
         <?php endif; ?>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'ricerca' ? 'active' : '' ?>" href="ricerca">Ricerca</a>
+          <a class="navbar-link <?= $routeName === 'ricerca' ? 'active' : '' ?>" href="<?= ROOT ?>/ricerca">Ricerca</a>
         </li>
         <?php if ($role === 'admin'): ?>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'utenti' ? 'active' : '' ?>" href="utenti">Utenti</a>
+          <a class="navbar-link <?= $routeName === 'utenti' ? 'active' : '' ?>" href="<?= ROOT ?>/utenti">Utenti</a>
         </li>
         <?php endif; ?>
         <li class="list-item dropdown dropdown-right">
           <span tabindex="0" class="dropdown-toggle"><?= $username ?></span>
           <ul class="submenu screen-reader">
             <li class="list-item">
-              <a href="impostazioni">Impostazioni</a>
+              <a href="<?= ROOT ?>/impostazioni">Impostazioni</a>
             </li>
             <li class="list-item">
               <a href="<?= ROOT ?>/logout">Esci</a>

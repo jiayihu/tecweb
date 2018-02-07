@@ -33,9 +33,6 @@
         <li>All'uscita Padova Est dell'autostrada A4 seguire le indicazioni per Padova Centro ed immettersi in via S. Marco</li>
         <li>Alla rotonda, prendere la 3a uscita</li>
         <li>Continuare su via S. Marco e alla rotonda prendere la 2a uscita in via Venezia</li>
-        <li>Proseguire dritto su via Venezia e alla rotonda prendere la 2a uscita in via N. Tommaseo</li>
-        <li>Proseguire dritto e alla rotonda prendere la 3a uscita su via E. Berlinguer</li>
-        <li>Proseguire dritto e alla rotonda prendere la 3a uscita su via E. degli Scrovegni</li>
         <li>Al primo incrocio, svoltare a sinistra</li>
         <li>L'ufficio è situato sulla sinistra</li>
       </ol>
