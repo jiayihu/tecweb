@@ -9,9 +9,9 @@
   <title>Studio Sherlock & Watson</title>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link href="public/css/external/normalize.css" rel="stylesheet">
-  <link href="public/css/common.css" rel="stylesheet">
-  <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/public/css/external/normalize.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/public/css/common.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/public/css/<?= $routeName ?>.css" rel="stylesheet">
 </head>
 
 <body class="page-<?= $routeName ?>">
@@ -19,8 +19,8 @@
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a href="/dashboard" title="Ritorna alla dashboard">
-          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla dashboard" />
+        <a href="<?= ROOT ?>/dashboard" title="Ritorna alla dashboard">
+          <img lang="en" class="logo-img" src="<?= ROOT ?>/public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla dashboard" />
         </a>
       </div>
       <ul class="list navbar-right right">
@@ -54,7 +54,7 @@
               <a href="impostazioni">Impostazioni</a>
             </li>
             <li class="list-item">
-              <a href="/logout">Esci</a>
+              <a href="<?= ROOT ?>/logout">Esci</a>
             </li>
           </ul>
         </li>

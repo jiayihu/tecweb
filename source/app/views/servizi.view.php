@@ -64,13 +64,13 @@
     </ul>
     </div>
     <div class="service-photo col one-third">
-      <img src="public/images/home/legal.jpg" alt="Investigazioni difensive">
+      <img src="<?= ROOT ?>/public/images/home/legal.jpg" alt="Investigazioni difensive">
     </div>
   </section>
 
   <section id="cyber" class="service clearfix">
     <div class="service-photo col one-third">
-      <img src="public/images/home/special.jpg" alt="Investigazioni cyber-security">
+      <img src="<?= ROOT ?>/public/images/home/special.jpg" alt="Investigazioni cyber-security">
     </div>
     <div class="service-content col two-third">
     <h2>Investigazioni <span lang="en">cyber-security</span></h2>

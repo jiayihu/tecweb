@@ -25,8 +25,8 @@
           <span lang="en">Holmes</span> si reca ad ispezionare la scena del quarto crimine: una donna vestita interamente di rosa giace
           a terra; poco prima di morire è riuscita a scrivere la parola "Rache" sul pavimento.</p>
         <div class="case-imm">
-          <a href="public/images/casi/case1.jpg">
-            <img src="public/images/casi/case1.jpg" alt="Foto tratta dalla scena del crimine. Al centro si legge la scritta Rache">
+          <a href="<?= ROOT ?>/public/images/casi/case1.jpg">
+            <img src="<?= ROOT ?>/public/images/casi/case1.jpg" alt="Foto tratta dalla scena del crimine. Al centro si legge la scritta Rache">
           </a>
         </div>
         <p>Su consiglio di
@@ -63,8 +63,8 @@
           Credendo che i due fatti siano collegati, ingaggia lo studio “Sherlock & Watson” per un’investigazione più accurata.
           L’incarico viene preso dall’investigatore Mario Rossi.</p>
         <div class="case-imm">
-          <a href="public/images/casi/case2.jpg">
-            <img src="public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli non identificabili scritti con una bomboletta spray gialla su una parete e su un quadro.">
+          <a href="<?= ROOT ?>/public/images/casi/case2.jpg">
+            <img src="<?= ROOT ?>/public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli non identificabili scritti con una bomboletta spray gialla su una parete e su un quadro.">
           </a>
         </div>
         <p>Rossi, grazie a dei tool super tecnologici, decifra gli strani simboli e li ricollega ad una tong chiamata “Loto

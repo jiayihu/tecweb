@@ -12,7 +12,7 @@
             </li>
           <?php else : ?>
             <li>
-              <a class="case" href="/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
+              <a class="case" href="<?= ROOT ?>/dashboard?id=<?= $case->codice ?>"><?= $case->nome ?></a>
             </li>
           <?php endif; ?>
       <?php endforeach; ?>
@@ -21,7 +21,7 @@
       <p class="center">Nessun caso disponibile.</p>
     <?php endif;?>
     <?php if ($role!='inspector') : ?>
-      <a class="btn btn-outline" href="/dashboard?nuovoCaso=true">Nuovo caso</a>
+      <a class="btn btn-outline" href="<?= ROOT ?>/dashboard?nuovoCaso=true">Nuovo caso</a>
     <?php endif; ?>
   </aside>
 
@@ -69,7 +69,7 @@
       <?php endif; ?>
 
       <h2>Nuovo caso</h2>
-      <form action="/dashboard" method="post" class="content clearfix">
+      <form action="<?= ROOT ?>/dashboard" method="post" class="content clearfix">
         <p class="form-field clearfix">
           <label for="nome">Nome</label>
             <?php if (isset($nome)) : ?>
@@ -123,7 +123,7 @@
         <h2><?= $selectedCase->nome ?></h2>
         <div class="case-details">
           <p class="actions">
-            <a class="" href="/caso?id=<?=$selectedCase->getId() ?>">Mostra dettagli</a>
+            <a class="" href="<?= ROOT ?>/caso?id=<?=$selectedCase->getId() ?>">Mostra dettagli</a>
           </p>
 
           <dl>

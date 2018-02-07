@@ -8,17 +8,17 @@
   <title>Studio Sherlock & Watson</title>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <link href="public/css/external/normalize.css" rel="stylesheet">  
-  <link href="public/css/common.css" rel="stylesheet">  
-  <link href="public/css/<?= $routeName ?>.css" rel="stylesheet">  
+  <link href="<?= ROOT ?>/public/css/external/normalize.css" rel="stylesheet">  
+  <link href="<?= ROOT ?>/public/css/common.css" rel="stylesheet">  
+  <link href="<?= ROOT ?>/public/css/<?= $routeName ?>.css" rel="stylesheet">  
 </head>
 <body class="public">
   <a class="screen-reader" href="#content">Salta la navigazione</a>
   <header id="top" class="navbar-container"> <!-- Per il back to top -->
     <div class="navbar container clearfix">
       <div class="navbar-left left">
-        <a class="home-link" href="/" title="Ritorna alla pagina principale">
-          <img lang="en" class="logo-img" src="public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla home" />
+        <a class="home-link" href="<?= ROOT ?>/" title="Ritorna alla pagina principale">
+          <img lang="en" class="logo-img" src="<?= ROOT ?>/public/images/logo.png" alt="Logo Studio Sherlock & Watson, rimanda alla home" />
         </a>
       </div>
       <ul class="list navbar-right right">

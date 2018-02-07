@@ -13,7 +13,7 @@
       <li>La password deve essere almeno di almeno 6 caratteri</li>
     </ul>
 
-    <form id="login" action="/login" method="post">
+    <form id="login" action="<?= ROOT ?>/login" method="post">
       <div class="loginbox-field">
         <label for="codice_fiscale" class="input-label">Codice fiscale</label>
         <input id="codice_fiscale" class="input" name="codice_fiscale" type="text" placeholder="Il tuo codice fiscale" required>

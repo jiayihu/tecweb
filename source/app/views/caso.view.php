@@ -4,7 +4,7 @@
   <aside class="main-sidebar">
     <a class="screen-reader" href="#investigations">Salta i dettagli del caso</a>
     <?php if ($isEdit && !$investigationId && $role !== 'inspector'): ?>
-    <form action="/caso" method="post">
+    <form action="<?= ROOT ?>/caso" method="post">
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId() ?>" />
       <dl class="case-info">
         <?php if ($erroreArchiviazione) : ?>
@@ -113,7 +113,7 @@
       
       <hr />
       <p class="center">
-        <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId(); ?>">Annulla</a>
+        <a class="btn btn-link" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId(); ?>">Annulla</a>
         <button type="submit" class="btn btn-primary">Salva le modifiche</button>
       </p>
     </form>
@@ -212,7 +212,7 @@
     <?php if ($role !== 'inspector'): ?>
     <hr />
     <p class="center">
-      <a class="btn btn-outline" href="/caso?id=<?= $selectedCase->getId(); ?>&modifica=true">Modifica i dati</a>
+      <a class="btn btn-outline" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId(); ?>&modifica=true">Modifica i dati</a>
     </p>
     <?php endif; ?>
 
@@ -275,13 +275,13 @@
       <p> Nessuna investigazione disponibile.</p>
       <?php if ($role === 'detective') : ?> 
         <p>
-          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
+          <a class="btn btn-link" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
         </p>
       <?php endif; ?>
     <?php else : ?>
       <?php if ($role === 'detective') : ?> 
         <p>
-          <a class="btn btn-link" href="/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
+          <a class="btn btn-link" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
         </p>
       <?php endif; ?>
       <?php foreach ($investigations as $index => $investigation) : ?>
