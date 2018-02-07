@@ -1,0 +1,7 @@
+# Redirect all tecweb requests to the index.php, which will load the correct view
+# based on the URI
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]
