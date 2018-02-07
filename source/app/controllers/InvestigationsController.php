@@ -35,7 +35,8 @@ class InvestigationsController {
   public function editInvestigation(array $param): bool {
     $caseId = $param['caseId'];
     $investigationId = $param['investigationId'];
-    $investigatore = $param['investigatore'];
+    $investigatore_new = $param['investigatore'];
+    $investigatore_old = $param['investigatore_old'];
     $date_to = $param['date_to'];
     $rapporto = $param['rapporto'];
     $ore = $param['ore'];
@@ -54,15 +55,17 @@ class InvestigationsController {
       ':rapporto' => $rapporto
     ]);
 
-    $where = 'investigazione = :numero AND caso = :id_caso AND investigatore = :investigatore';   
+    $where = 'investigazione = :numero AND caso = :id_caso AND investigatore = :investigatore_old';   
     $changes = '
-      ore_lavoro = :ore_lavoro';
+      ore_lavoro = :ore_lavoro,
+      investigatore = :investigatore_new';
     $table = 'lavoro';   
     $update_lavoro = $this->database->update($table, $changes, $where, [
       ':numero' => $investigationId,
       ':id_caso' => $caseId,
-      ':investigatore' => $investigatore,
-      'ore_lavoro' => $ore
+      ':investigatore_new' => $investigatore_new,
+      ':investigatore_old' => $investigatore_old,
+      ':ore_lavoro' => $ore
     ]);
 
     if ($update_lavoro && $update_investigazione)

@@ -359,6 +359,7 @@ class PagesController {
 
   public function handleEditInvestigationPOST(int $caseId, int $investigationId) {
     $investigatore = Request::getPOSTParam('investigatore');
+    $investigatore_old = Request::getPOSTParam('investigatore_old');
     $ore = Request::getPOSTParam('ore');
     $date_to = Request::getPOSTParam('date_to');
     $data_inizio = Request::getPOSTParam('data_inizio');
@@ -398,7 +399,8 @@ class PagesController {
       'investigatore' => $investigatore,
       'date_to' => $date_to,
       'rapporto' => $rapporto,
-      'ore' => $ore
+      'ore' => $ore,
+      'investigatore_old' => $investigatore_old
     ]);
 
     

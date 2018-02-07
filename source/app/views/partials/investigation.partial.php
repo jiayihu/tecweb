@@ -14,6 +14,7 @@
       <input type="hidden" name="invId" value="<?= $investigation->getId(); ?>">
       <input type="hidden" name="caseId" value="<?= $selectedCase->getId(); ?>">
       <input type="hidden" name="data_inizio" value="<?= $investigation->dataInizio ?>">
+      <input type="hidden" name="investigatore_old" value="<?= $investigation->investigatore->codice_fiscale ?>">
 
       <div class="investigation-content">
         <ul class="form-instructions">
