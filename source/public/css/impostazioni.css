@@ -1,0 +1,38 @@
+.content {
+    padding: 0.25rem;
+  }
+  
+  .form-field {
+    margin: 1rem 0;
+  }
+  
+  .forminput {
+    border: 1px solid #d3d3d3;
+    outline: none;
+    width: 70%;
+    float: right;
+  }
+  
+  .forminput:focus {
+    border: 2px solid #4e4e4e;
+  }
+  
+  .input-text {
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  /*----------  Media queries  ----------*/
+  
+  @media (min-width: 480px) {
+  }
+  
+  @media (min-width: 768px) {
+  }
+  
+  @media (min-width: 992px) {
+  }
+  
+  @media (min-width: 1200px) {
+  }
+  

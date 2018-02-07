@@ -39,25 +39,24 @@
       <li>La password deve essere almeno di almeno 6 caratteri</li>
     </ul>
 
-    <form action="<?= ROOT ?>/modifica-password" method="post">
-      <dl>
-        <dt>Codice Fiscale</dt>
-        <dd>
-            <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" aria-label="Inserisci codice fiscale" required>
-        </dd>
-        <dt>Vecchia Password</dt>
-            <dd>
-            <input class="input" type="password" name="old_password" placeholder="Inserisci vecchia password" aria-label="Inserisci vecchia password" pattern=".{6,}" required>
-            </dd>
-        <dt>Nuova Password</dt>
-            <dd>
-            <input class="input" type="password" name="password" placeholder="Inserisci nuova password" aria-label="Inserisci nuova password" pattern=".{6,}" required>
-            </dd>
-        <dt>Conferma nuova password</dt>
-        <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma nuova password" aria-label="Conferma nuova password" pattern=".{6,}" required>
-        </dd>
-        <button type="submit" class="btn btn-primary">Cambia Password</button>
+    <form action="<?= ROOT ?>/modifica-password" class="content clearfix" method="post">
+      <div class="form-field clearfix">
+        <label class="input-text" for="codice_fiscale">Inserisci Codice Fiscale</label>
+        <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" required>
+      </div>
+      <div class="form-field clearfix">
+        <label class="input-text" for="old_password">Inserisci vecchia password</label>
+        <input id="old_password" class="forminput" type="password" name="old_password" required>
+      </div>
+      <div class="form-field clearfix">
+        <label class="input-text" for="password">Inserisci nuova password</label>
+        <input id="password" class="forminput" type="password" name="password" required>
+      </div>
+      <div class="form-field clearfix">
+        <label class="input-text" for="password_confirm">Conferma nuova password</label>
+        <input id="password_confirm" class="forminput" type="password" name="password_confirm" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Cambia Password</button>
     </form>
 </main>
 
