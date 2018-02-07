@@ -177,7 +177,7 @@
           <td><?= $investigation->getInvestigatore(); ?></td>
           <td><?= $investigation->dataInizio . ' ' . $investigation->dataTermine; ?></td>
           <td><?= $investigation->getScene(); ?></td>
-          <td class="investigation-report"><?= \Core\ellipsis($investigation->rapporto); ?></td>
+          <td class="investigation-report"><?= \Core\ellipsis("".$investigation->rapporto); ?></td>
           <td>
             <a class="uppercase" href="<?= ROOT ?>/caso?id=<?= $investigation->getCaseId(); ?>&investigazione=<?= $investigation->getId(); ?>">
               Apri &rightarrow;
