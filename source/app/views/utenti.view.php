@@ -137,13 +137,8 @@
               <td><?= $genericUser->nome ?></td>
               <td><?= $genericUser->cognome ?></td>
               <td class="actions">
-<<<<<<< HEAD
-                <a class="uppercase" href="/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
-                <form action="/elimina-utente" method="post">
-=======
                 <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
->>>>>>> 22234bbb5d1e4ea3ff9fb72a9ebab242b8ef882b
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
                   <input type="hidden" name="role" value="detective">
                   <button type="submit" class="btn btn-link">Elimina</button>
