@@ -39,7 +39,7 @@
           <label for="ore" class="investigation-content-title">Ore di lavoro: </label> 
           <input class="input" type="number" id="ore" name="ore" value="<?= $investigation->oreTotali ?>">
         </div>
-        <div class="investigation-content-field">
+        <div class="investigation-content-field field-data-termine">
           <label for="input-date-to" class="investigation-content-title">Data fine (maggiore dell'inizio <?= $investigation->dataInizio ?>): </label> 
           <?php if ($investigation->dataTermine === null) : ?>
             <input type="text" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date_to" id="input-date-to" placeholder="aaaa-mm-gg" required>
