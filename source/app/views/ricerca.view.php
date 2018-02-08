@@ -128,17 +128,17 @@
     <table class="results results-cases">
       <thead>
         <tr>
-          <th>Stato</th>
-          <th>Nome</th>
-          <th>Tipologia</th>
-          <th>Descrizione</th>
-          <th>Azioni</th>
+          <th id="c1">Stato</th>
+          <th id="c2">Nome</th>
+          <th id="c3">Tipologia</th>
+          <th id="c4">Descrizione</th>
+          <th id="c5">Azioni</th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($cases as $case): ?>
         <tr>
-          <td>
+          <td headers="c1">
             <?php if ($case->isResolved()): ?>
             <span class="status status-resolved" title="Risolto"></span>
             <span class="screen-reader">Risolto</span>
@@ -150,10 +150,10 @@
             <span class="screen-reader">In progress</span>
             <?php endif; ?>
           </td>
-          <td><?= $case->nome; ?></td>
-          <td><?= $case->tipologia; ?></td>
-          <td class="case-description"><?= \Core\ellipsis($case->descrizione); ?></td>
-          <td><a class="uppercase" href="<?= ROOT ?>/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
+          <td headers="c2"><?= $case->nome; ?></td>
+          <td headers="c3"><?= $case->tipologia; ?></td>
+          <td headers="c4" class="case-description"><?= \Core\ellipsis($case->descrizione); ?></td>
+          <td headers="c5"><a class="uppercase" href="<?= ROOT ?>/caso?id=<?= $case->getId(); ?>">Apri &rightarrow;</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>

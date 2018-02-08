@@ -124,19 +124,19 @@
         <table class="results">
           <thead>
             <tr>
-              <th>Codice Fiscale</th>
-              <th>Nome</th>
-              <th>Cognome</th>
-              <th>Azioni</th>
+              <th id="c1">Codice Fiscale</th>
+              <th id="c2">Nome</th>
+              <th id="c3">Cognome</th>
+              <th id="c4">Azioni</th>
             </tr>
           </thead>
           <tbody>
             <?php foreach ($detectives as $genericUser): ?>
             <tr>
-              <td><?= $genericUser->codice_fiscale ?></td>
-              <td><?= $genericUser->nome ?></td>
-              <td><?= $genericUser->cognome ?></td>
-              <td class="actions">
+              <td headers="c1"><?= $genericUser->codice_fiscale ?></td>
+              <td headers="c2"><?= $genericUser->nome ?></td>
+              <td headers="c3"><?= $genericUser->cognome ?></td>
+              <td headers="c4"class="actions">
                 <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
                   <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
