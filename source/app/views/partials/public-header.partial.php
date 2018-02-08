@@ -11,6 +11,7 @@
   <link href="<?= ROOT ?>/public/css/external/normalize.css" rel="stylesheet">  
   <link href="<?= ROOT ?>/public/css/common.css" rel="stylesheet">  
   <link href="<?= ROOT ?>/public/css/<?= $routeName ?>.css" rel="stylesheet">  
+  <link href="<?= ROOT ?>/public/css/print.css" rel="stylesheet" media="print">  
 </head>
 <body class="public">
   <a class="screen-reader" href="#content">Salta la navigazione</a>

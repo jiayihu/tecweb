@@ -1,0 +1,62 @@
+body {
+  background: none;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+/*----------  Hidden in print  ----------*/
+
+.navbar-container,
+.service-photo,
+.footer .right,
+.screen-reader,
+.tabs label {
+  display: none;
+}
+
+/*----------  Removed decorations  ----------*/
+
+a,
+.btn,
+.intro,
+.intro .v-centered,
+.intro-name,
+.footer,
+.loginbox,
+.main-sidebar {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #4e4e4e !important;
+  height: auto !important;
+  position: static !important;
+  transform: none !important;
+}
+
+.tab {
+  display: initial !important;
+}
+
+a::before {
+  content: '[';
+}
+a::after {
+  content: ']';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: auto !important;
+}
+
+.history,
+.service {
+  margin: 1rem 0;
+}
+
+.service .col {
+  width: 100%;
+}
