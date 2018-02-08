@@ -589,6 +589,10 @@ dd {
   font-weight: bold;
 }
 
+.block {
+  display: block;
+}
+
 .center {
   text-align: center;
 }
