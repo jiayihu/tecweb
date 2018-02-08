@@ -70,6 +70,10 @@
 
       <h2>Nuovo caso</h2>
       <form action="<?= ROOT ?>/dashboard" method="post" class="content clearfix">
+        <ul class="form-instructions">
+          <li>Tutti i campi sono obbligatori</li>
+          <li>Non è possibile inserire un nuovo caso con un nome uguale ad uno già esistente</li>
+        </ul>
         <p class="form-field clearfix">
           <label for="nome">Nome</label>
             <?php if (isset($nome)) : ?>
