@@ -2,6 +2,7 @@
 
 <main id="content" class="main-container container">
   <aside class="main-sidebar clearfix">
+    <a class="screen-reader" href="#dettaglio-caso">Salta la lista dei casi e vai alla descrizione del caso <?= $selectedCase->nome ?></a>
     <h2>Casi</h2>
     <?php if (!$zeroCasi) : ?>
       <ul class="menu-case">
