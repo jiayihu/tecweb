@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Executes the core of the server, requiring all the files
+ */
+
 namespace Core;
 use Core\Database\Connection;
 use Core\Database\QueryBuilder;

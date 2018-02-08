@@ -2,6 +2,9 @@
 
 namespace Core;
 
+/**
+ * Logs into the terminal
+ */
 class Logger {
   public static function log(...$msgs) {
     if (App::get('config')['production']) {

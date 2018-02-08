@@ -25,12 +25,6 @@ class AuthController {
     $this->database = \Core\App::get('database');
   }
 
-  public function authenticateAPI() {
-    $isAuthorized = $this->authenticate();
-
-    return \Core\json(['success' => $isAuthorized]);
-  }
-
   public function authenticate($codiceFiscale, $password, $role): bool {
     $userClass = 'User';
 
@@ -93,6 +87,7 @@ class AuthController {
       return $isAuthorized ? $user : null;
     }
   }
+
   public function checkPassword($codiceFiscale, $password, $role) {
     $table = '';
 

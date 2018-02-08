@@ -74,26 +74,6 @@ class UsersController {
     return \count($results) === 0 ? null : $results[0];
   }
 
-  public function addUserAPI() {
-    $successful = false;
-    $response = null;
-    $errors = null;
-
-    try {
-      $successful = $this->addUser();
-      $response = ['success' => $successful];
-    } catch (\Exception $e) {
-      if ($e->getMessage() === 'passwordsNotEqual') {
-        $errors = [['id' => 'passwordsNotEqual']];
-      }
-      if ($e->getMessage() === 'alreadyExisting') {
-        $errors = [['id' => 'alreadyExisting']];
-      }
-    }
-
-    return $successful ? \Core\json($response) : \Core\json(null, $errors);
-  }
-
   public function addUser(array $parameters): bool {
     $codiceFiscale = $parameters['codiceFiscale'];
     $password = $parameters['password'];

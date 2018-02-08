@@ -15,27 +15,6 @@ function isArrayEmpty(array $values): bool {
 }
 
 /**
- * Returns a JSON object to the client with the format as specified in standard
- * http://jsonapi.org/format/
- *
- * @param array $data
- * @param array $errors
- * @return void
- */
-function json(array $data, array $errors = null) {
-  $response = [];
-
-  if (!$errors) {
-    $response = ['data' => $data];
-  } else {
-    $response = ['errors' => $errors];
-  }
-
-  header('Content-Type: application/json');
-  echo json_encode($response);
-}
-
-/**
  * Returns the HTML template to the client
  *
  * @param string $filename The name of the file

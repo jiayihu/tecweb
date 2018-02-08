@@ -2,6 +2,9 @@
 
 namespace Core;
 
+/**
+ * Handles a cookie session
+ */
 class Session {
   public static function start() {
     if (!isset($_SESSION)) {

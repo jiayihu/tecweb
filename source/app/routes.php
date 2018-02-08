@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * An associative array which maps the URL request (divided in GET and POST) to
+ * the Controller class and method which handles it
+ */
+
 return [
   'GET' => [
     '' => 'PagesController@home',
