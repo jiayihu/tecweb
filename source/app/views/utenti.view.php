@@ -66,11 +66,11 @@
             <input class="input-role" id="input-role-detective" type="radio" name="role" value="detective" checked>
             <label class="radio-label" for="input-role-detective">Investigatore</label>
           </div>
-          <div class="block">
+          <div>
             <input class="input-role" id="input-role-admin" type="radio" name="role" value="admin">
             <label class="radio-label" for="input-role-admin">Admin</label>
           </div>
-          <div class="block">
+          <div>
             <input class="input-role" id="input-role-inspector" type="radio" name="role" value="inspector">
             <label class="radio-label" for="input-role-inspector">Ispettore</label>
           </div>
