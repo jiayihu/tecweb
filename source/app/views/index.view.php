@@ -56,7 +56,7 @@
     </div>
     <div class="service-content col half">
       <h2>Investigazioni <span lang="en">cyber-security</span></h2>
-      <p>La nostra divisione informatica, attraverso dotazioni software all’avanguardia è in grado di offrirvi servizi di analisi forense sui dispositivi ormai di uso quotidiano come <abbr title="Personal Computer">PC</abbr>, <span lang"en">tablet</span>, e <span lang="en">smartphone</span>.</p>
+      <p>La nostra divisione informatica, attraverso dotazioni software all’avanguardia è in grado di offrirvi servizi di analisi forense sui dispositivi ormai di uso quotidiano come <abbr title="Personal Computer">PC</abbr>, <span lang="en">tablet</span>, e <span lang="en">smartphone</span>.</p>
       <p><a href="<?= ROOT ?>/servizi#cyber" class="btn btn-outline">Apri servizio</a></p>
     </div>
   </section>

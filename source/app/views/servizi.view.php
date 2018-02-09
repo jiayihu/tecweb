@@ -54,7 +54,7 @@
     <p>
       La nostra agenzia investigativa è specializzata in investigazioni a supporto degli studi legali sia nell’ambito civile sia nella difesa penale.
     </p>
-    <p>Le indagini investigative attuate da Vega Investigazioni rappresentano uno strumento rapido ed efficace che si rivela di fondamentale importanza qualora ci sia la necessità di raccogliere informazioni o elementi di prova da far valere nel processo civile o penale in ogni ordine di grado o giudizio.</p>
+    <p>Le indagini investigative attuate dall nostro <span lang="en">team</span> di investigatori rappresentano uno strumento rapido ed efficace che si rivela di fondamentale importanza qualora ci sia la necessità di raccogliere informazioni o elementi di prova da far valere nel processo civile o penale in ogni ordine di grado o giudizio.</p>
     <p>I nostri principali servizi di investigazione difensive sono:</p>
     <ul>
       <li>Accertamenti patrimoniali</li>
@@ -75,16 +75,16 @@
     <div class="service-content col two-third">
     <h2>Investigazioni <span lang="en">cyber-security</span></h2>
     <p>
-      In questo particolare periodo storico, dove tutti i device sono connessi tra di loro e la facilità di essere “controllati” è altissima, un servizio di controspionaggio è alla base della sicurezza.
+      In questo particolare periodo storico, dove tutti i <span lang="en">device</span> sono connessi tra di loro e la facilità di essere “controllati” è altissima, un servizio di controspionaggio è alla base della sicurezza.
     </p>
     <p>Il nostro team di Controspionaggio Informatico si occupa di verificare se nella struttura informatica del cliente vi siano strumenti esterni in grado di monitorare le attività aziendali e produttive, tali da compromettere la stabilità dell’intera azienda.</p>
-    <p>I nostri principali servizi di investigazione dedicati alla cyber-security sono:</p>
+    <p>I nostri principali servizi di investigazione dedicati alla <span lang="en">cyber-security sono</span>:</p>
     <ul>
-      <li>Penetration testing</li>
+      <li><span lang="en">Penetration testing</span></li>
       <li>Controspionaggio informatico</li>
-      <li>Vulnerability assestment</li>
+      <li><span lang="en">Vulnerability assestment</span></li>
       <li>Furto d'identità e truffe online</li>
-      <li><span lang="en">Social Engeneering</span></li>
+      <li><span lang="en"><span lang="en">Social Engeneering</span></li>
     </ul>
     </div>
   </section>

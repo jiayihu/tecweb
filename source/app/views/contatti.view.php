@@ -42,7 +42,7 @@
         <li>Scendere alla seconda fermata</li>
         <li>Prendere la prima laterale sulla destra, via U. Bassi</li>
         <li>L'ufficio è a 200m sulla destra</li>
-      <ol>
+      </ol>
       </div>
     </div>
     <div class="service-photo col half img">
@@ -78,8 +78,8 @@
             <textarea id="message" rows="3" cols="30" placeholder="Messaggio" required name="message"></textarea>
           </div>
         </div>
+        <input type="submit" class="btn btn-outline" value="Invia">
       </form>
-      <input type="submit" class="btn btn-outline" value="Invia">
       </div>
   </section>
 </main>

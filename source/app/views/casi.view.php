@@ -66,7 +66,7 @@
         </p>
         <div class="case-imm">
           <a href="<?= ROOT ?>/public/images/casi/case2.jpg">
-            <img src="<?= ROOT ?>/public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli non identificabili scritti con una bomboletta spray gialla su una parete e su un quadro.">
+            <img src="<?= ROOT ?>/public/images/casi/case2.jpg" alt="Foto tratta dalla scena del crimine. Ritrae dei simboli strani scritti con una bomboletta spray gialla.">
           </a>
         </div>
         <p>Rossi, grazie a dei tool super tecnologici, decifra gli strani simboli e li ricollega ad una tong chiamata “Loto
