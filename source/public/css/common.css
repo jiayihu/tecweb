@@ -102,6 +102,10 @@ textarea {
   padding: 0.5rem;
 }
 
+textarea {
+  border: 1px solid #d3d3d3;
+}
+
 select {
   background-color: transparent;
   border: none;
