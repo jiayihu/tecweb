@@ -13,6 +13,16 @@
   </p>
   <?php endif; ?>
 
+  <?php if ($erroreDoppio) :?>
+  <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
+  <p role="alert" class="alert alert-danger">
+    <label for="alert-close" role="alert" class="alert-close" aria-label="Chiudi">
+      <span aria-hidden="true">&times;</span>
+    </label>
+    Criminale con stesso codice fiscale già presente.
+  </p>
+  <?php endif; ?>
+
   <?php if ($genericError) :?>
   <input id="alert-close" role="alert" class="alert-checkbox" type="checkbox" />
   <p role="alert" class="alert alert-danger">
@@ -38,7 +48,7 @@
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="codice_fiscale">Codice Fiscale</label>
-      <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" required>
+      <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" pattern="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$" required>
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="descrizione">Descrizione</label>

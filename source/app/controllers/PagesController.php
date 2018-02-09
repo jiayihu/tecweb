@@ -595,6 +595,7 @@ class PagesController {
 
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
+    $erroreDoppio = Request::getQueryParam('erroreDoppio') !== null;
 
     return \Core\view('aggiungi-criminale', [
       'routeName' => $routeName,
@@ -602,6 +603,7 @@ class PagesController {
       'role' => $this->authController->getUserRole(),
       'successful' => $successful,
       'genericError' => $genericError,
+      'erroreDoppio' => $erroreDoppio
     ]);
   }
 
@@ -610,6 +612,11 @@ class PagesController {
     $nome = Request::getPOSTParam('nome');
     $cognome = Request::getPOSTParam('cognome');
     $descrizione = Request::getPOSTParam("descrizione");
+
+    $verifica = $this->casesController->checkCriminalCf($codiceFiscale);
+
+    if($verifica) 
+      return \Core\redirect('/aggiungi-criminale?erroreDoppio=true');
 
     $successful=$this->casesController->addCriminale([
       'codice_fiscale' => $codiceFiscale,
@@ -628,6 +635,7 @@ class PagesController {
 
     $successful = Request::getQueryParam('successo') !== null;
     $genericError = Request::getQueryParam('errore') !== null;
+    $erroreDoppio = Request::getQueryParam('erroreDoppio') !== null;
 
     return \Core\view('aggiungi-cliente', [
       'routeName' => $routeName,
@@ -635,6 +643,7 @@ class PagesController {
       'role' => $this->authController->getUserRole(),
       'successful' => $successful,
       'genericError' => $genericError,
+      'erroreDoppio' => $erroreDoppio
     ]);
   }
 
@@ -644,6 +653,11 @@ class PagesController {
     $cognome = Request::getPOSTParam('cognome');
     $citta = Request::getPOSTParam("citta");
     $indirizzo = Request::getPOSTParam("indirizzo");
+
+    $verifica = $this->casesController->checkClienteCf($codiceFiscale);
+
+    if($verifica) 
+      return \Core\redirect('/aggiungi-cliente?erroreDoppio=true');
 
     $successful=$this->casesController->addCliente([
       'codice_fiscale' => $codiceFiscale,

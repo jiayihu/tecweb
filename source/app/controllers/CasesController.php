@@ -387,6 +387,25 @@ class CasesController {
     ]);
   }
 
+  public function checkCriminalCf(String $cf) {
+    $table = 'criminale';
+    $parameters[':codice_fiscale'] = $cf;
+    $where = 'codice_fiscale = :codice_fiscale';
+
+    $exist = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if (count($exist) > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
   public function addCliente(array $parameters){
     $codiceFiscale = $parameters['codice_fiscale'];
     $nome=$parameters['nome'];
@@ -401,6 +420,25 @@ class CasesController {
       'citta' => $citta,
       'indirizzo' => $indirizzo,
     ]);
+  }
+
+  public function checkClienteCf(String $cf) {
+    $table = 'cliente';
+    $parameters[':codice_fiscale'] = $cf;
+    $where = 'codice_fiscale = :codice_fiscale';
+
+    $exist = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      $parameters
+    );
+
+    if (count($exist) > 0) {
+      return true;
+    }
+
+    return false;
   }
 
 }
