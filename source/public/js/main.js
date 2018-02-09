@@ -72,6 +72,69 @@ function validateInvestigation() {
   });
 }
 
+function checkTags() {
+  var form = document.querySelector('.main-sidebar form');
+  var tags = form.elements['tags[]'];
+
+  for(var i = 0; i < tags.length; i++) {
+    if(tags[i].checked) 
+      return true;
+  }
+
+  return false;
+}
+
+function validateCaseSearch() {
+  var testo = document.querySelector('.main-sidebar input[name="search_text"]');
+  var cliente = document.querySelector('.main-sidebar select[name="cliente"]');
+  var criminale = document.querySelector('.main-sidebar select[name="criminale"]');
+  var tipologia = document.querySelector('.main-sidebar select[name="tipologia"]');
+
+  var errore = true;
+
+  // controlla che almeno uno dei campi testo, cliente, criminale o tipologia sia compilato o che cia sia almeno un tag selezionato
+  if(testo.value.length > 0 || cliente.selectedIndex !== 0 || criminale.selectedIndex !== 0 || tipologia.selectedIndex !== 0 || checkTags())
+    return false;
+
+  return true;
+}
+
+function validateInvestigationSearch() {
+  var testo = document.querySelector('.main-sidebar input[name="search_text"]');
+  var investigatore = document.querySelector('.main-sidebar select[name="investigatore"]');
+  var scena = document.querySelector('.main-sidebar input[name="scena"]');
+  var dataInizio = document.querySelector('.main-sidebar input[name="date-from"]');
+  var dataFine = document.querySelector('.main-sidebar input[name="date-to"]');
+
+  // controlla che almeno uno dei campi tra testo, investigatore, scena, data inizio o fine sia selezionato
+  if(testo.value.length > 0 || investigatore.selectedIndex !== 0 || scena.value.length > 0 || dataInizio.value.length > 0 || dataFine.value.length > 0) {
+    return false;
+  }
+
+  return true;
+}
+
+function validateSearch() {
+  var form = document.querySelector('.main-sidebar form');
+  var container;
+  form.addEventListener('submit', function(event) {
+    var errore;
+    if(document.getElementById("input-type-case").checked) {
+      errore = validateCaseSearch();
+      container = document.querySelector('.case-fields');
+    }  else {
+      errore = validateInvestigationSearch();
+      container = document.querySelector('.investigation-fields');
+    }
+
+    if(errore) {
+      event.preventDefault();
+      createError(container, 'Non è possibile eseguire una ricerca vuota');
+      return;
+    }
+  });
+}
+
 function main() {
   var pageName = document.body.className;
 
@@ -79,6 +142,10 @@ function main() {
     case 'page-caso':
       validateCaseEdit();
       validateInvestigation();
+      break;
+
+    case 'page-ricerca':
+      validateSearch();     
       break;
 
     default:

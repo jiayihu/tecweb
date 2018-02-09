@@ -26,7 +26,7 @@
         <label class="radio-label" for="input-type-case">Casi</label>
         <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation">
         <label class="radio-label" for="input-type-investigation">Investigazioni</label>
-
+        
         <p>
           <label class="input-label" for="input-query">Testo da cercare</label>
           <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo">
