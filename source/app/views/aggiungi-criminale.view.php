@@ -40,15 +40,15 @@
   <form action="<?= ROOT ?>/aggiunta-criminale" class="content clearfix" method='post'>
     <div class="form-field clearfix">
       <label class="input-text" for="nome">Nome</label>
-      <input id="nome" class="forminput" type="text" name="nome" required>
+      <input id="nome" class="forminput" type="text" name="nome" required />
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="cognome">Cognome</label>
-      <input id="cognome" class="forminput" type="text" name="cognome" required>
+      <input id="cognome" class="forminput" type="text" name="cognome" required />
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="codice_fiscale">Codice Fiscale</label>
-      <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" pattern="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$" required>
+      <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" pattern="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$" required />
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="descrizione">Descrizione</label>

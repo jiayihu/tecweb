@@ -22,14 +22,14 @@
     <form action="<?= ROOT ?>/ricerca" method="post">
       <div>
         <span class="input-label">Tipologia di ricerca</span>
-        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked>
+        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked />
         <label class="radio-label" for="input-type-case">Casi</label>
-        <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation">
+        <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation" />
         <label class="radio-label" for="input-type-investigation">Investigazioni</label>
-        
+
         <p>
           <label class="input-label" for="input-query">Testo da cercare</label>
-          <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo">
+          <input class="input" type="text" name="search_text" id="input-query" placeholder="Inserisci del testo" />
         </p>
 
         <!-- Fields unique for case -->
@@ -46,7 +46,7 @@
           </p>
           <?php else: ?>
           <p>
-            <input type="hidden" name="cliente" value="<?= $user->codice_fiscale ?>">
+            <input type="hidden" name="cliente" value="<?= $user->codice_fiscale ?>" />
           </p>
           <?php endif; ?>
           <p>
@@ -97,15 +97,15 @@
           </p>
           <p>
             <label class="input-label" for="input-scene">Scena investigazione</label>
-            <input class="input" type="text" name="scena" id="input-scene" placeholder="Città o indirizzo della scena">
+            <input class="input" type="text" name="scena" id="input-scene" placeholder="Città o indirizzo della scena" />
           </p>
           <p>
             <label class="input-label" for="input-date-from">A partire da data (aaaa-mm-gg)</label>
-            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from">
+            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-from" id="input-date-from" />
           </p>
           <p>
             <label class="input-label" for="input-date-to">Fino a data (aaaa-mm-gg)</label>
-            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to">
+            <input class="input" pattern="\d{4}-\d{1,2}-\d{1,2}" name="date-to" id="input-date-to" />
           </p>
         </div>
       </div>

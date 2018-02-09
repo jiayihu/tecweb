@@ -42,7 +42,7 @@
         </ul>
 
         <dt>Titolo</dt>
-        <dd><input class="input" type="text" name="nome" aria-label="nome"  value="<?= $selectedCase->nome; ?>"></dd>
+        <dd><input class="input" type="text" name="nome" aria-label="nome"  value="<?= $selectedCase->nome; ?>" /></dd>
         <dt>Descrizione</dt>
         <dd><textarea name="descrizione" aria-label="descrizione" ><?= $selectedCase->descrizione ?></textarea></dd>
         <dt>Tipologia</dt>

@@ -5,7 +5,7 @@
   <form action="" class="content clearfix">
     <div class="form-field clearfix">
       <label class="input-text" for="nome">Nome</label>
-      <input class="forminput" type="text" id="nome">
+      <input class="forminput" type="text" id="nome" />
     </div>
     <div class="form-field clearfix">
       <label class="input-text" for="tipo">Tipo</label>

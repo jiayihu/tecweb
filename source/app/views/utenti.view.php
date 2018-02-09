@@ -27,51 +27,51 @@
         <dt>Codice Fiscale</dt>
         <dd>
           <?php if ($isEdit): ?>
-          <input type="hidden" name="old_codice_fiscale" value="<?= $editingUser->codice_fiscale ?>">
+          <input type="hidden" name="old_codice_fiscale" value="<?= $editingUser->codice_fiscale ?>" />
           <?php endif; ?>
 
           <input class="input" type="text" name="codice_fiscale" placeholder="Inserisci codice fiscale" aria-label="Inserisci codice fiscale"
-            <?= $isEdit ? "value=\"{$editingUser->codice_fiscale}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->codice_fiscale}\"" : '' ?> required />
         </dd>
         
         <dt>Password</dt>
         <dd>
-          <input class="input" type="password" name="password" placeholder="Inserisci password" aria-label="Inserisci password" pattern=".{6,}" required>
+          <input class="input" type="password" name="password" placeholder="Inserisci password" aria-label="Inserisci password" pattern=".{6,}" required />
         </dd>
         
         <dt>Conferma password</dt>
         <dd>
-          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" aria-label="Conferma password" pattern=".{6,}" required>
+          <input class="input" type="password" name="password_confirm" placeholder="Conferma password" aria-label="Conferma password" pattern=".{6,}" required />
         </dd>
         
         <dt>Nome</dt>
         <dd>
           <input class="input" type="text" name="nome" placeholder="Inserisci nome" aria-label="Inserisci nome"
-            <?= $isEdit ? "value=\"{$editingUser->nome}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->nome}\"" : '' ?> required />
         </dd>
         
         <dt>Cognome</dt>
         <dd>
           <input class="input" type="text" name="cognome" placeholder="Inserisci cognome" aria-label="Inserisci cognome"
-            <?= $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required>
+            <?= $isEdit ? "value=\"{$editingUser->cognome}\"" : '' ?> required />
         </dd>
 
         <dt id="type-label">Tipologia <?= $isEdit ? '(non modificabile)' : '' ?></dt>
         <dd <?= $isEdit ? '' : 'role="group" aria-labelledby="type-label"' ?>>
           <?php if ($isEdit): ?>
           <?= $editingRole ?>
-          <input type="hidden" name="role" value="<?= $editingRole ?>">
+          <input type="hidden" name="role" value="<?= $editingRole ?>" />
           <?php else: ?>
           <div class="block">
-            <input class="input-role" id="input-role-detective" type="radio" name="role" value="detective" checked>
+            <input class="input-role" id="input-role-detective" type="radio" name="role" value="detective" checked />
             <label class="radio-label" for="input-role-detective">Investigatore</label>
           </div>
           <div>
-            <input class="input-role" id="input-role-admin" type="radio" name="role" value="admin">
+            <input class="input-role" id="input-role-admin" type="radio" name="role" value="admin" />
             <label class="radio-label" for="input-role-admin">Admin</label>
           </div>
           <div>
-            <input class="input-role" id="input-role-inspector" type="radio" name="role" value="inspector">
+            <input class="input-role" id="input-role-inspector" type="radio" name="role" value="inspector" />
             <label class="radio-label" for="input-role-inspector">Ispettore</label>
           </div>
           <?php endif; ?>
@@ -113,13 +113,13 @@
     <?php endif; ?>
 
     <div class="tabs">
-      <input class="screen-reader" type="radio" name="tabs" id="tab-detectives" checked>
+      <input class="screen-reader" type="radio" name="tabs" id="tab-detectives" checked />
       <label for="tab-detectives">Investigatori</label>
 
-      <input class="screen-reader" type="radio" name="tabs" id="tab-admins">
+      <input class="screen-reader" type="radio" name="tabs" id="tab-admins" />
       <label for="tab-admins">Amministratori</label>
 
-      <input class="screen-reader" type="radio" name="tabs" id="tab-inspectors">
+      <input class="screen-reader" type="radio" name="tabs" id="tab-inspectors" />
       <label for="tab-inspectors">Ispettori</label>
 
       <div class="tab">
@@ -141,8 +141,8 @@
               <td headers="c4"class="actions">
                 <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=detective">Modifica</a>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
-                  <input type="hidden" name="role" value="detective">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>" />
+                  <input type="hidden" name="role" value="detective" />
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
               </td>
@@ -172,8 +172,8 @@
                 <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=admin">Modifica</a>
                 <?php if ($userCodiceFiscale !== $genericUser->codice_fiscale): ?>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
-                  <input type="hidden" name="role" value="admin">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>" />
+                  <input type="hidden" name="role" value="admin" />
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
                 <?php endif; ?>
@@ -203,8 +203,8 @@
               <td class="actions">
                 <a class="uppercase" href="<?= ROOT ?>/utenti?modifica=true&codice_fiscale=<?= $genericUser->codice_fiscale ?>&role=inspector">Modifica</a>
                 <form action="<?= ROOT ?>/elimina-utente" method="post">
-                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>">
-                  <input type="hidden" name="role" value="inspector">
+                  <input type="hidden" name="codice_fiscale" value="<?= $genericUser->codice_fiscale ?>" />
+                  <input type="hidden" name="role" value="inspector" />
                   <button type="submit" class="btn btn-link">Elimina</button>
                 </form>
               </td>

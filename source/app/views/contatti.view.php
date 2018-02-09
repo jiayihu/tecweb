@@ -60,17 +60,17 @@
         <div class="contactbox">
           <div class="contactbox-field">
             <label for="name" class="screen-reader">nome e cognome</label>
-            <input id="name" class="input" type="text" name="nome" placeholder="Nome e cognome" required>
+            <input id="name" class="input" type="text" name="nome" placeholder="Nome e cognome" required />
             <span class="underline"></span>
           </div>
           <div class="contactbox-field">
             <label for="phone" class="screen-reader">telefono</label>
-            <input id="phone" class="input" type="text" name="telefono" placeholder="Telefono" required>
+            <input id="phone" class="input" type="text" name="telefono" placeholder="Telefono" required />
             <span class="underline"></span>
           </div>
           <div class="contactbox-field">
             <label for="email" class="screen-reader" lang="en">email</label>
-            <input id="email" class="input" type="email" name="email" required placeholder="Email">
+            <input id="email" class="input" type="email" name="email" required placeholder="Email" />
             <span class="underline"></span>
           </div>
           <div class="contactbox-message">
