@@ -24,13 +24,13 @@
       </div>
       <ul class="list navbar-right right">
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'servizi' ? 'active' : '' ?>" href="<?= ROOT ?>/servizi">Servizi</a>
+          <a class="navbar-link<?= $routeName === 'servizi' ? ' active' : '' ?>" href="<?= ROOT ?>/servizi">Servizi</a>
         </li>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'casi' ? 'active' : '' ?>" href="<?= ROOT ?>/casi">Casi di Studio</a>
+          <a class="navbar-link<?= $routeName === 'casi' ? ' active' : '' ?>" href="<?= ROOT ?>/casi">Casi di Studio</a>
         </li>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'contatti' ? 'active' : '' ?>" href="<?= ROOT ?>/contatti">Contatti</a>
+          <a class="navbar-link<?= $routeName === 'contatti' ? ' active' : '' ?>" href="<?= ROOT ?>/contatti">Contatti</a>
         </li>
       </ul>
     </div>

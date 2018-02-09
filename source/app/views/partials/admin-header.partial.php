@@ -41,11 +41,11 @@
         </li>
         <?php endif; ?>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'ricerca' ? 'active' : '' ?>" href="<?= ROOT ?>/ricerca">Ricerca</a>
+          <a class="navbar-link<?= $routeName === 'ricerca' ? ' active' : '' ?>" href="<?= ROOT ?>/ricerca">Ricerca</a>
         </li>
         <?php if ($role === 'admin'): ?>
         <li class="list-item">
-          <a class="navbar-link <?= $routeName === 'utenti' ? 'active' : '' ?>" href="<?= ROOT ?>/utenti">Utenti</a>
+          <a class="navbar-link<?= $routeName === 'utenti' ? ' active' : '' ?>" href="<?= ROOT ?>/utenti">Utenti</a>
         </li>
         <?php endif; ?>
         <li class="list-item dropdown dropdown-right">
