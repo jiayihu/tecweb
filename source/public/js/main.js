@@ -90,8 +90,6 @@ function validateCaseSearch() {
   var criminale = document.querySelector('.main-sidebar select[name="criminale"]');
   var tipologia = document.querySelector('.main-sidebar select[name="tipologia"]');
 
-  var errore = true;
-
   // controlla che almeno uno dei campi testo, cliente, criminale o tipologia sia compilato o che cia sia almeno un tag selezionato
   if(testo.value.length > 0 || cliente.selectedIndex !== 0 || criminale.selectedIndex !== 0 || tipologia.selectedIndex !== 0 || checkTags())
     return false;

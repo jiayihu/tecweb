@@ -126,6 +126,7 @@ class PagesController {
 
     $role = $this->authController->getUserRole();
     $user = $this->authController->getUser();
+    $zeroCasi = true;
 
     if ($role === 'admin' || $role === 'detective') {
       // Show only open cases
@@ -144,6 +145,7 @@ class PagesController {
       if ($codice === null) $codice = $cases[0]->codice;
       $case = $this->casesController->getCase($codice); 
       $investigations = $this->investigationsController->getInvestigations($codice);
+      $zeroCasi = false;
     } 
 
     return \Core\view('dashboard', [
@@ -161,7 +163,7 @@ class PagesController {
       'nuovoCaso' => $nuovoCaso,
       'clienti' => $clienti,
 
-      'zeroCasi' => $cases === null,
+      'zeroCasi' => $zeroCasi,
       'erroreCampiNuovoCaso' => $erroreCampiNuovoCaso,
       'duplicazione' => $duplicazione,
       'nuovoCasoOk' => $nuovoCasoOk,

@@ -78,9 +78,9 @@
         <p class="form-field clearfix">
           <label for="nome">Nome</label>
             <?php if (isset($nome)) : ?>
-              <input type="text" name="nome" id="nome" value="<?= $nome ?>"required>
+              <input type="text" name="nome" id="nome" value="<?= $nome ?>" required />
             <?php else : ?>
-              <input type="text" name="nome" id="nome" required>
+              <input type="text" name="nome" id="nome" required />
             <?php endif; ?>
         </p>
         <p class="form-field clearfix">
