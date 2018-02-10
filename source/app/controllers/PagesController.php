@@ -373,6 +373,8 @@ class PagesController {
 
     $path = "/caso?id={$caseId}&investigazione={$investigationId}";
 
+    if (empty($ore)) $ore = 0;
+
     if($ore < 0) {
       $path = "{$path}&modifica=true&investigazioneErroreOre=true";
       return \Core\redirect($path);
@@ -414,18 +416,6 @@ class PagesController {
     }
 
     return \Core\redirect($path);
-  }
-
-  public function addCase() {
-    $this->protectRoute();
-
-    $routeName = 'aggiungi-caso';
-
-    return \Core\view('aggiungi-caso', [
-      'routeName' => $routeName,
-      'username' => $this->getUsername(),
-      'role' => $this->authController->getUserRole(),
-    ]);
   }
 
   public function search() {

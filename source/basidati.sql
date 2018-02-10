@@ -26,7 +26,7 @@ CREATE TABLE tag (
 
 CREATE TABLE cliente (
   codice_fiscale VARCHAR(16) PRIMARY KEY,
-	password_hash VARCHAR(256) NOT NULL,
+	password_hash VARCHAR(256),
   nome VARCHAR(100) NOT NULL,
   cognome VARCHAR(100) NOT NULL,
   citta VARCHAR(100),
@@ -393,8 +393,8 @@ VALUES
 
 INSERT INTO `investigatore` (`codice_fiscale`, `password_hash`, `nome`, `cognome`)
 VALUES
-	('AQPMIH96E20G439Y', '$2y$10$ZuioEYD/.W8cFAshR.BTve0gHNU0uw5VnTalzezM2r7KK8cbN2Ysu', 'Sherlock', 'Holmes'),
-	('CCPOIH89E20H440P', '$2y$10$Wq/kTrfeJ1DMe007i.0tQ.YNSaZhoXUPPdoUbrBHucmDlWtthl912', 'John', 'Watson'),
+	('AQPMIH96E20G439Y', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Sherlock', 'Holmes'),
+	('CCPOIH89E20H440P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'John', 'Watson'),
 	('WMEPSF32N04Y001I', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Daniel', 'Medina'),
 	('XILADC61X36M430P', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Paul', 'Adams'),
 	('XLSOIZ80T94C609C', '$2y$10$WfvaQEzKMydIr2g3OIXpO.pjDDFXidnkVxWhqOTB6wmRe4ILIQGqe', 'Jennifer', 'Cunningham'),

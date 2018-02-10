@@ -272,11 +272,13 @@
     <?php endif; ?>
 
     <?php if (count($investigations) === 0) : ?>
-      <p> Nessuna investigazione disponibile.</p>
+      <p>Nessuna investigazione disponibile.</p>
       <?php if ($role === 'detective') : ?> 
         <p>
           <a class="btn btn-link" href="<?= ROOT ?>/caso?id=<?= $selectedCase->getId() ?>&nuovaInvestigazione=true">Aggiungi investigazione</a>
         </p>
+      <?php elseif ($role === 'admin'): ?>
+        Accedi come investigatore per poter aggiungere un'investigazione.
       <?php endif; ?>
     <?php else : ?>
       <?php if ($role === 'detective') : ?> 

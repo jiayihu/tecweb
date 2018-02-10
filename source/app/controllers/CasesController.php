@@ -387,7 +387,7 @@ class CasesController {
     ]);
   }
 
-  public function checkCriminalCf(String $cf) {
+  public function checkCriminalCf(string $cf) {
     $table = 'criminale';
     $parameters[':codice_fiscale'] = $cf;
     $where = 'codice_fiscale = :codice_fiscale';
@@ -422,7 +422,7 @@ class CasesController {
     ]);
   }
 
-  public function checkClienteCf(String $cf) {
+  public function checkClienteCf(string $cf) {
     $table = 'cliente';
     $parameters[':codice_fiscale'] = $cf;
     $where = 'codice_fiscale = :codice_fiscale';

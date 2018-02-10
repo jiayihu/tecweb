@@ -22,9 +22,9 @@
     <form action="<?= ROOT ?>/ricerca" method="post">
       <div>
         <span class="input-label">Tipologia di ricerca</span>
-        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" checked />
+        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" <?= $cases !== null ? 'checked' : '' ?> />
         <label class="radio-label" for="input-type-case">Casi</label>
-        <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation" />
+        <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation" <?= $investigations !== null ? 'checked' : '' ?> />
         <label class="radio-label" for="input-type-investigation">Investigazioni</label>
 
         <p>

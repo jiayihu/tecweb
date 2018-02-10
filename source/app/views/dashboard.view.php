@@ -104,8 +104,8 @@
         </p>
         <p class="form-field clearfix">
           <label for="cliente">Cliente</label>
-          <select class="input-rate" name="cliente" id="cliente">
-            <option disabled selected> -- Seleziona un valore -- </option>
+          <select class="input-rate" name="cliente" id="cliente" required>
+            <option disabled selected value=""> -- Seleziona un valore -- </option>
             <?php foreach ($clienti as $cliente) : ?>
               <option value="<?= $cliente->codice_fiscale; ?>"><?= $cliente->codice_fiscale; ?></option>
             <?php endforeach; ?>

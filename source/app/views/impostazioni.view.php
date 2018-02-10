@@ -41,20 +41,19 @@
 
     <form action="<?= ROOT ?>/modifica-password" class="content clearfix" method="post">
       <div class="form-field clearfix">
-        <label class="input-text" for="codice_fiscale">Inserisci Codice Fiscale</label>
-        <input id="codice_fiscale" class="forminput" type="text" name="codice_fiscale" required />
+        <input type="hidden" name="codice_fiscale" value="<?= $userCodiceFiscale ?>" />
       </div>
       <div class="form-field clearfix">
         <label class="input-text" for="old_password">Inserisci vecchia password</label>
-        <input id="old_password" class="forminput" type="password" name="old_password" required />
+        <input id="old_password" class="forminput" type="password" name="old_password" required pattern=".{6,}" />
       </div>
-      <div class="form-field clearfix">
+      <div class="form-field clearfix new-pwd">
         <label class="input-text" for="password">Inserisci nuova password</label>
-        <input id="password" class="forminput" type="password" name="password" required />
+        <input id="password" class="forminput" type="password" name="password" required pattern=".{6,}" />
       </div>
       <div class="form-field clearfix">
         <label class="input-text" for="password_confirm">Conferma nuova password</label>
-        <input id="password_confirm" class="forminput" type="password" name="password_confirm" required />
+        <input id="password_confirm" class="forminput" type="password" name="password_confirm" required pattern=".{6,}" />
       </div>
       <button type="submit" class="btn btn-primary">Cambia Password</button>
     </form>

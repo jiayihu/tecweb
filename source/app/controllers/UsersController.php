@@ -30,9 +30,9 @@ class UsersController {
   }
 
   public function getUsers(): array {
-    $detectiveResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM investigatore;');
-    $adminResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM amministratore;');
-    $inspectorResults = $this->database->runQuery('SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale;');
+    $detectiveResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM investigatore ORDER BY codice_fiscale;');
+    $adminResults = $this->database->runQuery('SELECT codice_fiscale, nome, cognome FROM amministratore ORDER BY codice_fiscale;');
+    $inspectorResults = $this->database->runQuery('SELECT ispettore.codice_fiscale, nome, cognome FROM cliente, ispettore WHERE cliente.codice_fiscale = ispettore.codice_fiscale ORDER BY ispettore.codice_fiscale;');
 
     $detectives = \array_map(function ($result) {
       return new Investigatore($result->codice_fiscale, $result->nome, $result->cognome);
@@ -88,8 +88,8 @@ class UsersController {
     }
 
     // Check if the user already exists
-    $existing = $this->authController->getUserByCredentials($codiceFiscale, $password, $role);
-    if ($existing !== null) {
+    $existing = $this->checkUserCf($codiceFiscale, $role);
+    if ($existing) {
       throw new \Exception('alreadyExisting');
     }
 
@@ -183,6 +183,24 @@ class UsersController {
     return $this->database->delete($table, $where, [
       'codice_fiscale' => $codiceFiscale
     ]);
+  }
+
+  private function checkUserCf(string $cf, string $role) {
+    $table = $this->getRoleTable($role);
+    $where = 'codice_fiscale = :codice_fiscale';
+
+    $exist = $this->database->selectWhere(
+      $table,
+      ['*'],
+      $where,
+      [':codice_fiscale' => $cf]
+    );
+
+    if (count($exist) > 0) {
+      return true;
+    }
+
+    return false;
   }
 
   private function getRoleTable(string $role): string {

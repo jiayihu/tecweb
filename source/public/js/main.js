@@ -43,7 +43,7 @@ function validateCaseEdit() {
       event.preventDefault();
       createError(
         container,
-        'Non è possibile archiviare un caso come irrisolto e assegnare un colpevole.'
+        'Non è possibile sia archiviare un caso come irrisolto che assegnare un colpevole.'
       );
     }
   });
@@ -58,6 +58,8 @@ function validateInvestigation() {
   var container = document.querySelector('.field-data-termine');
 
   dataTermine.addEventListener('change', function(event) {
+    if (!event.target.value) return;
+
     var termine = new Date(event.target.value);
     var inizio = new Date(dataInizio.value);
 
@@ -76,9 +78,8 @@ function checkTags() {
   var form = document.querySelector('.main-sidebar form');
   var tags = form.elements['tags[]'];
 
-  for(var i = 0; i < tags.length; i++) {
-    if(tags[i].checked) 
-      return true;
+  for (var i = 0; i < tags.length; i++) {
+    if (tags[i].checked) return true;
   }
 
   return false;
@@ -91,7 +92,13 @@ function validateCaseSearch() {
   var tipologia = document.querySelector('.main-sidebar select[name="tipologia"]');
 
   // controlla che almeno uno dei campi testo, cliente, criminale o tipologia sia compilato o che cia sia almeno un tag selezionato
-  if(testo.value.length > 0 || cliente.selectedIndex !== 0 || criminale.selectedIndex !== 0 || tipologia.selectedIndex !== 0 || checkTags())
+  if (
+    testo.value.length > 0 ||
+    cliente.selectedIndex !== 0 ||
+    criminale.selectedIndex !== 0 ||
+    tipologia.selectedIndex !== 0 ||
+    checkTags()
+  )
     return false;
 
   return true;
@@ -105,7 +112,13 @@ function validateInvestigationSearch() {
   var dataFine = document.querySelector('.main-sidebar input[name="date-to"]');
 
   // controlla che almeno uno dei campi tra testo, investigatore, scena, data inizio o fine sia selezionato
-  if(testo.value.length > 0 || investigatore.selectedIndex !== 0 || scena.value.length > 0 || dataInizio.value.length > 0 || dataFine.value.length > 0) {
+  if (
+    testo.value.length > 0 ||
+    investigatore.selectedIndex !== 0 ||
+    scena.value.length > 0 ||
+    dataInizio.value.length > 0 ||
+    dataFine.value.length > 0
+  ) {
     return false;
   }
 
@@ -117,15 +130,15 @@ function validateSearch() {
   var container;
   form.addEventListener('submit', function(event) {
     var errore;
-    if(document.getElementById("input-type-case").checked) {
+    if (document.getElementById('input-type-case').checked) {
       errore = validateCaseSearch();
       container = document.querySelector('.case-fields');
-    }  else {
+    } else {
       errore = validateInvestigationSearch();
       container = document.querySelector('.investigation-fields');
     }
 
-    if(errore) {
+    if (errore) {
       event.preventDefault();
       createError(container, 'Non è possibile eseguire una ricerca vuota');
       return;
@@ -143,7 +156,7 @@ function main() {
       break;
 
     case 'page-ricerca':
-      validateSearch();     
+      validateSearch();
       break;
 
     default:

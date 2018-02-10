@@ -1,6 +1,6 @@
 <?php require 'partials/admin-header.partial.php' ?>
 
-<main id="content" class="container">
+<main id="content" class="main-container container">
   <h1 class="page-title">Nuovo criminale</h1>
 
   <?php if ($successful) :?>

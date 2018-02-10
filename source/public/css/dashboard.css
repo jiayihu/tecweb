@@ -91,17 +91,6 @@ textarea {
   float: right;
 }
 
-.forminput {
-  border: 1px solid #d3d3d3;
-  outline: none;
-  width: 100%;
-  float: right;
-}
-
-.forminput:focus {
-  border: 2px solid #4e4e4e;
-}
-
 /*----------  Media queries  ----------*/
 
 @media (min-width: 480px) {
@@ -121,10 +110,6 @@ textarea {
 
   .case-info {
     padding: 0;
-  }
-
-  .forminput {
-    width: 70%;
   }
 
   input {
