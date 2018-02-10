@@ -602,6 +602,10 @@ dd {
   font-size: 1rem;
 }
 
+.table-responsive {
+  overflow: auto;
+}
+
 .uppercase {
   text-transform: uppercase;
 }

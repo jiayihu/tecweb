@@ -45,9 +45,14 @@ h2 {
 .status {
   border-radius: 50%;
   display: block;
-  height: 0.875rem;
+  height: 1rem;
   margin: 0 auto;
-  width: 0.875rem;
+  width: 1rem;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  line-height: 1rem;
+  text-decoration: none !important;
 }
 
 .status-resolved {

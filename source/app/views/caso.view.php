@@ -142,14 +142,11 @@
     <h1 class="page-title">
       <?= $selectedCase->nome ?>
       <?php if ($selectedCase->isResolved()) : ?>
-        <span class="status status-resolved" title="Risolto"></span>
-        <span class="screen-reader">Risolto</span>
+        <abbr class="status status-resolved" title="Risolto">R</abbr>
       <?php elseif ($selectedCase->isArchived()) : ?>
-        <span class="status status-archived" title="Archiviato"></span>
-        <span class="screen-reader">Archiviato</span>
+        <abbr class="status status-archived" title="Archiviato">A</abbr>
       <?php else : ?>
-        <span class="status status-progress" title="In corso"></span>
-        <span class="screen-reader">In corso</span>
+        <abbr class="status status-progress" title="In corso">P</abbr>
       <?php endif; ?>
     </h1>
     <dl class="case-info">

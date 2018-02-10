@@ -22,7 +22,7 @@
     <form action="<?= ROOT ?>/ricerca" method="post">
       <div>
         <span class="input-label">Tipologia di ricerca</span>
-        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" <?= $cases !== null ? 'checked' : '' ?> />
+        <input class="input-type" id="input-type-case" type="radio" name="type" value="case" <?= $cases !== null || $investigations === null ? 'checked' : '' ?> />
         <label class="radio-label" for="input-type-case">Casi</label>
         <input class="input-type" id="input-type-investigation" type="radio" name="type" value="investigation" <?= $investigations !== null ? 'checked' : '' ?> />
         <label class="radio-label" for="input-type-investigation">Investigazioni</label>
@@ -124,6 +124,7 @@
     <h2>Nessuna ricerca</h2>
     <?php endif; ?>
 
+    <div class="table-responsive">
     <?php if ($cases !== null): ?>
     <table class="results results-cases">
       <thead>
@@ -140,14 +141,11 @@
         <tr>
           <td headers="c1">
             <?php if ($case->isResolved()): ?>
-            <span class="status status-resolved" title="Risolto"></span>
-            <span class="screen-reader">Risolto</span>
+            <abbr class="status status-resolved" title="Risolto">R</abbr>
             <?php elseif ($case->isArchived()): ?>
-            <span class="status status-archived" title="Archiviato irrisolto"></span>
-            <span class="screen-reader">Archiviato irrisolto</span>
+            <abbr class="status status-archived" title="Archiviato irrisolto">A</abbr>
             <?php else: ?>
-            <span class="status status-progress" title="In progress"></span>
-            <span class="screen-reader">In progress</span>
+            <abbr class="status status-progress" title="In progress">P</abbr>
             <?php endif; ?>
           </td>
           <td headers="c2"><?= $case->nome; ?></td>
@@ -188,6 +186,7 @@
       </tbody>
     </table>
     <?php endif; ?>
+    </div>
 
     <?php if ($cases === null && $investigations === null): ?>
     <p role="alert" class="alert alert-secondary">Effettua una ricerca usando i campi a sinistra.</p>
