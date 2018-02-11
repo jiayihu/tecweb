@@ -30,12 +30,14 @@
   display: block;
   font-size: 1.125rem;
   padding: 0.75rem 1rem;
+  -webkit-transition: padding 0.4s ease-out, background-color 0.4s ease-out;
   transition: padding 0.4s ease-out, background-color 0.4s ease-out;
 }
 
 .case:hover,
 .case-select {
   background-color: #000;
+  -webkit-box-shadow: inset 4px 0 #03a9f4;
   box-shadow: inset 4px 0 #03a9f4;
   color: white;
   padding-left: 2rem;

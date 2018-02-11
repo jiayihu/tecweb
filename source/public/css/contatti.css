@@ -20,6 +20,7 @@
 }
 
 .contactbox {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: block;
 }
@@ -75,7 +76,7 @@
   }
 
   .service-photo {
-    display: initial;
+    display: block;
   }
 
   .col.half {

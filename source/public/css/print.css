@@ -25,17 +25,19 @@ a,
 .main-sidebar {
   background: none !important;
   border: 0 !important;
+  -webkit-box-shadow: none !important;
   box-shadow: none !important;
   color: #4e4e4e !important;
   height: auto !important;
   position: static !important;
+  -webkit-transform: none !important;
   transform: none !important;
 }
 
 /*----------  Other print styles  ----------*/
 
 .tab {
-  display: initial !important;
+  display: block !important;
 }
 
 a::before {

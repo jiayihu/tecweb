@@ -124,6 +124,7 @@
 
       <div class="tab">
         <table class="results">
+          <caption>Utenti investigatori:</caption>
           <thead>
             <tr>
               <th id="c1">Codice Fiscale</th>
@@ -154,6 +155,7 @@
       
       <div class="tab">
         <table class="results">
+          <caption>Utenti amministratori:</caption>
           <thead>
             <tr>
               <th>Codice Fiscale</th>
@@ -186,6 +188,7 @@
       
       <div class="tab">
         <table class="results">
+          <caption>Utenti ispettori:</caption>
           <thead>
             <tr>
               <th>Codice Fiscale</th>

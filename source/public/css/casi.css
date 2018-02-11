@@ -1,6 +1,4 @@
 /*=============================================
-=            COMMON STYLES                    =
-*
 * CSS styles specific of the study case
 =============================================*/
 
@@ -44,7 +42,7 @@
   }
 
   .tag {
-    display: initial;
+    display: inline;
     border: 1px solid #4e4e4e;
     border-radius: 0.5rem;
     float: left;

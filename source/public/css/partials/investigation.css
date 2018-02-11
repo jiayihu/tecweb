@@ -7,6 +7,7 @@
 }
 
 .accordion-input:checked + label::after {
+  -webkit-transform: rotate(315deg);
   transform: rotate(315deg);
 }
 
@@ -32,12 +33,14 @@
   right: 0;
   text-align: center;
   top: 0;
+  -webkit-transition: all 0.35s;
   transition: all 0.35s;
   width: 3em;
 }
 
 .investigation {
   background: white;
+  -webkit-box-shadow: 1px 1px 10px #888888;
   box-shadow: 1px 1px 10px #888888;
   position: relative;
   width: 100%;
@@ -58,6 +61,7 @@
   max-height: 0;
   padding: 0 0.75rem;
   overflow: hidden;
+  -webkit-transition: max-height 0.35s;
   transition: max-height 0.35s;
 }
 
