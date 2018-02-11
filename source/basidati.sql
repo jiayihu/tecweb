@@ -513,14 +513,6 @@ BEGIN
 END//
 DELIMITER ;
 
-/* Esempi di query per testare trigger */
-
--- INSERT INTO caso(codice, descrizione, passato, risolto, tipologia, cliente)
--- VALUES (101, 'Test trigger inserimento', 0, 1, 'furto', 'AMGSOU02T42U148D');
-
--- UPDATE caso
--- SET passato = 0
--- WHERE codice = 100
 DROP TRIGGER IF EXISTS DataTermineInvestigazione_ins;
 
 DELIMITER //
@@ -549,16 +541,6 @@ BEGIN
 	END IF;
 END//
 DELIMITER ;
-
-/* Esempi di query per testare trigger */
-
--- INSERT INTO investigazione(numero, caso, data_inizio, data_termine, rapporto)
--- VALUES (3, 2, '1977-12-07', '1977-11-07', NULL);
-
--- UPDATE investigazione
--- SET data_termine = '1977-01-06'
--- WHERE numero = 1 AND caso = 2;
-
 
 DROP TRIGGER IF EXISTS OreLavoroTotali_ins;
 
@@ -638,13 +620,3 @@ BEGIN
 	END IF;
 END//
 DELIMITER ;
-
-
-/* Esempi di query per trigger */
-
--- INSERT INTO lavoro(investigatore, investigazione, caso, ore_lavoro)
--- VALUES ('AMSPQJ77U39J885B', 52, 73, -1);
-
--- UPDATE lavoro
--- SET ore_lavoro = -10
--- WHERE investigatore = 'AMSPQJ77U39J885B' AND investigazione = 52 AND caso = 73;
