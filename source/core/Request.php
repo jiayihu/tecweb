@@ -12,7 +12,7 @@ class Request {
     $path = $_SERVER['REQUEST_URI'];
 
     $path = preg_replace('/\?.+/', '', $path);
-    $path = str_replace(['ddisomma', 'ghu', 'emattiaz', 'source', \Core\App::get('config')['folder']], '', $path);
+    $path = str_replace(['ddisomma', 'ghu', 'emattiaz', 'source', \Core\App::get('config')['base_url']], '', $path);
 
     return \trim($path, '/');
   }

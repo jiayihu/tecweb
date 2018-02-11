@@ -3,16 +3,15 @@
 namespace Core;
 
 // Differentiate from development and production, when the website is deployed in tecweb lab
-$production = false;
+$production = true;
 $folder = $production ? 'emattiaz' : '';
-$base_url = $production ? "http://tecweb2016.studenti.math.unipd.it/{$folder}" : '';
 
 // Define a global constant to facilitate requiring CSS files and images
+$base_url = "/{$folder}";
 define('ROOT', $base_url);
 
 return [
   'production' => $production,
-  'folder' => $folder,
   'base_url' => $base_url,
   'database' => [
     'name' => $production ? 'emattiaz' : 'sherlock',
