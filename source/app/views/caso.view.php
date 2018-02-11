@@ -146,7 +146,7 @@
       <?php elseif ($selectedCase->isArchived()) : ?>
         <abbr class="status status-archived" title="Archiviato">A</abbr>
       <?php else : ?>
-        <abbr class="status status-progress" title="In corso">P</abbr>
+        <abbr class="status status-progress" title="In corso">C</abbr>
       <?php endif; ?>
     </h1>
     <dl class="case-info">

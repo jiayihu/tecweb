@@ -145,7 +145,7 @@
             <?php elseif ($case->isArchived()): ?>
             <abbr class="status status-archived" title="Archiviato irrisolto">A</abbr>
             <?php else: ?>
-            <abbr class="status status-progress" title="In progress">P</abbr>
+            <abbr class="status status-progress" title="In corso">C</abbr>
             <?php endif; ?>
           </td>
           <td headers="c2"><?= $case->nome; ?></td>
