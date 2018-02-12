@@ -7,7 +7,7 @@ $production = true;
 $folder = $production ? 'emattiaz' : '';
 
 // Define a global constant to facilitate requiring CSS files and images
-$base_url = "/{$folder}";
+$base_url = $folder !== '' ? "/{$folder}" : '';
 define('ROOT', $base_url);
 
 return [

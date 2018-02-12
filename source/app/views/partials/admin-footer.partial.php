@@ -1,3 +1,3 @@
-  <script src="<?= ROOT ?>/public/js/main.js" type="text/javascript"></script>
+  <script src="<?= ROOT ?>/public/js/main.js"></script>
   </body>
 </html>
